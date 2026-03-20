@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance por Fazenda | Grupo Baptistella | Safra 24/25</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #2E7D32;
+            --primary-dark: #0D3311;
+            --accent: #F9A825;
+            --bg-dark: #0a0f0a;
+            --bg-card: #111a11;
+            --bg-card-hover: #162016;
+            --text-primary: #E8F5E9;
+            --text-secondary: #A5D6A7;
+            --text-muted: #66BB6A;
+            --border: rgba(46, 125, 50, 0.2);
+            --green: #00E676;
+            --green-bg: rgba(0, 230, 118, 0.1);
+            --yellow: #FFD600;
+            --yellow-bg: rgba(255, 214, 0, 0.1);
+            --red: #FF5252;
+            --red-bg: rgba(255, 82, 82, 0.1);
+            --blue: #40C4FF;
+            --blue-bg: rgba(64, 196, 255, 0.1);
+            --orange: #FF9100;
+            --orange-bg: rgba(255, 145, 0, 0.1);
+            --purple: #B388FF;
+            --purple-bg: rgba(179, 136, 255, 0.1);
+            --cyan: #18FFFF;
+            --shadow: 0 4px 24px rgba(0,0,0,0.4);
+            --shadow-glow: 0 0 30px rgba(46,125,50,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .header-left h1 { font-size: 24px; font-weight: 800; }
+        .header-left h1 span { color: var(--accent); }
+        .header-left p { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+        .header-right .page-badge {
+            background: linear-gradient(135deg, #F57F17, #F9A825);
+            color: var(--primary-dark);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .container { max-width: 1480px; margin: 0 auto; padding: 28px 24px; }
+
+        .section-title {
+            font-size: 16px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-muted); margin-bottom: 18px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+        .grid-full { margin-bottom: 28px; }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .card:hover { box-shadow: var(--shadow-glow); }
+
+        .card-title {
+            font-size: 13px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 14px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* FAZENDA PROFILE CARD */
+        .fazenda-profile {
+            border-top: 4px solid var(--green);
+            text-align: center;
+            padding-top: 28px;
+        }
+        .fazenda-profile.faz-go { border-top-color: var(--blue); }
+        .fazenda-profile.faz-cont { border-top-color: var(--orange); }
+        .fazenda-profile.faz-ar { border-top-color: var(--red); }
+
+        .fazenda-name {
+            font-size: 18px; font-weight: 800; margin-bottom: 4px;
+        }
+        .fazenda-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+
+        .fazenda-score {
+            font-size: 48px; font-weight: 900; line-height: 1;
+            margin-bottom: 4px;
+        }
+        .fazenda-score-label {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--text-muted); font-weight: 600; margin-bottom: 18px;
+        }
+
+        .fazenda-stats {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+            margin-top: 12px;
+        }
+        .fazenda-stat {
+            padding: 10px 8px;
+            background: rgba(46,125,50,0.06);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .fazenda-stat .fs-label {
+            font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px;
+            color: var(--text-muted); font-weight: 600;
+        }
+        .fazenda-stat .fs-value {
+            font-size: 16px; font-weight: 800; margin-top: 2px;
+        }
+        .fazenda-stat .fs-sub {
+            font-size: 9px; color: var(--text-muted);
+        }
+
+        /* RATING STARS */
+        .rating { font-size: 20px; margin-bottom: 12px; }
+
+        /* HEATMAP TABLE */
+        .heatmap-table {
+            width: 100%; border-collapse: collapse; font-size: 12px;
+        }
+        .heatmap-table th {
+            text-align: center; font-weight: 700; color: var(--text-muted);
+            padding: 10px 6px; border-bottom: 2px solid var(--border);
+            font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+            background: rgba(46,125,50,0.06);
+        }
+        .heatmap-table th:first-child { text-align: left; }
+        .heatmap-table td {
+            padding: 12px 8px; text-align: center; border-bottom: 1px solid rgba(46,125,50,0.06);
+            font-weight: 600; font-variant-numeric: tabular-nums;
+        }
+        .heatmap-table td:first-child {
+            text-align: left; font-weight: 700; color: var(--text-primary);
+        }
+        .heatmap-table tr:hover td { background: rgba(46,125,50,0.04); }
+
+        /* HEATMAP COLORS */
+        .heat-5 { background: rgba(0,230,118,0.25); color: var(--green); }
+        .heat-4 { background: rgba(0,230,118,0.12); color: #81C784; }
+        .heat-3 { background: rgba(255,214,0,0.12); color: var(--yellow); }
+        .heat-2 { background: rgba(255,145,0,0.15); color: var(--orange); }
+        .heat-1 { background: rgba(255,82,82,0.18); color: var(--red); }
+        .heat-best { box-shadow: inset 0 0 0 2px var(--green); }
+        .heat-worst { box-shadow: inset 0 0 0 2px var(--red); }
+
+        /* COMPARISON TABLE */
+        .comp-table {
+            width: 100%; border-collapse: collapse; font-size: 12px;
+        }
+        .comp-table th {
+            text-align: right; font-weight: 700; color: var(--text-muted);
+            padding: 10px 10px; border-bottom: 2px solid var(--border);
+            font-size: 10px; text-transform: uppercase;
+        }
+        .comp-table th:first-child { text-align: left; }
+        .comp-table td {
+            padding: 10px 10px; text-align: right;
+            border-bottom: 1px solid rgba(46,125,50,0.06);
+            font-variant-numeric: tabular-nums;
+        }
+        .comp-table td:first-child {
+            text-align: left; color: var(--text-secondary); font-weight: 500;
+        }
+        .comp-table tr:hover td { background: rgba(46,125,50,0.04); }
+        .comp-table .total-row td {
+            border-top: 2px solid var(--border);
+            font-weight: 800; font-size: 13px;
+            background: rgba(46,125,50,0.06);
+        }
+        .comp-table .best { color: var(--green); font-weight: 700; }
+        .comp-table .worst { color: var(--red); font-weight: 700; }
+        .comp-table .neutral { color: var(--text-primary); }
+
+        /* BADGE */
+        .badge {
+            display: inline-block; padding: 3px 10px;
+            border-radius: 12px; font-size: 10px; font-weight: 700;
+        }
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+        .badge-red { background: var(--red-bg); color: var(--red); }
+        .badge-blue { background: var(--blue-bg); color: var(--blue); }
+        .badge-orange { background: var(--orange-bg); color: var(--orange); }
+
+        /* PROGRESS BAR */
+        .progress-container { margin: 8px 0; }
+        .progress-label {
+            display: flex; justify-content: space-between;
+            font-size: 11px; margin-bottom: 4px;
+        }
+        .progress-label span:first-child { color: var(--text-secondary); font-weight: 500; }
+        .progress-label span:last-child { font-weight: 700; }
+        .progress-bar {
+            height: 8px; background: rgba(255,255,255,0.05);
+            border-radius: 8px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 8px; transition: width 1.5s ease;
+        }
+        .pf-green { background: linear-gradient(90deg, #00C853, #00E676); }
+        .pf-yellow { background: linear-gradient(90deg, #FFD600, #FFFF00); }
+        .pf-red { background: linear-gradient(90deg, #FF1744, #FF5252); }
+        .pf-blue { background: linear-gradient(90deg, #0091EA, #40C4FF); }
+        .pf-orange { background: linear-gradient(90deg, #FF6D00, #FF9100); }
+
+        /* CHART */
+        .chart-container { position: relative; width: 100%; height: 300px; }
+        .chart-container.tall { height: 380px; }
+        .chart-container.xtall { height: 460px; }
+
+        /* INSIGHT */
+        .insight-box {
+            padding: 16px 20px; border-radius: 12px;
+            margin-top: 14px; font-size: 13px; line-height: 1.7;
+        }
+        .insight-green { background: rgba(0,230,118,0.06); border: 1px solid rgba(0,230,118,0.2); }
+        .insight-blue { background: rgba(64,196,255,0.06); border: 1px solid rgba(64,196,255,0.2); }
+        .insight-red { background: rgba(255,82,82,0.06); border: 1px solid rgba(255,82,82,0.2); }
+        .insight-gold { background: rgba(249,168,37,0.06); border: 1px solid rgba(249,168,37,0.2); }
+        .insight-title {
+            font-weight: 700; margin-bottom: 6px;
+            font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .insight-green .insight-title { color: var(--green); }
+        .insight-blue .insight-title { color: var(--blue); }
+        .insight-red .insight-title { color: var(--red); }
+        .insight-gold .insight-title { color: var(--accent); }
+
+        /* RADAR OVERLAY */
+        .radar-legend {
+            display: flex; gap: 16px; justify-content: center;
+            margin-top: 10px; flex-wrap: wrap;
+        }
+        .radar-legend-item {
+            display: flex; align-items: center; gap: 6px; font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .radar-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+
+        .footer {
+            text-align: center; padding: 28px; color: var(--text-muted);
+            font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px;
+        }
+        .footer .brand { font-weight: 700; color: var(--accent); }
+
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr 1fr; }
+            .grid-4 { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 640px) {
+            .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .header { flex-direction: column; text-align: center; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <h1>Grupo <span>Baptistella</span> — Performance por Fazenda</h1>
+        <p>4 Fazendas | Soja 11.877 ha + Milho 6.815 ha | Safra 24/25</p>
+    </div>
+    <div class="header-right">
+        <span class="page-badge">COMPARATIVO DE FAZENDAS</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ========== PERFIL DAS FAZENDAS ========== -->
+    <div class="section-title"><span>🏠</span> PERFIL DAS FAZENDAS — SCORECARDS</div>
+
+    <div class="grid-4">
+        <!-- PLANALTO MT -->
+        <div class="card fazenda-profile">
+            <div class="fazenda-name" style="color:var(--green);">Planalto MT</div>
+            <div class="fazenda-sub">Alto Garças — MT | 6.539 ha soja | 14 talhões</div>
+            <div class="rating">★★★★★</div>
+            <div class="fazenda-score" style="color:var(--green);">92</div>
+            <div class="fazenda-score-label">SCORE DE PERFORMANCE</div>
+            <span class="badge badge-green">🟢 REFERÊNCIA</span>
+            <div class="fazenda-stats">
+                <div class="fazenda-stat">
+                    <div class="fs-label">Produtividade</div>
+                    <div class="fs-value" style="color:var(--green);">76,11</div>
+                    <div class="fs-sub">sc/ha | 🥇 1ª</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado/ha</div>
+                    <div class="fs-value" style="color:var(--green);">R$ 2.770</div>
+                    <div class="fs-sub">🥇 1ª do grupo</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Talhões 🟢</div>
+                    <div class="fs-value" style="color:var(--green);">79%</div>
+                    <div class="fs-sub">11 de 14</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">CV% Resultado</div>
+                    <div class="fs-value" style="color:var(--yellow);">51,8%</div>
+                    <div class="fs-sub">dispersão moderada</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Margem Seg.</div>
+                    <div class="fs-value" style="color:var(--green);">+25,6%</div>
+                    <div class="fs-sub">acima do BE</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado Total</div>
+                    <div class="fs-value" style="color:var(--green);">R$ 6,1 mi</div>
+                    <div class="fs-sub">55% do grupo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PLANALTO GO -->
+        <div class="card fazenda-profile faz-go">
+            <div class="fazenda-name" style="color:var(--blue);">Planalto Central GO</div>
+            <div class="fazenda-sub">Goiás | 2.380 ha soja | 20 talhões</div>
+            <div class="rating">★★★★☆</div>
+            <div class="fazenda-score" style="color:var(--blue);">78</div>
+            <div class="fazenda-score-label">SCORE DE PERFORMANCE</div>
+            <span class="badge badge-blue">🟡 BOM</span>
+            <div class="fazenda-stats">
+                <div class="fazenda-stat">
+                    <div class="fs-label">Produtividade</div>
+                    <div class="fs-value" style="color:var(--blue);">70,67</div>
+                    <div class="fs-sub">sc/ha | 🥈 2ª</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado/ha</div>
+                    <div class="fs-value" style="color:var(--blue);">R$ 2.171</div>
+                    <div class="fs-sub">🥈 2ª do grupo</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Talhões 🟢</div>
+                    <div class="fs-value" style="color:var(--green);">65%</div>
+                    <div class="fs-sub">13 de 20</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">CV% Resultado</div>
+                    <div class="fs-value" style="color:var(--green);">39,3%</div>
+                    <div class="fs-sub">menor dispersão 🟢</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Margem Seg.</div>
+                    <div class="fs-value" style="color:var(--green);">+18,8%</div>
+                    <div class="fs-sub">acima do BE</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado Total</div>
+                    <div class="fs-value" style="color:var(--blue);">R$ 2,2 mi</div>
+                    <div class="fs-sub">20% do grupo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTINENTAL MT -->
+        <div class="card fazenda-profile faz-cont">
+            <div class="fazenda-name" style="color:var(--orange);">Continental MT</div>
+            <div class="fazenda-sub">Mato Grosso | 1.687 ha soja | ~23 talhões</div>
+            <div class="rating">★★★☆☆</div>
+            <div class="fazenda-score" style="color:var(--orange);">55</div>
+            <div class="fazenda-score-label">SCORE DE PERFORMANCE</div>
+            <span class="badge badge-orange">🔴 ATENÇÃO</span>
+            <div class="fazenda-stats">
+                <div class="fazenda-stat">
+                    <div class="fs-label">Produtividade</div>
+                    <div class="fs-value" style="color:var(--orange);">~64,15</div>
+                    <div class="fs-sub">sc/ha | 🥉 3ª</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado/ha</div>
+                    <div class="fs-value" style="color:var(--orange);">~R$ 1.300</div>
+                    <div class="fs-sub">🥉 3ª do grupo</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Talhões 🟢</div>
+                    <div class="fs-value" style="color:var(--yellow);">39%</div>
+                    <div class="fs-sub">~9 de 23</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">CV% Resultado</div>
+                    <div class="fs-value" style="color:var(--red);">~80%</div>
+                    <div class="fs-sub">alta dispersão 🔴</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Margem Seg.</div>
+                    <div class="fs-value" style="color:var(--yellow);">~8,5%</div>
+                    <div class="fs-sub">margem apertada</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado Total</div>
+                    <div class="fs-value" style="color:var(--orange);">~R$ 1,6 mi</div>
+                    <div class="fs-sub">~14% do grupo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ARARAS MT -->
+        <div class="card fazenda-profile faz-ar">
+            <div class="fazenda-name" style="color:var(--red);">Araras MT</div>
+            <div class="fazenda-sub">Mato Grosso | 1.271 ha soja | 25 talhões</div>
+            <div class="rating">★★☆☆☆</div>
+            <div class="fazenda-score" style="color:var(--red);">38</div>
+            <div class="fazenda-score-label">SCORE DE PERFORMANCE</div>
+            <span class="badge badge-red">🔴 CRÍTICO</span>
+            <div class="fazenda-stats">
+                <div class="fazenda-stat">
+                    <div class="fs-label">Produtividade</div>
+                    <div class="fs-value" style="color:var(--red);">62,33</div>
+                    <div class="fs-sub">sc/ha | 4ª</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado/ha</div>
+                    <div class="fs-value" style="color:var(--red);">R$ 1.054</div>
+                    <div class="fs-sub">4ª do grupo</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Talhões 🟢</div>
+                    <div class="fs-value" style="color:var(--red);">28%</div>
+                    <div class="fs-sub">7 de 25</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">CV% Resultado</div>
+                    <div class="fs-value" style="color:var(--red);">101,9%</div>
+                    <div class="fs-sub">extrema dispersão 🔴</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Margem Seg.</div>
+                    <div class="fs-value" style="color:var(--red);">+4,7%</div>
+                    <div class="fs-sub">risco alto 🔴</div>
+                </div>
+                <div class="fazenda-stat">
+                    <div class="fs-label">Resultado Total</div>
+                    <div class="fs-value" style="color:var(--red);">R$ 1,2 mi</div>
+                    <div class="fs-sub">~11% do grupo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MAPA DE CALOR COMPARATIVO ========== -->
+    <div class="section-title"><span>🔥</span> MAPA DE CALOR — COMPARATIVO MULTIDIMENSIONAL</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🔥 Heatmap de 15 Indicadores — Fazenda vs Fazenda</div>
+        <div style="overflow-x:auto;">
+            <table class="heatmap-table">
+                <thead>
+                    <tr>
+                        <th style="min-width:200px;">Indicador</th>
+                        <th style="min-width:120px;">Planalto MT</th>
+                        <th style="min-width:120px;">Planalto GO</th>
+                        <th style="min-width:120px;">Continental MT</th>
+                        <th style="min-width:120px;">Araras MT</th>
+                        <th style="min-width:90px;">Média Grupo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Produtividade (sc/ha)</td>
+                        <td class="heat-5 heat-best">76,11 🥇</td>
+                        <td class="heat-4">70,67</td>
+                        <td class="heat-2">~64,15</td>
+                        <td class="heat-1 heat-worst">62,33</td>
+                        <td>68,34</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado/ha (R$)</td>
+                        <td class="heat-5 heat-best">2.770 🥇</td>
+                        <td class="heat-4">2.171</td>
+                        <td class="heat-2">~1.300</td>
+                        <td class="heat-1 heat-worst">1.054</td>
+                        <td>925</td>
+                    </tr>
+                    <tr>
+                        <td>Lucratividade (%)</td>
+                        <td class="heat-5 heat-best">30,4% 🥇</td>
+                        <td class="heat-4">25,6%</td>
+                        <td class="heat-2">~16,9%</td>
+                        <td class="heat-1 heat-worst">14,1%</td>
+                        <td>11,4%</td>
+                    </tr>
+                    <tr>
+                        <td>Custo Total/ha (R$)</td>
+                        <td class="heat-3">6.332</td>
+                        <td class="heat-4 heat-best">6.297 🥇</td>
+                        <td class="heat-2">~6.374</td>
+                        <td class="heat-1 heat-worst">6.353</td>
+                        <td>6.339</td>
+                    </tr>
+                    <tr>
+                        <td>Insumos/ha (R$)</td>
+                        <td class="heat-2">3.285</td>
+                        <td class="heat-4 heat-best">3.164 🥇</td>
+                        <td class="heat-3">~3.230</td>
+                        <td class="heat-1 heat-worst">3.270</td>
+                        <td>3.237</td>
+                    </tr>
+                    <tr>
+                        <td>Custo/sc (R$)</td>
+                        <td class="heat-5 heat-best">83,18 🥇</td>
+                        <td class="heat-4">89,11</td>
+                        <td class="heat-2">~99,35</td>
+                        <td class="heat-1 heat-worst">101,93</td>
+                        <td>106,06</td>
+                    </tr>
+                    <tr>
+                        <td>Breakeven (sc/ha)</td>
+                        <td class="heat-4">52,94</td>
+                        <td class="heat-5 heat-best">52,64 🥇</td>
+                        <td class="heat-2">~53,28</td>
+                        <td class="heat-1 heat-worst">53,12</td>
+                        <td>60,60</td>
+                    </tr>
+                    <tr>
+                        <td>Margem de Segurança (%)</td>
+                        <td class="heat-5 heat-best">+25,6% 🥇</td>
+                        <td class="heat-4">+18,8%</td>
+                        <td class="heat-2">~8,5%</td>
+                        <td class="heat-1 heat-worst">+4,7%</td>
+                        <td>+12,8%</td>
+                    </tr>
+                    <tr>
+                        <td>CV% Produtividade</td>
+                        <td class="heat-3">12,6%</td>
+                        <td class="heat-5 heat-best">8,7% 🥇</td>
+                        <td class="heat-2">~16,4%</td>
+                        <td class="heat-1 heat-worst">18,3%</td>
+                        <td>14,4%</td>
+                    </tr>
+                    <tr>
+                        <td>CV% Resultado</td>
+                        <td class="heat-3">51,8%</td>
+                        <td class="heat-5 heat-best">39,3% 🥇</td>
+                        <td class="heat-1">~80%</td>
+                        <td class="heat-1 heat-worst">101,9%</td>
+                        <td>68,7%</td>
+                    </tr>
+                    <tr>
+                        <td>% Talhões Verdes</td>
+                        <td class="heat-5 heat-best">79% 🥇</td>
+                        <td class="heat-4">65%</td>
+                        <td class="heat-2">~39%</td>
+                        <td class="heat-1 heat-worst">28%</td>
+                        <td>41%</td>
+                    </tr>
+                    <tr>
+                        <td>% Talhões Vermelhos</td>
+                        <td class="heat-5 heat-best">21% 🥇</td>
+                        <td class="heat-4">5%</td>
+                        <td class="heat-2">~22%</td>
+                        <td class="heat-1 heat-worst">32%</td>
+                        <td>21%</td>
+                    </tr>
+                    <tr>
+                        <td>Eficiência Insumo (sc/R$1000)</td>
+                        <td class="heat-5 heat-best">23,16 🥇</td>
+                        <td class="heat-4">22,34</td>
+                        <td class="heat-2">~19,86</td>
+                        <td class="heat-1 heat-worst">19,06</td>
+                        <td>21,11</td>
+                    </tr>
+                    <tr>
+                        <td>Participação % Resultado</td>
+                        <td class="heat-5 heat-best">55% 🥇</td>
+                        <td class="heat-4">20%</td>
+                        <td class="heat-3">~14%</td>
+                        <td class="heat-1 heat-worst">11%</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Score de Performance</td>
+                        <td class="heat-5 heat-best">92 🥇</td>
+                        <td class="heat-4">78</td>
+                        <td class="heat-2">55</td>
+                        <td class="heat-1 heat-worst">38</td>
+                        <td>66</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:14px; font-size:11px; justify-content:center; flex-wrap:wrap;">
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(0,230,118,0.25);vertical-align:middle;"></span> Excelente</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(0,230,118,0.12);vertical-align:middle;"></span> Bom</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,214,0,0.12);vertical-align:middle;"></span> Regular</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,145,0,0.15);vertical-align:middle;"></span> Fraco</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,82,82,0.18);vertical-align:middle;"></span> Crítico</span>
+            <span>🥇 Melhor | <span style="display:inline-block;width:10px;height:10px;box-shadow:inset 0 0 0 2px var(--red);border-radius:2px;vertical-align:middle;"></span> Pior</span>
+        </div>
+    </div>
+
+    <!-- ========== RADAR CHART ========== -->
+    <div class="section-title"><span>🕸️</span> SPIDER CHART — PERFIL COMPARATIVO</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🕸️ Radar — 8 Dimensões de Performance</div>
+            <div class="chart-container tall">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Composição do Resultado do Grupo por Fazenda</div>
+            <div class="chart-container tall">
+                <canvas id="pieResultado"></canvas>
+            </div>
+            <div class="insight-box insight-gold" style="margin-top:14px;">
+                <div class="insight-title">📌 Concentração de Risco</div>
+                <strong>55% do resultado</strong> vem da Planalto MT. Se essa fazenda tivesse uma quebra de 20% na produtividade,
+                o resultado do grupo cairia <strong>R$ 2,6 mi</strong> (24%). Alta dependência de uma única fazenda.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== DRE COMPARATIVA ========== -->
+    <div class="section-title"><span>📋</span> DRE COMPARATIVA POR FAZENDA — SOJA</div>
+
+    <div class="card grid-full">
+        <div class="card-title">📋 Demonstrativo Comparativo — R$/ha</div>
+        <div style="overflow-x:auto;">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Item (R$/ha)</th>
+                        <th>Planalto MT</th>
+                        <th>Planalto GO</th>
+                        <th>Continental MT</th>
+                        <th>Araras MT</th>
+                        <th>Média Grupo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Receita Bruta/ha</td>
+                        <td class="best">R$ 9.103</td>
+                        <td class="neutral">R$ 8.453</td>
+                        <td class="neutral">~R$ 7.674</td>
+                        <td class="worst">R$ 7.454</td>
+                        <td>R$ 8.175</td>
+                    </tr>
+                    <tr>
+                        <td>(-) Impostos/ha</td>
+                        <td class="neutral">R$ 228</td>
+                        <td class="neutral">R$ 211</td>
+                        <td class="neutral">~R$ 192</td>
+                        <td class="neutral">R$ 186</td>
+                        <td>R$ 204</td>
+                    </tr>
+                    <tr>
+                        <td><strong>= Receita Líquida/ha</strong></td>
+                        <td class="best"><strong>R$ 8.875</strong></td>
+                        <td class="neutral"><strong>R$ 8.242</strong></td>
+                        <td class="neutral"><strong>~R$ 7.482</strong></td>
+                        <td class="worst"><strong>R$ 7.268</strong></td>
+                        <td><strong>R$ 7.971</strong></td>
+                    </tr>
+                    <tr>
+                        <td>(-) Insumos/ha</td>
+                        <td class="neutral">R$ 3.285</td>
+                        <td class="best">R$ 3.164</td>
+                        <td class="neutral">~R$ 3.230</td>
+                        <td class="worst">R$ 3.270</td>
+                        <td>R$ 3.237</td>
+                    </tr>
+                    <tr>
+                        <td><strong>= Lucro Bruto/ha</strong></td>
+                        <td class="best"><strong>R$ 5.590</strong></td>
+                        <td class="neutral"><strong>R$ 5.078</strong></td>
+                        <td class="neutral"><strong>~R$ 4.252</strong></td>
+                        <td class="worst"><strong>R$ 3.998</strong></td>
+                        <td><strong>R$ 4.734</strong></td>
+                    </tr>
+                    <tr>
+                        <td>(-) ADM/ha (rateio)</td>
+                        <td class="neutral">R$ 1.122</td>
+                        <td class="neutral">R$ 1.122</td>
+                        <td class="neutral">R$ 1.122</td>
+                        <td class="neutral">R$ 1.122</td>
+                        <td>R$ 1.122</td>
+                    </tr>
+                    <tr>
+                        <td>(-) Maquinário/ha (rateio)</td>
+                        <td class="neutral">R$ 629</td>
+                        <td class="neutral">R$ 629</td>
+                        <td class="neutral">R$ 629</td>
+                        <td class="neutral">R$ 629</td>
+                        <td>R$ 629</td>
+                    </tr>
+                    <tr>
+                        <td><strong>= EBITDA/ha</strong></td>
+                        <td class="best"><strong>R$ 3.839</strong></td>
+                        <td class="neutral"><strong>R$ 3.327</strong></td>
+                        <td class="neutral"><strong>~R$ 2.501</strong></td>
+                        <td class="worst"><strong>R$ 2.247</strong></td>
+                        <td><strong>R$ 2.983</strong></td>
+                    </tr>
+                    <tr>
+                        <td>(-) Arrendamento/ha</td>
+                        <td class="neutral">R$ 721</td>
+                        <td class="neutral">R$ 808</td>
+                        <td class="neutral">~R$ 853</td>
+                        <td class="neutral">R$ 845</td>
+                        <td>R$ 807</td>
+                    </tr>
+                    <tr>
+                        <td>(-) Depreciação/ha</td>
+                        <td class="neutral">R$ 348</td>
+                        <td class="neutral">R$ 348</td>
+                        <td class="neutral">R$ 348</td>
+                        <td class="neutral">R$ 348</td>
+                        <td>R$ 348</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>= RESULTADO/HA</strong></td>
+                        <td class="best"><strong>R$ 2.770</strong></td>
+                        <td class="neutral"><strong>R$ 2.171</strong></td>
+                        <td class="neutral"><strong>~R$ 1.300</strong></td>
+                        <td class="worst"><strong>R$ 1.054</strong></td>
+                        <td><strong>R$ 925</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box insight-blue" style="margin-top:16px;">
+            <div class="insight-title">🔍 Análise da DRE Comparativa</div>
+            O <strong>gap de R$ 1.716/ha</strong> entre Planalto MT e Araras vem de:<br>
+            <strong>• 83% do gap é produtividade:</strong> 76,11 vs 62,33 sc/ha → R$ 1.430/ha de receita a mais<br>
+            <strong>• 12% do gap é custo de insumos:</strong> GO gasta menos (R$ 3.164) e produz mais que Araras<br>
+            <strong>• 5% é arrendamento:</strong> Planalto MT paga menos arrendamento/ha<br>
+            <strong>Conclusão:</strong> O foco deve ser <strong>elevar produtividade da Araras</strong> — é onde está o maior valor.
+        </div>
+    </div>
+
+    <!-- ========== GRÁFICOS COMPARATIVOS ========== -->
+    <div class="section-title"><span>📊</span> ANÁLISE GRÁFICA COMPARATIVA</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 Resultado/ha por Fazenda — Decomposto</div>
+            <div class="chart-container tall">
+                <canvas id="chartWaterfall"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Distribuição de Talhões por Fazenda</div>
+            <div class="chart-container tall">
+                <canvas id="chartDistribuicao"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 Produtividade vs Custo/sc — Eficiência por Fazenda</div>
+            <div class="chart-container tall">
+                <canvas id="chartProdCusto"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Margem de Segurança (%) — Distância ao Breakeven</div>
+            <div class="chart-container tall">
+                <canvas id="chartMargem"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ANÁLISE DE OPORTUNIDADE ========== -->
+    <div class="section-title"><span>💎</span> ANÁLISE DE OPORTUNIDADE — CENÁRIOS DE CONVERGÊNCIA</div>
+
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-title" style="color:var(--orange);">🔶 Continental → Média do Grupo</div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Produtividade: 64,15 → 68,34</span>
+                    <span style="color:var(--green);">+6,5%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-orange" style="width:65%;"></div></div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Resultado/ha: R$ 1.300 → R$ 1.825</span>
+                    <span style="color:var(--green);">+40,4%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-orange" style="width:71%;"></div></div>
+            </div>
+            <div style="margin-top:14px; text-align:center; padding:12px; background:rgba(255,145,0,0.08); border-radius:10px;">
+                <div style="font-size:11px; color:var(--text-muted);">GANHO ESTIMADO</div>
+                <div style="font-size:22px; font-weight:800; color:var(--orange);">+R$ 885 mil</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title" style="color:var(--red);">🔴 Araras → Média do Grupo</div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Produtividade: 62,33 → 68,34</span>
+                    <span style="color:var(--green);">+9,6%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-red" style="width:55%;"></div></div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Resultado/ha: R$ 1.054 → R$ 1.825</span>
+                    <span style="color:var(--green);">+73,1%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-red" style="width:58%;"></div></div>
+            </div>
+            <div style="margin-top:14px; text-align:center; padding:12px; background:rgba(255,82,82,0.08); border-radius:10px;">
+                <div style="font-size:11px; color:var(--text-muted);">GANHO ESTIMADO</div>
+                <div style="font-size:22px; font-weight:800; color:var(--red);">+R$ 980 mil</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title" style="color:var(--green);">🟢 Ambas → Nível Planalto MT</div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Produtividade → 76,11 sc/ha</span>
+                    <span style="color:var(--green);">alvo max</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-green" style="width:100%;"></div></div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Resultado/ha → R$ 2.770</span>
+                    <span style="color:var(--green);">alvo max</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill pf-green" style="width:100%;"></div></div>
+            </div>
+            <div style="margin-top:14px; text-align:center; padding:12px; background:rgba(0,230,118,0.08); border-radius:10px;">
+                <div style="font-size:11px; color:var(--text-muted);">GANHO POTENCIAL TOTAL</div>
+                <div style="font-size:28px; font-weight:900; color:var(--green);">+R$ 4,66 mi</div>
+                <div style="font-size:11px; color:var(--text-muted);">+42% sobre resultado atual do grupo</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MILHO — RESUMO RÁPIDO ========== -->
+    <div class="section-title"><span>🌽</span> MILHO SAFRINHA — VISÃO POR FAZENDA</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🌽 Milho — Indicadores por Fazenda</div>
+            <div style="overflow-x:auto;">
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">Indicador</th>
+                            <th>Planalto MT</th>
+                            <th>Planalto GO</th>
+                            <th>Grupo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Área (ha)</td>
+                            <td class="neutral">4.700</td>
+                            <td class="neutral">2.115</td>
+                            <td><strong>6.815</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Produtividade (sc/ha)</td>
+                            <td class="best">161,33</td>
+                            <td class="neutral">139,35</td>
+                            <td><strong>154,51</strong></td>
+                        </tr>
+                        <tr>
+                            <td>CT/ha (R$)</td>
+                            <td class="neutral">R$ 6.480</td>
+                            <td class="best">R$ 6.560</td>
+                            <td><strong>R$ 6.515</strong></td>
+                        </tr>
+                        <tr>
+                            <td>PMV (R$/sc)</td>
+                            <td class="neutral">R$ 52,20</td>
+                            <td class="neutral">R$ 52,20</td>
+                            <td><strong>R$ 52,20</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Receita/ha (R$)</td>
+                            <td class="best">R$ 8.421</td>
+                            <td class="neutral">R$ 7.274</td>
+                            <td><strong>R$ 8.065</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Breakeven (sc/ha)</td>
+                            <td class="best">124,1</td>
+                            <td class="neutral">125,7</td>
+                            <td><strong>124,8</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Margem Seg. (%)</td>
+                            <td class="best">+23,1%</td>
+                            <td class="neutral">+9,8%</td>
+                            <td><strong>+19,2%</strong></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Resultado/ha</strong></td>
+                            <td class="best"><strong>R$ 1.941</strong></td>
+                            <td class="neutral"><strong>R$ 714</strong></td>
+                            <td><strong>R$ 1.550</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📊 Milho — Resultado/ha e Breakeven</div>
+            <div class="chart-container tall">
+                <canvas id="chartMilho"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== RECOMENDAÇÕES POR FAZENDA ========== -->
+    <div class="section-title"><span>🎯</span> RECOMENDAÇÕES ESTRATÉGICAS POR FAZENDA</div>
+
+    <div class="grid-2">
+        <div class="card" style="border-top: 4px solid var(--green);">
+            <div class="card-title" style="color:var(--green);">🟢 Planalto MT — Manter e Expandir</div>
+            <div style="font-size:13px; line-height:1.8;">
+                <strong>1. Proteger o benchmark:</strong> Esta fazenda é a referência. Manter o manejo atual, mas investigar T-07 (único talhão negativo).<br>
+                <strong>2. Expansão de área:</strong> Considerar arrendamento de áreas adjacentes — é a fazenda com maior margem para absorver custo incremental.<br>
+                <strong>3. Otimizar T-07:</strong> Custo de insumos de R$ 4.272/ha (maior da fazenda) com produtividade de 59,88 sc/ha. Reduzir insumos ou mudar manejo.<br>
+                <strong>4. Benchmark interno:</strong> Usar T-13 (89,40 sc/ha) como modelo para os demais talhões.
+            </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--blue);">
+            <div class="card-title" style="color:var(--blue);">🔵 Planalto Central GO — Consolidar</div>
+            <div style="font-size:13px; line-height:1.8;">
+                <strong>1. Melhor CV% do grupo (39,3%):</strong> Performance mais homogênea. Manter a consistência.<br>
+                <strong>2. Elevar produtividade de 70,67 para 73+ sc/ha:</strong> Gap de ~2,5 sc/ha para atingir o nível ideal. Revisar variedades e nutrição.<br>
+                <strong>3. Explorar o menor custo de insumos:</strong> R$ 3.164/ha é o mais baixo do grupo. Confirmar se não há subinvestimento em fertilizantes.<br>
+                <strong>4. GO-01 (89,05 sc/ha):</strong> Melhor talhão do grupo em custo-benefício (R$ 4.917/ha de resultado). Replicar o manejo.
+            </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--orange);">
+            <div class="card-title" style="color:var(--orange);">🟠 Continental MT — Diagnóstico Urgente</div>
+            <div style="font-size:13px; line-height:1.8;">
+                <strong>1. CV% de ~80% é muito alto:</strong> Alguns talhões performam bem, outros muito mal. Identificar causa raiz por talhão.<br>
+                <strong>2. Margem de segurança de 8,5%:</strong> Muito apertada. Qualquer adversidade gera prejuízo.<br>
+                <strong>3. Avaliar qualidade do solo:</strong> Diferença de 12 sc/ha para Planalto MT pode indicar limitações edáficas.<br>
+                <strong>4. Meta realista:</strong> Elevar de 64,15 para 68 sc/ha (+6%) e reduzir custos em 3% → resultado sobe 40%.
+            </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--red);">
+            <div class="card-title" style="color:var(--red);">🔴 Araras MT — Plano de Recuperação</div>
+            <div style="font-size:13px; line-height:1.8;">
+                <strong>1. 8 talhões no vermelho = 32%:</strong> Pior taxa do grupo. Exige ação imediata.<br>
+                <strong>2. Correlação custo×resultado NEGATIVA:</strong> Talhões com >R$ 4.000/ha em insumos (AR-24, AR-25) têm resultado ínfimo. Reduzir aplicações de defesa?<br>
+                <strong>3. CV% de 101,9%:</strong> Extrema instabilidade. Dentro da mesma fazenda, vai de -R$ 1.041 a +R$ 2.877/ha.<br>
+                <strong>4. Ação prioritária:</strong> Análise de solo completa (AR-09, AR-08, AR-05). Considerar rotação de cultura ou arrendamento reverso nos piores talhões.<br>
+                <strong>5. Meta mínima:</strong> Eliminar talhões negativos (6 talhões). Potencial de +R$ 500 mil/safra.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Relatório gerado em 20/03/2026 | Consultor: Sidney Souza | <span class="brand">Rural In</span> — Software de Gestão Rural<br>
+    Dados da safra 24/25 — Grupo Baptistella | Performance por Fazenda | Metodologia padronizada
+</div>
+
+<!-- SCRIPTS -->
+<script>
+    Chart.register(ChartDataLabels);
+    const df = { family: 'Inter', size: 11 };
+    const gc = 'rgba(46,125,50,0.1)';
+    const tc = '#66BB6A';
+
+    // ==================== RADAR ====================
+    new Chart(document.getElementById('radarChart'), {
+        type: 'radar',
+        data: {
+            labels: ['Produtividade', 'Resultado/ha', 'Lucratividade', 'Margem Seg.', '% Talhões 🟢', 'Efic. Insumo', 'Homogeneidade', 'Custo/sc (inv.)'],
+            datasets: [
+                {
+                    label: 'Planalto MT',
+                    data: [95, 92, 90, 88, 95, 93, 65, 90],
+                    borderColor: '#00E676',
+                    backgroundColor: 'rgba(0,230,118,0.1)',
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#00E676'
+                },
+                {
+                    label: 'Planalto GO',
+                    data: [82, 78, 80, 72, 80, 85, 85, 78],
+                    borderColor: '#40C4FF',
+                    backgroundColor: 'rgba(64,196,255,0.08)',
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#40C4FF'
+                },
+                {
+                    label: 'Continental MT',
+                    data: [60, 55, 55, 40, 48, 55, 35, 55],
+                    borderColor: '#FF9100',
+                    backgroundColor: 'rgba(255,145,0,0.08)',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#FF9100'
+                },
+                {
+                    label: 'Araras MT',
+                    data: [50, 38, 42, 20, 35, 42, 15, 40],
+                    borderColor: '#FF5252',
+                    backgroundColor: 'rgba(255,82,82,0.08)',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#FF5252'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { color: tc, font: { size: 9 }, backdropColor: 'transparent', stepSize: 25 },
+                    grid: { color: gc },
+                    pointLabels: { color: '#A5D6A7', font: { size: 10, weight: '600', family: 'Inter' } },
+                    angleLines: { color: gc }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { color: tc, font: df, usePointStyle: true, pointStyle: 'circle', padding: 16 } },
+                datalabels: { display: false }
+            }
+        }
+    });
+
+    // ==================== PIE RESULTADO ====================
+    new Chart(document.getElementById('pieResultado'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Continental MT', 'Araras MT'],
+            datasets: [{
+                data: [55, 20, 14, 11],
+                backgroundColor: ['rgba(0,230,118,0.6)', 'rgba(64,196,255,0.6)', 'rgba(255,145,0,0.6)', 'rgba(255,82,82,0.6)'],
+                borderColor: ['#00E676', '#40C4FF', '#FF9100', '#FF5252'],
+                borderWidth: 2,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '55%',
+            plugins: {
+                legend: { position: 'bottom', labels: { color: tc, font: df, usePointStyle: true, padding: 16 } },
+                datalabels: {
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 14, family: 'Inter' },
+                    formatter: v => v + '%'
+                }
+            }
+        }
+    });
+
+    // ==================== WATERFALL RESULTADO ====================
+    new Chart(document.getElementById('chartWaterfall'), {
+        type: 'bar',
+        data: {
+            labels: ['Receita/ha', '(-) Impostos', '(-) Insumos', '(-) ADM+MAQ', '= EBITDA/ha', '(-) Arrend.', '(-) Deprec.', '= Resultado/ha'],
+            datasets: [
+                {
+                    label: 'Planalto MT',
+                    data: [9103, -228, -3285, -1751, 3839, -721, -348, 2770],
+                    backgroundColor: (ctx) => {
+                        const v = ctx.raw;
+                        if (ctx.dataIndex === 4) return 'rgba(249,168,37,0.6)';
+                        if (ctx.dataIndex === 7) return 'rgba(0,230,118,0.6)';
+                        return v >= 0 ? 'rgba(0,230,118,0.3)' : 'rgba(255,82,82,0.3)';
+                    },
+                    borderColor: '#00E676',
+                    borderWidth: 1,
+                    borderRadius: 4
+                },
+                {
+                    label: 'Araras MT',
+                    data: [7454, -186, -3270, -1751, 2247, -845, -348, 1054],
+                    backgroundColor: (ctx) => {
+                        const v = ctx.raw;
+                        if (ctx.dataIndex === 4) return 'rgba(255,145,0,0.5)';
+                        if (ctx.dataIndex === 7) return 'rgba(255,82,82,0.5)';
+                        return v >= 0 ? 'rgba(255,82,82,0.2)' : 'rgba(255,82,82,0.4)';
+                    },
+                    borderColor: '#FF5252',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, size: 9 }, maxRotation: 45 } },
+                y: {
+                    grid: { color: gc },
+                    ticks: { color: tc, font: df, callback: v => 'R$ ' + v.toLocaleString('pt-BR') }
+                }
+            }
+        }
+    });
+
+    // ==================== DISTRIBUIÇÃO TALHÕES ====================
+    new Chart(document.getElementById('chartDistribuicao'), {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Continental MT', 'Araras MT'],
+            datasets: [
+                {
+                    label: '🟢 Verde',
+                    data: [79, 65, 39, 28],
+                    backgroundColor: 'rgba(0,230,118,0.6)',
+                    borderColor: '#00E676',
+                    borderWidth: 1,
+                    borderRadius: 4
+                },
+                {
+                    label: '🟡 Amarelo',
+                    data: [0, 30, 39, 40],
+                    backgroundColor: 'rgba(255,214,0,0.5)',
+                    borderColor: '#FFD600',
+                    borderWidth: 1,
+                    borderRadius: 4
+                },
+                {
+                    label: '🔴 Vermelho',
+                    data: [21, 5, 22, 32],
+                    backgroundColor: 'rgba(255,82,82,0.6)',
+                    borderColor: '#FF5252',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: gc }, ticks: { color: tc, font: df } },
+                y: {
+                    stacked: true,
+                    grid: { color: gc },
+                    ticks: { color: tc, font: df, callback: v => v + '%' },
+                    max: 100
+                }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: {
+                    color: '#000',
+                    font: { weight: 'bold', size: 11, family: 'Inter' },
+                    formatter: v => v > 10 ? v + '%' : ''
+                }
+            }
+        }
+    });
+
+    // ==================== PROD vs CUSTO/SC ====================
+    new Chart(document.getElementById('chartProdCusto'), {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Planalto MT',
+                    data: [{x: 76.11, y: 83.18}],
+                    backgroundColor: 'rgba(0,230,118,0.8)',
+                    borderColor: '#00E676',
+                    pointRadius: 18, pointHoverRadius: 22
+                },
+                {
+                    label: 'Planalto GO',
+                    data: [{x: 70.67, y: 89.11}],
+                    backgroundColor: 'rgba(64,196,255,0.8)',
+                    borderColor: '#40C4FF',
+                    pointRadius: 14, pointHoverRadius: 18
+                },
+                {
+                    label: 'Continental MT',
+                    data: [{x: 64.15, y: 99.35}],
+                    backgroundColor: 'rgba(255,145,0,0.8)',
+                    borderColor: '#FF9100',
+                    pointRadius: 12, pointHoverRadius: 16
+                },
+                {
+                    label: 'Araras MT',
+                    data: [{x: 62.33, y: 101.93}],
+                    backgroundColor: 'rgba(255,82,82,0.8)',
+                    borderColor: '#FF5252',
+                    pointRadius: 10, pointHoverRadius: 14
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: {
+                    align: 'top',
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 11, family: 'Inter' },
+                    formatter: (v, ctx) => ctx.dataset.label.split(' ')[0]
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Produtividade (sc/ha) →', color: tc, font: { ...df, weight: 'bold' } },
+                    grid: { color: gc }, ticks: { color: tc, font: df },
+                    min: 55, max: 85
+                },
+                y: {
+                    title: { display: true, text: '← Custo/sc (R$) — menor é melhor', color: tc, font: { ...df, weight: 'bold' } },
+                    grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v },
+                    reverse: true, min: 75, max: 110
+                }
+            }
+        }
+    });
+
+    // ==================== MARGEM DE SEGURANÇA ====================
+    new Chart(document.getElementById('chartMargem'), {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Continental MT', 'Araras MT', 'Grupo'],
+            datasets: [{
+                label: 'Margem de Segurança (%)',
+                data: [25.6, 18.8, 8.5, 4.7, 12.8],
+                backgroundColor: [
+                    'rgba(0,230,118,0.6)', 'rgba(64,196,255,0.6)',
+                    'rgba(255,145,0,0.6)', 'rgba(255,82,82,0.6)', 'rgba(249,168,37,0.5)'
+                ],
+                borderColor: ['#00E676', '#40C4FF', '#FF9100', '#FF5252', '#F9A825'],
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end', align: 'top',
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 14, family: 'Inter' },
+                    formatter: v => v.toFixed(1) + '%'
+                },
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line', yMin: 20, yMax: 20,
+                            borderColor: 'rgba(0,230,118,0.4)', borderWidth: 2, borderDash: [6, 3],
+                            label: { content: 'Meta: 20%', enabled: true, position: 'end', backgroundColor: 'rgba(0,230,118,0.2)', color: '#00E676' }
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, weight: 'bold', size: 12 } } },
+                y: {
+                    grid: { color: gc },
+                    ticks: { color: tc, font: df, callback: v => v + '%' },
+                    min: 0, max: 35
+                }
+            }
+        }
+    });
+
+    // ==================== MILHO ====================
+    new Chart(document.getElementById('chartMilho'), {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Grupo'],
+            datasets: [
+                {
+                    label: 'Resultado/ha (R$)',
+                    data: [1941, 714, 1550],
+                    backgroundColor: ['rgba(0,230,118,0.5)', 'rgba(64,196,255,0.5)', 'rgba(249,168,37,0.4)'],
+                    borderColor: ['#00E676', '#40C4FF', '#F9A825'],
+                    borderWidth: 2, borderRadius: 8,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Produtividade (sc/ha)',
+                    data: [161.33, 139.35, 154.51],
+                    type: 'line',
+                    borderColor: '#B388FF',
+                    backgroundColor: 'transparent',
+                    borderWidth: 3,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#B388FF',
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: {
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 12, family: 'Inter' },
+                    formatter: (v, ctx) => ctx.datasetIndex === 0 ? 'R$ ' + v.toLocaleString('pt-BR') : v.toFixed(1)
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, weight: 'bold', size: 12 } } },
+                y: {
+                    position: 'left',
+                    title: { display: true, text: 'Resultado/ha (R$)', color: tc, font: { ...df, weight: 'bold' } },
+                    grid: { color: gc },
+                    ticks: { color: tc, font: df, callback: v => 'R$ ' + v.toLocaleString('pt-BR') }
+                },
+                y1: {
+                    position: 'right',
+                    title: { display: true, text: 'Produtividade (sc/ha)', color: '#B388FF', font: { ...df, weight: 'bold' } },
+                    grid: { display: false },
+                    ticks: { color: '#B388FF', font: df },
+                    min: 100, max: 180
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

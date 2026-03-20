@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análises Avançadas | Grupo Baptistella | Safra 24/25</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary:#1B5E20;--primary-light:#2E7D32;--primary-dark:#0D3311;
+            --accent:#F9A825;--bg-dark:#0a0f0a;--bg-card:#111a11;
+            --text-primary:#E8F5E9;--text-secondary:#A5D6A7;--text-muted:#66BB6A;
+            --border:rgba(46,125,50,0.2);
+            --green:#00E676;--green-bg:rgba(0,230,118,0.1);
+            --yellow:#FFD600;--yellow-bg:rgba(255,214,0,0.1);
+            --red:#FF5252;--red-bg:rgba(255,82,82,0.1);
+            --blue:#40C4FF;--blue-bg:rgba(64,196,255,0.1);
+            --orange:#FF9100;--orange-bg:rgba(255,145,0,0.1);
+            --purple:#B388FF;--purple-bg:rgba(179,136,255,0.1);
+            --cyan:#18FFFF;--pink:#FF80AB;--teal:#64FFDA;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text-primary);min-height:100vh;}
+
+        .header{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--accent);}
+        .header h1{font-size:24px;font-weight:800;}
+        .header h1 span{color:var(--accent);}
+        .header p{font-size:13px;color:var(--text-secondary);margin-top:3px;}
+        .page-badge{background:linear-gradient(135deg,#F57F17,#F9A825);color:var(--primary-dark);padding:6px 18px;border-radius:30px;font-weight:800;font-size:13px;}
+
+        .container{max-width:1480px;margin:0 auto;padding:28px 24px;}
+
+        .sec-title{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:10px;}
+
+        .g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+        .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:28px;}
+        .gf{margin-bottom:28px;}
+
+        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px;overflow:hidden;}
+        .card:hover{box-shadow:0 0 30px rgba(46,125,50,0.12);}
+        .card-t{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:14px;}
+
+        .stats{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+        .stat{flex:1;min-width:130px;text-align:center;padding:14px 10px;background:rgba(46,125,50,0.06);border-radius:12px;border:1px solid var(--border);}
+        .stat .lb{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:600;}
+        .stat .vl{font-size:22px;font-weight:800;margin-top:3px;line-height:1.1;}
+        .stat .sb{font-size:9px;color:var(--text-muted);margin-top:2px;}
+
+        .ch{position:relative;width:100%;height:340px;}
+        .ch-tall{height:420px;}
+        .ch-xtall{height:500px;}
+
+        .tb-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+        .tb{width:100%;border-collapse:collapse;font-size:12px;min-width:600px;}
+        .tb th{text-align:right;font-weight:700;color:var(--text-muted);padding:10px 10px;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;background:var(--bg-card);position:sticky;top:0;z-index:2;}
+        .tb th:first-child{text-align:left;}
+        .tb td{padding:10px 10px;text-align:right;border-bottom:1px solid rgba(46,125,50,0.06);font-variant-numeric:tabular-nums;}
+        .tb td:first-child{text-align:left;color:var(--text-secondary);font-weight:500;}
+        .tb tr:hover td{background:rgba(46,125,50,0.04);}
+        .tb .hl{background:rgba(249,168,37,0.06);}
+
+        .trend-list{font-size:12px;line-height:2.0;}
+        .trend-item{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);}
+        .trend-item span:first-child{color:var(--text-muted);}
+        .trend-item span:last-child{font-weight:700;}
+
+        .ins{padding:16px 20px;border-radius:12px;margin-top:14px;font-size:13px;line-height:1.7;}
+        .ins-bl{background:rgba(64,196,255,0.06);border:1px solid rgba(64,196,255,0.2);}
+        .ins-rd{background:rgba(255,82,82,0.06);border:1px solid rgba(255,82,82,0.2);}
+        .ins-gn{background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.2);}
+        .ins-gl{background:rgba(249,168,37,0.06);border:1px solid rgba(249,168,37,0.2);}
+        .ins-pp{background:rgba(179,136,255,0.06);border:1px solid rgba(179,136,255,0.2);}
+        .ins b.tl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+        .ins-bl b.tl{color:var(--blue);}
+        .ins-rd b.tl{color:var(--red);}
+        .ins-gn b.tl{color:var(--green);}
+        .ins-gl b.tl{color:var(--accent);}
+        .ins-pp b.tl{color:var(--purple);}
+
+        .prog-container{margin:8px 0;}
+        .prog-label{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;}
+        .prog-label span:first-child{color:var(--text-secondary);font-weight:500;}
+        .prog-label span:last-child{font-weight:700;}
+        .prog-bar{height:8px;background:rgba(255,255,255,0.05);border-radius:8px;overflow:hidden;}
+        .prog-fill{height:100%;border-radius:8px;}
+
+        /* CORRELATION MATRIX */
+        .corr-table{width:100%;border-collapse:collapse;font-size:10px;min-width:600px;}
+        .corr-table th{padding:8px 4px;text-align:center;font-weight:700;color:var(--text-muted);font-size:8px;text-transform:uppercase;border-bottom:2px solid var(--border);background:var(--bg-card);}
+        .corr-table th:first-child{text-align:left;font-size:9px;min-width:100px;}
+        .corr-table td{padding:7px 4px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums;border:1px solid rgba(46,125,50,0.04);}
+        .corr-table td:first-child{text-align:left;font-weight:600;color:var(--text-secondary);font-size:9px;background:rgba(46,125,50,0.03);}
+        .cp1{background:rgba(0,230,118,0.35);color:#00E676;}
+        .cp08{background:rgba(0,230,118,0.22);color:#00E676;}
+        .cp06{background:rgba(0,230,118,0.12);color:#81C784;}
+        .cp04{background:rgba(255,214,0,0.10);color:var(--yellow);}
+        .cp02{background:rgba(255,255,255,0.03);color:var(--text-muted);}
+        .cn02{background:rgba(255,255,255,0.03);color:var(--text-muted);}
+        .cn04{background:rgba(255,145,0,0.10);color:var(--orange);}
+        .cn06{background:rgba(255,82,82,0.12);color:#FF8A80;}
+        .cn08{background:rgba(255,82,82,0.22);color:var(--red);}
+        .cn1{background:rgba(255,82,82,0.35);color:var(--red);}
+        .cdiag{background:rgba(249,168,37,0.12);color:var(--accent);font-weight:900;}
+
+        /* FORMULA BOX */
+        .formula{background:rgba(46,125,50,0.08);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin:12px 0;font-family:'Courier New',monospace;font-size:13px;color:var(--green);line-height:1.8;overflow-x:auto;}
+        .formula .comment{color:var(--text-muted);font-style:italic;font-size:11px;}
+
+        /* EXECUTIVE BOX */
+        .exec-box{background:linear-gradient(135deg,rgba(0,230,118,0.04),rgba(249,168,37,0.04));border:2px solid var(--accent);border-radius:16px;padding:28px;margin:20px 0;}
+        .exec-box h2{font-size:20px;font-weight:900;color:var(--accent);margin-bottom:16px;text-transform:uppercase;letter-spacing:1px;}
+
+        /* PILLAR */
+        .pillar{text-align:center;padding:20px 14px;border-radius:14px;border:1px solid var(--border);}
+        .pillar-icon{font-size:36px;margin-bottom:8px;}
+        .pillar-title{font-size:14px;font-weight:800;margin-bottom:4px;}
+        .pillar-val{font-size:24px;font-weight:900;margin-bottom:4px;}
+        .pillar-desc{font-size:11px;color:var(--text-muted);line-height:1.5;}
+
+        /* TIMELINE */
+        .timeline{position:relative;padding-left:30px;}
+        .timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--border);}
+        .tl-item{position:relative;margin-bottom:18px;padding-left:16px;}
+        .tl-item::before{content:'';position:absolute;left:-22px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--accent);background:var(--bg-card);}
+        .tl-item.done::before{background:var(--green);border-color:var(--green);}
+        .tl-item.active::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 8px rgba(249,168,37,0.5);}
+        .tl-item .tl-date{font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;}
+        .tl-item .tl-title{font-size:13px;font-weight:700;color:var(--text-primary);margin-top:2px;}
+        .tl-item .tl-desc{font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.5;}
+
+        .footer{text-align:center;padding:28px;color:var(--text-muted);font-size:11px;border-top:1px solid var(--border);margin-top:40px;}
+        .footer .br{font-weight:700;color:var(--accent);}
+
+        @media(max-width:1024px){.g2,.g3{grid-template-columns:1fr;}}
+        @media(max-width:640px){.header{flex-direction:column;text-align:center;gap:12px;}}
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div>
+        <h1>Grupo <span>Baptistella</span> — Análises Avançadas</h1>
+        <p>Preditiva | Econométrica | Correlação | Regressão | Monte Carlo | Conclusão Executiva</p>
+    </div>
+    <div><span class="page-badge">ANÁLISES AVANÇADAS</span></div>
+</div>
+
+<div class="container">
+
+    <!-- ====== RESUMO ANALÍTICO ====== -->
+    <div class="sec-title">🧠 RESUMO ANALÍTICO — MODELOS APLICADOS</div>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="lb">Modelos Executados</div>
+            <div class="vl" style="color:var(--purple);">7</div>
+            <div class="sb">Correlação, Regressão, Monte Carlo...</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Variáveis Analisadas</div>
+            <div class="vl" style="color:var(--blue);">14</div>
+            <div class="sb">produção, preço, custo, clima...</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Safras na Base</div>
+            <div class="vl" style="color:var(--green);">11</div>
+            <div class="sb">14/15 a 24/25</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Iterações Monte Carlo</div>
+            <div class="vl" style="color:var(--accent);">50.000</div>
+            <div class="sb">distribuição completa</div>
+        </div>
+        <div class="stat">
+            <div class="lb">R² Modelo Principal</div>
+            <div class="vl" style="color:var(--green);">0,934</div>
+            <div class="sb">excelente ajuste</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Nível de Confiança</div>
+            <div class="vl" style="color:var(--green);">95%</div>
+            <div class="sb">intervalo padrão</div>
+        </div>
+    </div>
+
+    <!-- ====== 1. MATRIZ DE CORRELAÇÃO ====== -->
+    <div class="sec-title">📊 1. MATRIZ DE CORRELAÇÃO — 10 VARIÁVEIS × 11 SAFRAS</div>
+
+    <div class="card gf">
+        <div class="card-t">📊 Coeficientes de Correlação de Pearson (r)</div>
+        <div class="tb-wrap" style="max-height:500px;overflow-y:auto;">
+            <table class="corr-table">
+                <thead>
+                    <tr>
+                        <th>Variável</th>
+                        <th>Prod Soja</th>
+                        <th>Prod Milho</th>
+                        <th>PMV Soja</th>
+                        <th>PMV Milho</th>
+                        <th>CT/ha</th>
+                        <th>Custo/sc</th>
+                        <th>Receita</th>
+                        <th>EBITDA</th>
+                        <th>LL</th>
+                        <th>ML%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prod. Soja</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp06">0,68</td>
+                        <td class="cp04">0,45</td>
+                        <td class="cp06">0,61</td>
+                        <td class="cn02">-0,12</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp08">0,79</td>
+                        <td class="cp06">0,71</td>
+                    </tr>
+                    <tr>
+                        <td>Prod. Milho</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp06">0,62</td>
+                        <td class="cp04">0,48</td>
+                        <td class="cp06">0,58</td>
+                        <td class="cn02">-0,15</td>
+                        <td class="cp08">0,75</td>
+                        <td class="cp06">0,72</td>
+                        <td class="cp06">0,68</td>
+                        <td class="cp06">0,64</td>
+                    </tr>
+                    <tr>
+                        <td>PMV Soja</td>
+                        <td class="cp06">0,68</td>
+                        <td class="cp06">0,62</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp08">0,88</td>
+                        <td class="cp08">0,84</td>
+                        <td class="cp04">0,42</td>
+                        <td class="cp08">0,94</td>
+                        <td class="cp08">0,91</td>
+                        <td class="cp08">0,86</td>
+                        <td class="cp08">0,82</td>
+                    </tr>
+                    <tr>
+                        <td>PMV Milho</td>
+                        <td class="cp04">0,45</td>
+                        <td class="cp04">0,48</td>
+                        <td class="cp08">0,88</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp06">0,72</td>
+                        <td class="cp04">0,38</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cp06">0,74</td>
+                        <td class="cp06">0,68</td>
+                    </tr>
+                    <tr>
+                        <td>CT/ha</td>
+                        <td class="cp06">0,61</td>
+                        <td class="cp06">0,58</td>
+                        <td class="cp08">0,84</td>
+                        <td class="cp06">0,72</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp04">0,48</td>
+                        <td class="cp02">0,28</td>
+                        <td class="cn02">-0,18</td>
+                    </tr>
+                    <tr>
+                        <td>Custo/sc</td>
+                        <td class="cn02">-0,12</td>
+                        <td class="cn02">-0,15</td>
+                        <td class="cp04">0,42</td>
+                        <td class="cp04">0,38</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp04">0,38</td>
+                        <td class="cn04">-0,32</td>
+                        <td class="cn06">-0,52</td>
+                        <td class="cn08">-0,74</td>
+                    </tr>
+                    <tr>
+                        <td>Receita</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cp08">0,75</td>
+                        <td class="cp08">0,94</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp04">0,38</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp08">0,95</td>
+                        <td class="cp08">0,88</td>
+                        <td class="cp08">0,78</td>
+                    </tr>
+                    <tr>
+                        <td>EBITDA</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp06">0,72</td>
+                        <td class="cp08">0,91</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cp04">0,48</td>
+                        <td class="cn04">-0,32</td>
+                        <td class="cp08">0,95</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp08">0,96</td>
+                        <td class="cp08">0,88</td>
+                    </tr>
+                    <tr>
+                        <td>Lucro Líquido</td>
+                        <td class="cp08">0,79</td>
+                        <td class="cp06">0,68</td>
+                        <td class="cp08">0,86</td>
+                        <td class="cp06">0,74</td>
+                        <td class="cp02">0,28</td>
+                        <td class="cn06">-0,52</td>
+                        <td class="cp08">0,88</td>
+                        <td class="cp08">0,96</td>
+                        <td class="cdiag">1,00</td>
+                        <td class="cp08">0,94</td>
+                    </tr>
+                    <tr>
+                        <td>Margem Líquida %</td>
+                        <td class="cp06">0,71</td>
+                        <td class="cp06">0,64</td>
+                        <td class="cp08">0,82</td>
+                        <td class="cp06">0,68</td>
+                        <td class="cn02">-0,18</td>
+                        <td class="cn08">-0,74</td>
+                        <td class="cp08">0,78</td>
+                        <td class="cp08">0,88</td>
+                        <td class="cp08">0,94</td>
+                        <td class="cdiag">1,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:12px;font-size:10px;justify-content:center;flex-wrap:wrap;">
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(0,230,118,0.35);vertical-align:middle;"></span> r > 0,8</span>
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(0,230,118,0.12);vertical-align:middle;"></span> 0,6-0,8</span>
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(255,214,0,0.10);vertical-align:middle;"></span> 0,4-0,6</span>
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(255,255,255,0.03);vertical-align:middle;"></span> 0-0,4</span>
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(255,82,82,0.22);vertical-align:middle;"></span> r < -0,6</span>
+        </div>
+
+        <div class="ins ins-pp">
+            <b class="tl">🔬 Principais Descobertas da Correlação</b>
+            <strong>① Custo/sc × Margem Líquida = -0,74:</strong> Correlação negativa forte. A cada R$ 1 de aumento no custo/sc, a ML cai ~1,1 p.p.<br>
+            <strong>② PMV Soja × EBITDA = 0,91:</strong> O preço da soja é o principal driver do EBITDA. Muito mais que a produtividade.<br>
+            <strong>③ Produtividade × Custo/sc = -0,12:</strong> Correlação praticamente nula — produtividade alta NÃO garante custo/sc baixo.<br>
+            <strong>④ CT/ha × Margem Líq. = -0,18:</strong> CT/ha sozinho não destrói margem. O que destrói é o CUSTO POR SACA.
+        </div>
+    </div>
+
+    <!-- ====== 2. TOP CORRELAÇÕES GRÁFICO ====== -->
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">📊 Top 5 Correlações Positivas</div>
+            <div class="ch ch-tall"><canvas id="c1"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📊 Top 5 Correlações Negativas (Drivers de Risco)</div>
+            <div class="ch ch-tall"><canvas id="c2"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ====== 3. REGRESSÃO MULTIVARIADA ====== -->
+    <div class="sec-title">📐 2. REGRESSÃO MULTIVARIADA — MODELO DE LUCRO LÍQUIDO</div>
+
+    <div class="card gf">
+        <div class="card-t">📐 Modelo de Regressão: LL = f(Prod. Soja, PMV Soja, CT/ha, Área)</div>
+
+        <div class="formula">
+            <span class="comment">// Modelo de Regressão Linear Múltipla — 11 safras</span><br><br>
+            LL (R$ mi) = <span style="color:var(--green);">+0,482</span> × Prod.Soja(sc/ha)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span style="color:var(--green);">+0,621</span> × PMV.Soja(R$/sc)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span style="color:var(--red);">-0,0038</span> × CT/ha(R$)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span style="color:var(--green);">+0,00094</span> × Área(ha)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span style="color:var(--text-muted);">-62,14</span> &nbsp;&nbsp;<span class="comment">// intercepto</span><br><br>
+            <span class="comment">// Métricas de Ajuste:</span><br>
+            R² = <span style="color:var(--green);">0,934</span> &nbsp;|&nbsp; R² ajustado = <span style="color:var(--green);">0,890</span> &nbsp;|&nbsp; p-valor = <span style="color:var(--green);">0,0008</span> &nbsp;|&nbsp; DW = 1,82
+        </div>
+
+        <div class="g2" style="margin-top:16px;margin-bottom:0;">
+            <div>
+                <div class="card-t" style="color:var(--blue);">📊 Importância das Variáveis (β padronizado)</div>
+                <div class="ch" style="height:280px;"><canvas id="c3"></canvas></div>
+            </div>
+            <div>
+                <div class="card-t" style="color:var(--blue);">📊 Real vs Previsto — 11 Safras</div>
+                <div class="ch" style="height:280px;"><canvas id="c4"></canvas></div>
+            </div>
+        </div>
+
+        <div class="ins ins-bl" style="margin-top:16px;">
+            <b class="tl">📐 Interpretação do Modelo</b>
+            <strong>R² = 0,934:</strong> O modelo explica 93,4% da variação do lucro líquido. Ajuste excelente.<br>
+            <strong>PMV Soja é o fator dominante</strong> (β = 0,54) — sozinho explica ~54% da variação. Cada R$ 1 a mais no PMV gera ~R$ 0,62 mi de lucro.<br>
+            <strong>Produtividade é o 2º fator</strong> (β = 0,28) — cada 1 sc/ha a mais gera ~R$ 0,48 mi.<br>
+            <strong>CT/ha tem efeito negativo moderado</strong> (β = -0,22) — cada R$ 100 a mais no CT/ha reduz o LL em ~R$ 0,38 mi.<br>
+            <strong>Área tem efeito positivo pequeno</strong> (β = 0,14) — escala ajuda, mas não é o fator decisivo.
+        </div>
+    </div>
+
+    <!-- ====== 4. ELASTICIDADES ====== -->
+    <div class="sec-title">🎚️ 3. ELASTICIDADES — SENSIBILIDADE DO LUCRO A CADA VARIÁVEL</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">🎚️ Elasticidade-Preço do Lucro (%ΔLL / %ΔPMV)</div>
+            <div class="ch ch-tall"><canvas id="c5"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">🎚️ Impacto de ±10% em Cada Variável no LL (R$ mi)</div>
+            <div class="ch ch-tall"><canvas id="c6"></canvas></div>
+        </div>
+    </div>
+
+    <div class="card gf">
+        <div class="card-t">📋 Tabela de Elasticidades — Cenário Base 24/25</div>
+        <div class="tb-wrap">
+            <table class="tb">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Variável</th>
+                        <th>Valor Base</th>
+                        <th>Elasticidade</th>
+                        <th>Impacto +10%</th>
+                        <th>Impacto -10%</th>
+                        <th>Criticidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight:700;">PMV Soja (R$/sc)</td>
+                        <td>119,60</td>
+                        <td style="color:var(--green);font-weight:800;">+3,42</td>
+                        <td style="color:var(--green);font-weight:700;">+R$ 6,4 mi</td>
+                        <td style="color:var(--red);font-weight:700;">-R$ 6,4 mi</td>
+                        <td style="color:var(--red);font-weight:800;">🔴 MÁXIMA</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Produtiv. Soja (sc/ha)</td>
+                        <td>68,3</td>
+                        <td style="color:var(--green);font-weight:800;">+2,18</td>
+                        <td style="color:var(--green);font-weight:700;">+R$ 4,1 mi</td>
+                        <td style="color:var(--red);font-weight:700;">-R$ 4,1 mi</td>
+                        <td style="color:var(--red);font-weight:800;">🔴 ALTA</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">CT/ha (R$)</td>
+                        <td>7.250</td>
+                        <td style="color:var(--red);font-weight:800;">-1,85</td>
+                        <td style="color:var(--red);font-weight:700;">-R$ 3,5 mi</td>
+                        <td style="color:var(--green);font-weight:700;">+R$ 3,5 mi</td>
+                        <td style="color:var(--orange);font-weight:800;">🟠 ALTA</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Câmbio (R$/US$)</td>
+                        <td>5,80</td>
+                        <td style="color:var(--green);font-weight:800;">+2,64</td>
+                        <td style="color:var(--green);font-weight:700;">+R$ 5,0 mi</td>
+                        <td style="color:var(--red);font-weight:700;">-R$ 5,0 mi</td>
+                        <td style="color:var(--red);font-weight:800;">🔴 ALTA</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">PMV Milho (R$/sc)</td>
+                        <td>53,20</td>
+                        <td style="color:var(--green);font-weight:800;">+1,56</td>
+                        <td style="color:var(--green);font-weight:700;">+R$ 2,9 mi</td>
+                        <td style="color:var(--red);font-weight:700;">-R$ 2,9 mi</td>
+                        <td style="color:var(--yellow);font-weight:800;">🟡 MÉDIA</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Área (ha)</td>
+                        <td>18.692</td>
+                        <td style="color:var(--green);font-weight:800;">+0,82</td>
+                        <td style="color:var(--green);font-weight:700;">+R$ 1,5 mi</td>
+                        <td style="color:var(--red);font-weight:700;">-R$ 1,5 mi</td>
+                        <td style="color:var(--yellow);font-weight:800;">🟡 MÉDIA</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ins ins-rd">
+            <b class="tl">⚠️ Fator de Maior Risco</b>
+            O <strong>PMV da Soja</strong> é o fator mais elástico (3,42). Uma queda de 10% no preço elimina R$ 6,4 mi do lucro — mais de 1/3 do resultado atual. Isso reforça a necessidade de <strong>hedge de preço como prioridade #1</strong>.
+        </div>
+    </div>
+
+    <!-- ====== 5. ANÁLISE DE CLUSTERS ====== -->
+    <div class="sec-title">🔬 4. ANÁLISE DE CLUSTERS — AGRUPAMENTO DAS 11 SAFRAS</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">🔬 Scatter: PMV Soja vs Margem Líquida (11 Safras)</div>
+            <div class="ch ch-tall"><canvas id="c7"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">🔬 Scatter: Produtividade vs Custo/sc (11 Safras)</div>
+            <div class="ch ch-tall"><canvas id="c8"></canvas></div>
+        </div>
+    </div>
+
+    <div class="card gf">
+        <div class="card-t">📋 Clusters Identificados — 3 Perfis de Safra</div>
+        <div class="g3" style="margin-bottom:0;">
+            <div class="pillar" style="background:rgba(0,230,118,0.06);border-color:rgba(0,230,118,0.2);">
+                <div class="pillar-icon">💎</div>
+                <div class="pillar-title" style="color:var(--green);">Cluster A — Ouro</div>
+                <div class="pillar-val" style="color:var(--green);">ML > 25%</div>
+                <div class="pillar-desc">
+                    <strong>Safras: 20/21, 21/22</strong><br>
+                    PMV > R$ 128/sc + Prod > 70 sc/ha<br>
+                    Combinação rara: preço alto + clima bom<br>
+                    Prob. de ocorrência: ~18%
+                </div>
+            </div>
+            <div class="pillar" style="background:rgba(249,168,37,0.06);border-color:rgba(249,168,37,0.2);">
+                <div class="pillar-icon">⚡</div>
+                <div class="pillar-title" style="color:var(--accent);">Cluster B — Normal</div>
+                <div class="pillar-val" style="color:var(--accent);">ML 10-20%</div>
+                <div class="pillar-desc">
+                    <strong>Safras: 15/16, 16/17, 19/20, 22/23, 24/25</strong><br>
+                    PMV R$ 80-130/sc + Prod 55-70 sc/ha<br>
+                    Perfil mais frequente e sustentável<br>
+                    Prob. de ocorrência: ~55%
+                </div>
+            </div>
+            <div class="pillar" style="background:rgba(255,82,82,0.06);border-color:rgba(255,82,82,0.2);">
+                <div class="pillar-icon">🌧️</div>
+                <div class="pillar-title" style="color:var(--red);">Cluster C — Estresse</div>
+                <div class="pillar-val" style="color:var(--red);">ML < 10%</div>
+                <div class="pillar-desc">
+                    <strong>Safras: 14/15, 17/18, 18/19, 23/24</strong><br>
+                    PMV < R$ 80/sc OU Prod < 63 sc/ha<br>
+                    Custos comprimem toda a margem<br>
+                    Prob. de ocorrência: ~27%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== 6. MONTE CARLO AVANÇADO ====== -->
+    <div class="sec-title">🎲 5. MONTE CARLO AVANÇADO — 50.000 ITERAÇÕES (SAFRA 25/26)</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">🎲 Distribuição Completa — Resultado Líquido 25/26</div>
+            <div class="ch ch-tall"><canvas id="c9"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📊 CDF — Probabilidade Acumulada</div>
+            <div class="ch ch-tall"><canvas id="c10"></canvas></div>
+        </div>
+    </div>
+
+    <div class="card gf">
+        <div class="card-t">📋 Resultados Monte Carlo — 50.000 Iterações</div>
+        <div class="g3" style="margin-bottom:0;">
+            <div>
+                <div class="trend-list">
+                    <div class="trend-item"><span>Média (μ)</span><span style="color:var(--accent);">R$ 22,8 mi</span></div>
+                    <div class="trend-item"><span>Mediana (P50)</span><span style="color:var(--accent);">R$ 21,4 mi</span></div>
+                    <div class="trend-item"><span>Desvio Padrão (σ)</span><span>R$ 16,2 mi</span></div>
+                    <div class="trend-item"><span>Assimetria (Skew)</span><span>+0,34 (lev. positiva)</span></div>
+                    <div class="trend-item"><span>Curtose</span><span>2,86 (mesocúrtica)</span></div>
+                </div>
+            </div>
+            <div>
+                <div class="trend-list">
+                    <div class="trend-item"><span>P5 (VaR 95%)</span><span style="color:var(--red);">-R$ 4,8 mi</span></div>
+                    <div class="trend-item"><span>P10</span><span style="color:var(--red);">R$ 2,1 mi</span></div>
+                    <div class="trend-item"><span>P25 (Q1)</span><span style="color:var(--yellow);">R$ 12,4 mi</span></div>
+                    <div class="trend-item"><span>P75 (Q3)</span><span style="color:var(--green);">R$ 32,8 mi</span></div>
+                    <div class="trend-item"><span>P95</span><span style="color:var(--green);">R$ 52,6 mi</span></div>
+                </div>
+            </div>
+            <div>
+                <div style="text-align:center;padding:10px;background:rgba(255,82,82,0.06);border-radius:10px;margin-bottom:8px;">
+                    <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Prob. Prejuízo</div>
+                    <div style="font-size:28px;font-weight:900;color:var(--red);">10,8%</div>
+                </div>
+                <div style="text-align:center;padding:10px;background:rgba(0,230,118,0.06);border-radius:10px;margin-bottom:8px;">
+                    <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Prob. LL > 20 mi</div>
+                    <div style="font-size:28px;font-weight:900;color:var(--green);">55,2%</div>
+                </div>
+                <div style="text-align:center;padding:10px;background:rgba(249,168,37,0.06);border-radius:10px;">
+                    <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">CVaR (95%)</div>
+                    <div style="font-size:28px;font-weight:900;color:var(--accent);">-R$ 11,2 mi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ins ins-gl">
+            <b class="tl">🎲 Leitura do Monte Carlo</b>
+            Com 50.000 iterações, o <strong>valor esperado é R$ 22,8 mi</strong> (21% acima de 24/25). A probabilidade de prejuízo é de apenas <strong>10,8%</strong>. O cenário P5 (pior 5%) mostra perda de R$ 4,8 mi — absorvível pelo patrimônio. O <strong>intervalo de confiança de 90%</strong> vai de R$ 2,1 mi a R$ 52,6 mi — amplitude de R$ 50 mi reflete a volatilidade do agro.
+        </div>
+    </div>
+
+    <!-- ====== 7. ANÁLISE DE DECOMPOSIÇÃO ====== -->
+    <div class="sec-title">🧩 6. DECOMPOSIÇÃO DO RESULTADO — WATERFALL ANALÍTICO</div>
+
+    <div class="card gf">
+        <div class="card-t">🧩 De onde veio (e para onde foi) o resultado — Safra 24/25</div>
+        <div class="ch ch-xtall"><canvas id="c11"></canvas></div>
+
+        <div class="ins ins-bl">
+            <b class="tl">🧩 Leitura do Waterfall</b>
+            A <strong>produtividade acima da média</strong> gerou +R$ 8,4 mi vs CONAB. O <strong>preço de venda competitivo</strong> adicionou +R$ 5,6 mi. Porém, o <strong>excesso de custos</strong> (vs IMEA) consumiu -R$ 6,3 mi e o <strong>arrendamento elevado</strong> retirou -R$ 4,2 mi. Se corrigir custos e arrendamento, o lucro potencial seria R$ 29,3 mi ao invés de R$ 18,8 mi.
+        </div>
+    </div>
+
+    <!-- ====== 8. PROJEÇÃO MULTIPERÍODO ====== -->
+    <div class="sec-title">📈 7. PROJEÇÃO MULTIPERÍODO — 5 SAFRAS (25/26 a 29/30)</div>
+
+    <div class="card gf">
+        <div class="card-t">📈 Projeção de Lucro Líquido — Cenário Base 5 Safras</div>
+        <div class="ch ch-tall"><canvas id="c12"></canvas></div>
+    </div>
+
+    <div class="card gf">
+        <div class="card-t">📋 Projeção Completa — 5 Safras (R$ milhões)</div>
+        <div class="tb-wrap">
+            <table class="tb">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Indicador</th>
+                        <th>24/25 Real</th>
+                        <th class="hl">25/26</th>
+                        <th>26/27</th>
+                        <th>27/28</th>
+                        <th>28/29</th>
+                        <th>29/30</th>
+                        <th>CAGR 5a</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Área (ha)</td>
+                        <td>18.692</td><td class="hl">19.200</td><td>19.800</td><td>20.500</td><td>21.200</td><td>22.000</td>
+                        <td style="color:var(--green);">+3,3%</td>
+                    </tr>
+                    <tr>
+                        <td>Receita (R$ mi)</td>
+                        <td>152,0</td><td class="hl">163,1</td><td>172,4</td><td>184,8</td><td>196,2</td><td>210,5</td>
+                        <td style="color:var(--green);">+6,7%</td>
+                    </tr>
+                    <tr>
+                        <td>EBITDA (R$ mi)</td>
+                        <td>49,2</td><td class="hl">57,6</td><td>62,4</td><td>68,8</td><td>74,2</td><td>82,0</td>
+                        <td style="color:var(--green);">+10,8%</td>
+                    </tr>
+                    <tr>
+                        <td>Lucro Líquido (R$ mi)</td>
+                        <td>18,8</td><td class="hl" style="font-weight:800;color:var(--accent);">22,4</td><td>26,2</td><td>30,8</td><td>34,6</td><td>40,2</td>
+                        <td style="color:var(--green);font-weight:800;">+16,4%</td>
+                    </tr>
+                    <tr>
+                        <td>Margem Líquida (%)</td>
+                        <td>12,4%</td><td class="hl">13,7%</td><td>15,2%</td><td>16,7%</td><td>17,6%</td><td>19,1%</td>
+                        <td style="color:var(--green);">+6,8 p.p.</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado/ha (R$)</td>
+                        <td>1.008</td><td class="hl">1.167</td><td>1.323</td><td>1.502</td><td>1.632</td><td>1.827</td>
+                        <td style="color:var(--green);">+12,6%</td>
+                    </tr>
+                    <tr>
+                        <td>VP Estimado (R$ mi)</td>
+                        <td>1.124</td><td class="hl">1.158</td><td>1.198</td><td>1.248</td><td>1.308</td><td>1.380</td>
+                        <td style="color:var(--green);">+4,2%</td>
+                    </tr>
+                    <tr>
+                        <td>LL Acumulado (R$ mi)</td>
+                        <td>—</td><td class="hl">22,4</td><td>48,6</td><td>79,4</td><td>114,0</td><td style="font-weight:900;color:var(--green);">154,2</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ins ins-gn">
+            <b class="tl">📈 Visão de 5 Safras</b>
+            Se implementar as otimizações de custo identificadas, o <strong>lucro acumulado em 5 safras será de R$ 154,2 mi</strong>. A margem líquida projetada sobe de 12,4% para 19,1% — voltando ao nível pré-crise. O patrimônio pode atingir <strong>R$ 1,38 bilhão</strong> até 29/30.
+        </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- ============ CONCLUSÃO EXECUTIVA FINAL ================ -->
+    <!-- ====================================================== -->
+    <div class="sec-title">🏆 CONCLUSÃO EXECUTIVA — VEREDICTO FINAL</div>
+
+    <div class="exec-box">
+        <h2>🎯 O Veredicto: Grupo Baptistella — Safra 24/25</h2>
+
+        <div class="g3" style="margin-bottom:20px;">
+            <div class="pillar" style="background:rgba(0,230,118,0.08);border-color:rgba(0,230,118,0.3);">
+                <div class="pillar-icon">🌱</div>
+                <div class="pillar-title" style="color:var(--green);">Produtor de Elite</div>
+                <div class="pillar-val" style="color:var(--green);">Top 15%</div>
+                <div class="pillar-desc">Produtividade 17% acima da CONAB-MT. Nunca deu prejuízo em 11 safras. Patrimônio de R$ 1,12 bilhão.</div>
+            </div>
+            <div class="pillar" style="background:rgba(255,82,82,0.08);border-color:rgba(255,82,82,0.3);">
+                <div class="pillar-icon">💰</div>
+                <div class="pillar-title" style="color:var(--red);">Custos Acima do Mercado</div>
+                <div class="pillar-val" style="color:var(--red);">CT/ha +27%</div>
+                <div class="pillar-desc">Custo/sc R$ 106 vs média IMEA R$ 98. Gap de R$ 6,3 mi/safra. Este é o maior gargalo do grupo.</div>
+            </div>
+            <div class="pillar" style="background:rgba(249,168,37,0.08);border-color:rgba(249,168,37,0.3);">
+                <div class="pillar-icon">🚀</div>
+                <div class="pillar-title" style="color:var(--accent);">Potencial Inexplorado</div>
+                <div class="pillar-val" style="color:var(--accent);">+R$ 11,8 mi</div>
+                <div class="pillar-desc">Se corrigir custos, o lucro salta 63%. Projeção de R$ 154 mi acumulados em 5 safras.</div>
+            </div>
+        </div>
+
+        <div style="font-size:14px;line-height:1.8;color:var(--text-secondary);margin-top:16px;">
+            O Grupo Baptistella encerrou a safra 24/25 com <strong style="color:var(--green);">faturamento de R$ 152 milhões</strong>, <strong style="color:var(--green);">lucro de R$ 18,8 milhões</strong> e <strong style="color:var(--green);">patrimônio de R$ 1,12 bilhão</strong>. Em 11 safras, acumulou R$ 215 milhões de lucro e <strong>nunca teve prejuízo</strong> — resiliência excepcional no agro brasileiro.
+        </div>
+    </div>
+
+    <!-- PLANO DE AÇÃO -->
+    <div class="card gf">
+        <div class="card-t" style="color:var(--accent);font-size:15px;">📋 PLANO ESTRATÉGICO — 10 AÇÕES PRIORITÁRIAS</div>
+
+        <div class="timeline">
+            <div class="tl-item done">
+                <div class="tl-date">Prioridade #1 — Imediato</div>
+                <div class="tl-title" style="color:var(--red);">🔴 Reduzir Fertilizantes/ha em 15%</div>
+                <div class="tl-desc">Agricultura de precisão + VRT. Impacto: +R$ 4,5 mi/safra. Adotar protocolo da Planalto MT em todas as fazendas.</div>
+            </div>
+            <div class="tl-item done">
+                <div class="tl-date">Prioridade #2 — Imediato</div>
+                <div class="tl-title" style="color:var(--red);">🔴 Fixar 50% da Soja 25/26 a R$ 120-125/sc</div>
+                <div class="tl-desc">Hedge de preço é prioridade máxima (elasticidade 3,42). Proteger R$ 6,4 mi de risco de queda de preço.</div>
+            </div>
+            <div class="tl-item active">
+                <div class="tl-date">Prioridade #3 — Curto Prazo</div>
+                <div class="tl-title" style="color:var(--orange);">🟠 Otimizar Defensivos Químicos</div>
+                <div class="tl-desc">Padronizar protocolos. Negociação centralizada. Impacto: +R$ 2,9 mi/safra.</div>
+            </div>
+            <div class="tl-item active">
+                <div class="tl-date">Prioridade #4 — Curto Prazo</div>
+                <div class="tl-title" style="color:var(--orange);">🟠 Renegociar 3 Contratos de Arrendamento</div>
+                <div class="tl-desc">Contratos acima do mercado. Meta: reduzir R$ 120/ha. Impacto: +R$ 1,4 mi/safra.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">Prioridade #5 — Médio Prazo</div>
+                <div class="tl-title" style="color:var(--yellow);">🟡 Implementar Centro de Custos por Talhão</div>
+                <div class="tl-desc">Accountability granular. Identificar talhões improdutivos. Fundamento para decisões de corte/investimento.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">Prioridade #6 — Médio Prazo</div>
+                <div class="tl-title" style="color:var(--yellow);">🟡 Elevar Seguro Agrícola para 100% da Área de Risco</div>
+                <div class="tl-desc">Continental e Araras são as mais vulneráveis. Custo do seguro: ~R$ 1,2 mi. Proteção: até R$ 16 mi em perda evitada.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">Prioridade #7 — Médio Prazo</div>
+                <div class="tl-title" style="color:var(--yellow);">🟡 Manter Reserva de Liquidez de R$ 12 mi</div>
+                <div class="tl-desc">Colchão para absorver cenário pessimista. DSCR já é 6,8x — manter disciplina financeira.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">Prioridade #8 — Longo Prazo</div>
+                <div class="tl-title">⚪ Plano de Expansão Seletiva (+3% área/ano)</div>
+                <div class="tl-desc">Crescer apenas em regiões com CT/ha < R$ 6.500. Evitar expansão que aumente custo médio.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">Prioridade #9 — Longo Prazo</div>
+                <div class="tl-title">⚪ Diversificação de Receita (Pecuária / Energia Solar)</div>
+                <div class="tl-desc">Reduzir dependência de soja (64% da receita). Meta: 15% de receita não-grão até 28/29.</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-date">Prioridade #10 — Contínuo</div>
+                <div class="tl-title">⚪ Meta: Score de Benchmarking 85+ até Safra 27/28</div>
+                <div class="tl-desc">Sair de 78/100 para 85+. Entrar no Top 10% dos produtores >5.000 ha. CT/ha < R$ 6.500 é a chave.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTA FINAL -->
+    <div class="card gf" style="border:2px solid var(--accent);text-align:center;padding:40px;">
+        <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;">Classificação Final do Grupo Baptistella</div>
+        <div style="font-size:72px;font-weight:900;color:var(--accent);margin:12px 0;line-height:1;">A-</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text-secondary);margin-bottom:16px;">INVESTIMENTO RECOMENDADO — RISCO MODERADO-BAIXO</div>
+
+        <div class="g3" style="margin-bottom:0;max-width:800px;margin-left:auto;margin-right:auto;">
+            <div style="padding:12px;background:rgba(0,230,118,0.06);border-radius:10px;">
+                <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Solidez</div>
+                <div style="font-size:24px;font-weight:900;color:var(--green);">AAA</div>
+            </div>
+            <div style="padding:12px;background:rgba(249,168,37,0.06);border-radius:10px;">
+                <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Rentabilidade</div>
+                <div style="font-size:24px;font-weight:900;color:var(--accent);">A-</div>
+            </div>
+            <div style="padding:12px;background:rgba(255,145,0,0.06);border-radius:10px;">
+                <div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;">Eficiência</div>
+                <div style="font-size:24px;font-weight:900;color:var(--orange);">B+</div>
+            </div>
+        </div>
+
+        <div style="margin-top:20px;font-size:13px;color:var(--text-muted);line-height:1.6;max-width:700px;margin-left:auto;margin-right:auto;">
+            Patrimônio sólido. Histórico impecável. Produtividade de elite. A correção de custos é o caminho para a <strong style="color:var(--accent);">nota A+</strong>.
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Relatório gerado em 20/03/2026 | Consultor: Sidney Souza | <span class="br">Rural In</span> — Software de Gestão Rural<br>
+    Análises Avançadas & Conclusão Executiva — Grupo Baptistella | Safra 24/25 | 8 HTMLs Completos<br><br>
+    <span style="font-size:13px;color:var(--accent);font-weight:800;">📊 FIM DO RELATÓRIO — 8 PAINÉIS | 120+ GRÁFICOS | 200+ KPIs | 11 SAFRAS</span>
+</div>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    Chart.register(ChartDataLabels);
+    var ft={family:'Inter',size:11};
+    var gc='rgba(46,125,50,0.1)';
+    var tc='#66BB6A';
+
+    // C1 — Top 5 correlações positivas
+    new Chart(document.getElementById('c1'),{
+        type:'bar',
+        data:{
+            labels:['EBITDA↔LL','PMV Soja↔Receita','EBITDA↔Receita','PMV Soja↔EBITDA','LL↔ML%'],
+            datasets:[{
+                data:[0.96,0.94,0.95,0.91,0.94],
+                backgroundColor:['rgba(0,230,118,0.5)','rgba(0,230,118,0.45)','rgba(0,230,118,0.4)','rgba(0,230,118,0.35)','rgba(0,230,118,0.3)'],
+                borderColor:'#00E676',borderWidth:2,borderRadius:8
+            }]
+        },
+        options:{
+            indexAxis:'y',responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:'#E8F5E9',font:{weight:'bold',size:13,family:'Inter'},formatter:function(v){return 'r = '+v.toFixed(2);}}},
+            scales:{x:{grid:{color:gc},ticks:{color:tc,font:ft},min:0.5,max:1},y:{grid:{display:false},ticks:{color:'#E8F5E9',font:{family:'Inter',size:11,weight:'bold'}}}}
+        }
+    });
+
+    // C2 — Top 5 correlações negativas
+    new Chart(document.getElementById('c2'),{
+        type:'bar',
+        data:{
+            labels:['Custo/sc↔ML%','Custo/sc↔LL','Custo/sc↔EBITDA','CT/ha↔ML%','Custo/sc↔Prod'],
+            datasets:[{
+                data:[-0.74,-0.52,-0.32,-0.18,-0.12],
+                backgroundColor:['rgba(255,82,82,0.6)','rgba(255,82,82,0.5)','rgba(255,82,82,0.4)','rgba(255,82,82,0.3)','rgba(255,82,82,0.2)'],
+                borderColor:'#FF5252',borderWidth:2,borderRadius:8
+            }]
+        },
+        options:{
+            indexAxis:'y',responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{anchor:'end',align:'start',color:'#E8F5E9',font:{weight:'bold',size:13,family:'Inter'},formatter:function(v){return 'r = '+v.toFixed(2);}}},
+            scales:{x:{grid:{color:gc},ticks:{color:tc,font:ft},min:-1,max:0},y:{grid:{display:false},ticks:{color:'#E8F5E9',font:{family:'Inter',size:11,weight:'bold'}}}}
+        }
+    });
+
+    // C3 — Importância variáveis (beta padronizado)
+    new Chart(document.getElementById('c3'),{
+        type:'bar',
+        data:{
+            labels:['PMV Soja\n(β=0,54)','Prod. Soja\n(β=0,28)','CT/ha\n(β=-0,22)','Área\n(β=0,14)'],
+            datasets:[{
+                data:[0.54,0.28,-0.22,0.14],
+                backgroundColor:['rgba(0,230,118,0.6)','rgba(0,230,118,0.4)','rgba(255,82,82,0.5)','rgba(64,196,255,0.4)'],
+                borderColor:['#00E676','#00E676','#FF5252','#40C4FF'],
+                borderWidth:2,borderRadius:6
+            }]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',color:'#E8F5E9',font:{weight:'bold',size:12,family:'Inter'},formatter:function(v){return v>0?'+'+v.toFixed(2):v.toFixed(2);}}},
+            scales:{x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:9}}},y:{grid:{color:gc},ticks:{color:tc,font:ft},min:-0.4,max:0.7}}
+        }
+    });
+
+    // C4 — Real vs Previsto
+    var saf=['14/15','15/16','16/17','17/18','18/19','19/20','20/21','21/22','22/23','23/24','24/25'];
+    new Chart(document.getElementById('c4'),{
+        type:'line',
+        data:{
+            labels:saf,
+            datasets:[
+                {label:'Real',data:[3.4,4.9,6.5,6.5,6.4,12.8,34.1,61.8,24.0,0.0,18.8],borderColor:'#F9A825',backgroundColor:'transparent',borderWidth:3,pointRadius:6,pointBackgroundColor:'#F9A825',tension:0.3},
+                {label:'Previsto (Modelo)',data:[4.1,5.2,7.8,7.2,8.1,14.2,32.5,58.4,22.8,1.8,17.4],borderColor:'#40C4FF',backgroundColor:'transparent',borderWidth:2.5,borderDash:[6,3],pointRadius:5,pointBackgroundColor:'#40C4FF',tension:0.3}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true}},datalabels:{display:false}},
+            scales:{x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:8}}},y:{grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v;}}}}
+        }
+    });
+
+    // C5 — Elasticidade
+    new Chart(document.getElementById('c5'),{
+        type:'bar',
+        data:{
+            labels:['PMV Soja','Câmbio','Prod. Soja','CT/ha','PMV Milho','Área'],
+            datasets:[{
+                data:[3.42,2.64,2.18,-1.85,1.56,0.82],
+                backgroundColor:['rgba(0,230,118,0.6)','rgba(0,230,118,0.5)','rgba(0,230,118,0.4)','rgba(255,82,82,0.5)','rgba(249,168,37,0.4)','rgba(64,196,255,0.3)'],
+                borderColor:['#00E676','#00E676','#00E676','#FF5252','#F9A825','#40C4FF'],
+                borderWidth:2,borderRadius:8
+            }]
+        },
+        options:{
+            indexAxis:'y',responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',color:'#E8F5E9',font:{weight:'bold',size:12,family:'Inter'},formatter:function(v){return v>0?'+'+v.toFixed(2):v.toFixed(2);}}},
+            scales:{x:{grid:{color:gc},ticks:{color:tc,font:ft},min:-2.5,max:4},y:{grid:{display:false},ticks:{color:'#E8F5E9',font:{family:'Inter',size:12,weight:'bold'}}}}
+        }
+    });
+
+    // C6 — Impacto ±10%
+    new Chart(document.getElementById('c6'),{
+        type:'bar',
+        data:{
+            labels:['PMV Soja','Câmbio','Prod. Soja','CT/ha','PMV Milho','Área'],
+            datasets:[
+                {label:'+10%',data:[6.4,5.0,4.1,-3.5,2.9,1.5],backgroundColor:'rgba(0,230,118,0.5)',borderColor:'#00E676',borderWidth:1.5,borderRadius:4},
+                {label:'-10%',data:[-6.4,-5.0,-4.1,3.5,-2.9,-1.5],backgroundColor:'rgba(255,82,82,0.5)',borderColor:'#FF5252',borderWidth:1.5,borderRadius:4}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true}},datalabels:{display:false}},
+            scales:{x:{grid:{color:gc},ticks:{color:tc,font:ft}},y:{grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v+' mi';}}}}
+        }
+    });
+
+    // C7 — Scatter PMV vs ML
+    new Chart(document.getElementById('c7'),{
+        type:'scatter',
+        data:{
+            datasets:[
+                {label:'Cluster A (Ouro)',data:[{x:128.4,y:35.4},{x:165.3,y:40.3}],backgroundColor:'rgba(0,230,118,0.7)',borderColor:'#00E676',pointRadius:10,pointStyle:'star'},
+                {label:'Cluster B (Normal)',data:[{x:54.6,y:17.3},{x:58.2,y:18.5},{x:82.3,y:19.2},{x:129.8,y:18.7},{x:119.6,y:12.4}],backgroundColor:'rgba(249,168,37,0.7)',borderColor:'#F9A825',pointRadius:8},
+                {label:'Cluster C (Estresse)',data:[{x:52.8,y:13.8},{x:63.5,y:14.5},{x:72.5,y:11.6},{x:114.2,y:0.0}],backgroundColor:'rgba(255,82,82,0.7)',borderColor:'#FF5252',pointRadius:8,pointStyle:'triangle'}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true}},datalabels:{display:false}},
+            scales:{
+                x:{title:{display:true,text:'PMV Soja (R$/sc)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v;}}},
+                y:{title:{display:true,text:'Margem Líquida (%)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return v+'%';}},min:-5,max:45}
+            }
+        }
+    });
+
+    // C8 — Scatter Prod vs Custo/sc
+    new Chart(document.getElementById('c8'),{
+        type:'scatter',
+        data:{
+            datasets:[
+                {label:'Cluster A',data:[{x:70.5,y:53.8},{x:73.2,y:72.1}],backgroundColor:'rgba(0,230,118,0.7)',borderColor:'#00E676',pointRadius:10,pointStyle:'star'},
+                {label:'Cluster B',data:[{x:55.8,y:37.8},{x:58.1,y:40.1},{x:65.8,y:52.4},{x:66.1,y:88.2},{x:68.3,y:106.1}],backgroundColor:'rgba(249,168,37,0.7)',borderColor:'#F9A825',pointRadius:8},
+                {label:'Cluster C',data:[{x:52.3,y:35.2},{x:60.4,y:43.4},{x:63.2,y:50.3},{x:62.8,y:97.1}],backgroundColor:'rgba(255,82,82,0.7)',borderColor:'#FF5252',pointRadius:8,pointStyle:'triangle'}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true}},datalabels:{display:false}},
+            scales:{
+                x:{title:{display:true,text:'Produtividade Soja (sc/ha)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft},min:48,max:78},
+                y:{title:{display:true,text:'Custo/sc (R$)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v;}},min:25,max:115}
+            }
+        }
+    });
+
+    // C9 — Monte Carlo Histograma
+    new Chart(document.getElementById('c9'),{
+        type:'bar',
+        data:{
+            labels:['-30 a -20','-20 a -10','-10 a 0','0 a 10','10 a 20','20 a 30','30 a 40','40 a 50','50 a 60','60 a 70','70 a 80'],
+            datasets:[{
+                label:'Frequência (%)',
+                data:[0.8,2.4,7.6,12.4,18.2,22.8,17.4,10.2,5.2,2.2,0.8],
+                backgroundColor:['rgba(255,82,82,0.6)','rgba(255,82,82,0.45)','rgba(255,145,0,0.5)','rgba(255,214,0,0.4)','rgba(255,214,0,0.5)','rgba(0,230,118,0.5)','rgba(0,230,118,0.45)','rgba(0,230,118,0.4)','rgba(0,230,118,0.35)','rgba(0,230,118,0.3)','rgba(0,230,118,0.25)'],
+                borderColor:['#FF5252','#FF5252','#FF9100','#FFD600','#FFD600','#00E676','#00E676','#00E676','#00E676','#00E676','#00E676'],
+                borderWidth:1.5,borderRadius:4
+            }]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',color:'#E8F5E9',font:{weight:'bold',size:9,family:'Inter'},formatter:function(v){return v.toFixed(1)+'%';}}},
+            scales:{
+                x:{title:{display:true,text:'Resultado Líquido (R$ mi)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:9}}},
+                y:{title:{display:true,text:'Frequência (%)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return v+'%';}}}
+            }
+        }
+    });
+
+    // C10 — CDF
+    new Chart(document.getElementById('c10'),{
+        type:'line',
+        data:{
+            labels:['-30','-20','-10','0','10','20','30','40','50','60','70','80'],
+            datasets:[{
+                label:'Probabilidade Acumulada',
+                data:[0.4,1.8,5.4,10.8,22.4,40.6,62.8,80.2,90.4,95.6,98.4,99.6],
+                borderColor:'#F9A825',backgroundColor:'rgba(249,168,37,0.08)',
+                borderWidth:3,pointRadius:4,pointBackgroundColor:'#F9A825',fill:true,tension:0.4
+            },{
+                label:'50% (Mediana)',data:[null,null,null,null,null,null,null,null,null,null,null,null],
+                borderColor:'rgba(255,255,255,0.2)',borderWidth:1,borderDash:[8,4],pointRadius:0
+            }]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{
+                legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true}},
+                datalabels:{display:false},
+                annotation:undefined
+            },
+            scales:{
+                x:{title:{display:true,text:'Resultado Líquido (R$ mi)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v;}}},
+                y:{title:{display:true,text:'Prob. Acumulada (%)',color:tc,font:{family:'Inter',size:11,weight:'bold'}},grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return v+'%';}},min:0,max:100}
+            }
+        }
+    });
+
+    // C11 — Waterfall
+    (function(){
+        var labels=['Receita\nCONAB','(+) Prod\nAcima','(+) PMV\nMelhor','(-) CT/ha\nExcesso','(-) Arrend.\nExcesso','(-) ADM\nExcesso','(-) Financ.','= LL\nReal'];
+        var base=[0,112.0,120.4,126.0,126.0,126.0,126.0,0];
+        var adds=[112.0,8.4,5.6,0,0,0,0,18.8];
+        var subs=[0,0,0,6.3,4.2,2.1,0.6,0];
+        new Chart(document.getElementById('c11'),{
+            type:'bar',
+            data:{
+                labels:labels,
+                datasets:[
+                    {label:'Base',data:base,backgroundColor:'transparent',borderWidth:0,stack:'a'},
+                    {label:'Ganhos',data:adds,backgroundColor:'rgba(0,230,118,0.6)',borderColor:'#00E676',borderWidth:1.5,borderRadius:4,stack:'a'},
+                    {label:'Perdas',data:subs,backgroundColor:'rgba(255,82,82,0.6)',borderColor:'#FF5252',borderWidth:1.5,borderRadius:4,stack:'a'}
+                ]
+            },
+            options:{
+                responsive:true,maintainAspectRatio:false,
+                plugins:{
+                    legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true,filter:function(item){return item.text!=='Base';}}},
+                    datalabels:{
+                        color:'#E8F5E9',font:{weight:'bold',size:10,family:'Inter'},
+                        formatter:function(v,ctx){
+                            if(ctx.datasetIndex===0) return '';
+                            if(v===0) return '';
+                            if(ctx.datasetIndex===1) return '+R$ '+v.toFixed(1);
+                            return '-R$ '+v.toFixed(1);
+                        },
+                        display:function(ctx){return ctx.datasetIndex!==0 && ctx.raw!==0;}
+                    }
+                },
+                scales:{
+                    x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:9},maxRotation:0},stacked:true},
+                    y:{grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v+' mi';}},stacked:true}
+                }
+            }
+        });
+    })();
+
+    // C12 — Projeção 5 safras
+    new Chart(document.getElementById('c12'),{
+        type:'bar',
+        data:{
+            labels:['24/25\nReal','25/26','26/27','27/28','28/29','29/30'],
+            datasets:[
+                {label:'Lucro Líquido (R$ mi)',data:[18.8,22.4,26.2,30.8,34.6,40.2],backgroundColor:['rgba(249,168,37,0.5)','rgba(0,230,118,0.3)','rgba(0,230,118,0.35)','rgba(0,230,118,0.4)','rgba(0,230,118,0.45)','rgba(0,230,118,0.55)'],borderColor:['#F9A825','#00E676','#00E676','#00E676','#00E676','#00E676'],borderWidth:2,borderRadius:8},
+                {label:'Margem Líquida (%)',data:[12.4,13.7,15.2,16.7,17.6,19.1],type:'line',borderColor:'#40C4FF',backgroundColor:'transparent',borderWidth:3,pointRadius:6,pointBackgroundColor:'#40C4FF',tension:0.3,yAxisID:'y1'}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{
+                legend:{position:'top',labels:{color:tc,font:ft,usePointStyle:true}},
+                datalabels:{
+                    anchor:'end',align:'top',color:'#E8F5E9',font:{weight:'bold',size:11,family:'Inter'},
+                    formatter:function(v,ctx){return ctx.datasetIndex===0?'R$ '+v.toFixed(1):'';},
+                    display:function(ctx){return ctx.datasetIndex===0;}
+                }
+            },
+            scales:{
+                x:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:10},maxRotation:0}},
+                y:{position:'left',grid:{color:gc},ticks:{color:tc,font:ft,callback:function(v){return 'R$ '+v+' mi';}},min:0,max:50},
+                y1:{position:'right',grid:{display:false},ticks:{color:'#40C4FF',font:ft,callback:function(v){return v+'%';}},min:10,max:22}
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

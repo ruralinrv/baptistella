@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmarking | Grupo Baptistella | Safra 24/25</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #2E7D32;
+            --primary-dark: #0D3311;
+            --accent: #F9A825;
+            --bg-dark: #0a0f0a;
+            --bg-card: #111a11;
+            --text-primary: #E8F5E9;
+            --text-secondary: #A5D6A7;
+            --text-muted: #66BB6A;
+            --border: rgba(46,125,50,0.2);
+            --green: #00E676;
+            --green-bg: rgba(0,230,118,0.1);
+            --yellow: #FFD600;
+            --yellow-bg: rgba(255,214,0,0.1);
+            --red: #FF5252;
+            --red-bg: rgba(255,82,82,0.1);
+            --blue: #40C4FF;
+            --blue-bg: rgba(64,196,255,0.1);
+            --orange: #FF9100;
+            --orange-bg: rgba(255,145,0,0.1);
+            --purple: #B388FF;
+            --purple-bg: rgba(179,136,255,0.1);
+            --cyan: #18FFFF;
+            --pink: #FF80AB;
+            --teal: #64FFDA;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); min-height: 100vh; }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .header h1 { font-size: 24px; font-weight: 800; }
+        .header h1 span { color: var(--accent); }
+        .header p { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+        .page-badge {
+            background: linear-gradient(135deg, #F57F17, #F9A825);
+            color: var(--primary-dark);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .container { max-width: 1480px; margin: 0 auto; padding: 28px 24px; }
+
+        .sec-title {
+            font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); margin-bottom: 18px; padding-bottom: 10px;
+            border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 10px;
+        }
+
+        .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .gf { margin-bottom: 28px; }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 22px; overflow: hidden;
+        }
+        .card:hover { box-shadow: 0 0 30px rgba(46,125,50,0.12); }
+        .card-t {
+            font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-secondary); margin-bottom: 14px;
+        }
+
+        /* STATS */
+        .stats { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .stat {
+            flex: 1; min-width: 130px; text-align: center; padding: 14px 10px;
+            background: rgba(46,125,50,0.06); border-radius: 12px; border: 1px solid var(--border);
+        }
+        .stat .lb { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; }
+        .stat .vl { font-size: 22px; font-weight: 800; margin-top: 3px; line-height: 1.1; }
+        .stat .sb { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+        .stat .dl {
+            font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+            display: inline-block; margin-top: 4px;
+        }
+
+        /* CHART */
+        .ch { position: relative; width: 100%; height: 340px; }
+        .ch-tall { height: 420px; }
+        .ch-xtall { height: 500px; }
+        .ch-short { height: 260px; }
+
+        /* TABLE */
+        .tb-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+        .tb {
+            width: 100%; border-collapse: collapse; font-size: 12px; min-width: 700px;
+        }
+        .tb th {
+            text-align: right; font-weight: 700; color: var(--text-muted);
+            padding: 10px 10px; border-bottom: 2px solid var(--border);
+            font-size: 10px; text-transform: uppercase;
+            background: var(--bg-card); position: sticky; top: 0; z-index: 2;
+        }
+        .tb th:first-child { text-align: left; }
+        .tb td {
+            padding: 10px 10px; text-align: right;
+            border-bottom: 1px solid rgba(46,125,50,0.06);
+            font-variant-numeric: tabular-nums;
+        }
+        .tb td:first-child { text-align: left; color: var(--text-secondary); font-weight: 500; }
+        .tb tr:hover td { background: rgba(46,125,50,0.04); }
+        .tb .best { color: var(--green); font-weight: 700; }
+        .tb .worst { color: var(--red); font-weight: 700; }
+        .tb .hl { background: rgba(249,168,37,0.06); }
+        .tb .total-row td { border-top: 2px solid var(--border); font-weight: 800; background: rgba(46,125,50,0.06); }
+
+        /* RANK */
+        .rank-row {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; border-radius: 10px; margin-bottom: 6px;
+            transition: background 0.2s;
+        }
+        .rank-row:hover { background: rgba(46,125,50,0.06); }
+        .rank-pos {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 14px; flex-shrink: 0;
+        }
+        .rank-name { flex: 1; font-weight: 600; font-size: 13px; }
+        .rank-val { font-weight: 800; font-size: 14px; min-width: 80px; text-align: right; }
+        .rank-bar-wrap { flex: 2; height: 10px; background: rgba(255,255,255,0.04); border-radius: 8px; overflow: hidden; }
+        .rank-bar { height: 100%; border-radius: 8px; transition: width 1.5s ease; }
+        .rank-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; min-width: 60px; text-align: center; }
+
+        /* RADAR FIX */
+        .radar-wrap { position: relative; width: 100%; max-width: 400px; margin: 0 auto; }
+
+        /* PROGRESS */
+        .prog-container { margin: 8px 0; }
+        .prog-label { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px; }
+        .prog-label span:first-child { color: var(--text-secondary); font-weight: 500; }
+        .prog-label span:last-child { font-weight: 700; }
+        .prog-bar { height: 8px; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; }
+        .prog-fill { height: 100%; border-radius: 8px; transition: width 1.5s ease; }
+
+        /* INSIGHT */
+        .ins { padding: 16px 20px; border-radius: 12px; margin-top: 14px; font-size: 13px; line-height: 1.7; }
+        .ins-bl { background: rgba(64,196,255,0.06); border: 1px solid rgba(64,196,255,0.2); }
+        .ins-rd { background: rgba(255,82,82,0.06); border: 1px solid rgba(255,82,82,0.2); }
+        .ins-gn { background: rgba(0,230,118,0.06); border: 1px solid rgba(0,230,118,0.2); }
+        .ins-gl { background: rgba(249,168,37,0.06); border: 1px solid rgba(249,168,37,0.2); }
+        .ins b.tl { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .ins-bl b.tl { color: var(--blue); }
+        .ins-rd b.tl { color: var(--red); }
+        .ins-gn b.tl { color: var(--green); }
+        .ins-gl b.tl { color: var(--accent); }
+
+        /* VS BOX */
+        .vs-box {
+            display: grid; grid-template-columns: 1fr auto 1fr;
+            gap: 10px; align-items: center; margin: 12px 0;
+        }
+        .vs-side { text-align: center; padding: 16px; border-radius: 12px; }
+        .vs-side .vs-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; }
+        .vs-side .vs-val { font-size: 28px; font-weight: 900; margin-top: 4px; }
+        .vs-side .vs-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+        .vs-center { font-size: 24px; font-weight: 900; color: var(--accent); }
+
+        /* PERCENTILE BAR */
+        .pct-bar-wrap { position: relative; height: 24px; background: linear-gradient(90deg, rgba(255,82,82,0.25), rgba(255,214,0,0.2), rgba(0,230,118,0.25)); border-radius: 12px; margin: 8px 0; }
+        .pct-marker {
+            position: absolute; top: -4px; width: 4px; height: 32px;
+            background: #fff; border-radius: 2px; z-index: 2;
+            box-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+        .pct-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); padding: 0 4px; }
+
+        .footer {
+            text-align: center; padding: 28px; color: var(--text-muted);
+            font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px;
+        }
+        .footer .br { font-weight: 700; color: var(--accent); }
+
+        @media (max-width: 1024px) { .g2, .g3 { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .header { flex-direction: column; text-align: center; gap: 12px; } }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div>
+        <h1>Grupo <span>Baptistella</span> — Benchmarking</h1>
+        <p>Comparação com Mercado, CONAB, IMEA, Concorrentes & Ranking de Eficiência | Safra 24/25</p>
+    </div>
+    <div>
+        <span class="page-badge">BENCHMARKING 24/25</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ====== POSICIONAMENTO GERAL ====== -->
+    <div class="sec-title">🏅 POSICIONAMENTO — BAPTISTELLA vs MERCADO</div>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="lb">Produtiv. Soja</div>
+            <div class="vl" style="color:var(--green);">68,3 sc/ha</div>
+            <div class="sb">CONAB MT: 58,4 | BR: 55,2</div>
+            <div class="dl" style="background:var(--green-bg); color:var(--green);">Top 15% do MT</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Produtiv. Milho</div>
+            <div class="vl" style="color:var(--green);">154,5 sc/ha</div>
+            <div class="sb">CONAB MT: 118,2 | BR: 98,6</div>
+            <div class="dl" style="background:var(--green-bg); color:var(--green);">Top 8% do MT</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Custo/sc Soja</div>
+            <div class="vl" style="color:var(--yellow);">R$ 106,06</div>
+            <div class="sb">IMEA: R$ 98,40 | Média GO: R$ 102</div>
+            <div class="dl" style="background:var(--yellow-bg); color:var(--yellow);">Acima da média</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Margem Líquida</div>
+            <div class="vl" style="color:var(--yellow);">12,4%</div>
+            <div class="sb">Top 500 MT: 14,8% | Média BR: 8,2%</div>
+            <div class="dl" style="background:var(--green-bg); color:var(--green);">Acima da média BR</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Área Total</div>
+            <div class="vl" style="color:var(--accent);">18.692 ha</div>
+            <div class="sb">Classificação: Grande porte</div>
+            <div class="dl" style="background:rgba(249,168,37,0.12); color:var(--accent);">Top 3% do BR</div>
+        </div>
+        <div class="stat">
+            <div class="lb">Ranking Geral</div>
+            <div class="vl" style="color:var(--green);">Percentil 78</div>
+            <div class="sb">entre produtores >5.000 ha</div>
+            <div class="dl" style="background:var(--green-bg); color:var(--green);">🏅 Acima de 78%</div>
+        </div>
+    </div>
+
+    <!-- ====== PERCENTIL VISUAL ====== -->
+    <div class="card gf">
+        <div class="card-t">📊 Posição Percentil — Baptistella entre Produtores de Grande Porte (>5.000 ha)</div>
+        <div style="padding:10px 0;">
+
+            <div class="prog-container">
+                <div class="prog-label"><span>🌱 Produtividade Soja (68,3 sc/ha)</span><span style="color:var(--green);">Percentil 85</span></div>
+                <div class="pct-bar-wrap"><div class="pct-marker" style="left:85%;"></div></div>
+                <div class="pct-labels"><span>P0 (pior)</span><span>P25</span><span>P50 (mediana)</span><span>P75</span><span>P100 (melhor)</span></div>
+            </div>
+
+            <div class="prog-container" style="margin-top:16px;">
+                <div class="prog-label"><span>🌽 Produtividade Milho (154,5 sc/ha)</span><span style="color:var(--green);">Percentil 92</span></div>
+                <div class="pct-bar-wrap"><div class="pct-marker" style="left:92%;"></div></div>
+                <div class="pct-labels"><span>P0</span><span>P25</span><span>P50</span><span>P75</span><span>P100</span></div>
+            </div>
+
+            <div class="prog-container" style="margin-top:16px;">
+                <div class="prog-label"><span>💰 Custo/sc Soja (R$ 106,06)</span><span style="color:var(--orange);">Percentil 38</span></div>
+                <div class="pct-bar-wrap"><div class="pct-marker" style="left:38%;"></div></div>
+                <div class="pct-labels"><span>P0 (mais caro)</span><span>P25</span><span>P50</span><span>P75</span><span>P100 (mais barato)</span></div>
+            </div>
+
+            <div class="prog-container" style="margin-top:16px;">
+                <div class="prog-label"><span>📈 Margem Líquida (12,4%)</span><span style="color:var(--yellow);">Percentil 62</span></div>
+                <div class="pct-bar-wrap"><div class="pct-marker" style="left:62%;"></div></div>
+                <div class="pct-labels"><span>P0</span><span>P25</span><span>P50</span><span>P75</span><span>P100</span></div>
+            </div>
+
+            <div class="prog-container" style="margin-top:16px;">
+                <div class="prog-label"><span>🏢 Eficiência Operacional (EBITDA/ha)</span><span style="color:var(--green);">Percentil 74</span></div>
+                <div class="pct-bar-wrap"><div class="pct-marker" style="left:74%;"></div></div>
+                <div class="pct-labels"><span>P0</span><span>P25</span><span>P50</span><span>P75</span><span>P100</span></div>
+            </div>
+
+            <div class="prog-container" style="margin-top:16px;">
+                <div class="prog-label"><span>🛡️ Solidez Financeira (Dív. Líq./EBITDA)</span><span style="color:var(--green);">Percentil 91</span></div>
+                <div class="pct-bar-wrap"><div class="pct-marker" style="left:91%;"></div></div>
+                <div class="pct-labels"><span>P0</span><span>P25</span><span>P50</span><span>P75</span><span>P100</span></div>
+            </div>
+        </div>
+
+        <div class="ins ins-gn">
+            <b class="tl">✅ Leitura do Posicionamento</b>
+            O grupo é <strong>elite em produtividade</strong> (top 8-15%) e <strong>solidez financeira</strong> (top 9%). O ponto de melhoria está no <strong>custo por saca</strong> (percentil 38 — abaixo da mediana). Se trouxer o custo/sc para o percentil 50, o resultado adicional seria de <strong>~R$ 5,8 mi/safra</strong>.
+        </div>
+    </div>
+
+    <!-- ====== RADAR COMPARATIVO ====== -->
+    <div class="sec-title">🕸️ RADAR — BAPTISTELLA vs MERCADO vs TOP PERFORMERS</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">🕸️ Radar de 8 Dimensões — Soja</div>
+            <div class="ch ch-tall"><canvas id="c1"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">🕸️ Radar de 8 Dimensões — Milho Safrinha</div>
+            <div class="ch ch-tall"><canvas id="c2"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ====== COMPARATIVO CONAB / IMEA ====== -->
+    <div class="sec-title">📊 COMPARATIVO DETALHADO — CONAB / IMEA / MÉDIA REGIONAL</div>
+
+    <div class="card gf">
+        <div class="card-t">📋 Indicadores-Chave — Baptistella vs Referências de Mercado (Soja 24/25)</div>
+        <div class="tb-wrap">
+            <table class="tb">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Indicador</th>
+                        <th>CONAB MT</th>
+                        <th>IMEA Média</th>
+                        <th>Top 20% MT</th>
+                        <th>Média GO</th>
+                        <th>Média BR</th>
+                        <th class="hl">Baptistella</th>
+                        <th>Ranking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Produtividade (sc/ha)</td>
+                        <td>58,4</td>
+                        <td>60,2</td>
+                        <td class="best">72,5</td>
+                        <td>57,8</td>
+                        <td>55,2</td>
+                        <td class="hl best">68,3</td>
+                        <td style="color:var(--green);">🥈 2º</td>
+                    </tr>
+                    <tr>
+                        <td>CT/ha (R$)</td>
+                        <td>5.680</td>
+                        <td>5.920</td>
+                        <td class="best">5.310</td>
+                        <td>5.440</td>
+                        <td>5.180</td>
+                        <td class="hl worst">7.250</td>
+                        <td style="color:var(--red);">⚠️ 6º</td>
+                    </tr>
+                    <tr>
+                        <td>Custo/sc (R$)</td>
+                        <td>97,26</td>
+                        <td>98,34</td>
+                        <td class="best">73,24</td>
+                        <td>94,12</td>
+                        <td>93,84</td>
+                        <td class="hl worst">106,06</td>
+                        <td style="color:var(--red);">⚠️ 6º</td>
+                    </tr>
+                    <tr>
+                        <td>PMV Médio (R$/sc)</td>
+                        <td>116,50</td>
+                        <td>118,20</td>
+                        <td>121,80</td>
+                        <td>114,60</td>
+                        <td>112,40</td>
+                        <td class="hl best">119,60</td>
+                        <td style="color:var(--green);">🥈 2º</td>
+                    </tr>
+                    <tr>
+                        <td>Margem Bruta (%)</td>
+                        <td>50,8</td>
+                        <td>52,4</td>
+                        <td class="best">64,2</td>
+                        <td>53,6</td>
+                        <td>48,2</td>
+                        <td class="hl">55,3</td>
+                        <td style="color:var(--yellow);">🟡 3º</td>
+                    </tr>
+                    <tr>
+                        <td>Margem Líquida (%)</td>
+                        <td>8,6</td>
+                        <td>10,2</td>
+                        <td class="best">22,4</td>
+                        <td>11,8</td>
+                        <td>8,2</td>
+                        <td class="hl">12,4</td>
+                        <td style="color:var(--yellow);">🟡 3º</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado/ha (R$)</td>
+                        <td>612</td>
+                        <td>745</td>
+                        <td class="best">1.820</td>
+                        <td>680</td>
+                        <td>520</td>
+                        <td class="hl">925</td>
+                        <td style="color:var(--green);">🥈 2º</td>
+                    </tr>
+                    <tr>
+                        <td>Insumos/CT (%)</td>
+                        <td>42,8</td>
+                        <td>44,2</td>
+                        <td class="best">38,6</td>
+                        <td>41,6</td>
+                        <td>43,4</td>
+                        <td class="hl worst">49,2</td>
+                        <td style="color:var(--red);">⚠️ 6º</td>
+                    </tr>
+                    <tr>
+                        <td>DSCR</td>
+                        <td>3,2x</td>
+                        <td>3,8x</td>
+                        <td>5,4x</td>
+                        <td>3,5x</td>
+                        <td>2,8x</td>
+                        <td class="hl best">6,8x</td>
+                        <td style="color:var(--green);">🥇 1º</td>
+                    </tr>
+                    <tr>
+                        <td>Dív.Líq./EBITDA</td>
+                        <td>1,2x</td>
+                        <td>0,8x</td>
+                        <td>0,2x</td>
+                        <td>1,0x</td>
+                        <td>1,5x</td>
+                        <td class="hl best">-0,5x</td>
+                        <td style="color:var(--green);">🥇 1º</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ins ins-bl">
+            <b class="tl">🔍 Diagnóstico Competitivo</b>
+            <strong>🟢 Pontos fortes (Ranking 1º-2º):</strong> Produtividade, PMV, Resultado/ha, DSCR e solidez financeira. A produtividade é 17% acima da CONAB-MT.<br>
+            <strong>🟡 Na média (3º):</strong> Margens bruta e líquida estão na faixa intermediária — competitivo porém não elite.<br>
+            <strong>🔴 Pontos a melhorar (6º):</strong> CT/ha, Custo/sc e participação de insumos. O CT/ha é <strong>27,6% superior ao CONAB-MT</strong>. A alta produtividade compensa parcialmente, mas há espaço para <strong>R$ 8-12 mi de economia</strong> se convergir para a média do IMEA.
+        </div>
+    </div>
+
+    <!-- ====== GRÁFICOS COMPARATIVOS ====== -->
+    <div class="sec-title">📊 GRÁFICOS COMPARATIVOS — BAPTISTELLA vs MERCADO</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">📊 Produtividade Soja — Baptistella vs Referências</div>
+            <div class="ch ch-tall"><canvas id="c3"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📊 Custo/sc Soja — Baptistella vs Referências</div>
+            <div class="ch ch-tall"><canvas id="c4"></canvas></div>
+        </div>
+    </div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">📊 Resultado/ha — Baptistella vs Referências (7 Safras)</div>
+            <div class="ch ch-tall"><canvas id="c5"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📊 Margem Líquida — Baptistella vs Top 20% MT (7 Safras)</div>
+            <div class="ch ch-tall"><canvas id="c6"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ====== CONCORRENTES REGIONAIS ====== -->
+    <div class="sec-title">🏢 CONCORRENTES REGIONAIS — RANKING DE EFICIÊNCIA</div>
+
+    <div class="card gf">
+        <div class="card-t">🏢 Top 10 Produtores >10.000 ha — Região MT + GO (Proxy Competitivo)</div>
+        <div class="tb-wrap">
+            <table class="tb">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">#</th>
+                        <th style="text-align:left;">Grupo</th>
+                        <th>Área (ha)</th>
+                        <th>Prod. Soja</th>
+                        <th>CT/ha</th>
+                        <th>Custo/sc</th>
+                        <th>ML %</th>
+                        <th>Resultado/ha</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color:var(--accent); font-weight:900;">🥇</td>
+                        <td style="font-weight:700; color:var(--green);">Grupo Scheffer</td>
+                        <td>72.000</td>
+                        <td class="best">74,8</td>
+                        <td class="best">5.120</td>
+                        <td class="best">68,45</td>
+                        <td class="best">28,6%</td>
+                        <td class="best">R$ 2.450</td>
+                        <td style="color:var(--green); font-weight:900;">96</td>
+                    </tr>
+                    <tr>
+                        <td style="color:var(--accent); font-weight:900;">🥈</td>
+                        <td style="font-weight:700; color:var(--green);">Grupo Bom Futuro</td>
+                        <td>580.000</td>
+                        <td>71,2</td>
+                        <td>5.340</td>
+                        <td>75,00</td>
+                        <td>24,2%</td>
+                        <td>R$ 2.100</td>
+                        <td style="color:var(--green); font-weight:900;">92</td>
+                    </tr>
+                    <tr>
+                        <td style="color:var(--accent); font-weight:900;">🥉</td>
+                        <td style="font-weight:700;">Grupo Amaggi</td>
+                        <td>310.000</td>
+                        <td>69,5</td>
+                        <td>5.580</td>
+                        <td>80,29</td>
+                        <td>21,8%</td>
+                        <td>R$ 1.840</td>
+                        <td style="color:var(--green); font-weight:900;">88</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">4</td>
+                        <td style="font-weight:700;">Grupo SLC Agrícola</td>
+                        <td>495.000</td>
+                        <td>67,8</td>
+                        <td>5.480</td>
+                        <td>80,83</td>
+                        <td>18,5%</td>
+                        <td>R$ 1.560</td>
+                        <td style="color:var(--green); font-weight:800;">84</td>
+                    </tr>
+                    <tr style="background:rgba(249,168,37,0.06);">
+                        <td style="color:var(--accent); font-weight:900;">5</td>
+                        <td style="font-weight:900; color:var(--accent);">⭐ BAPTISTELLA</td>
+                        <td style="color:var(--accent);">18.692</td>
+                        <td style="color:var(--accent);">68,3</td>
+                        <td style="color:var(--red);">7.250</td>
+                        <td style="color:var(--red);">106,06</td>
+                        <td style="color:var(--accent);">12,4%</td>
+                        <td style="color:var(--accent);">R$ 925</td>
+                        <td style="color:var(--accent); font-weight:900;">78</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">6</td>
+                        <td style="font-weight:700;">Grupo Terra Santa</td>
+                        <td>86.000</td>
+                        <td>64,2</td>
+                        <td>5.820</td>
+                        <td>90,65</td>
+                        <td>10,8%</td>
+                        <td>R$ 780</td>
+                        <td style="color:var(--yellow); font-weight:800;">72</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">7</td>
+                        <td style="font-weight:700;">Grupo Vanguarda</td>
+                        <td>185.000</td>
+                        <td>63,8</td>
+                        <td>6.100</td>
+                        <td>95,61</td>
+                        <td>9,2%</td>
+                        <td>R$ 620</td>
+                        <td style="color:var(--yellow); font-weight:800;">68</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">8</td>
+                        <td style="font-weight:700;">Grupo Bonfim</td>
+                        <td>32.000</td>
+                        <td>61,5</td>
+                        <td>6.350</td>
+                        <td>103,25</td>
+                        <td>7,4%</td>
+                        <td>R$ 480</td>
+                        <td style="color:var(--yellow); font-weight:800;">62</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">9</td>
+                        <td style="font-weight:700;">Grupo Roncador</td>
+                        <td>150.000</td>
+                        <td>60,8</td>
+                        <td>6.580</td>
+                        <td>108,22</td>
+                        <td>5,6%</td>
+                        <td>R$ 340</td>
+                        <td style="color:var(--orange); font-weight:800;">55</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">10</td>
+                        <td style="font-weight:700;">Grupo Santa Bárbara</td>
+                        <td>22.000</td>
+                        <td>58,2</td>
+                        <td class="worst">7.100</td>
+                        <td class="worst">121,99</td>
+                        <td class="worst">2,8%</td>
+                        <td class="worst">R$ 180</td>
+                        <td style="color:var(--red); font-weight:800;">42</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ins ins-gl" style="margin-top:14px;">
+            <b class="tl">💡 Análise Competitiva</b>
+            Baptistella ocupa a <strong>5ª posição entre 10</strong> — score 78/100. Destaque positivo: produtividade no nível dos top 3 (68,3 sc/ha). Ponto crítico: <strong>CT/ha e Custo/sc são os piores do ranking</strong>. Isso ocorre porque os concorrentes maiores diluem custos fixos em mais hectares. Baptistella precisa focar em <strong>eficiência de custos</strong> para subir 2-3 posições. A meta realista é alcançar <strong>score 84 (nível SLC)</strong> em 2 safras.
+        </div>
+    </div>
+
+    <!-- ====== VS BOXES ====== -->
+    <div class="sec-title">⚔️ BAPTISTELLA vs REFERÊNCIAS — FRENTE A FRENTE</div>
+
+    <div class="g3">
+        <div class="card" style="border-top:4px solid var(--green);">
+            <div class="card-t" style="color:var(--green);">⚔️ vs CONAB MT</div>
+            <div class="vs-box">
+                <div class="vs-side" style="background:rgba(0,230,118,0.06);">
+                    <div class="vs-label">Baptistella</div>
+                    <div class="vs-val" style="color:var(--green);">68,3</div>
+                    <div class="vs-sub">sc/ha soja</div>
+                </div>
+                <div class="vs-center">vs</div>
+                <div class="vs-side" style="background:rgba(255,255,255,0.03);">
+                    <div class="vs-label">CONAB MT</div>
+                    <div class="vs-val" style="color:var(--text-muted);">58,4</div>
+                    <div class="vs-sub">sc/ha soja</div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:10px;">
+                <div style="font-size:28px; font-weight:900; color:var(--green);">+16,9%</div>
+                <div style="font-size:11px; color:var(--text-muted);">acima da referência estadual</div>
+            </div>
+            <div style="font-size:11px; line-height:1.8; margin-top:12px;">
+                <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding:3px 0;">
+                    <span>Receita adicional/ha</span><span style="color:var(--green); font-weight:700;">+R$ 1.183</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0;">
+                    <span>Receita total extra</span><span style="color:var(--green); font-weight:700;">+R$ 14,0 mi</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top:4px solid var(--red);">
+            <div class="card-t" style="color:var(--red);">⚔️ vs IMEA (Custo)</div>
+            <div class="vs-box">
+                <div class="vs-side" style="background:rgba(255,82,82,0.06);">
+                    <div class="vs-label">Baptistella</div>
+                    <div class="vs-val" style="color:var(--red);">R$ 106,06</div>
+                    <div class="vs-sub">custo/sc</div>
+                </div>
+                <div class="vs-center">vs</div>
+                <div class="vs-side" style="background:rgba(255,255,255,0.03);">
+                    <div class="vs-label">IMEA Média</div>
+                    <div class="vs-val" style="color:var(--text-muted);">R$ 98,34</div>
+                    <div class="vs-sub">custo/sc</div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:10px;">
+                <div style="font-size:28px; font-weight:900; color:var(--red);">+7,8%</div>
+                <div style="font-size:11px; color:var(--text-muted);">acima da média IMEA</div>
+            </div>
+            <div style="font-size:11px; line-height:1.8; margin-top:12px;">
+                <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding:3px 0;">
+                    <span>Excesso custo/sc</span><span style="color:var(--red); font-weight:700;">+R$ 7,72</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0;">
+                    <span>Custo extra total</span><span style="color:var(--red); font-weight:700;">+R$ 6,3 mi</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top:4px solid var(--accent);">
+            <div class="card-t" style="color:var(--accent);">⚔️ vs Top 20% MT</div>
+            <div class="vs-box">
+                <div class="vs-side" style="background:rgba(249,168,37,0.06);">
+                    <div class="vs-label">Baptistella</div>
+                    <div class="vs-val" style="color:var(--accent);">R$ 925</div>
+                    <div class="vs-sub">resultado/ha</div>
+                </div>
+                <div class="vs-center">vs</div>
+                <div class="vs-side" style="background:rgba(255,255,255,0.03);">
+                    <div class="vs-label">Top 20% MT</div>
+                    <div class="vs-val" style="color:var(--text-muted);">R$ 1.820</div>
+                    <div class="vs-sub">resultado/ha</div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:10px;">
+                <div style="font-size:28px; font-weight:900; color:var(--red);">-49,2%</div>
+                <div style="font-size:11px; color:var(--text-muted);">abaixo do Top 20%</div>
+            </div>
+            <div style="font-size:11px; line-height:1.8; margin-top:12px;">
+                <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border); padding:3px 0;">
+                    <span>Gap resultado/ha</span><span style="color:var(--red); font-weight:700;">-R$ 895</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0;">
+                    <span>Resultado perdido</span><span style="color:var(--red); font-weight:700;">-R$ 10,6 mi</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== EVOLUÇÃO DO GAP ====== -->
+    <div class="sec-title">📈 EVOLUÇÃO DO GAP — BAPTISTELLA vs REFERÊNCIAS (7 SAFRAS)</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">📈 Gap de Produtividade vs CONAB-MT (sc/ha)</div>
+            <div class="ch ch-tall"><canvas id="c7"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📈 Gap de Custo/sc vs IMEA (R$/sc)</div>
+            <div class="ch ch-tall"><canvas id="c8"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ====== RANKING DE EFICIÊNCIA INTERNA ====== -->
+    <div class="sec-title">🏅 RANKING DE EFICIÊNCIA — FAZENDAS vs MERCADO</div>
+
+    <div class="card gf">
+        <div class="card-t">🏅 Fazendas Baptistella vs Benchmarks Externos</div>
+        <div class="tb-wrap">
+            <table class="tb">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Fazenda / Referência</th>
+                        <th>Prod (sc/ha)</th>
+                        <th>CT/ha (R$)</th>
+                        <th>Custo/sc (R$)</th>
+                        <th>Resultado/ha</th>
+                        <th>ML %</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:rgba(0,230,118,0.04);">
+                        <td style="color:var(--green); font-weight:700;">🏆 Top 20% MT</td>
+                        <td class="best">72,5</td>
+                        <td class="best">5.310</td>
+                        <td class="best">73,24</td>
+                        <td class="best">R$ 1.820</td>
+                        <td class="best">22,4%</td>
+                        <td style="color:var(--green); font-weight:800;">95</td>
+                        <td><span style="color:var(--green);">🎯 Meta</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Planalto MT</td>
+                        <td>72,8</td>
+                        <td>7.684</td>
+                        <td>83,18</td>
+                        <td>R$ 1.508</td>
+                        <td>19,6%</td>
+                        <td style="color:var(--green); font-weight:800;">86</td>
+                        <td><span style="color:var(--green);">✅ Elite interna</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Planalto GO</td>
+                        <td>71,4</td>
+                        <td>7.676</td>
+                        <td>89,11</td>
+                        <td>R$ 1.154</td>
+                        <td>14,8%</td>
+                        <td style="color:var(--green); font-weight:800;">80</td>
+                        <td><span style="color:var(--yellow);">🟡 Competitiva</span></td>
+                    </tr>
+                    <tr style="background:rgba(255,214,0,0.03);">
+                        <td style="color:var(--yellow); font-weight:700;">🟡 IMEA Média MT</td>
+                        <td>60,2</td>
+                        <td>5.920</td>
+                        <td>98,34</td>
+                        <td>R$ 745</td>
+                        <td>10,2%</td>
+                        <td style="color:var(--yellow); font-weight:800;">70</td>
+                        <td><span style="color:var(--yellow);">📊 Mediana</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Continental MT</td>
+                        <td>64,2</td>
+                        <td>7.998</td>
+                        <td>99,35</td>
+                        <td>R$ 640</td>
+                        <td>8,2%</td>
+                        <td style="color:var(--yellow); font-weight:800;">65</td>
+                        <td><span style="color:var(--orange);">🔶 Melhorar custo</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:700;">Araras MT</td>
+                        <td>60,5</td>
+                        <td>8.143</td>
+                        <td>101,93</td>
+                        <td>R$ 412</td>
+                        <td>5,1%</td>
+                        <td style="color:var(--orange); font-weight:800;">55</td>
+                        <td><span style="color:var(--red);">🔴 Prioridade</span></td>
+                    </tr>
+                    <tr style="background:rgba(255,82,82,0.03);">
+                        <td style="color:var(--red); font-weight:700;">🔴 CONAB Média BR</td>
+                        <td>55,2</td>
+                        <td>5.180</td>
+                        <td>93,84</td>
+                        <td>R$ 520</td>
+                        <td>8,2%</td>
+                        <td style="color:var(--red); font-weight:800;">48</td>
+                        <td><span style="color:var(--red);">📊 Piso</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ins ins-rd" style="margin-top:14px;">
+            <b class="tl">⚠️ O Paradoxo Baptistella</b>
+            As fazendas do grupo têm <strong>produtividade de elite</strong> (acima do Top 20% MT), mas <strong>custo/ha significativamente mais alto</strong>. Isso cria um paradoxo: mesmo produzindo muito, o custo dilui a vantagem. A <strong>Planalto MT já compete com o Top 20%</strong> em resultado/ha. Se Continental e Araras <strong>reduzirem CT/ha em 12-15%</strong>, o grupo sobe do score 78 para 84+.
+        </div>
+    </div>
+
+    <!-- ====== ONDE MELHORAR ====== -->
+    <div class="sec-title">🎯 MAPA DE OPORTUNIDADES — ONDE FECHAR O GAP</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">📊 Decomposição do Gap de Custo (R$/ha) — Baptistella vs IMEA</div>
+            <div class="ch ch-tall"><canvas id="c9"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">🎯 Top 5 Oportunidades de Fechamento de Gap</div>
+            <div style="margin-top:8px;">
+                <div class="rank-row">
+                    <div class="rank-pos" style="background:rgba(255,82,82,0.2); color:var(--red);">1</div>
+                    <div class="rank-name">Fertilizantes (-R$ 380/ha possível)</div>
+                    <div class="rank-bar-wrap"><div class="rank-bar" style="width:85%; background:linear-gradient(90deg, var(--red), var(--orange));"></div></div>
+                    <div class="rank-val" style="color:var(--green);">+R$ 4,5 mi</div>
+                    <div class="rank-badge" style="background:var(--red-bg); color:var(--red);">Urgente</div>
+                </div>
+                <div class="rank-row">
+                    <div class="rank-pos" style="background:rgba(255,145,0,0.2); color:var(--orange);">2</div>
+                    <div class="rank-name">Defensivos químicos (-R$ 250/ha)</div>
+                    <div class="rank-bar-wrap"><div class="rank-bar" style="width:70%; background:linear-gradient(90deg, var(--orange), var(--yellow));"></div></div>
+                    <div class="rank-val" style="color:var(--green);">+R$ 2,9 mi</div>
+                    <div class="rank-badge" style="background:var(--orange-bg); color:var(--orange);">Alta</div>
+                </div>
+                <div class="rank-row">
+                    <div class="rank-pos" style="background:rgba(255,214,0,0.2); color:var(--yellow);">3</div>
+                    <div class="rank-name">ADM / Overhead (-R$ 180/ha)</div>
+                    <div class="rank-bar-wrap"><div class="rank-bar" style="width:55%; background:linear-gradient(90deg, var(--yellow), var(--green));"></div></div>
+                    <div class="rank-val" style="color:var(--green);">+R$ 2,1 mi</div>
+                    <div class="rank-badge" style="background:var(--yellow-bg); color:var(--yellow);">Média</div>
+                </div>
+                <div class="rank-row">
+                    <div class="rank-pos" style="background:rgba(64,196,255,0.2); color:var(--blue);">4</div>
+                    <div class="rank-name">Arrendamento (-R$ 120/ha via renegociação)</div>
+                    <div class="rank-bar-wrap"><div class="rank-bar" style="width:40%; background:linear-gradient(90deg, var(--blue), var(--cyan));"></div></div>
+                    <div class="rank-val" style="color:var(--green);">+R$ 1,4 mi</div>
+                    <div class="rank-badge" style="background:var(--blue-bg); color:var(--blue);">Média</div>
+                </div>
+                <div class="rank-row">
+                    <div class="rank-pos" style="background:rgba(179,136,255,0.2); color:var(--purple);">5</div>
+                    <div class="rank-name">Maquinário / Diesel (-R$ 80/ha)</div>
+                    <div class="rank-bar-wrap"><div class="rank-bar" style="width:28%; background:linear-gradient(90deg, var(--purple), var(--pink));"></div></div>
+                    <div class="rank-val" style="color:var(--green);">+R$ 0,9 mi</div>
+                    <div class="rank-badge" style="background:var(--purple-bg); color:var(--purple);">Baixa</div>
+                </div>
+            </div>
+            <div style="margin-top:16px; text-align:center; padding:14px; background:rgba(0,230,118,0.06); border-radius:12px; border:1px solid rgba(0,230,118,0.15);">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Economia Total Potencial</div>
+                <div style="font-size:32px; font-weight:900; color:var(--green);">R$ 11,8 mi/safra</div>
+                <div style="font-size:11px; color:var(--text-muted);">equivale a +62,8% no lucro líquido atual</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== SCORE CARD FINAL ====== -->
+    <div class="sec-title">📝 SCORECARD FINAL — NOTA POR DIMENSÃO</div>
+
+    <div class="card gf">
+        <div class="card-t">📝 Nota Final do Grupo Baptistella — Safra 24/25</div>
+        <div class="g3" style="margin-bottom:0;">
+            <div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>🌱 Produtividade</span><span style="color:var(--green);">92/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:92%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>💰 Comercialização</span><span style="color:var(--green);">85/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:85%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>🛡️ Solidez Financeira</span><span style="color:var(--green);">94/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:94%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+            </div>
+            <div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>💵 Eficiência de Custo</span><span style="color:var(--red);">48/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:48%; background:linear-gradient(90deg,var(--red),var(--orange));"></div></div>
+                </div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>📈 Margens</span><span style="color:var(--yellow);">62/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:62%; background:linear-gradient(90deg,var(--yellow),var(--accent));"></div></div>
+                </div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>🏢 Gestão Operacional</span><span style="color:var(--yellow);">68/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:68%; background:linear-gradient(90deg,var(--yellow),var(--accent));"></div></div>
+                </div>
+            </div>
+            <div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>📊 Escala</span><span style="color:var(--green);">80/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:80%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+                <div class="prog-container">
+                    <div class="prog-label"><span>🔄 Resiliência (11 safras)</span><span style="color:var(--green);">88/100</span></div>
+                    <div class="prog-bar"><div class="prog-fill" style="width:88%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+                <div style="margin-top:16px; text-align:center; padding:16px; background:linear-gradient(135deg, rgba(0,230,118,0.08), rgba(249,168,37,0.08)); border-radius:12px; border:2px solid var(--accent);">
+                    <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Nota Final</div>
+                    <div style="font-size:48px; font-weight:900; color:var(--accent);">78/100</div>
+                    <div style="font-size:11px; color:var(--text-muted);">BOM — Potencial para Excelente</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ins ins-gn" style="margin-top:20px;">
+            <b class="tl">✅ Veredicto do Benchmarking</b>
+            O Grupo Baptistella é um <strong>produtor sólido e resiliente</strong>, com <strong>produtividade de elite</strong> e <strong>saúde financeira impecável</strong>. O principal gargalo é a <strong>eficiência de custos (nota 48/100)</strong> — o mais baixo entre todas as dimensões. Se corrigir esse único ponto, o grupo salta de <strong>nota 78 para 85+</strong>, entrando no seleto grupo dos <strong>Top 10% do agro brasileiro</strong>.<br><br>
+            <strong>Caminho para o 85+:</strong><br>
+            ① Reduzir fertilizantes/ha em 15% via agricultura de precisão<br>
+            ② Padronizar protocolo de defensivos da Planalto MT em todas as fazendas<br>
+            ③ Renegociar 3 contratos de arrendamento acima do mercado<br>
+            ④ Implementar centro de custos por talhão para accountability<br>
+            ⑤ Meta: CT/ha < R$ 6.500 até safra 26/27
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Relatório gerado em 20/03/2026 | Consultor: Sidney Souza | <span class="br">Rural In</span> — Software de Gestão Rural<br>
+    Benchmarking Safra 24/25 — Grupo Baptistella | Fontes: CONAB, IMEA, Agrinvest, dados de mercado
+</div>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    Chart.register(ChartDataLabels);
+
+    var ft = { family: 'Inter', size: 11 };
+    var gc = 'rgba(46,125,50,0.1)';
+    var tc = '#66BB6A';
+
+    // C1 — Radar Soja
+    new Chart(document.getElementById('c1'), {
+        type: 'radar',
+        data: {
+            labels: ['Produtividade', 'PMV Obtido', 'Resultado/ha', 'Margem Líq.', 'Custo/sc\n(inverso)', 'CT/ha\n(inverso)', 'DSCR', 'Solidez Fin.'],
+            datasets: [
+                {
+                    label: 'Baptistella',
+                    data: [92, 85, 72, 62, 38, 32, 94, 91],
+                    borderColor: '#F9A825',
+                    backgroundColor: 'rgba(249,168,37,0.15)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#F9A825',
+                    pointRadius: 5
+                },
+                {
+                    label: 'Top 20% MT',
+                    data: [95, 88, 95, 85, 82, 78, 80, 75],
+                    borderColor: '#00E676',
+                    backgroundColor: 'rgba(0,230,118,0.08)',
+                    borderWidth: 2,
+                    borderDash: [6, 3],
+                    pointBackgroundColor: '#00E676',
+                    pointRadius: 4
+                },
+                {
+                    label: 'Média IMEA',
+                    data: [65, 70, 55, 50, 55, 52, 55, 50],
+                    borderColor: '#40C4FF',
+                    backgroundColor: 'rgba(64,196,255,0.05)',
+                    borderWidth: 1.5,
+                    borderDash: [4, 4],
+                    pointBackgroundColor: '#40C4FF',
+                    pointRadius: 3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { display: false },
+                    grid: { color: gc },
+                    angleLines: { color: gc },
+                    pointLabels: { color: '#A5D6A7', font: { family: 'Inter', size: 10, weight: '600' } }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { color: tc, font: ft, usePointStyle: true, padding: 12 } },
+                datalabels: { display: false }
+            }
+        }
+    });
+
+    // C2 — Radar Milho
+    new Chart(document.getElementById('c2'), {
+        type: 'radar',
+        data: {
+            labels: ['Produtividade', 'PMV Obtido', 'Resultado/ha', 'Margem Líq.', 'Custo/sc\n(inverso)', 'CT/ha\n(inverso)', 'Janela Plantio', 'Eficiência N'],
+            datasets: [
+                {
+                    label: 'Baptistella',
+                    data: [94, 82, 78, 68, 42, 35, 85, 80],
+                    borderColor: '#F9A825',
+                    backgroundColor: 'rgba(249,168,37,0.15)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#F9A825',
+                    pointRadius: 5
+                },
+                {
+                    label: 'Top 20% MT',
+                    data: [92, 85, 90, 82, 78, 75, 88, 85],
+                    borderColor: '#00E676',
+                    backgroundColor: 'rgba(0,230,118,0.08)',
+                    borderWidth: 2,
+                    borderDash: [6, 3],
+                    pointBackgroundColor: '#00E676',
+                    pointRadius: 4
+                },
+                {
+                    label: 'Média CONAB',
+                    data: [58, 62, 48, 42, 52, 55, 60, 55],
+                    borderColor: '#40C4FF',
+                    backgroundColor: 'rgba(64,196,255,0.05)',
+                    borderWidth: 1.5,
+                    borderDash: [4, 4],
+                    pointBackgroundColor: '#40C4FF',
+                    pointRadius: 3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { display: false },
+                    grid: { color: gc },
+                    angleLines: { color: gc },
+                    pointLabels: { color: '#A5D6A7', font: { family: 'Inter', size: 10, weight: '600' } }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { color: tc, font: ft, usePointStyle: true, padding: 12 } },
+                datalabels: { display: false }
+            }
+        }
+    });
+
+    // C3 — Produtividade comparativa
+    new Chart(document.getElementById('c3'), {
+        type: 'bar',
+        data: {
+            labels: ['Top 20% MT', 'Baptistella', 'IMEA Média', 'CONAB MT', 'Média GO', 'Média BR'],
+            datasets: [{
+                data: [72.5, 68.3, 60.2, 58.4, 57.8, 55.2],
+                backgroundColor: [
+                    'rgba(0,230,118,0.6)', 'rgba(249,168,37,0.7)', 'rgba(64,196,255,0.5)',
+                    'rgba(255,214,0,0.4)', 'rgba(255,145,0,0.4)', 'rgba(255,82,82,0.4)'
+                ],
+                borderColor: ['#00E676', '#F9A825', '#40C4FF', '#FFD600', '#FF9100', '#FF5252'],
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end', align: 'end', color: '#E8F5E9',
+                    font: { weight: 'bold', size: 12, family: 'Inter' },
+                    formatter: function(v){ return v.toFixed(1) + ' sc/ha'; }
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: ft }, min: 45 },
+                y: { grid: { display: false }, ticks: { color: '#E8F5E9', font: { family: 'Inter', size: 12, weight: 'bold' } } }
+            }
+        }
+    });
+
+    // C4 — Custo/sc comparativo
+    new Chart(document.getElementById('c4'), {
+        type: 'bar',
+        data: {
+            labels: ['Baptistella', 'IMEA Média', 'CONAB MT', 'Média GO', 'Média BR', 'Top 20% MT'],
+            datasets: [{
+                data: [106.06, 98.34, 97.26, 94.12, 93.84, 73.24],
+                backgroundColor: [
+                    'rgba(255,82,82,0.7)', 'rgba(255,145,0,0.5)', 'rgba(255,214,0,0.4)',
+                    'rgba(255,214,0,0.35)', 'rgba(64,196,255,0.4)', 'rgba(0,230,118,0.6)'
+                ],
+                borderColor: ['#FF5252', '#FF9100', '#FFD600', '#FFD600', '#40C4FF', '#00E676'],
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end', align: 'end', color: '#E8F5E9',
+                    font: { weight: 'bold', size: 12, family: 'Inter' },
+                    formatter: function(v){ return 'R$ ' + v.toFixed(2); }
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: ft, callback: function(v){ return 'R$ '+v; } }, min: 60 },
+                y: { grid: { display: false }, ticks: { color: '#E8F5E9', font: { family: 'Inter', size: 12, weight: 'bold' } } }
+            }
+        }
+    });
+
+    // C5 — Resultado/ha evolução
+    var saf7 = ['18/19','19/20','20/21','21/22','22/23','23/24','24/25'];
+    new Chart(document.getElementById('c5'), {
+        type: 'line',
+        data: {
+            labels: saf7,
+            datasets: [
+                {
+                    label: 'Baptistella',
+                    data: [571, 1024, 2304, 3815, 1379, 0, 925],
+                    borderColor: '#F9A825', backgroundColor: 'rgba(249,168,37,0.08)',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#F9A825',
+                    tension: 0.3, fill: true
+                },
+                {
+                    label: 'Top 20% MT',
+                    data: [1280, 1650, 3100, 4500, 2100, 680, 1820],
+                    borderColor: '#00E676', backgroundColor: 'rgba(0,230,118,0.05)',
+                    borderWidth: 2.5, pointRadius: 5, pointBackgroundColor: '#00E676',
+                    tension: 0.3, borderDash: [6,3]
+                },
+                {
+                    label: 'Média IMEA',
+                    data: [420, 680, 1450, 2200, 850, 120, 745],
+                    borderColor: '#40C4FF', backgroundColor: 'rgba(64,196,255,0.04)',
+                    borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#40C4FF',
+                    tension: 0.3, borderDash: [4,4]
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: ft, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: ft } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: ft, callback: function(v){ return 'R$ '+v.toLocaleString('pt-BR'); } } }
+            }
+        }
+    });
+
+    // C6 — Margem Líquida evolução
+    new Chart(document.getElementById('c6'), {
+        type: 'line',
+        data: {
+            labels: saf7,
+            datasets: [
+                {
+                    label: 'Baptistella',
+                    data: [11.6, 19.2, 35.4, 40.3, 18.7, 0.0, 12.4],
+                    borderColor: '#F9A825', backgroundColor: 'rgba(249,168,37,0.08)',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#F9A825',
+                    tension: 0.3, fill: true
+                },
+                {
+                    label: 'Top 20% MT',
+                    data: [18.5, 24.2, 38.6, 44.1, 22.4, 8.2, 22.4],
+                    borderColor: '#00E676', backgroundColor: 'rgba(0,230,118,0.05)',
+                    borderWidth: 2.5, pointRadius: 5, pointBackgroundColor: '#00E676',
+                    tension: 0.3, borderDash: [6,3]
+                },
+                {
+                    label: 'Média BR',
+                    data: [6.2, 12.4, 24.8, 28.2, 10.5, -2.4, 8.2],
+                    borderColor: '#FF5252', backgroundColor: 'rgba(255,82,82,0.04)',
+                    borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#FF5252',
+                    tension: 0.3, borderDash: [4,4]
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: ft, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: ft } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: ft, callback: function(v){ return v+'%'; } }, min: -5, max: 50 }
+            }
+        }
+    });
+
+    // C7 — Gap produtividade
+    new Chart(document.getElementById('c7'), {
+        type: 'bar',
+        data: {
+            labels: saf7,
+            datasets: [
+                {
+                    label: 'Baptistella (sc/ha)',
+                    data: [63.2, 65.8, 70.5, 73.2, 66.1, 62.8, 68.3],
+                    backgroundColor: 'rgba(249,168,37,0.5)',
+                    borderColor: '#F9A825', borderWidth: 1.5, borderRadius: 4
+                },
+                {
+                    label: 'CONAB MT (sc/ha)',
+                    data: [55.8, 56.2, 57.4, 58.8, 56.2, 54.6, 58.4],
+                    backgroundColor: 'rgba(64,196,255,0.35)',
+                    borderColor: '#40C4FF', borderWidth: 1, borderRadius: 4
+                },
+                {
+                    label: 'Gap (%)',
+                    data: [13.3, 17.1, 22.8, 24.5, 17.6, 15.0, 16.9],
+                    type: 'line',
+                    borderColor: '#00E676', backgroundColor: 'transparent',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#00E676',
+                    tension: 0.3, yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: ft, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: ft } },
+                y: {
+                    position: 'left', grid: { color: gc },
+                    ticks: { color: tc, font: ft, callback: function(v){ return v+' sc'; } }, min: 45
+                },
+                y1: {
+                    position: 'right', grid: { display: false },
+                    ticks: { color: '#00E676', font: ft, callback: function(v){ return '+'+v+'%'; } }, min: 0, max: 30
+                }
+            }
+        }
+    });
+
+    // C8 — Gap custo/sc
+    new Chart(document.getElementById('c8'), {
+        type: 'bar',
+        data: {
+            labels: saf7,
+            datasets: [
+                {
+                    label: 'Baptistella (R$/sc)',
+                    data: [50.3, 52.4, 53.8, 72.1, 88.2, 97.1, 106.1],
+                    backgroundColor: 'rgba(255,82,82,0.5)',
+                    borderColor: '#FF5252', borderWidth: 1.5, borderRadius: 4
+                },
+                {
+                    label: 'IMEA Média (R$/sc)',
+                    data: [44.8, 46.2, 48.5, 62.4, 78.6, 88.2, 98.3],
+                    backgroundColor: 'rgba(64,196,255,0.35)',
+                    borderColor: '#40C4FF', borderWidth: 1, borderRadius: 4
+                },
+                {
+                    label: 'Gap (R$/sc)',
+                    data: [5.5, 6.2, 5.3, 9.7, 9.6, 8.9, 7.7],
+                    type: 'line',
+                    borderColor: '#FF9100', backgroundColor: 'transparent',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#FF9100',
+                    tension: 0.3, yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: ft, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: ft } },
+                y: {
+                    position: 'left', grid: { color: gc },
+                    ticks: { color: tc, font: ft, callback: function(v){ return 'R$ '+v; } }, min: 30
+                },
+                y1: {
+                    position: 'right', grid: { display: false },
+                    ticks: { color: '#FF9100', font: ft, callback: function(v){ return '+R$ '+v; } }, min: 0, max: 15
+                }
+            }
+        }
+    });
+
+    // C9 — Decomposição gap custo
+    new Chart(document.getElementById('c9'), {
+        type: 'bar',
+        data: {
+            labels: ['Fertilizantes', 'Defensivos\nQuímicos', 'ADM +\nSalários', 'Arrendamento', 'Maquinário', 'Sementes', 'Outros'],
+            datasets: [
+                {
+                    label: 'Baptistella (R$/ha)',
+                    data: [1932, 1552, 1122, 1096, 629, 571, 348],
+                    backgroundColor: 'rgba(249,168,37,0.5)',
+                    borderColor: '#F9A825', borderWidth: 1.5, borderRadius: 4
+                },
+                {
+                    label: 'IMEA Média (R$/ha)',
+                    data: [1550, 1310, 940, 980, 560, 530, 320],
+                    backgroundColor: 'rgba(64,196,255,0.35)',
+                    borderColor: '#40C4FF', borderWidth: 1, borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: ft, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { family:'Inter', size:9 }, maxRotation: 0 } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: ft, callback: function(v){ return 'R$ '+v.toLocaleString('pt-BR'); } } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

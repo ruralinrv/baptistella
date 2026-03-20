@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Summary | Grupo Baptistella | Safra 24/25</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        :root{
+            --primary:#1B5E20;--primary-light:#2E7D32;--primary-dark:#0D3311;
+            --accent:#F9A825;--bg-dark:#0a0f0a;--bg-card:#111a11;
+            --text-primary:#E8F5E9;--text-secondary:#A5D6A7;--text-muted:#66BB6A;
+            --border:rgba(46,125,50,0.2);
+            --green:#00E676;--yellow:#FFD600;--red:#FF5252;--blue:#40C4FF;
+            --orange:#FF9100;--purple:#B388FF;--cyan:#18FFFF;--teal:#64FFDA;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text-primary);min-height:100vh;}
+
+        /* HEADER PREMIUM */
+        .header{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 60%,var(--primary-light) 100%);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--accent);}
+        .header-left h1{font-size:22px;font-weight:800;}
+        .header-left h1 span{color:var(--accent);}
+        .header-left p{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+        .header-right{text-align:right;}
+        .header-right .badge{background:linear-gradient(135deg,#F57F17,#F9A825);color:var(--primary-dark);padding:6px 18px;border-radius:30px;font-weight:800;font-size:11px;letter-spacing:1px;display:inline-block;margin-bottom:4px;}
+        .header-right p{font-size:10px;color:var(--text-muted);}
+
+        .container{max-width:1400px;margin:0 auto;padding:24px 20px;}
+        .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+        .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;}
+        .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+        .g8{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;margin-bottom:20px;}
+        .gf{margin-bottom:20px;}
+
+        /* MEGA STATS */
+        .mega{text-align:center;padding:16px 8px;background:rgba(46,125,50,0.06);border-radius:14px;border:1px solid var(--border);position:relative;overflow:hidden;}
+        .mega::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;}
+        .mega .m-icon{font-size:20px;margin-bottom:2px;}
+        .mega .m-label{font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);font-weight:700;}
+        .mega .m-value{font-size:22px;font-weight:900;line-height:1.1;margin:3px 0;}
+        .mega .m-sub{font-size:9px;color:var(--text-muted);}
+        .mega .m-delta{font-size:10px;font-weight:700;margin-top:2px;}
+
+        /* CARD */
+        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:18px;overflow:hidden;}
+        .card-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+
+        /* CHART */
+        .ch{position:relative;width:100%;height:200px;}
+        .ch-md{height:260px;}
+
+        /* DIAGNÓSTICO */
+        .diag{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+        .diag-item{padding:14px 16px;border-radius:12px;font-size:12px;line-height:1.6;}
+        .diag-item .dt{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+
+        /* AÇÕES */
+        .action{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);margin-bottom:10px;}
+        .action-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;}
+        .action-content{flex:1;}
+        .action-title{font-size:13px;font-weight:800;margin-bottom:3px;}
+        .action-desc{font-size:11px;color:var(--text-muted);line-height:1.5;}
+        .action-impact{display:inline-block;padding:2px 8px;border-radius:12px;font-size:9px;font-weight:700;margin-top:4px;}
+
+        /* VEREDITO */
+        .veredito{text-align:center;padding:28px;border-radius:16px;border:2px solid var(--accent);background:linear-gradient(135deg,rgba(249,168,37,0.05),rgba(0,230,118,0.03));}
+        .veredito .v-label{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--text-muted);font-weight:700;}
+        .veredito .v-nota{font-size:72px;font-weight:900;color:var(--accent);line-height:1;margin:6px 0;}
+        .veredito .v-class{font-size:18px;font-weight:800;color:var(--green);margin-bottom:8px;}
+        .veredito .v-desc{font-size:12px;color:var(--text-muted);max-width:600px;margin:0 auto;line-height:1.6;}
+
+        /* SPEED DIAL */
+        .speed{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px 0;}
+        .speed-bar{height:8px;border-radius:8px;flex:1;}
+        .speed-marker{font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;background:var(--accent);color:var(--primary-dark);}
+
+        /* TABLE MINI */
+        .mtb{width:100%;border-collapse:collapse;font-size:10px;}
+        .mtb th{text-align:left;font-weight:600;color:var(--text-muted);padding:4px 6px;border-bottom:1px solid var(--border);font-size:8px;text-transform:uppercase;letter-spacing:0.5px;}
+        .mtb td{padding:5px 6px;border-bottom:1px solid rgba(46,125,50,0.05);}
+        .mtb .pos{color:var(--green);font-weight:700;}
+        .mtb .neg{color:var(--red);font-weight:700;}
+
+        .sec-div{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+
+        .footer{text-align:center;padding:16px;color:var(--text-muted);font-size:10px;border-top:1px solid var(--border);margin-top:16px;}
+        .footer .br{font-weight:700;color:var(--accent);}
+
+        @media(max-width:1024px){.g2,.g3,.g4{grid-template-columns:1fr 1fr;}.g8{grid-template-columns:repeat(4,1fr);}.diag{grid-template-columns:1fr;}}
+        @media(max-width:640px){.g2,.g3,.g4,.g8{grid-template-columns:1fr;}.header{flex-direction:column;text-align:center;gap:10px;}.header-right{text-align:center;}}
+
+        @media print{
+            body{background:#fff;color:#111;}
+            .header{background:#1B5E20 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+            .card,.mega{border:1px solid #ddd;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <h1>Grupo <span>Baptistella</span> — Executive Summary</h1>
+        <p>Safra 24/25 · Diagnóstico em 1 página · Visão para tomada de decisão</p>
+    </div>
+    <div class="header-right">
+        <div class="badge">EXECUTIVE SUMMARY</div>
+        <p>Consultor: Sidney Souza · Rural In · 20/03/2026</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ====== 8 KPIS MACRO ====== -->
+    <div class="sec-div">📊 8 INDICADORES-CHAVE — SAFRA 24/25</div>
+
+    <div class="g8">
+        <div class="mega">
+            <div class="m-icon">🌾</div>
+            <div class="m-label">Área Cultivada</div>
+            <div class="m-value" style="color:var(--green);">18.692 ha</div>
+            <div class="m-sub">5 fazendas · Soja + Milho</div>
+            <div class="m-delta" style="color:var(--green);">↑ +4,2% vs 23/24</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">💰</div>
+            <div class="m-label">Receita Líquida</div>
+            <div class="m-value" style="color:var(--accent);">R$ 152 mi</div>
+            <div class="m-sub">Soja 68% · Milho 32%</div>
+            <div class="m-delta" style="color:var(--green);">↑ +32% vs 23/24</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">📊</div>
+            <div class="m-label">EBITDA</div>
+            <div class="m-value" style="color:var(--green);">R$ 49,2 mi</div>
+            <div class="m-sub">Margem 32,4%</div>
+            <div class="m-delta" style="color:var(--green);">↑ +388% vs 23/24</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">🎯</div>
+            <div class="m-label">Produtividade Soja</div>
+            <div class="m-value" style="color:var(--blue);">67,8 sc/ha</div>
+            <div class="m-sub">vs MT 59,2 sc/ha</div>
+            <div class="m-delta" style="color:var(--green);">+14,5% vs média MT</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">💸</div>
+            <div class="m-label">Custo Total/ha</div>
+            <div class="m-value" style="color:var(--orange);">R$ 5.480</div>
+            <div class="m-sub">+8,2% vs 23/24</div>
+            <div class="m-delta" style="color:var(--red);">⚠ Pressão contínua</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--orange);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">📈</div>
+            <div class="m-label">Lucro Líquido</div>
+            <div class="m-value" style="color:var(--green);">R$ 18,8 mi</div>
+            <div class="m-sub">ML 12,4%</div>
+            <div class="m-delta" style="color:var(--green);">↑ Recuperação total</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">🏦</div>
+            <div class="m-label">Dívida / EBITDA</div>
+            <div class="m-value" style="color:var(--green);">0,3x</div>
+            <div class="m-sub">Quase sem dívida</div>
+            <div class="m-delta" style="color:var(--green);">✅ Saudável</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green);"></div>
+        </div>
+        <div class="mega">
+            <div class="m-icon">🏆</div>
+            <div class="m-label">Valor Estimado</div>
+            <div class="m-value" style="color:var(--accent);">R$ 1,42 bi</div>
+            <div class="m-sub">4 métodos · Média ponderada</div>
+            <div class="m-delta" style="color:var(--green);">+27% vs contábil</div>
+            <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--accent);"></div>
+        </div>
+    </div>
+
+    <!-- ====== DIAGNÓSTICO RÁPIDO ====== -->
+    <div class="sec-div">🔍 DIAGNÓSTICO EM 30 SEGUNDOS</div>
+
+    <div class="diag gf">
+        <div class="diag-item" style="background:rgba(0,230,118,0.06);border:1px solid rgba(0,230,118,0.15);">
+            <div class="dt" style="color:var(--green);">✅ PONTOS FORTES</div>
+            <strong>Produtividade 14,5% acima de MT</strong> — consistente há 5 safras.<br>
+            <strong>Endividamento quase zero</strong> — Dívida/EBITDA 0,3x.<br>
+            <strong>Terras próprias</strong> com R$ 240 mi de valor oculto.<br>
+            <strong>Recuperação impressionante</strong> — EBITDA +388% vs safra anterior.<br>
+            <strong>ROIC 30,6%</strong> — muito acima do custo de capital (11,8%).
+        </div>
+        <div class="diag-item" style="background:rgba(255,82,82,0.06);border:1px solid rgba(255,82,82,0.15);">
+            <div class="dt" style="color:var(--red);">⚠️ PONTOS DE ATENÇÃO</div>
+            <strong>Custos subindo</strong> — R$ 5.480/ha (+8,2% a.a.). Insumos pressionam.<br>
+            <strong>Concentração em soja</strong> — 68% da receita. Risco de preço.<br>
+            <strong>Relação de troca deteriorando</strong> — MAP +31% em sacas vs média.<br>
+            <strong>Ciclo de caixa longo</strong> — 198 dias. NCG pico R$ 38 mi em set.<br>
+            <strong>Dependência climática</strong> — sem irrigação na maioria da área.
+        </div>
+    </div>
+
+    <!-- ====== EVOLUÇÃO 3 SAFRAS ====== -->
+    <div class="sec-div">📈 EVOLUÇÃO — 3 SAFRAS RECENTES</div>
+
+    <div class="g3">
+        <div class="card">
+            <div class="card-t">📈 Receita & EBITDA (R$ mi)</div>
+            <div class="ch"><canvas id="c1"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📈 Margem EBITDA & Margem Líquida</div>
+            <div class="ch"><canvas id="c2"></canvas></div>
+        </div>
+        <div class="card">
+            <div class="card-t">📈 Onde Baptistella se Posiciona</div>
+            <div class="ch"><canvas id="c3"></canvas></div>
+        </div>
+    </div>
+
+    <!-- ====== RISCO vs RETORNO ====== -->
+    <div class="sec-div">⚖️ PERFIL DE RISCO-RETORNO</div>
+
+    <div class="g2">
+        <div class="card">
+            <div class="card-t">🎯 Projeção 25/26 — 3 Cenários</div>
+            <table class="mtb">
+                <thead>
+                    <tr>
+                        <th>Cenário</th>
+                        <th style="text-align:right;">Receita</th>
+                        <th style="text-align:right;">EBITDA</th>
+                        <th style="text-align:right;">Lucro</th>
+                        <th style="text-align:right;">Prob.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color:var(--green);font-weight:700;">🟢 Otimista</td>
+                        <td style="text-align:right;" class="pos">R$ 189 mi</td>
+                        <td style="text-align:right;" class="pos">R$ 68 mi</td>
+                        <td style="text-align:right;" class="pos">R$ 38 mi</td>
+                        <td style="text-align:right;">25%</td>
+                    </tr>
+                    <tr style="background:rgba(249,168,37,0.04);">
+                        <td style="color:var(--accent);font-weight:700;">🟡 Base</td>
+                        <td style="text-align:right;font-weight:700;">R$ 163 mi</td>
+                        <td style="text-align:right;font-weight:700;">R$ 53 mi</td>
+                        <td style="text-align:right;font-weight:700;">R$ 22 mi</td>
+                        <td style="text-align:right;font-weight:700;">50%</td>
+                    </tr>
+                    <tr>
+                        <td style="color:var(--red);font-weight:700;">🔴 Pessimista</td>
+                        <td style="text-align:right;" class="neg">R$ 118 mi</td>
+                        <td style="text-align:right;" class="neg">R$ 16 mi</td>
+                        <td style="text-align:right;" class="neg">-R$ 5 mi</td>
+                        <td style="text-align:right;">25%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top:10px;padding:8px 12px;background:rgba(249,168,37,0.06);border-radius:8px;font-size:10px;color:var(--text-muted);line-height:1.6;">
+                <strong style="color:var(--accent);">Monte Carlo (10.000 sim.):</strong> P50 = R$ 20,4 mi lucro | Prob. lucro > 0: <strong style="color:var(--green);">78,2%</strong> | P95 = R$ 42,6 mi | P5 = -R$ 4,8 mi
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-t">🏦 Saúde Financeira — Dashboard Rápido</div>
+            <div style="margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Liquidez Corrente</span><span style="font-weight:700;color:var(--green);">1,23x ✅</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:6px;"><div style="width:82%;height:100%;border-radius:6px;background:var(--green);"></div></div>
+            </div>
+            <div style="margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Dívida / EBITDA</span><span style="font-weight:700;color:var(--green);">0,3x ✅</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:6px;"><div style="width:95%;height:100%;border-radius:6px;background:var(--green);"></div></div>
+            </div>
+            <div style="margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">ROIC vs WACC</span><span style="font-weight:700;color:var(--green);">30,6% vs 11,8% ✅</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:6px;"><div style="width:90%;height:100%;border-radius:6px;background:var(--green);"></div></div>
+            </div>
+            <div style="margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Custo/sc vs Preço Breakeven</span><span style="font-weight:700;color:var(--yellow);">R$ 81 vs R$ 120 ⚠️</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:6px;"><div style="width:68%;height:100%;border-radius:6px;background:var(--yellow);"></div></div>
+            </div>
+            <div style="margin-bottom:8px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Ciclo Conversão Caixa</span><span style="font-weight:700;color:var(--orange);">198 dias ⚠️</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:6px;"><div style="width:55%;height:100%;border-radius:6px;background:var(--orange);"></div></div>
+            </div>
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Risco de Insolvência</span><span style="font-weight:700;color:var(--green);">BAIXO ✅</span></div>
+                <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:6px;"><div style="width:92%;height:100%;border-radius:6px;background:var(--green);"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== 3 AÇÕES PRIORITÁRIAS ====== -->
+    <div class="sec-div">🎯 3 AÇÕES PRIORITÁRIAS — IMPLEMENTAR AGORA</div>
+
+    <div class="action">
+        <div class="action-num" style="background:rgba(0,230,118,0.15);color:var(--green);">1</div>
+        <div class="action-content">
+            <div class="action-title" style="color:var(--green);">Reduzir Custo de Insumos via Compra Antecipada + Barter (40%)</div>
+            <div class="action-desc">Fixar 40% dos fertilizantes via barter em <strong>jul-ago/25</strong> e antecipar compra de defensivos quando relação de troca < 30 sc/ton. Negociar PMP de 150 dias com fornecedores-chave.</div>
+            <div class="action-impact" style="background:rgba(0,230,118,0.15);color:var(--green);">💰 IMPACTO: -R$ 6,2 mi/safra no custo + -R$ 8 mi na NCG</div>
+        </div>
+    </div>
+
+    <div class="action">
+        <div class="action-num" style="background:rgba(64,196,255,0.15);color:var(--blue);">2</div>
+        <div class="action-content">
+            <div class="action-title" style="color:var(--blue);">Otimizar Comercialização — Vender 60% na Janela Mar-Mai + Hedge 30%</div>
+            <div class="action-desc">Concentrar venda de soja em <strong>março-maio</strong> (prêmio sazonal +4,8%). Travar 30% via NDF/Opções na CBOT em set-out para piso de preço. Não vender em jun-jul (desconto de -3,6%).</div>
+            <div class="action-impact" style="background:rgba(64,196,255,0.15);color:var(--blue);">💰 IMPACTO: +R$ 4,6 mi/safra de receita incremental</div>
+        </div>
+    </div>
+
+    <div class="action" style="margin-bottom:20px;">
+        <div class="action-num" style="background:rgba(249,168,37,0.15);color:var(--accent);">3</div>
+        <div class="action-content">
+            <div class="action-title" style="color:var(--accent);">Eliminar 3 Talhões Improdutivos + Realocar para Top Performers</div>
+            <div class="action-desc">Talhões com produtividade < 55 sc/ha e margem negativa devem ser <strong>devolvidos ou reestruturados</strong>. Realocar ~1.200 ha de investimento para talhões do quartil superior (>72 sc/ha).</div>
+            <div class="action-impact" style="background:rgba(249,168,37,0.15);color:var(--accent);">💰 IMPACTO: +R$ 3,8 mi/safra por eliminação de ineficiência</div>
+        </div>
+    </div>
+
+    <div style="text-align:center;padding:12px;background:rgba(0,230,118,0.06);border-radius:12px;border:1px solid rgba(0,230,118,0.15);margin-bottom:20px;">
+        <span style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Impacto Total das 3 Ações</span>
+        <span style="font-size:28px;font-weight:900;color:var(--green);display:block;margin:4px 0;">+R$ 14,6 mi / safra</span>
+        <span style="font-size:11px;color:var(--text-muted);">Equivalente a +9,6% na receita ou +29,7% no EBITDA</span>
+    </div>
+
+    <!-- ====== VEREDITO ====== -->
+    <div class="sec-div">🏆 VEREDITO FINAL</div>
+
+    <div class="g2" style="margin-bottom:0;">
+        <div class="veredito">
+            <div class="v-label">Nota Geral do Grupo</div>
+            <div class="v-nota">8,2</div>
+            <div class="v-class">ACIMA DA MÉDIA — ALTO POTENCIAL</div>
+            <div class="v-desc">
+                O Grupo Baptistella é um <strong>produtor de primeira linha</strong> com produtividade acima do mercado, endividamento controlado e patrimônio robusto. A safra 24/25 marca uma <strong>forte recuperação</strong> após o vale de 23/24. As terras próprias (R$ 920 mi) e a opcionalidade estratégica (R$ 135 mi) sustentam valor de <strong>R$ 1,42 bi</strong>. <strong>Principal risco: custos crescentes e concentração em soja.</strong>
+            </div>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="card-t">📊 Score por Dimensão</div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Produtividade</span><span style="font-weight:800;color:var(--green);">9,2 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:92%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--teal));"></div></div>
+            </div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Rentabilidade</span><span style="font-weight:800;color:var(--green);">8,4 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:84%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--accent));"></div></div>
+            </div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Saúde Financeira</span><span style="font-weight:800;color:var(--green);">9,0 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:90%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--teal));"></div></div>
+            </div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Eficiência de Custos</span><span style="font-weight:800;color:var(--yellow);">6,8 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:68%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--yellow),var(--orange));"></div></div>
+            </div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Gestão de Caixa</span><span style="font-weight:800;color:var(--yellow);">7,2 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:72%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--yellow),var(--accent));"></div></div>
+            </div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Diversificação</span><span style="font-weight:800;color:var(--orange);">6,0 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:60%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--orange),var(--red));"></div></div>
+            </div>
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px;"><span style="color:var(--text-muted);">Patrimônio & Valor</span><span style="font-weight:800;color:var(--green);">9,4 / 10</span></div>
+                <div style="height:8px;background:rgba(255,255,255,0.05);border-radius:8px;"><div style="width:94%;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--green),var(--teal));"></div></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Grupo Baptistella · Safra 24/25 · Executive Summary · Consultor: Sidney Souza · <span class="br">Rural In</span> · 20/03/2026<br>
+    Para análise detalhada, consulte os painéis 01 a 10 do relatório completo.
+</div>
+
+<!-- SCRIPTS -->
+<script>
+    Chart.register(ChartDataLabels);
+    var ft={family:'Inter',size:10};
+    var gc='rgba(46,125,50,0.1)';
+    var tc='#66BB6A';
+
+    // C1 — Receita + EBITDA 3 safras
+    new Chart(document.getElementById('c1'),{
+        type:'bar',
+        data:{
+            labels:['22/23','23/24','24/25'],
+            datasets:[
+                {label:'Receita',data:[142,115,152],backgroundColor:'rgba(249,168,37,0.4)',borderColor:'#F9A825',borderWidth:1.5,borderRadius:4},
+                {label:'EBITDA',data:[36.8,10.1,49.2],backgroundColor:'rgba(0,230,118,0.5)',borderColor:'#00E676',borderWidth:1.5,borderRadius:4}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:{family:'Inter',size:9},usePointStyle:true}},datalabels:{anchor:'end',align:'top',color:'#E8F5E9',font:{weight:'bold',size:9,family:'Inter'},formatter:function(v){return 'R$ '+v;}}},
+            scales:{x:{grid:{display:false},ticks:{color:tc,font:ft}},y:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:8},callback:function(v){return v+' mi';}},max:180}}
+        }
+    });
+
+    // C2 — Margens 3 safras
+    new Chart(document.getElementById('c2'),{
+        type:'line',
+        data:{
+            labels:['22/23','23/24','24/25'],
+            datasets:[
+                {label:'M. EBITDA',data:[25.9,8.8,32.4],borderColor:'#F9A825',backgroundColor:'rgba(249,168,37,0.08)',borderWidth:3,pointRadius:7,pointBackgroundColor:['#FFD600','#FF5252','#00E676'],fill:true,tension:0.3},
+                {label:'M. Líquida',data:[12.2,1.2,12.4],borderColor:'#40C4FF',backgroundColor:'rgba(64,196,255,0.06)',borderWidth:2.5,pointRadius:6,pointBackgroundColor:['#FFD600','#FF5252','#00E676'],fill:true,tension:0.3}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:{family:'Inter',size:9},usePointStyle:true}},datalabels:{anchor:'end',align:'top',color:'#E8F5E9',font:{weight:'bold',size:10,family:'Inter'},formatter:function(v){return v+'%';}}},
+            scales:{x:{grid:{display:false},ticks:{color:tc,font:ft}},y:{grid:{color:gc},ticks:{color:tc,font:{family:'Inter',size:8},callback:function(v){return v+'%';}},min:-5,max:40}}
+        }
+    });
+
+    // C3 — Radar Positioning
+    new Chart(document.getElementById('c3'),{
+        type:'radar',
+        data:{
+            labels:['Produtividade','Margem','Custo/ha','Escala','Endividamento','Diversificação'],
+            datasets:[
+                {label:'Baptistella',data:[92,84,68,62,95,55],borderColor:'#F9A825',backgroundColor:'rgba(249,168,37,0.12)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#F9A825'},
+                {label:'Média MT',data:[70,58,72,50,65,60],borderColor:'rgba(255,255,255,0.2)',backgroundColor:'rgba(255,255,255,0.03)',borderWidth:1.5,borderDash:[4,4],pointRadius:3,pointBackgroundColor:'rgba(255,255,255,0.3)'}
+            ]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{position:'top',labels:{color:tc,font:{family:'Inter',size:9},usePointStyle:true}},datalabels:{display:false}},
+            scales:{r:{grid:{color:'rgba(46,125,50,0.1)'},ticks:{display:false},pointLabels:{color:tc,font:{family:'Inter',size:9,weight:'bold'}},min:0,max:100}}
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cenários & Projeção 25/26 | Grupo Baptistella</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #1B5E20; --primary-light: #2E7D32; --primary-dark: #0D3311;
+            --accent: #F9A825; --bg-dark: #0a0f0a; --bg-card: #111a11;
+            --text-primary: #E8F5E9; --text-secondary: #A5D6A7; --text-muted: #66BB6A;
+            --border: rgba(46,125,50,0.2);
+            --green: #00E676; --green-bg: rgba(0,230,118,0.1);
+            --yellow: #FFD600; --yellow-bg: rgba(255,214,0,0.1);
+            --red: #FF5252; --red-bg: rgba(255,82,82,0.1);
+            --blue: #40C4FF; --blue-bg: rgba(64,196,255,0.1);
+            --orange: #FF9100; --orange-bg: rgba(255,145,0,0.1);
+            --purple: #B388FF; --purple-bg: rgba(179,136,255,0.1);
+            --cyan: #18FFFF; --pink: #FF80AB; --teal: #64FFDA;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-primary); min-height: 100vh; }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 28px 40px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .header-left h1 { font-size: 24px; font-weight: 800; }
+        .header-left h1 span { color: var(--accent); }
+        .header-left p { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+        .header-right .page-badge {
+            background: linear-gradient(135deg, #F57F17, #F9A825);
+            color: var(--primary-dark); padding: 6px 18px; border-radius: 30px; font-weight: 800; font-size: 13px;
+        }
+
+        .container { max-width: 1480px; margin: 0 auto; padding: 28px 24px; }
+
+        .section-title {
+            font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); margin-bottom: 18px; padding-bottom: 10px;
+            border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 10px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .grid-full { margin-bottom: 28px; }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 22px; position: relative; overflow: hidden; transition: all 0.3s;
+        }
+        .card:hover { box-shadow: 0 0 30px rgba(46,125,50,0.15); }
+        .card-title {
+            font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-secondary); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* SCENARIO CARDS */
+        .scenario-card {
+            border-top: 5px solid var(--green);
+            text-align: center; padding-top: 24px;
+        }
+        .scenario-card.pessimista { border-top-color: var(--red); }
+        .scenario-card.base { border-top-color: var(--accent); }
+        .scenario-card.otimista { border-top-color: var(--green); }
+
+        .scenario-icon { font-size: 36px; margin-bottom: 8px; }
+        .scenario-name { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+        .scenario-prob {
+            font-size: 11px; padding: 3px 12px; border-radius: 20px;
+            display: inline-block; margin-bottom: 16px; font-weight: 700;
+        }
+
+        .scenario-big-number { font-size: 42px; font-weight: 900; line-height: 1; margin-bottom: 3px; }
+        .scenario-big-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px; }
+
+        .scenario-stats { text-align: left; }
+        .scenario-stat-line {
+            display: flex; justify-content: space-between; padding: 6px 0;
+            border-bottom: 1px solid var(--border); font-size: 12px;
+        }
+        .scenario-stat-line span:first-child { color: var(--text-muted); }
+        .scenario-stat-line span:last-child { font-weight: 700; }
+
+        /* COMP TABLE */
+        .comp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .comp-table th {
+            text-align: right; font-weight: 700; color: var(--text-muted);
+            padding: 10px 10px; border-bottom: 2px solid var(--border);
+            font-size: 10px; text-transform: uppercase;
+        }
+        .comp-table th:first-child { text-align: left; }
+        .comp-table td {
+            padding: 10px 10px; text-align: right; border-bottom: 1px solid rgba(46,125,50,0.06);
+            font-variant-numeric: tabular-nums;
+        }
+        .comp-table td:first-child { text-align: left; color: var(--text-secondary); font-weight: 500; }
+        .comp-table tr:hover td { background: rgba(46,125,50,0.04); }
+        .comp-table .total-row td { border-top: 2px solid var(--border); font-weight: 800; background: rgba(46,125,50,0.06); }
+        .comp-table .best { color: var(--green); font-weight: 700; }
+        .comp-table .worst { color: var(--red); font-weight: 700; }
+        .comp-table .neutral { color: var(--text-primary); }
+        .comp-table .highlight-col { background: rgba(249,168,37,0.06); }
+
+        /* HEATMAP */
+        .sens-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        .sens-table th {
+            text-align: center; font-weight: 700; color: var(--text-muted);
+            padding: 8px 6px; border-bottom: 2px solid var(--border); font-size: 9px; text-transform: uppercase;
+        }
+        .sens-table th:first-child { text-align: left; min-width: 100px; }
+        .sens-table td {
+            padding: 8px 6px; text-align: center; border: 1px solid rgba(46,125,50,0.06);
+            font-weight: 600; font-variant-numeric: tabular-nums;
+        }
+        .sens-table td:first-child { text-align: left; font-weight: 700; color: var(--text-secondary); background: rgba(46,125,50,0.04); }
+        .s5 { background: rgba(0,230,118,0.25); color: var(--green); }
+        .s4 { background: rgba(0,230,118,0.12); color: #81C784; }
+        .s3 { background: rgba(255,214,0,0.12); color: var(--yellow); }
+        .s2 { background: rgba(255,145,0,0.15); color: var(--orange); }
+        .s1 { background: rgba(255,82,82,0.18); color: var(--red); }
+        .s0 { background: rgba(255,82,82,0.30); color: #FF1744; font-weight: 800; }
+        .s-current { box-shadow: inset 0 0 0 2px var(--accent); }
+
+        /* STAT */
+        .stat-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .stat-box {
+            flex: 1; min-width: 130px; text-align: center; padding: 14px 10px;
+            background: rgba(46,125,50,0.06); border-radius: 12px; border: 1px solid var(--border);
+        }
+        .stat-box .s-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; }
+        .stat-box .s-value { font-size: 22px; font-weight: 800; margin-top: 3px; line-height: 1.1; }
+        .stat-box .s-sub { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+
+        /* CHART */
+        .chart-container { position: relative; width: 100%; height: 320px; }
+        .chart-container.tall { height: 400px; }
+        .chart-container.xtall { height: 500px; }
+
+        /* GAUGE */
+        .gauge-container { text-align: center; padding: 20px 0; }
+        .gauge-value { font-size: 56px; font-weight: 900; line-height: 1; }
+        .gauge-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-top: 4px; }
+        .gauge-bar {
+            height: 12px; background: rgba(255,255,255,0.06); border-radius: 12px;
+            margin: 14px 20px; overflow: hidden; position: relative;
+        }
+        .gauge-fill { height: 100%; border-radius: 12px; transition: width 2s ease; }
+        .gauge-marker {
+            position: absolute; top: -6px; width: 3px; height: 24px;
+            background: #fff; border-radius: 2px; z-index: 2;
+        }
+
+        /* TRAFFIC LIGHT */
+        .traffic-light {
+            display: flex; gap: 8px; justify-content: center; margin: 10px 0;
+        }
+        .tl-dot {
+            width: 24px; height: 24px; border-radius: 50%; opacity: 0.2;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .tl-dot.active { opacity: 1; box-shadow: 0 0 15px currentColor; }
+
+        /* INSIGHT */
+        .insight-box {
+            padding: 16px 20px; border-radius: 12px; margin-top: 14px;
+            font-size: 13px; line-height: 1.7;
+        }
+        .insight-blue { background: rgba(64,196,255,0.06); border: 1px solid rgba(64,196,255,0.2); }
+        .insight-red { background: rgba(255,82,82,0.06); border: 1px solid rgba(255,82,82,0.2); }
+        .insight-green { background: rgba(0,230,118,0.06); border: 1px solid rgba(0,230,118,0.2); }
+        .insight-gold { background: rgba(249,168,37,0.06); border: 1px solid rgba(249,168,37,0.2); }
+        .insight-title { font-weight: 700; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .insight-blue .insight-title { color: var(--blue); }
+        .insight-red .insight-title { color: var(--red); }
+        .insight-green .insight-title { color: var(--green); }
+        .insight-gold .insight-title { color: var(--accent); }
+
+        /* BADGE */
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; }
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+        .badge-red { background: var(--red-bg); color: var(--red); }
+
+        /* PROGRESS */
+        .progress-container { margin: 6px 0; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px; }
+        .progress-label span:first-child { color: var(--text-secondary); font-weight: 500; }
+        .progress-label span:last-child { font-weight: 700; }
+        .progress-bar { height: 8px; background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 8px; transition: width 1.5s ease; }
+
+        .footer {
+            text-align: center; padding: 28px; color: var(--text-muted);
+            font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px;
+        }
+        .footer .brand { font-weight: 700; color: var(--accent); }
+
+        @media (max-width: 1024px) { .grid-2 { grid-template-columns: 1fr; } .grid-3 { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .header { flex-direction: column; text-align: center; gap: 12px; } }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <h1>Grupo <span>Baptistella</span> — Cenários & Projeção 25/26</h1>
+        <p>3 Cenários | Breakeven Dinâmico | Sensibilidade | Stress Test | Monte Carlo</p>
+    </div>
+    <div class="header-right">
+        <span class="page-badge">PROJEÇÃO SAFRA 25/26</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ========== PREMISSAS ========== -->
+    <div class="section-title"><span>⚙️</span> PREMISSAS & BASES DE PROJEÇÃO</div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="s-label">Área Projetada</div>
+            <div class="s-value" style="color:var(--accent);">19.200 ha</div>
+            <div class="s-sub">+2,7% vs 24/25</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Soja (ha)</div>
+            <div class="s-value" style="color:var(--green);">12.200</div>
+            <div class="s-sub">63,5% da área</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Milho Safrinha (ha)</div>
+            <div class="s-value" style="color:var(--yellow);">7.000</div>
+            <div class="s-sub">36,5% da área</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Câmbio Base</div>
+            <div class="s-value" style="color:var(--blue);">R$ 5,80</div>
+            <div class="s-sub">cenário base</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">CBOT Soja Base</div>
+            <div class="s-value" style="color:var(--green);">US$ 10,50</div>
+            <div class="s-sub">bushel</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Inflação Insumos</div>
+            <div class="s-value" style="color:var(--red);">+6,5%</div>
+            <div class="s-sub">estimativa 25/26</div>
+        </div>
+    </div>
+
+    <!-- ========== 3 CENÁRIOS ========== -->
+    <div class="section-title"><span>🔮</span> CENÁRIOS PROJETADOS — SAFRA 25/26</div>
+
+    <div class="grid-3">
+        <!-- PESSIMISTA -->
+        <div class="card scenario-card pessimista">
+            <div class="scenario-icon">⛈️</div>
+            <div class="scenario-name" style="color:var(--red);">Pessimista</div>
+            <div class="scenario-prob" style="background:var(--red-bg); color:var(--red);">20% probabilidade</div>
+            <div class="traffic-light">
+                <div class="tl-dot active" style="background:var(--red); color:var(--red);"></div>
+                <div class="tl-dot" style="background:var(--yellow);"></div>
+                <div class="tl-dot" style="background:var(--green);"></div>
+            </div>
+            <div class="scenario-big-number" style="color:var(--red);">R$ -1,2 mi</div>
+            <div class="scenario-big-label">Resultado Líquido</div>
+            <div class="scenario-stats">
+                <div class="scenario-stat-line"><span>Prod. Soja</span><span style="color:var(--red);">58,0 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>Prod. Milho</span><span style="color:var(--red);">130,0 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>PMV Soja</span><span style="color:var(--red);">R$ 105,00/sc</span></div>
+                <div class="scenario-stat-line"><span>PMV Milho</span><span style="color:var(--red);">R$ 45,00/sc</span></div>
+                <div class="scenario-stat-line"><span>CT/ha Soja</span><span>R$ 7.720</span></div>
+                <div class="scenario-stat-line"><span>CT/ha Milho</span><span>R$ 6.935</span></div>
+                <div class="scenario-stat-line"><span>Receita Total</span><span>R$ 115,9 mi</span></div>
+                <div class="scenario-stat-line"><span>Custo Total</span><span>R$ 142,6 mi</span></div>
+                <div class="scenario-stat-line"><span>Resultado/ha Soja</span><span style="color:var(--red);">-R$ 630</span></div>
+                <div class="scenario-stat-line"><span>Resultado/ha Milho</span><span style="color:var(--red);">-R$ 1.085</span></div>
+                <div class="scenario-stat-line"><span>Margem Líquida</span><span style="color:var(--red);">-1,0%</span></div>
+                <div class="scenario-stat-line"><span>Breakeven Soja</span><span>73,5 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>Margem Seg. Soja</span><span style="color:var(--red);">-21,1%</span></div>
+                <div class="scenario-stat-line"><span>DSCR</span><span style="color:var(--red);">0,98x</span></div>
+            </div>
+            <div class="insight-box insight-red" style="margin-top:14px;">
+                <div class="insight-title">⚠️ Gatilhos deste cenário</div>
+                La Niña forte + queda de preços + real valorizado. Exige ação preventiva: hedge mínimo de 40% da produção.
+            </div>
+        </div>
+
+        <!-- BASE -->
+        <div class="card scenario-card base" style="box-shadow: 0 0 40px rgba(249,168,37,0.15);">
+            <div class="scenario-icon">☀️</div>
+            <div class="scenario-name" style="color:var(--accent);">Base (Provável)</div>
+            <div class="scenario-prob" style="background:rgba(249,168,37,0.15); color:var(--accent);">55% probabilidade</div>
+            <div class="traffic-light">
+                <div class="tl-dot" style="background:var(--red);"></div>
+                <div class="tl-dot active" style="background:var(--yellow); color:var(--yellow);"></div>
+                <div class="tl-dot" style="background:var(--green);"></div>
+            </div>
+            <div class="scenario-big-number" style="color:var(--accent);">R$ 22,4 mi</div>
+            <div class="scenario-big-label">Resultado Líquido</div>
+            <div class="scenario-stats">
+                <div class="scenario-stat-line"><span>Prod. Soja</span><span style="color:var(--green);">70,0 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>Prod. Milho</span><span style="color:var(--green);">155,0 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>PMV Soja</span><span style="color:var(--accent);">R$ 122,00/sc</span></div>
+                <div class="scenario-stat-line"><span>PMV Milho</span><span style="color:var(--accent);">R$ 54,00/sc</span></div>
+                <div class="scenario-stat-line"><span>CT/ha Soja</span><span>R$ 7.520</span></div>
+                <div class="scenario-stat-line"><span>CT/ha Milho</span><span>R$ 6.780</span></div>
+                <div class="scenario-stat-line"><span>Receita Total</span><span>R$ 163,1 mi</span></div>
+                <div class="scenario-stat-line"><span>Custo Total</span><span>R$ 139,4 mi</span></div>
+                <div class="scenario-stat-line"><span>Resultado/ha Soja</span><span style="color:var(--green);">R$ 1.020</span></div>
+                <div class="scenario-stat-line"><span>Resultado/ha Milho</span><span style="color:var(--green);">R$ 1.680</span></div>
+                <div class="scenario-stat-line"><span>Margem Líquida</span><span style="color:var(--accent);">13,7%</span></div>
+                <div class="scenario-stat-line"><span>Breakeven Soja</span><span>61,6 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>Margem Seg. Soja</span><span style="color:var(--green);">+13,6%</span></div>
+                <div class="scenario-stat-line"><span>DSCR</span><span style="color:var(--green);">6,2x</span></div>
+            </div>
+            <div class="insight-box insight-gold" style="margin-top:14px;">
+                <div class="insight-title">📌 Cenário mais provável</div>
+                Clima neutro, preços estáveis. Resultado similar à 24/25, com leve melhora pela expansão de área e ganho de produtividade.
+            </div>
+        </div>
+
+        <!-- OTIMISTA -->
+        <div class="card scenario-card otimista">
+            <div class="scenario-icon">🚀</div>
+            <div class="scenario-name" style="color:var(--green);">Otimista</div>
+            <div class="scenario-prob" style="background:var(--green-bg); color:var(--green);">25% probabilidade</div>
+            <div class="traffic-light">
+                <div class="tl-dot" style="background:var(--red);"></div>
+                <div class="tl-dot" style="background:var(--yellow);"></div>
+                <div class="tl-dot active" style="background:var(--green); color:var(--green);"></div>
+            </div>
+            <div class="scenario-big-number" style="color:var(--green);">R$ 51,8 mi</div>
+            <div class="scenario-big-label">Resultado Líquido</div>
+            <div class="scenario-stats">
+                <div class="scenario-stat-line"><span>Prod. Soja</span><span style="color:var(--green);">78,0 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>Prod. Milho</span><span style="color:var(--green);">170,0 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>PMV Soja</span><span style="color:var(--green);">R$ 135,00/sc</span></div>
+                <div class="scenario-stat-line"><span>PMV Milho</span><span style="color:var(--green);">R$ 60,00/sc</span></div>
+                <div class="scenario-stat-line"><span>CT/ha Soja</span><span>R$ 7.350</span></div>
+                <div class="scenario-stat-line"><span>CT/ha Milho</span><span>R$ 6.650</span></div>
+                <div class="scenario-stat-line"><span>Receita Total</span><span style="color:var(--green);">R$ 200,5 mi</span></div>
+                <div class="scenario-stat-line"><span>Custo Total</span><span>R$ 136,2 mi</span></div>
+                <div class="scenario-stat-line"><span>Resultado/ha Soja</span><span style="color:var(--green);">R$ 3.180</span></div>
+                <div class="scenario-stat-line"><span>Resultado/ha Milho</span><span style="color:var(--green);">R$ 3.550</span></div>
+                <div class="scenario-stat-line"><span>Margem Líquida</span><span style="color:var(--green);">25,8%</span></div>
+                <div class="scenario-stat-line"><span>Breakeven Soja</span><span>54,4 sc/ha</span></div>
+                <div class="scenario-stat-line"><span>Margem Seg. Soja</span><span style="color:var(--green);">+43,4%</span></div>
+                <div class="scenario-stat-line"><span>DSCR</span><span style="color:var(--green);">12,4x</span></div>
+            </div>
+            <div class="insight-box insight-green" style="margin-top:14px;">
+                <div class="insight-title">✅ Gatilhos deste cenário</div>
+                El Niño moderado + dólar >R$ 6,00 + demanda chinesa forte. Requer aproveitamento máximo com comercialização agressiva.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== RESUMO COMPARATIVO ========== -->
+    <div class="card grid-full">
+        <div class="card-title">📋 DRE Projetada 25/26 — 3 Cenários (R$ milhões)</div>
+        <div style="overflow-x:auto;">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Linha</th>
+                        <th>Pessimista</th>
+                        <th class="highlight-col">Base</th>
+                        <th>Otimista</th>
+                        <th>24/25 Real</th>
+                        <th>Δ Base vs 24/25</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Área Total (ha)</td>
+                        <td>19.200</td>
+                        <td class="highlight-col">19.200</td>
+                        <td>19.200</td>
+                        <td>18.692</td>
+                        <td style="color:var(--green);">+2,7%</td>
+                    </tr>
+                    <tr>
+                        <td>Receita Bruta (R$ mi)</td>
+                        <td class="worst">115,9</td>
+                        <td class="highlight-col">163,1</td>
+                        <td class="best">200,5</td>
+                        <td>152,0</td>
+                        <td style="color:var(--green);">+7,3%</td>
+                    </tr>
+                    <tr>
+                        <td>(-) Impostos (R$ mi)</td>
+                        <td>-2,9</td>
+                        <td class="highlight-col">-4,1</td>
+                        <td>-5,0</td>
+                        <td>-3,8</td>
+                        <td>+7,9%</td>
+                    </tr>
+                    <tr>
+                        <td>= Receita Líquida (R$ mi)</td>
+                        <td class="worst">113,0</td>
+                        <td class="highlight-col"><strong>159,0</strong></td>
+                        <td class="best">195,5</td>
+                        <td>148,2</td>
+                        <td style="color:var(--green);">+7,3%</td>
+                    </tr>
+                    <tr>
+                        <td>(-) COGS Insumos (R$ mi)</td>
+                        <td>-68,4</td>
+                        <td class="highlight-col">-66,8</td>
+                        <td>-64,2</td>
+                        <td>-64,2</td>
+                        <td style="color:var(--red);">+4,0%</td>
+                    </tr>
+                    <tr>
+                        <td>= Lucro Bruto (R$ mi)</td>
+                        <td class="worst">44,6</td>
+                        <td class="highlight-col"><strong>92,2</strong></td>
+                        <td class="best">131,3</td>
+                        <td>84,1</td>
+                        <td style="color:var(--green);">+9,6%</td>
+                    </tr>
+                    <tr>
+                        <td>(-) ADM + Maquinário (R$ mi)</td>
+                        <td>-35,4</td>
+                        <td class="highlight-col">-34,6</td>
+                        <td>-34,0</td>
+                        <td>-32,7</td>
+                        <td style="color:var(--red);">+5,8%</td>
+                    </tr>
+                    <tr>
+                        <td>= EBITDA (R$ mi)</td>
+                        <td class="worst">9,2</td>
+                        <td class="highlight-col"><strong>57,6</strong></td>
+                        <td class="best">97,3</td>
+                        <td>49,2</td>
+                        <td style="color:var(--green);">+17,1%</td>
+                    </tr>
+                    <tr>
+                        <td>(-) Arrend + Deprec + Financeiro (R$ mi)</td>
+                        <td>-31,8</td>
+                        <td class="highlight-col">-31,2</td>
+                        <td>-30,5</td>
+                        <td>-30,4</td>
+                        <td style="color:var(--red);">+2,6%</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>= RESULTADO LÍQUIDO (R$ mi)</strong></td>
+                        <td class="worst"><strong>-1,2</strong></td>
+                        <td class="highlight-col best"><strong>22,4</strong></td>
+                        <td class="best"><strong>51,8</strong></td>
+                        <td><strong>18,8</strong></td>
+                        <td style="color:var(--green);"><strong>+19,1%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Margem Líquida (%)</td>
+                        <td class="worst">-1,0%</td>
+                        <td class="highlight-col">13,7%</td>
+                        <td class="best">25,8%</td>
+                        <td>12,4%</td>
+                        <td style="color:var(--green);">+1,3 p.p.</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado/ha (R$)</td>
+                        <td class="worst">-R$ 63</td>
+                        <td class="highlight-col">R$ 1.167</td>
+                        <td class="best">R$ 2.698</td>
+                        <td>R$ 1.008</td>
+                        <td style="color:var(--green);">+15,8%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========== GRÁFICO DOS 3 CENÁRIOS ========== -->
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 3 Cenários — Resultado por Cultura (R$ mi)</div>
+            <div class="chart-container tall">
+                <canvas id="chartCenarios"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Cone de Possibilidades — Resultado 25/26 (R$ mi)</div>
+            <div class="chart-container tall">
+                <canvas id="chartCone"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BREAKEVEN DINÂMICO ========== -->
+    <div class="section-title"><span>⚖️</span> BREAKEVEN DINÂMICO — SAFRA 25/26</div>
+
+    <div class="grid-3">
+        <div class="card" style="text-align:center; border-top:4px solid var(--accent);">
+            <div class="card-title" style="justify-content:center;">⚖️ BE Soja — Cenário Base</div>
+            <div class="gauge-container">
+                <div class="gauge-value" style="color:var(--accent);">61,6</div>
+                <div class="gauge-label">sc/ha para cobrir custos</div>
+                <div class="gauge-bar">
+                    <div class="gauge-fill" style="width:88%; background: linear-gradient(90deg, var(--green), var(--accent));"></div>
+                    <div class="gauge-marker" style="left:88%;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); padding:0 20px;">
+                    <span>0 sc/ha</span><span>Prod: 70,0</span><span>100 sc/ha</span>
+                </div>
+            </div>
+            <div style="font-size:12px; margin-top:12px; line-height:1.8;">
+                <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid var(--border);">
+                    <span>Margem de Segurança</span><span style="color:var(--green); font-weight:700;">+13,6%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid var(--border);">
+                    <span>Sacas de folga</span><span style="font-weight:700;">8,4 sc/ha</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0;">
+                    <span>Preço mínimo (p/ BE)</span><span style="font-weight:700;">R$ 107,43/sc</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align:center; border-top:4px solid var(--yellow);">
+            <div class="card-title" style="justify-content:center;">⚖️ BE Milho — Cenário Base</div>
+            <div class="gauge-container">
+                <div class="gauge-value" style="color:var(--yellow);">125,6</div>
+                <div class="gauge-label">sc/ha para cobrir custos</div>
+                <div class="gauge-bar">
+                    <div class="gauge-fill" style="width:81%; background: linear-gradient(90deg, var(--green), var(--yellow));"></div>
+                    <div class="gauge-marker" style="left:81%;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); padding:0 20px;">
+                    <span>0 sc/ha</span><span>Prod: 155,0</span><span>200 sc/ha</span>
+                </div>
+            </div>
+            <div style="font-size:12px; margin-top:12px; line-height:1.8;">
+                <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid var(--border);">
+                    <span>Margem de Segurança</span><span style="color:var(--green); font-weight:700;">+19,0%</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid var(--border);">
+                    <span>Sacas de folga</span><span style="font-weight:700;">29,4 sc/ha</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:3px 0;">
+                    <span>Preço mínimo (p/ BE)</span><span style="font-weight:700;">R$ 43,74/sc</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align:center; border-top:4px solid var(--blue);">
+            <div class="card-title" style="justify-content:center;">📊 BE por Cenário</div>
+            <div class="chart-container" style="height:260px;">
+                <canvas id="chartBE"></canvas>
+            </div>
+            <div class="insight-box insight-blue" style="margin-top:8px; font-size:12px;">
+                <strong>Leitura:</strong> No cenário pessimista, o breakeven da soja (73,5 sc/ha) supera a produtividade projetada (58 sc/ha), gerando prejuízo direto.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SENSIBILIDADE ========== -->
+    <div class="section-title"><span>🎚️</span> ANÁLISE DE SENSIBILIDADE — SOJA 25/26</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🎚️ Matriz: Resultado/ha Soja em função de Produtividade × Preço de Venda</div>
+        <div style="overflow-x:auto;">
+            <table class="sens-table">
+                <thead>
+                    <tr>
+                        <th>Prod. ↓ / PMV →</th>
+                        <th>R$ 95</th>
+                        <th>R$ 100</th>
+                        <th>R$ 105</th>
+                        <th>R$ 110</th>
+                        <th>R$ 115</th>
+                        <th>R$ 120</th>
+                        <th style="background:rgba(249,168,37,0.12);">R$ 122</th>
+                        <th>R$ 125</th>
+                        <th>R$ 130</th>
+                        <th>R$ 135</th>
+                        <th>R$ 140</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>55 sc/ha</td>
+                        <td class="s0">-2.295</td><td class="s0">-2.020</td><td class="s0">-1.745</td>
+                        <td class="s0">-1.470</td><td class="s1">-1.195</td><td class="s1">-920</td>
+                        <td class="s1">-810</td><td class="s1">-645</td><td class="s1">-370</td>
+                        <td class="s2">-95</td><td class="s3">180</td>
+                    </tr>
+                    <tr>
+                        <td>58 sc/ha</td>
+                        <td class="s0">-2.010</td><td class="s0">-1.720</td><td class="s0">-1.430</td>
+                        <td class="s1">-1.140</td><td class="s1">-850</td><td class="s1">-560</td>
+                        <td class="s1 s-current">-444</td><td class="s2">-270</td><td class="s3">20</td>
+                        <td class="s3">310</td><td class="s4">600</td>
+                    </tr>
+                    <tr>
+                        <td>62 sc/ha</td>
+                        <td class="s0">-1.630</td><td class="s1">-1.320</td><td class="s1">-1.010</td>
+                        <td class="s1">-700</td><td class="s2">-390</td><td class="s2">-80</td>
+                        <td class="s3">44</td><td class="s3">230</td><td class="s4">540</td>
+                        <td class="s4">850</td><td class="s5">1.160</td>
+                    </tr>
+                    <tr>
+                        <td>65 sc/ha</td>
+                        <td class="s1">-1.345</td><td class="s1">-1.020</td><td class="s1">-695</td>
+                        <td class="s2">-370</td><td class="s2">-45</td><td class="s3">280</td>
+                        <td class="s3">418</td><td class="s4">605</td><td class="s4">930</td>
+                        <td class="s5">1.255</td><td class="s5">1.580</td>
+                    </tr>
+                    <tr>
+                        <td>68 sc/ha</td>
+                        <td class="s1">-1.060</td><td class="s1">-720</td><td class="s2">-380</td>
+                        <td class="s2">-40</td><td class="s3">300</td><td class="s4">640</td>
+                        <td class="s4">792</td><td class="s4">980</td><td class="s5">1.320</td>
+                        <td class="s5">1.660</td><td class="s5">2.000</td>
+                    </tr>
+                    <tr style="background:rgba(249,168,37,0.04);">
+                        <td style="color:var(--accent); font-weight:800;">70 sc/ha ⭐</td>
+                        <td class="s1">-870</td><td class="s2">-520</td><td class="s2">-170</td>
+                        <td class="s3">180</td><td class="s3">530</td><td class="s4">880</td>
+                        <td class="s4 s-current" style="font-weight:900; font-size:13px;">1.020 ⭐</td>
+                        <td class="s5">1.230</td><td class="s5">1.580</td>
+                        <td class="s5">1.930</td><td class="s5">2.280</td>
+                    </tr>
+                    <tr>
+                        <td>73 sc/ha</td>
+                        <td class="s2">-585</td><td class="s2">-220</td><td class="s3">145</td>
+                        <td class="s3">510</td><td class="s4">875</td><td class="s5">1.240</td>
+                        <td class="s5">1.386</td><td class="s5">1.605</td><td class="s5">1.970</td>
+                        <td class="s5">2.335</td><td class="s5">2.700</td>
+                    </tr>
+                    <tr>
+                        <td>76 sc/ha</td>
+                        <td class="s2">-300</td><td class="s3">80</td><td class="s3">460</td>
+                        <td class="s4">840</td><td class="s5">1.220</td><td class="s5">1.600</td>
+                        <td class="s5">1.752</td><td class="s5">1.980</td><td class="s5">2.360</td>
+                        <td class="s5">2.740</td><td class="s5">3.120</td>
+                    </tr>
+                    <tr>
+                        <td>78 sc/ha</td>
+                        <td class="s2">-110</td><td class="s3">280</td><td class="s4">670</td>
+                        <td class="s4">1.060</td><td class="s5">1.450</td><td class="s5">1.840</td>
+                        <td class="s5">1.996</td><td class="s5">2.230</td><td class="s5">2.620</td>
+                        <td class="s5">3.010</td><td class="s5">3.400</td>
+                    </tr>
+                    <tr>
+                        <td>80 sc/ha</td>
+                        <td class="s3">80</td><td class="s3">480</td><td class="s4">880</td>
+                        <td class="s5">1.280</td><td class="s5">1.680</td><td class="s5">2.080</td>
+                        <td class="s5">2.240</td><td class="s5">2.480</td><td class="s5">2.880</td>
+                        <td class="s5">3.280</td><td class="s5">3.680</td>
+                    </tr>
+                    <tr>
+                        <td>85 sc/ha</td>
+                        <td class="s3">555</td><td class="s4">980</td><td class="s5">1.405</td>
+                        <td class="s5">1.830</td><td class="s5">2.255</td><td class="s5">2.680</td>
+                        <td class="s5">2.850</td><td class="s5">3.105</td><td class="s5">3.530</td>
+                        <td class="s5">3.955</td><td class="s5">4.380</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:12px; font-size:11px; justify-content:center; flex-wrap:wrap;">
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,82,82,0.30);vertical-align:middle;"></span> Prejuízo forte</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,82,82,0.18);vertical-align:middle;"></span> Prejuízo</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,145,0,0.15);vertical-align:middle;"></span> Marginal</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,214,0,0.12);vertical-align:middle;"></span> OK</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(0,230,118,0.12);vertical-align:middle;"></span> Bom</span>
+            <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(0,230,118,0.25);vertical-align:middle;"></span> Excelente</span>
+            <span>⭐ = Cenário Base | 🔲 = Cenário Pessimista</span>
+        </div>
+    </div>
+
+    <!-- ========== SENSIBILIDADE CUSTO ========== -->
+    <div class="card grid-full">
+        <div class="card-title">🎚️ Matriz: Resultado Líquido do Grupo (R$ mi) em função de CT/ha × Produtividade</div>
+        <div style="overflow-x:auto;">
+            <table class="sens-table">
+                <thead>
+                    <tr>
+                        <th>CT/ha ↓ / Prod. →</th>
+                        <th>58 sc</th>
+                        <th>62 sc</th>
+                        <th>65 sc</th>
+                        <th>68 sc</th>
+                        <th style="background:rgba(249,168,37,0.12);">70 sc ⭐</th>
+                        <th>73 sc</th>
+                        <th>76 sc</th>
+                        <th>80 sc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>R$ 6.800</td>
+                        <td class="s2">-1,8</td><td class="s3">5,4</td><td class="s4">10,2</td>
+                        <td class="s4">15,0</td><td class="s5">18,0</td><td class="s5">22,8</td>
+                        <td class="s5">27,6</td><td class="s5">34,0</td>
+                    </tr>
+                    <tr>
+                        <td>R$ 7.000</td>
+                        <td class="s1">-4,2</td><td class="s3">3,0</td><td class="s3">7,8</td>
+                        <td class="s4">12,6</td><td class="s4">15,6</td><td class="s5">20,4</td>
+                        <td class="s5">25,2</td><td class="s5">31,6</td>
+                    </tr>
+                    <tr>
+                        <td>R$ 7.200</td>
+                        <td class="s1">-6,6</td><td class="s2">0,6</td><td class="s3">5,4</td>
+                        <td class="s4">10,2</td><td class="s4">13,2</td><td class="s5">18,0</td>
+                        <td class="s5">22,8</td><td class="s5">29,2</td>
+                    </tr>
+                    <tr style="background:rgba(249,168,37,0.04);">
+                        <td style="color:var(--accent); font-weight:800;">R$ 7.520 ⭐</td>
+                        <td class="s0">-10,4</td><td class="s1">-3,2</td><td class="s3">1,6</td>
+                        <td class="s3">6,4</td><td class="s4 s-current" style="font-weight:900;">22,4 ⭐</td>
+                        <td class="s4">14,2</td><td class="s5">19,0</td><td class="s5">25,4</td>
+                    </tr>
+                    <tr>
+                        <td>R$ 7.700</td>
+                        <td class="s0">-12,6</td><td class="s1">-5,4</td><td class="s2">-0,6</td>
+                        <td class="s3">4,2</td><td class="s3">7,2</td><td class="s4">12,0</td>
+                        <td class="s5">16,8</td><td class="s5">23,2</td>
+                    </tr>
+                    <tr>
+                        <td>R$ 8.000</td>
+                        <td class="s0">-16,2</td><td class="s0">-9,0</td><td class="s1">-4,2</td>
+                        <td class="s2">0,6</td><td class="s3">3,6</td><td class="s3">8,4</td>
+                        <td class="s4">13,2</td><td class="s5">19,6</td>
+                    </tr>
+                    <tr>
+                        <td>R$ 8.500</td>
+                        <td class="s0">-22,2</td><td class="s0">-15,0</td><td class="s0">-10,2</td>
+                        <td class="s1">-5,4</td><td class="s1">-2,4</td><td class="s3">2,4</td>
+                        <td class="s3">7,2</td><td class="s4">13,6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="insight-box insight-red" style="margin-top:14px;">
+            <div class="insight-title">⚠️ Zona de Perigo</div>
+            Se CT/ha subir para R$ 8.000 e produtividade cair para 65 sc/ha → <strong>prejuízo de R$ 4,2 mi</strong>. 
+            A combinação CT ≥ R$ 7.700 com Prod. ≤ 62 sc/ha sempre gera <strong>resultado negativo</strong>. 
+            <strong>Manter CT/ha abaixo de R$ 7.500 é imperativo.</strong>
+        </div>
+    </div>
+
+    <!-- ========== STRESS TEST ========== -->
+    <div class="section-title"><span>💥</span> STRESS TEST — CENÁRIOS EXTREMOS</div>
+
+    <div class="grid-2">
+        <div class="card" style="border-top:4px solid var(--red);">
+            <div class="card-title" style="color:var(--red);">💥 Stress Test — 6 Cenários de Choque</div>
+            <div style="overflow-x:auto;">
+                <table class="comp-table" style="font-size:11px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">Cenário de Choque</th>
+                            <th>Impacto</th>
+                            <th>RL (R$ mi)</th>
+                            <th>ML %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🌧️ Seca severa (-25% prod.)</td>
+                            <td style="color:var(--red);">-R$ 38,4 mi receita</td>
+                            <td class="worst"><strong>-R$ 16,0</strong></td>
+                            <td class="worst">-12,8%</td>
+                        </tr>
+                        <tr>
+                            <td>📉 CBOT -30% (soja US$ 7,35)</td>
+                            <td style="color:var(--red);">PMV → R$ 85/sc</td>
+                            <td class="worst"><strong>-R$ 24,8</strong></td>
+                            <td class="worst">-22,6%</td>
+                        </tr>
+                        <tr>
+                            <td>💵 Câmbio R$ 4,80 (-17%)</td>
+                            <td style="color:var(--red);">PMV → R$ 100/sc</td>
+                            <td class="worst"><strong>-R$ 5,4</strong></td>
+                            <td class="worst">-4,1%</td>
+                        </tr>
+                        <tr>
+                            <td>📈 Insumos +20%</td>
+                            <td style="color:var(--red);">+R$ 13,3 mi custo</td>
+                            <td class="worst"><strong>R$ 9,1</strong></td>
+                            <td>5,6%</td>
+                        </tr>
+                        <tr>
+                            <td>🔥 Combo: Seca + Preço baixo</td>
+                            <td style="color:var(--red);">-20% prod + PMV -15%</td>
+                            <td class="worst"><strong>-R$ 38,2</strong></td>
+                            <td class="worst">-38,8%</td>
+                        </tr>
+                        <tr>
+                            <td>🧊 Geada tardia milho (-40%)</td>
+                            <td style="color:var(--red);">Milho 93 sc/ha</td>
+                            <td class="worst"><strong>R$ 2,8</strong></td>
+                            <td>2,0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="insight-box insight-red" style="margin-top:14px;">
+                <div class="insight-title">🛡️ Capacidade de Absorção</div>
+                O patrimônio de <strong>R$ 1,12 bilhão</strong> permite absorver até 3 safras consecutivas de prejuízo moderado (-R$ 15 mi). Porém, o cenário <strong>"Combo Seca + Preço baixo"</strong> (-R$ 38 mi) exigiria <strong>venda de ativos ou renegociação de dívidas</strong>.
+            </div>
+        </div>
+
+        <div class="card" style="border-top:4px solid var(--green);">
+            <div class="card-title" style="color:var(--green);">🛡️ Proteções Recomendadas</div>
+            <div style="font-size:13px; line-height:2.0;">
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>1. Hedge de preço (soja) — Meta: 50% fixado</span>
+                        <span style="color:var(--green);">🟢 Prioridade #1</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:85%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>2. Compra antecipada de insumos — Até Mar/26</span>
+                        <span style="color:var(--green);">🟢 Prioridade #2</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:75%; background:linear-gradient(90deg,var(--green),#00C853);"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>3. Seguro agrícola — Cobertura >70% da área</span>
+                        <span style="color:var(--yellow);">🟡 Em andamento</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:60%; background:linear-gradient(90deg,var(--yellow),var(--accent));"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>4. Reserva de liquidez — Meta R$ 12 mi</span>
+                        <span style="color:var(--yellow);">🟡 65% atingido</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:65%; background:linear-gradient(90deg,var(--yellow),var(--accent));"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>5. Diversificação receita — Pecuária/Energia</span>
+                        <span style="color:var(--orange);">🔶 Planejando</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:25%; background:linear-gradient(90deg,var(--orange),#FF9100);"></div></div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>6. Renegociação arrendamento — 3 contratos</span>
+                        <span style="color:var(--orange);">🔶 A iniciar</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width:15%; background:linear-gradient(90deg,var(--red),var(--orange));"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MONTE CARLO SIMPLIFICADO ========== -->
+    <div class="section-title"><span>🎲</span> SIMULAÇÃO MONTE CARLO SIMPLIFICADA — 10.000 ITERAÇÕES</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🎲 Distribuição de Probabilidade do Resultado (R$ mi)</div>
+            <div class="chart-container tall">
+                <canvas id="chartMonteCarlo"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Resultado Acumulado por Percentil</div>
+            <div style="font-size:13px; line-height:2.0; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>P5 (pior 5%)</span>
+                    <span style="font-weight:800; color:var(--red);">-R$ 8,2 mi</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>P10</span>
+                    <span style="font-weight:700; color:var(--red);">R$ 1,4 mi</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>P25 (Q1)</span>
+                    <span style="font-weight:700; color:var(--yellow);">R$ 12,8 mi</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:2px solid var(--accent); background:rgba(249,168,37,0.06); margin: 0 -6px; padding: 6px 6px;">
+                    <span style="color:var(--accent); font-weight:700;">P50 (Mediana)</span>
+                    <span style="font-weight:900; color:var(--accent); font-size:16px;">R$ 21,6 mi</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>P75 (Q3)</span>
+                    <span style="font-weight:700; color:var(--green);">R$ 33,4 mi</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
+                    <span>P90</span>
+                    <span style="font-weight:700; color:var(--green);">R$ 44,8 mi</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                    <span>P95 (melhor 5%)</span>
+                    <span style="font-weight:800; color:var(--green);">R$ 54,2 mi</span>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+                <div style="text-align:center; padding:12px; background:rgba(255,82,82,0.08); border-radius:10px;">
+                    <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Prob. Prejuízo</div>
+                    <div style="font-size:24px; font-weight:900; color:var(--red);">12,3%</div>
+                </div>
+                <div style="text-align:center; padding:12px; background:rgba(0,230,118,0.08); border-radius:10px;">
+                    <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Prob. LL > 20 mi</div>
+                    <div style="font-size:24px; font-weight:900; color:var(--green);">53,7%</div>
+                </div>
+                <div style="text-align:center; padding:12px; background:rgba(249,168,37,0.08); border-radius:10px;">
+                    <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Valor Esperado</div>
+                    <div style="font-size:24px; font-weight:900; color:var(--accent);">R$ 22,1 mi</div>
+                </div>
+                <div style="text-align:center; padding:12px; background:rgba(64,196,255,0.08); border-radius:10px;">
+                    <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">CVaR (95%)</div>
+                    <div style="font-size:24px; font-weight:900; color:var(--blue);">-R$ 12,4 mi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== VALOR ESPERADO PONDERADO ========== -->
+    <div class="section-title"><span>🎯</span> VALOR ESPERADO & DECISÃO ESTRATÉGICA</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🎯 Resultado Esperado Ponderado — 3 Cenários</div>
+        <div style="display:flex; gap:16px; align-items:stretch; flex-wrap:wrap;">
+            <div style="flex:1; min-width:200px; text-align:center; padding:20px; background:rgba(255,82,82,0.06); border-radius:12px; border:1px solid rgba(255,82,82,0.15);">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Pessimista × 20%</div>
+                <div style="font-size:24px; font-weight:800; color:var(--red); margin:8px 0;">-R$ 0,24 mi</div>
+                <div style="font-size:11px; color:var(--text-muted);">-R$ 1,2 × 20%</div>
+            </div>
+            <div style="display:flex; align-items:center; font-size:28px; color:var(--text-muted);">+</div>
+            <div style="flex:1; min-width:200px; text-align:center; padding:20px; background:rgba(249,168,37,0.06); border-radius:12px; border:1px solid rgba(249,168,37,0.15);">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Base × 55%</div>
+                <div style="font-size:24px; font-weight:800; color:var(--accent); margin:8px 0;">R$ 12,32 mi</div>
+                <div style="font-size:11px; color:var(--text-muted);">R$ 22,4 × 55%</div>
+            </div>
+            <div style="display:flex; align-items:center; font-size:28px; color:var(--text-muted);">+</div>
+            <div style="flex:1; min-width:200px; text-align:center; padding:20px; background:rgba(0,230,118,0.06); border-radius:12px; border:1px solid rgba(0,230,118,0.15);">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Otimista × 25%</div>
+                <div style="font-size:24px; font-weight:800; color:var(--green); margin:8px 0;">R$ 12,95 mi</div>
+                <div style="font-size:11px; color:var(--text-muted);">R$ 51,8 × 25%</div>
+            </div>
+            <div style="display:flex; align-items:center; font-size:28px; color:var(--accent); font-weight:900;">=</div>
+            <div style="flex:1; min-width:200px; text-align:center; padding:20px; background:linear-gradient(135deg, rgba(0,230,118,0.1), rgba(249,168,37,0.1)); border-radius:12px; border:2px solid var(--accent);">
+                <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase;">Valor Esperado</div>
+                <div style="font-size:36px; font-weight:900; color:var(--green); margin:8px 0;">R$ 25,03 mi</div>
+                <div style="font-size:11px; color:var(--text-muted);">+33% vs 24/25</div>
+            </div>
+        </div>
+
+        <div class="insight-box insight-green" style="margin-top:16px;">
+            <div class="insight-title">✅ Decisão Estratégica para 25/26</div>
+            O valor esperado de <strong>R$ 25,03 mi</strong> é 33% superior ao realizado em 24/25. Com <strong>probabilidade de apenas 12,3% de prejuízo</strong> (Monte Carlo), o perfil risco-retorno é <strong>favorável</strong>.<br><br>
+            <strong>Ações prioritárias:</strong><br>
+            ① Fixar 50% da soja entre R$ 120-125/sc até Jun/26<br>
+            ② Travar 60% dos insumos da 25/26 até Set/25 (aproveitar janela)<br>
+            ③ Seguro agrícola em 100% da área de risco (Continental + Araras)<br>
+            ④ Manter reserva de R$ 12 mi de liquidez para absorver cenário pessimista<br>
+            ⑤ Implementar as reduções de custo do "Combo" do HTML 4 (ganho de R$ 4,3 mi)
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Relatório gerado em 20/03/2026 | Consultor: Sidney Souza | <span class="brand">Rural In</span> — Software de Gestão Rural<br>
+    Projeção Safra 25/26 — Grupo Baptistella | 3 Cenários + Monte Carlo | Metodologia padronizada
+</div>
+
+<!-- SCRIPTS -->
+<script>
+    Chart.register(ChartDataLabels);
+    const df = { family: 'Inter', size: 11 };
+    const gc = 'rgba(46,125,50,0.1)';
+    const tc = '#66BB6A';
+
+    // ==================== 3 CENÁRIOS ====================
+    new Chart(document.getElementById('chartCenarios'), {
+        type: 'bar',
+        data: {
+            labels: ['Pessimista', 'Base', 'Otimista'],
+            datasets: [
+                {
+                    label: 'Soja (R$ mi)',
+                    data: [-7.7, 12.4, 38.8],
+                    backgroundColor: ['rgba(255,82,82,0.5)', 'rgba(249,168,37,0.5)', 'rgba(0,230,118,0.5)'],
+                    borderColor: ['#FF5252', '#F9A825', '#00E676'],
+                    borderWidth: 2, borderRadius: 6
+                },
+                {
+                    label: 'Milho (R$ mi)',
+                    data: [-7.6, 11.8, 24.9],
+                    backgroundColor: ['rgba(255,82,82,0.3)', 'rgba(249,168,37,0.3)', 'rgba(0,230,118,0.3)'],
+                    borderColor: ['#FF5252', '#F9A825', '#00E676'],
+                    borderWidth: 1, borderRadius: 6
+                },
+                {
+                    label: 'Outros (R$ mi)',
+                    data: [2.0, 4.2, 5.1],
+                    backgroundColor: ['rgba(179,136,255,0.3)', 'rgba(179,136,255,0.4)', 'rgba(179,136,255,0.5)'],
+                    borderColor: '#B388FF', borderWidth: 1, borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: gc }, ticks: { color: '#E8F5E9', font: { ...df, weight: 'bold', size: 13 } } },
+                y: { stacked: true, grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v + ' mi' } }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: { display: false }
+            }
+        }
+    });
+
+    // ==================== CONE DE POSSIBILIDADES ====================
+    new Chart(document.getElementById('chartCone'), {
+        type: 'line',
+        data: {
+            labels: ['23/24\nReal', '24/25\nReal', '25/26\nPess.', '25/26\nBase', '25/26\nOtim.'],
+            datasets: [
+                {
+                    label: 'Otimista',
+                    data: [null, null, null, null, 51.8],
+                    borderColor: '#00E676', backgroundColor: 'rgba(0,230,118,0.1)',
+                    borderWidth: 0, pointRadius: 12, pointBackgroundColor: '#00E676',
+                    pointStyle: 'star'
+                },
+                {
+                    label: 'Trajetória Real',
+                    data: [0, 18.8, null, null, null],
+                    borderColor: '#E8F5E9', backgroundColor: 'transparent',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#E8F5E9',
+                    tension: 0
+                },
+                {
+                    label: 'Base',
+                    data: [null, 18.8, null, 22.4, null],
+                    borderColor: '#F9A825', backgroundColor: 'transparent',
+                    borderWidth: 2.5, borderDash: [8, 4], pointRadius: 10,
+                    pointBackgroundColor: '#F9A825', pointStyle: 'circle'
+                },
+                {
+                    label: 'Pessimista',
+                    data: [null, null, -1.2, null, null],
+                    borderColor: '#FF5252', backgroundColor: 'rgba(255,82,82,0.05)',
+                    borderWidth: 0, pointRadius: 12, pointBackgroundColor: '#FF5252',
+                    pointStyle: 'triangle'
+                },
+                {
+                    label: 'Faixa P25-P75',
+                    data: [null, 18.8, 12.8, 22.4, 33.4],
+                    borderColor: 'transparent', backgroundColor: 'rgba(249,168,37,0.08)',
+                    borderWidth: 0, pointRadius: 0, fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: {
+                    color: '#E8F5E9', font: { weight: 'bold', size: 11, family: 'Inter' },
+                    formatter: (v) => v !== null ? 'R$ ' + v.toFixed(1) : '',
+                    display: (ctx) => ctx.raw !== null && ctx.datasetIndex < 4
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, size: 10 }, maxRotation: 0 } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v + ' mi' }, min: -10, max: 60 }
+            }
+        }
+    });
+
+    // ==================== BREAKEVEN POR CENÁRIO ====================
+    new Chart(document.getElementById('chartBE'), {
+        type: 'bar',
+        data: {
+            labels: ['Pessimista', 'Base', 'Otimista'],
+            datasets: [
+                {
+                    label: 'BE Soja (sc/ha)',
+                    data: [73.5, 61.6, 54.4],
+                    backgroundColor: ['rgba(255,82,82,0.5)', 'rgba(249,168,37,0.5)', 'rgba(0,230,118,0.5)'],
+                    borderColor: ['#FF5252', '#F9A825', '#00E676'],
+                    borderWidth: 2, borderRadius: 6
+                },
+                {
+                    label: 'Prod. Projetada',
+                    data: [58, 70, 78],
+                    type: 'line', borderColor: '#40C4FF', backgroundColor: 'transparent',
+                    borderWidth: 3, borderDash: [6, 3], pointRadius: 8,
+                    pointBackgroundColor: '#40C4FF', pointStyle: 'rectRot'
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: { ...df, size: 10 }, usePointStyle: true } },
+                datalabels: {
+                    color: '#E8F5E9', font: { weight: 'bold', size: 11, family: 'Inter' },
+                    formatter: v => v.toFixed(1)
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, weight: 'bold' } } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: df }, min: 40, max: 85 }
+            }
+        }
+    });
+
+    // ==================== MONTE CARLO ====================
+    // Simulated histogram of 10k iterations
+    new Chart(document.getElementById('chartMonteCarlo'), {
+        type: 'bar',
+        data: {
+            labels: ['-30 a -20', '-20 a -10', '-10 a 0', '0 a 10', '10 a 20', '20 a 30', '30 a 40', '40 a 50', '50 a 60', '60 a 70'],
+            datasets: [{
+                label: 'Frequência (% das iterações)',
+                data: [1.2, 3.8, 7.3, 11.2, 17.8, 21.4, 18.6, 10.8, 5.4, 2.5],
+                backgroundColor: [
+                    'rgba(255,82,82,0.6)', 'rgba(255,82,82,0.45)', 'rgba(255,145,0,0.5)',
+                    'rgba(255,214,0,0.4)', 'rgba(255,214,0,0.5)', 'rgba(0,230,118,0.4)',
+                    'rgba(0,230,118,0.5)', 'rgba(0,230,118,0.6)', 'rgba(0,230,118,0.5)',
+                    'rgba(0,230,118,0.4)'
+                ],
+                borderColor: [
+                    '#FF5252', '#FF5252', '#FF9100', '#FFD600', '#FFD600',
+                    '#00E676', '#00E676', '#00E676', '#00E676', '#00E676'
+                ],
+                borderWidth: 1.5, borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end', align: 'top', color: '#E8F5E9',
+                    font: { weight: 'bold', size: 10, family: 'Inter' },
+                    formatter: v => v.toFixed(1) + '%'
+                }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Resultado Líquido (R$ milhões)', color: tc, font: { ...df, weight: 'bold' } },
+                    grid: { color: gc }, ticks: { color: tc, font: { ...df, size: 9 } }
+                },
+                y: {
+                    title: { display: true, text: 'Frequência (%)', color: tc, font: { ...df, weight: 'bold' } },
+                    grid: { color: gc }, ticks: { color: tc, font: df, callback: v => v + '%' }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

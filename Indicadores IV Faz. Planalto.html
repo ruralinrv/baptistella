@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrutura de Custos | Grupo Baptistella | Safra 24/25</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #2E7D32;
+            --primary-dark: #0D3311;
+            --accent: #F9A825;
+            --bg-dark: #0a0f0a;
+            --bg-card: #111a11;
+            --bg-card-hover: #162016;
+            --text-primary: #E8F5E9;
+            --text-secondary: #A5D6A7;
+            --text-muted: #66BB6A;
+            --border: rgba(46, 125, 50, 0.2);
+            --green: #00E676;
+            --green-bg: rgba(0, 230, 118, 0.1);
+            --yellow: #FFD600;
+            --yellow-bg: rgba(255, 214, 0, 0.1);
+            --red: #FF5252;
+            --red-bg: rgba(255, 82, 82, 0.1);
+            --blue: #40C4FF;
+            --blue-bg: rgba(64, 196, 255, 0.1);
+            --orange: #FF9100;
+            --orange-bg: rgba(255, 145, 0, 0.1);
+            --purple: #B388FF;
+            --purple-bg: rgba(179, 136, 255, 0.1);
+            --cyan: #18FFFF;
+            --pink: #FF80AB;
+            --teal: #64FFDA;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 28px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid var(--accent);
+        }
+        .header-left h1 { font-size: 24px; font-weight: 800; }
+        .header-left h1 span { color: var(--accent); }
+        .header-left p { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+        .header-right .page-badge {
+            background: linear-gradient(135deg, #F57F17, #F9A825);
+            color: var(--primary-dark); padding: 6px 18px; border-radius: 30px;
+            font-weight: 800; font-size: 13px;
+        }
+
+        .container { max-width: 1480px; margin: 0 auto; padding: 28px 24px; }
+
+        .section-title {
+            font-size: 16px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-muted); margin-bottom: 18px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+        .grid-full { margin-bottom: 28px; }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 22px; position: relative; overflow: hidden;
+            transition: all 0.3s;
+        }
+        .card:hover { box-shadow: 0 0 30px rgba(46,125,50,0.15); }
+
+        .card-title {
+            font-size: 13px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 14px;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* COST BREAKDOWN */
+        .cost-line {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 11px 14px; border-radius: 8px; margin-bottom: 3px;
+            font-size: 13px; transition: background 0.2s;
+        }
+        .cost-line:hover { background: rgba(46,125,50,0.06); }
+        .cost-line .cl-left { display: flex; align-items: center; gap: 10px; }
+        .cost-line .cl-bar {
+            width: 6px; height: 28px; border-radius: 3px; flex-shrink: 0;
+        }
+        .cost-line .cl-label { color: var(--text-secondary); font-weight: 500; }
+        .cost-line .cl-right { display: flex; gap: 20px; align-items: center; }
+        .cost-line .cl-value {
+            font-weight: 700; font-variant-numeric: tabular-nums; min-width: 100px; text-align: right;
+        }
+        .cost-line .cl-pct {
+            font-size: 11px; font-weight: 600; min-width: 50px; text-align: right;
+            padding: 3px 8px; border-radius: 10px;
+        }
+        .cost-line .cl-perha {
+            font-size: 11px; color: var(--text-muted); min-width: 80px; text-align: right;
+        }
+
+        .cost-line.subtotal {
+            background: rgba(46,125,50,0.08); border-left: 3px solid var(--accent);
+            font-weight: 700; margin-top: 4px; margin-bottom: 8px;
+        }
+        .cost-line.subtotal .cl-label { color: var(--accent); font-weight: 800; }
+        .cost-line.subtotal .cl-value { color: var(--accent); }
+
+        .cost-line.total {
+            background: rgba(255,82,82,0.08); border-left: 4px solid var(--red);
+            font-weight: 800; margin-top: 8px; padding: 14px;
+        }
+        .cost-line.total .cl-label { color: var(--red); font-size: 14px; }
+        .cost-line.total .cl-value { color: var(--red); font-size: 16px; }
+
+        .cost-line.receita {
+            background: rgba(0,230,118,0.08); border-left: 4px solid var(--green);
+            font-weight: 800; margin-bottom: 12px; padding: 14px;
+        }
+        .cost-line.receita .cl-label { color: var(--green); font-size: 14px; }
+        .cost-line.receita .cl-value { color: var(--green); font-size: 16px; }
+
+        .cost-line.resultado {
+            background: linear-gradient(135deg, rgba(0,230,118,0.12), rgba(249,168,37,0.08));
+            border-left: 4px solid var(--green); font-weight: 900;
+            margin-top: 8px; padding: 16px;
+        }
+        .cost-line.resultado .cl-label { color: var(--green); font-size: 15px; }
+        .cost-line.resultado .cl-value { color: var(--green); font-size: 18px; }
+
+        /* CATEGORY HEADER */
+        .cost-category {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--text-muted); margin: 16px 0 6px 14px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .cost-category::after {
+            content: ''; flex: 1; height: 1px;
+            background: var(--border); margin-left: 10px;
+        }
+
+        /* MINI PROGRESS */
+        .mini-bar-container { margin: 4px 14px 10px; }
+        .mini-bar {
+            height: 6px; background: rgba(255,255,255,0.04);
+            border-radius: 6px; overflow: hidden;
+        }
+        .mini-bar-fill {
+            height: 100%; border-radius: 6px; transition: width 1.5s ease;
+        }
+
+        /* COMPARISON TABLE */
+        .comp-table {
+            width: 100%; border-collapse: collapse; font-size: 12px;
+        }
+        .comp-table th {
+            text-align: right; font-weight: 700; color: var(--text-muted);
+            padding: 10px 10px; border-bottom: 2px solid var(--border);
+            font-size: 10px; text-transform: uppercase;
+        }
+        .comp-table th:first-child { text-align: left; }
+        .comp-table td {
+            padding: 10px 10px; text-align: right;
+            border-bottom: 1px solid rgba(46,125,50,0.06);
+            font-variant-numeric: tabular-nums;
+        }
+        .comp-table td:first-child { text-align: left; color: var(--text-secondary); font-weight: 500; }
+        .comp-table tr:hover td { background: rgba(46,125,50,0.04); }
+        .comp-table .total-row td {
+            border-top: 2px solid var(--border); font-weight: 800;
+            background: rgba(46,125,50,0.06);
+        }
+        .comp-table .best { color: var(--green); font-weight: 700; }
+        .comp-table .worst { color: var(--red); font-weight: 700; }
+
+        /* STAT ROW */
+        .stat-row { display: flex; gap: 12px; margin-bottom: 20px; }
+        .stat-box {
+            flex: 1; text-align: center; padding: 16px 10px;
+            background: rgba(46,125,50,0.06); border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .stat-box .s-label {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-muted); font-weight: 600;
+        }
+        .stat-box .s-value { font-size: 24px; font-weight: 800; margin-top: 4px; line-height: 1.1; }
+        .stat-box .s-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+        .stat-box .s-delta {
+            font-size: 11px; font-weight: 600; padding: 2px 8px;
+            border-radius: 10px; display: inline-block; margin-top: 4px;
+        }
+
+        /* CHART */
+        .chart-container { position: relative; width: 100%; height: 300px; }
+        .chart-container.tall { height: 380px; }
+        .chart-container.xtall { height: 480px; }
+        .chart-container.short { height: 240px; }
+
+        /* BADGE */
+        .badge {
+            display: inline-block; padding: 3px 10px;
+            border-radius: 12px; font-size: 10px; font-weight: 700;
+        }
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+        .badge-red { background: var(--red-bg); color: var(--red); }
+
+        /* INSIGHT */
+        .insight-box {
+            padding: 16px 20px; border-radius: 12px;
+            margin-top: 14px; font-size: 13px; line-height: 1.7;
+        }
+        .insight-blue { background: rgba(64,196,255,0.06); border: 1px solid rgba(64,196,255,0.2); }
+        .insight-red { background: rgba(255,82,82,0.06); border: 1px solid rgba(255,82,82,0.2); }
+        .insight-green { background: rgba(0,230,118,0.06); border: 1px solid rgba(0,230,118,0.2); }
+        .insight-gold { background: rgba(249,168,37,0.06); border: 1px solid rgba(249,168,37,0.2); }
+        .insight-title {
+            font-weight: 700; margin-bottom: 6px;
+            font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .insight-blue .insight-title { color: var(--blue); }
+        .insight-red .insight-title { color: var(--red); }
+        .insight-green .insight-title { color: var(--green); }
+        .insight-gold .insight-title { color: var(--accent); }
+
+        /* TREEMAP SIMULATED */
+        .treemap {
+            display: grid; gap: 4px; min-height: 260px;
+        }
+        .treemap-item {
+            border-radius: 10px; padding: 12px;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; transition: all 0.3s;
+            cursor: default;
+        }
+        .treemap-item:hover { filter: brightness(1.15); transform: scale(1.02); }
+        .treemap-item .tm-label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .treemap-item .tm-value {
+            font-size: 18px; font-weight: 900; margin-top: 2px;
+        }
+        .treemap-item .tm-pct {
+            font-size: 11px; font-weight: 600; opacity: 0.8; margin-top: 1px;
+        }
+        .treemap-item .tm-perha {
+            font-size: 10px; opacity: 0.6; margin-top: 1px;
+        }
+
+        .footer {
+            text-align: center; padding: 28px; color: var(--text-muted);
+            font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px;
+        }
+        .footer .brand { font-weight: 700; color: var(--accent); }
+
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .stat-row { flex-wrap: wrap; }
+        }
+        @media (max-width: 640px) {
+            .header { flex-direction: column; text-align: center; gap: 12px; }
+            .stat-box .s-value { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <h1>Grupo <span>Baptistella</span> — Estrutura de Custos</h1>
+        <p>Decomposição completa | Soja + Milho | 18.692 ha | Safra 24/25</p>
+    </div>
+    <div class="header-right">
+        <span class="page-badge">CUSTOS & EFICIÊNCIA</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ========== KPIs DE CUSTO ========== -->
+    <div class="section-title"><span>💰</span> INDICADORES-CHAVE DE CUSTO — SAFRA 24/25</div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="s-label">Custo Total Grupo</div>
+            <div class="s-value" style="color:var(--red);">R$ 130,4 mi</div>
+            <div class="s-sub">soja + milho consolidado</div>
+            <div class="s-delta" style="background:var(--red-bg); color:var(--red);">▲ +18,2% vs 23/24</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">CT/ha Soja</div>
+            <div class="s-value" style="color:var(--red);">R$ 7.250</div>
+            <div class="s-sub">2º maior da série histórica</div>
+            <div class="s-delta" style="background:var(--red-bg); color:var(--red);">▲ +4,8% vs 23/24</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Custo/sc Soja</div>
+            <div class="s-value" style="color:var(--red);">R$ 106,06</div>
+            <div class="s-sub">recorde em 11 safras</div>
+            <div class="s-delta" style="background:var(--red-bg); color:var(--red);">▲ +9,3% vs 23/24</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">CT/ha Milho</div>
+            <div class="s-value" style="color:var(--yellow);">R$ 6.515</div>
+            <div class="s-sub">inclui rateio</div>
+            <div class="s-delta" style="background:var(--yellow-bg); color:var(--yellow);">▲ +3,1% vs 23/24</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Custo/sc Milho</div>
+            <div class="s-value" style="color:var(--yellow);">R$ 42,17</div>
+            <div class="s-sub">estável</div>
+            <div class="s-delta" style="background:var(--green-bg); color:var(--green);">▼ -2,4% vs 23/24</div>
+        </div>
+        <div class="stat-box">
+            <div class="s-label">Insumos / CT</div>
+            <div class="s-value" style="color:var(--accent);">49,2%</div>
+            <div class="s-sub">principal driver</div>
+            <div class="s-delta" style="background:var(--yellow-bg); color:var(--yellow);">▲ +2,1 p.p.</div>
+        </div>
+    </div>
+
+    <!-- ========== TREEMAP VISUAL ========== -->
+    <div class="section-title"><span>🗺️</span> TREEMAP — COMPOSIÇÃO VISUAL DO CUSTO TOTAL</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🗺️ Proporção Visual dos Custos — Grupo Consolidado (Soja)</div>
+        <div class="treemap" style="grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto;">
+            <!-- LINHA 1 — INSUMOS (grande) -->
+            <div class="treemap-item" style="grid-column: 1 / 3; background: linear-gradient(135deg, rgba(255,82,82,0.25), rgba(255,82,82,0.12));">
+                <div class="tm-label" style="color:var(--red);">🧪 INSUMOS</div>
+                <div class="tm-value" style="color:var(--red);">R$ 64,2 mi</div>
+                <div class="tm-pct" style="color:var(--red);">49,2% do Custo Total</div>
+                <div class="tm-perha">R$ 3.434/ha | Defensivos + Fertilizantes + Sementes</div>
+            </div>
+            <!-- LINHA 2 -->
+            <div class="treemap-item" style="background: linear-gradient(135deg, rgba(249,168,37,0.2), rgba(249,168,37,0.08));">
+                <div class="tm-label" style="color:var(--accent);">🏢 ADMINISTRATIVO</div>
+                <div class="tm-value" style="color:var(--accent);">R$ 20,9 mi</div>
+                <div class="tm-pct" style="color:var(--accent);">16,1%</div>
+                <div class="tm-perha">R$ 1.122/ha</div>
+            </div>
+            <div class="treemap-item" style="background: linear-gradient(135deg, rgba(255,145,0,0.2), rgba(255,145,0,0.08));">
+                <div class="tm-label" style="color:var(--orange);">🏠 ARRENDAMENTO</div>
+                <div class="tm-value" style="color:var(--orange);">R$ 20,5 mi</div>
+                <div class="tm-pct" style="color:var(--orange);">15,7%</div>
+                <div class="tm-perha">R$ 1.096/ha</div>
+            </div>
+            <!-- LINHA 3 -->
+            <div class="treemap-item" style="background: linear-gradient(135deg, rgba(64,196,255,0.2), rgba(64,196,255,0.08));">
+                <div class="tm-label" style="color:var(--blue);">🚜 MAQUINÁRIO</div>
+                <div class="tm-value" style="color:var(--blue);">R$ 11,8 mi</div>
+                <div class="tm-pct" style="color:var(--blue);">9,0%</div>
+                <div class="tm-perha">R$ 629/ha</div>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:4px;">
+                <div class="treemap-item" style="background: linear-gradient(135deg, rgba(179,136,255,0.2), rgba(179,136,255,0.08));">
+                    <div class="tm-label" style="color:var(--purple); font-size:10px;">📉 DEPRECIAÇÃO</div>
+                    <div class="tm-value" style="color:var(--purple); font-size:15px;">R$ 6,5 mi</div>
+                    <div class="tm-pct" style="color:var(--purple);">5,0%</div>
+                </div>
+                <div style="display:grid; grid-template-rows: 1fr 1fr; gap:4px;">
+                    <div class="treemap-item" style="background: linear-gradient(135deg, rgba(24,255,255,0.15), rgba(24,255,255,0.05));">
+                        <div class="tm-label" style="color:var(--cyan); font-size:9px;">💳 FINANCEIRO</div>
+                        <div class="tm-value" style="color:var(--cyan); font-size:13px;">R$ 3,4 mi</div>
+                        <div class="tm-pct" style="color:var(--cyan);">2,6%</div>
+                    </div>
+                    <div class="treemap-item" style="background: linear-gradient(135deg, rgba(255,128,171,0.15), rgba(255,128,171,0.05));">
+                        <div class="tm-label" style="color:var(--pink); font-size:9px;">🏷️ IMPOSTOS + ROYALTIES</div>
+                        <div class="tm-value" style="color:var(--pink); font-size:13px;">R$ 3,1 mi</div>
+                        <div class="tm-pct" style="color:var(--pink);">2,4%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== WATERFALL DETALHADO ========== -->
+    <div class="section-title"><span>📊</span> WATERFALL — DA RECEITA AO LUCRO LÍQUIDO</div>
+
+    <div class="card grid-full">
+        <div class="card-title">📊 Cascata de Valor — Soja Grupo Consolidado (R$/ha)</div>
+        <div class="chart-container xtall">
+            <canvas id="chartWaterfall"></canvas>
+        </div>
+    </div>
+
+    <!-- ========== DECOMPOSIÇÃO DETALHADA ========== -->
+    <div class="section-title"><span>🔍</span> DECOMPOSIÇÃO DETALHADA — SOJA (R$ TOTAL E R$/HA)</div>
+
+    <div class="grid-2">
+        <!-- COLUNA ESQUERDA: CUSTOS VARIÁVEIS -->
+        <div class="card">
+            <div class="card-title" style="color:var(--red);">🧪 CUSTOS VARIÁVEIS — INSUMOS</div>
+
+            <div class="cost-line receita">
+                <div class="cl-left">
+                    <div class="cl-label">RECEITA BRUTA SOJA</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value" style="color:var(--green);">R$ 97.116.372</div>
+                    <div class="cl-pct" style="background:var(--green-bg); color:var(--green);">100%</div>
+                    <div class="cl-perha">R$ 8.175/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🧪 Defensivos</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--red);"></div>
+                    <div class="cl-label">Defensivos químicos</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 18.435.120</div>
+                    <div class="cl-pct" style="background:var(--red-bg); color:var(--red);">14,1%</div>
+                    <div class="cl-perha">R$ 1.552/ha</div>
+                </div>
+            </div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--orange);"></div>
+                    <div class="cl-label">Defensivos biológicos</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 3.680.400</div>
+                    <div class="cl-pct" style="background:var(--orange-bg); color:var(--orange);">2,8%</div>
+                    <div class="cl-perha">R$ 310/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🌿 Fertilizantes & Corretivos</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--accent);"></div>
+                    <div class="cl-label">Fertilizantes / Adubo</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 22.940.676</div>
+                    <div class="cl-pct" style="background:rgba(249,168,37,0.15); color:var(--accent);">17,6%</div>
+                    <div class="cl-perha">R$ 1.932/ha</div>
+                </div>
+            </div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--yellow);"></div>
+                    <div class="cl-label">Calcário</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 2.827.848</div>
+                    <div class="cl-pct" style="background:var(--yellow-bg); color:var(--yellow);">2,2%</div>
+                    <div class="cl-perha">R$ 238/ha</div>
+                </div>
+            </div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:#FFD54F;"></div>
+                    <div class="cl-label">Gesso</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 1.237.020</div>
+                    <div class="cl-pct" style="background:var(--yellow-bg); color:var(--yellow);">0,9%</div>
+                    <div class="cl-perha">R$ 104/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🌱 Sementes</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--green);"></div>
+                    <div class="cl-label">Sementes</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 6.777.768</div>
+                    <div class="cl-pct" style="background:var(--green-bg); color:var(--green);">5,2%</div>
+                    <div class="cl-perha">R$ 571/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🏷️ Outros insumos</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--purple);"></div>
+                    <div class="cl-label">Outros insumos variáveis</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 2.376.540</div>
+                    <div class="cl-pct" style="background:var(--purple-bg); color:var(--purple);">1,8%</div>
+                    <div class="cl-perha">R$ 200/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-line subtotal">
+                <div class="cl-left">
+                    <div class="cl-label">SUBTOTAL INSUMOS</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 58.275.372</div>
+                    <div class="cl-pct" style="background:rgba(249,168,37,0.15); color:var(--accent);">44,7%</div>
+                    <div class="cl-perha">R$ 4.907/ha</div>
+                </div>
+            </div>
+
+            <div class="mini-bar-container">
+                <div class="mini-bar">
+                    <div class="mini-bar-fill" style="width:44.7%; background: linear-gradient(90deg, var(--red), var(--orange));"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUNA DIREITA: CUSTOS FIXOS -->
+        <div class="card">
+            <div class="card-title" style="color:var(--accent);">🏢 CUSTOS FIXOS & ESTRUTURAIS</div>
+
+            <div class="cost-category">🏢 Administrativo</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--accent);"></div>
+                    <div class="cl-label">Salários + encargos</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 9.860.000</div>
+                    <div class="cl-pct" style="background:rgba(249,168,37,0.15); color:var(--accent);">7,6%</div>
+                    <div class="cl-perha">R$ 527/ha</div>
+                </div>
+            </div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:#FDD835;"></div>
+                    <div class="cl-label">Pró-labores</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 4.320.000</div>
+                    <div class="cl-pct" style="background:rgba(249,168,37,0.15); color:var(--accent);">3,3%</div>
+                    <div class="cl-perha">R$ 231/ha</div>
+                </div>
+            </div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:#FFB300;"></div>
+                    <div class="cl-label">Energia + Comunicação + Outros</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 6.776.590</div>
+                    <div class="cl-pct" style="background:rgba(249,168,37,0.15); color:var(--accent);">5,2%</div>
+                    <div class="cl-perha">R$ 362/ha</div>
+                </div>
+            </div>
+            <div class="cost-line subtotal">
+                <div class="cl-left"><div class="cl-label">SUBTOTAL ADM</div></div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 20.956.590</div>
+                    <div class="cl-pct" style="background:rgba(249,168,37,0.15); color:var(--accent);">16,1%</div>
+                    <div class="cl-perha">R$ 1.122/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🚜 Maquinário</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--blue);"></div>
+                    <div class="cl-label">Diesel + Peças + Serviços + Fretes</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 11.759.480</div>
+                    <div class="cl-pct" style="background:var(--blue-bg); color:var(--blue);">9,0%</div>
+                    <div class="cl-perha">R$ 629/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🏠 Arrendamento</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--orange);"></div>
+                    <div class="cl-label">Arrendamento de terras</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 20.487.825</div>
+                    <div class="cl-pct" style="background:var(--orange-bg); color:var(--orange);">15,7%</div>
+                    <div class="cl-perha">R$ 1.096/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">📉 Depreciação</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--purple);"></div>
+                    <div class="cl-label">Máquinas + Benfeitorias</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 6.500.000</div>
+                    <div class="cl-pct" style="background:var(--purple-bg); color:var(--purple);">5,0%</div>
+                    <div class="cl-perha">R$ 348/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">💳 Financeiro + Impostos</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--cyan);"></div>
+                    <div class="cl-label">Juros + IOF + Tarifas + Funrural</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 6.534.361</div>
+                    <div class="cl-pct" style="background:rgba(24,255,255,0.1); color:var(--cyan);">5,0%</div>
+                    <div class="cl-perha">R$ 350/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-category">🏷️ Royalties</div>
+            <div class="cost-line">
+                <div class="cl-left">
+                    <div class="cl-bar" style="background:var(--pink);"></div>
+                    <div class="cl-label">Royalties de sementes</div>
+                </div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 766.244</div>
+                    <div class="cl-pct" style="background:rgba(255,128,171,0.1); color:var(--pink);">0,6%</div>
+                    <div class="cl-perha">R$ 41/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-line total">
+                <div class="cl-left"><div class="cl-label">CUSTO TOTAL SOJA</div></div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 125.279.872</div>
+                    <div class="cl-pct" style="background:var(--red-bg); color:var(--red);">100%</div>
+                    <div class="cl-perha">R$ 6.695/ha</div>
+                </div>
+            </div>
+
+            <div class="cost-line resultado">
+                <div class="cl-left"><div class="cl-label">= RESULTADO SOJA</div></div>
+                <div class="cl-right">
+                    <div class="cl-value">R$ 10.983.744</div>
+                    <div class="cl-pct" style="background:var(--green-bg); color:var(--green);">11,3%</div>
+                    <div class="cl-perha">R$ 925/ha</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== GRÁFICOS DE COMPOSIÇÃO ========== -->
+    <div class="section-title"><span>🍩</span> COMPOSIÇÃO PERCENTUAL & COMPARATIVA</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🍩 Composição do Custo Total — Soja</div>
+            <div class="chart-container tall">
+                <canvas id="pieCusto"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Custo/ha — Soja vs Milho</div>
+            <div class="chart-container tall">
+                <canvas id="chartSojaMilho"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== EVOLUÇÃO HISTÓRICA DE CUSTOS ========== -->
+    <div class="section-title"><span>📈</span> EVOLUÇÃO HISTÓRICA DOS CUSTOS (7 SAFRAS)</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📈 Custo Total/ha Soja — 7 safras</div>
+            <div class="chart-container tall">
+                <canvas id="chartCTHist"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📈 Custo/sc Soja vs Preço de Venda — 7 safras</div>
+            <div class="chart-container tall">
+                <canvas id="chartCustoPreco"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="card grid-full">
+        <div class="card-title">📊 Evolução da Composição % do Custo — 7 safras (Soja)</div>
+        <div class="chart-container tall">
+            <canvas id="chartComposicaoHist"></canvas>
+        </div>
+        <div class="insight-box insight-red" style="margin-top:14px;">
+            <div class="insight-title">⚠️ Tendência Preocupante</div>
+            Os <strong>insumos saltaram de 38% para 49%</strong> do custo total em 4 safras. Na safra 21/22, o custo de insumos era R$ 2.180/ha. Hoje é R$ 3.434/ha — aumento de <strong>57,5% em 3 safras</strong>. Enquanto isso, a produtividade não acompanhou proporcionalmente (aumento de apenas 8% no período). A <strong>eficiência marginal do gasto com insumos está em queda</strong>.
+        </div>
+    </div>
+
+    <!-- ========== CUSTO POR FAZENDA ========== -->
+    <div class="section-title"><span>🏠</span> DECOMPOSIÇÃO POR FAZENDA — SOJA</div>
+
+    <div class="card grid-full">
+        <div class="card-title">📊 Custo/ha Decomposto por Fazenda — Stacked</div>
+        <div class="chart-container xtall">
+            <canvas id="chartCustoFazenda"></canvas>
+        </div>
+    </div>
+
+    <div class="card grid-full">
+        <div class="card-title">📋 Tabela Comparativa de Custos — Soja (R$/ha)</div>
+        <div style="overflow-x:auto;">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Componente (R$/ha)</th>
+                        <th>Planalto MT</th>
+                        <th>Planalto GO</th>
+                        <th>Continental MT</th>
+                        <th>Araras MT</th>
+                        <th>Média Grupo</th>
+                        <th>% do CT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Defensivos químicos</td>
+                        <td class="best">R$ 1.480</td>
+                        <td>R$ 1.510</td>
+                        <td>R$ 1.585</td>
+                        <td class="worst">R$ 1.682</td>
+                        <td>R$ 1.552</td>
+                        <td>21,4%</td>
+                    </tr>
+                    <tr>
+                        <td>Defensivos biológicos</td>
+                        <td>R$ 305</td>
+                        <td class="best">R$ 290</td>
+                        <td>R$ 315</td>
+                        <td class="worst">R$ 338</td>
+                        <td>R$ 310</td>
+                        <td>4,3%</td>
+                    </tr>
+                    <tr>
+                        <td>Fertilizantes / Adubo</td>
+                        <td>R$ 1.935</td>
+                        <td class="best">R$ 1.870</td>
+                        <td>R$ 1.950</td>
+                        <td class="worst">R$ 1.988</td>
+                        <td>R$ 1.932</td>
+                        <td>26,6%</td>
+                    </tr>
+                    <tr>
+                        <td>Calcário + Gesso</td>
+                        <td>R$ 340</td>
+                        <td class="best">R$ 318</td>
+                        <td class="worst">R$ 365</td>
+                        <td>R$ 348</td>
+                        <td>R$ 342</td>
+                        <td>4,7%</td>
+                    </tr>
+                    <tr>
+                        <td>Sementes</td>
+                        <td>R$ 568</td>
+                        <td class="best">R$ 552</td>
+                        <td>R$ 580</td>
+                        <td class="worst">R$ 590</td>
+                        <td>R$ 571</td>
+                        <td>7,9%</td>
+                    </tr>
+                    <tr>
+                        <td>Outros insumos</td>
+                        <td>R$ 195</td>
+                        <td class="best">R$ 188</td>
+                        <td>R$ 210</td>
+                        <td class="worst">R$ 212</td>
+                        <td>R$ 200</td>
+                        <td>2,8%</td>
+                    </tr>
+                    <tr style="background:rgba(249,168,37,0.04);">
+                        <td><strong style="color:var(--accent);">SUBTOTAL INSUMOS</strong></td>
+                        <td><strong>R$ 4.823</strong></td>
+                        <td class="best"><strong>R$ 4.728</strong></td>
+                        <td><strong>R$ 5.005</strong></td>
+                        <td class="worst"><strong>R$ 5.158</strong></td>
+                        <td><strong>R$ 4.907</strong></td>
+                        <td><strong>67,7%</strong></td>
+                    </tr>
+                    <tr>
+                        <td>ADM (rateio)</td>
+                        <td>R$ 1.122</td>
+                        <td>R$ 1.122</td>
+                        <td>R$ 1.122</td>
+                        <td>R$ 1.122</td>
+                        <td>R$ 1.122</td>
+                        <td>15,5%</td>
+                    </tr>
+                    <tr>
+                        <td>Maquinário (rateio)</td>
+                        <td>R$ 629</td>
+                        <td>R$ 629</td>
+                        <td>R$ 629</td>
+                        <td>R$ 629</td>
+                        <td>R$ 629</td>
+                        <td>8,7%</td>
+                    </tr>
+                    <tr>
+                        <td>Royalties</td>
+                        <td>R$ 41</td>
+                        <td>R$ 41</td>
+                        <td>R$ 41</td>
+                        <td>R$ 41</td>
+                        <td>R$ 41</td>
+                        <td>0,6%</td>
+                    </tr>
+                    <tr>
+                        <td>Depreciação</td>
+                        <td>R$ 348</td>
+                        <td>R$ 348</td>
+                        <td>R$ 348</td>
+                        <td>R$ 348</td>
+                        <td>R$ 348</td>
+                        <td>4,8%</td>
+                    </tr>
+                    <tr>
+                        <td>Arrendamento</td>
+                        <td class="best">R$ 721</td>
+                        <td>R$ 808</td>
+                        <td class="worst">R$ 853</td>
+                        <td>R$ 845</td>
+                        <td>R$ 807</td>
+                        <td>11,1%</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>CUSTO TOTAL/HA</strong></td>
+                        <td class="best"><strong>R$ 7.684</strong></td>
+                        <td><strong>R$ 7.676</strong></td>
+                        <td class="worst"><strong>R$ 7.998</strong></td>
+                        <td><strong>R$ 8.143</strong></td>
+                        <td><strong>R$ 7.250</strong></td>
+                        <td><strong>100%</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box insight-gold" style="margin-top:16px;">
+            <div class="insight-title">💡 Onde Atacar para Reduzir Custos</div>
+            <strong>Top 3 oportunidades de economia:</strong><br>
+            ① <strong>Fertilizantes (R$ 1.932/ha | 26,6%):</strong> Araras gasta R$ 118/ha a mais que GO. Economia potencial de R$ 150 mil/safra com negociação e dosagem correta.<br>
+            ② <strong>Defensivos químicos (R$ 1.552/ha | 21,4%):</strong> Gap de R$ 202/ha entre melhor e pior fazenda. Padronizar protocolo da Planalto MT para todas.<br>
+            ③ <strong>Arrendamento (R$ 807/ha | 11,1%):</strong> Continental paga R$ 132/ha a mais que Planalto MT. Renegociar contratos ou avaliar viabilidade de compra.
+        </div>
+    </div>
+
+    <!-- ========== CUSTO POR SACA ========== -->
+    <div class="section-title"><span>💲</span> CUSTO POR SACA — ANÁLISE DETALHADA</div>
+
+    <div class="grid-3">
+        <div class="card" style="border-top:4px solid var(--red);">
+            <div class="card-title" style="color:var(--red);">💲 Custo/sc Soja</div>
+            <div style="text-align:center; margin:16px 0;">
+                <div style="font-size:48px; font-weight:900; color:var(--red);">R$ 106,06</div>
+                <div style="font-size:12px; color:var(--text-muted);">por saca de 60kg</div>
+            </div>
+            <div style="font-size:12px; line-height:1.8;">
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Insumos</span><span style="font-weight:700;">R$ 50,67/sc (47,8%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>ADM</span><span style="font-weight:700;">R$ 16,42/sc (15,5%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Arrendamento</span><span style="font-weight:700;">R$ 16,04/sc (15,1%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Maquinário</span><span style="font-weight:700;">R$ 9,21/sc (8,7%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Depreciação</span><span style="font-weight:700;">R$ 5,09/sc (4,8%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Financeiro</span><span style="font-weight:700;">R$ 4,98/sc (4,7%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0;">
+                    <span>Royalties + Outros</span><span style="font-weight:700;">R$ 3,65/sc (3,4%)</span>
+                </div>
+            </div>
+            <div style="margin-top:12px; text-align:center; padding:10px; background:rgba(255,82,82,0.08); border-radius:8px;">
+                <div style="font-size:11px; color:var(--text-muted);">SPREAD (PMV - Custo)</div>
+                <div style="font-size:22px; font-weight:800; color:var(--yellow);">R$ 13,54/sc</div>
+                <div style="font-size:10px; color:var(--text-muted);">margem de apenas 12,8%</div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top:4px solid var(--green);">
+            <div class="card-title" style="color:var(--green);">💲 Custo/sc Milho</div>
+            <div style="text-align:center; margin:16px 0;">
+                <div style="font-size:48px; font-weight:900; color:var(--green);">R$ 42,17</div>
+                <div style="font-size:12px; color:var(--text-muted);">por saca de 60kg</div>
+            </div>
+            <div style="font-size:12px; line-height:1.8;">
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Insumos</span><span style="font-weight:700;">R$ 16,85/sc (40,0%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>ADM</span><span style="font-weight:700;">R$ 7,26/sc (17,2%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Arrendamento</span><span style="font-weight:700;">R$ 6,24/sc (14,8%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Maquinário</span><span style="font-weight:700;">R$ 4,07/sc (9,7%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Depreciação</span><span style="font-weight:700;">R$ 2,25/sc (5,3%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid var(--border);">
+                    <span>Financeiro</span><span style="font-weight:700;">R$ 3,17/sc (7,5%)</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:4px 0;">
+                    <span>Outros</span><span style="font-weight:700;">R$ 2,33/sc (5,5%)</span>
+                </div>
+            </div>
+            <div style="margin-top:12px; text-align:center; padding:10px; background:rgba(0,230,118,0.08); border-radius:8px;">
+                <div style="font-size:11px; color:var(--text-muted);">SPREAD (PMV - Custo)</div>
+                <div style="font-size:22px; font-weight:800; color:var(--green);">R$ 10,03/sc</div>
+                <div style="font-size:10px; color:var(--text-muted);">margem saudável 23,8%</div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top:4px solid var(--blue);">
+            <div class="card-title" style="color:var(--blue);">📊 Custo/sc por Fazenda — Soja</div>
+            <div class="chart-container" style="height:260px;">
+                <canvas id="chartCustoSc"></canvas>
+            </div>
+            <div style="margin-top:12px; font-size:12px; line-height:1.8; text-align:center;">
+                <div style="margin-bottom:6px;">
+                    <span style="color:var(--green); font-weight:700;">Planalto MT:</span> R$ 83,18/sc 🥇
+                </div>
+                <div style="margin-bottom:6px;">
+                    <span style="color:var(--blue); font-weight:700;">Planalto GO:</span> R$ 89,11/sc 🥈
+                </div>
+                <div style="margin-bottom:6px;">
+                    <span style="color:var(--orange); font-weight:700;">Continental:</span> ~R$ 99,35/sc
+                </div>
+                <div>
+                    <span style="color:var(--red); font-weight:700;">Araras:</span> R$ 101,93/sc
+                </div>
+            </div>
+            <div style="margin-top:12px; text-align:center; padding:10px; background:rgba(64,196,255,0.08); border-radius:8px;">
+                <div style="font-size:11px; color:var(--text-muted);">GAP CUSTO/SC (Melhor vs Pior)</div>
+                <div style="font-size:22px; font-weight:800; color:var(--red);">R$ 18,75/sc</div>
+                <div style="font-size:10px; color:var(--text-muted);">Araras é 22,5% mais caro por sc</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ANÁLISE DE EFICIÊNCIA ========== -->
+    <div class="section-title"><span>⚡</span> EFICIÊNCIA — CUSTO vs RETORNO</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 R$ de Receita por R$ 1 de Custo (Eficiência)</div>
+            <div class="chart-container tall">
+                <canvas id="chartEficiencia"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Evolução do "Spread" Preço-Custo (R$/sc) — 7 safras</div>
+            <div class="chart-container tall">
+                <canvas id="chartSpread"></canvas>
+            </div>
+            <div class="insight-box insight-red" style="margin-top:14px;">
+                <div class="insight-title">⚠️ Compressão do Spread</div>
+                O spread (PMV - Custo/sc) caiu de <strong>R$ 59,66/sc</strong> na safra 21/22 para <strong>R$ 13,54/sc</strong> na safra 24/25 — queda de <strong>77%</strong>. A recuperação do resultado veio pelo volume (mais área), não pela eficiência por hectare.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== SIMULADOR DE REDUÇÃO ========== -->
+    <div class="section-title"><span>🎯</span> SIMULAÇÃO — IMPACTO DA REDUÇÃO DE CUSTOS</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🎯 Se reduzíssemos custos em X%, qual o impacto no resultado?</div>
+        <div style="overflow-x:auto;">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Cenário de Redução</th>
+                        <th>Economia/ha</th>
+                        <th>Economia Total</th>
+                        <th>Novo Resultado/ha</th>
+                        <th>Nova Lucratividade</th>
+                        <th>Impacto no LL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Insumos -5%</td>
+                        <td class="best">R$ 245/ha</td>
+                        <td>R$ 2,91 mi</td>
+                        <td style="color:var(--green);">R$ 1.170/ha (+26,5%)</td>
+                        <td style="color:var(--green);">14,1%</td>
+                        <td style="color:var(--green);">+R$ 2,91 mi (+15,4%)</td>
+                    </tr>
+                    <tr>
+                        <td>Insumos -10%</td>
+                        <td class="best">R$ 491/ha</td>
+                        <td>R$ 5,83 mi</td>
+                        <td style="color:var(--green);">R$ 1.416/ha (+53,1%)</td>
+                        <td style="color:var(--green);">16,7%</td>
+                        <td style="color:var(--green);">+R$ 5,83 mi (+30,9%)</td>
+                    </tr>
+                    <tr>
+                        <td>ADM -10%</td>
+                        <td>R$ 112/ha</td>
+                        <td>R$ 1,33 mi</td>
+                        <td style="color:var(--green);">R$ 1.037/ha (+12,1%)</td>
+                        <td style="color:var(--green);">12,5%</td>
+                        <td style="color:var(--green);">+R$ 1,33 mi (+7,1%)</td>
+                    </tr>
+                    <tr>
+                        <td>Maquinário -15%</td>
+                        <td>R$ 94/ha</td>
+                        <td>R$ 1,12 mi</td>
+                        <td style="color:var(--green);">R$ 1.019/ha (+10,2%)</td>
+                        <td style="color:var(--green);">12,2%</td>
+                        <td style="color:var(--green);">+R$ 1,12 mi (+5,9%)</td>
+                    </tr>
+                    <tr style="background:rgba(0,230,118,0.06);">
+                        <td><strong>🏆 Combo: Ins -5% + ADM -5% + MAQ -10%</strong></td>
+                        <td class="best"><strong>R$ 364/ha</strong></td>
+                        <td><strong>R$ 4,32 mi</strong></td>
+                        <td style="color:var(--green);"><strong>R$ 1.289/ha (+39,4%)</strong></td>
+                        <td style="color:var(--green);"><strong>15,4%</strong></td>
+                        <td style="color:var(--green);"><strong>+R$ 4,32 mi (+22,9%)</strong></td>
+                    </tr>
+                    <tr style="background:rgba(0,230,118,0.10);">
+                        <td><strong>🎯 Araras → Nível Planalto MT</strong></td>
+                        <td class="best"><strong>R$ 459/ha</strong></td>
+                        <td><strong>R$ 583 mil</strong></td>
+                        <td style="color:var(--green);"><strong>R$ 1.513/ha Araras</strong></td>
+                        <td style="color:var(--green);"><strong>+43,5% na fazenda</strong></td>
+                        <td style="color:var(--green);"><strong>Elimina 6 talhões 🔴</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="insight-box insight-green" style="margin-top:16px;">
+            <div class="insight-title">✅ Recomendação de Custo</div>
+            A meta mais realista e impactante é o <strong>"Combo" de reduções moderadas</strong>: 5% em insumos + 5% em ADM + 10% em maquinário. Isso gera <strong>R$ 4,32 mi extras</strong> sem mudanças radicais — equivale a <strong>um aumento de 23% no lucro líquido</strong>.
+            A segunda prioridade é <strong>convergir Araras para o nível de custo da Planalto MT</strong>, que gera R$ 583 mil adicionais e elimina talhões no vermelho.
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Relatório gerado em 20/03/2026 | Consultor: Sidney Souza | <span class="brand">Rural In</span> — Software de Gestão Rural<br>
+    Dados da safra 24/25 — Grupo Baptistella | Estrutura de Custos | Metodologia padronizada
+</div>
+
+<!-- SCRIPTS -->
+<script>
+    Chart.register(ChartDataLabels);
+    const df = { family: 'Inter', size: 11 };
+    const gc = 'rgba(46,125,50,0.1)';
+    const tc = '#66BB6A';
+
+    // ==================== WATERFALL ====================
+    new Chart(document.getElementById('chartWaterfall'), {
+        type: 'bar',
+        data: {
+            labels: ['Receita\nBruta', '(-) Impostos\ns/ venda', '(-) Insumos', '(-) ADM', '(-) Maquinário', '= EBITDA', '(-) Arrend.', '(-) Deprec.', '(-) Financeiro\n+ IR', '= LUCRO\nLÍQUIDO'],
+            datasets: [{
+                data: [8175, -204, -3434, -1122, -629, 2786, -1096, -348, -417, 925],
+                backgroundColor: function(ctx) {
+                    const i = ctx.dataIndex;
+                    if (i === 0) return 'rgba(0,230,118,0.5)';
+                    if (i === 5) return 'rgba(249,168,37,0.5)';
+                    if (i === 9) return 'rgba(0,230,118,0.7)';
+                    return 'rgba(255,82,82,0.35)';
+                },
+                borderColor: function(ctx) {
+                    const i = ctx.dataIndex;
+                    if (i === 0) return '#00E676';
+                    if (i === 5) return '#F9A825';
+                    if (i === 9) return '#00E676';
+                    return '#FF5252';
+                },
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: ctx => ctx.raw >= 0 ? 'end' : 'start',
+                    align: ctx => ctx.raw >= 0 ? 'top' : 'bottom',
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 11, family: 'Inter' },
+                    formatter: v => (v >= 0 ? '' : '') + 'R$ ' + Math.abs(v).toLocaleString('pt-BR')
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, size: 9 }, maxRotation: 0 } },
+                y: {
+                    grid: { color: gc },
+                    ticks: { color: tc, font: df, callback: v => 'R$ ' + v.toLocaleString('pt-BR') }
+                }
+            }
+        }
+    });
+
+    // ==================== PIE CUSTO ====================
+    new Chart(document.getElementById('pieCusto'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Fertilizantes', 'Defensivos Quím.', 'ADM', 'Arrendamento', 'Maquinário', 'Sementes', 'Depreciação', 'Def. Biológicos', 'Financeiro+IR', 'Calcário+Gesso', 'Royalties+Outros'],
+            datasets: [{
+                data: [26.6, 21.4, 15.5, 15.1, 8.7, 7.9, 4.8, 4.3, 4.7, 3.1, 1.8],
+                backgroundColor: [
+                    'rgba(249,168,37,0.7)', 'rgba(255,82,82,0.7)', 'rgba(255,214,0,0.6)',
+                    'rgba(255,145,0,0.6)', 'rgba(64,196,255,0.6)', 'rgba(0,230,118,0.5)',
+                    'rgba(179,136,255,0.6)', 'rgba(255,145,0,0.4)', 'rgba(24,255,255,0.5)',
+                    'rgba(255,214,0,0.35)', 'rgba(255,128,171,0.5)'
+                ],
+                borderWidth: 1, borderColor: 'rgba(0,0,0,0.3)',
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            cutout: '40%',
+            plugins: {
+                legend: { position: 'right', labels: { color: tc, font: { ...df, size: 10 }, usePointStyle: true, padding: 8 } },
+                datalabels: {
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 10, family: 'Inter' },
+                    formatter: (v) => v >= 7 ? v + '%' : ''
+                }
+            }
+        }
+    });
+
+    // ==================== SOJA vs MILHO ====================
+    new Chart(document.getElementById('chartSojaMilho'), {
+        type: 'bar',
+        data: {
+            labels: ['Insumos', 'ADM', 'Arrendamento', 'Maquinário', 'Depreciação', 'Financeiro', 'Outros'],
+            datasets: [
+                {
+                    label: 'Soja (R$/ha)',
+                    data: [4907, 1122, 1096, 629, 348, 350, 243],
+                    backgroundColor: 'rgba(0,230,118,0.5)',
+                    borderColor: '#00E676', borderWidth: 1, borderRadius: 4
+                },
+                {
+                    label: 'Milho (R$/ha)',
+                    data: [2603, 1122, 964, 629, 348, 490, 359],
+                    backgroundColor: 'rgba(249,168,37,0.5)',
+                    borderColor: '#F9A825', borderWidth: 1, borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: { ...df, size: 10 } } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v.toLocaleString('pt-BR') } }
+            }
+        }
+    });
+
+    // ==================== CT/HA HISTÓRICO ====================
+    new Chart(document.getElementById('chartCTHist'), {
+        type: 'line',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [
+                {
+                    label: 'CT/ha Soja',
+                    data: [3180, 3450, 3720, 5280, 6530, 6920, 7250],
+                    borderColor: '#FF5252', backgroundColor: 'rgba(255,82,82,0.08)',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#FF5252',
+                    tension: 0.3, fill: true
+                },
+                {
+                    label: 'CT/ha Milho',
+                    data: [2650, 2880, 3100, 4350, 5680, 6320, 6515],
+                    borderColor: '#F9A825', backgroundColor: 'rgba(249,168,37,0.05)',
+                    borderWidth: 2.5, pointRadius: 5, pointBackgroundColor: '#F9A825',
+                    tension: 0.3, fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: {
+                    anchor: 'end', align: 'top',
+                    color: '#E8F5E9', font: { weight: 'bold', size: 10, family: 'Inter' },
+                    formatter: v => 'R$ ' + v.toLocaleString('pt-BR'),
+                    display: (ctx) => ctx.dataIndex % 2 === 0 || ctx.dataIndex === 6
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: df } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v.toLocaleString('pt-BR') }, min: 2000 }
+            }
+        }
+    });
+
+    // ==================== CUSTO/SC vs PREÇO ====================
+    new Chart(document.getElementById('chartCustoPreco'), {
+        type: 'line',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [
+                {
+                    label: 'PMV (R$/sc)',
+                    data: [72.50, 82.30, 128.40, 165.30, 129.80, 114.20, 119.60],
+                    borderColor: '#00E676', backgroundColor: 'rgba(0,230,118,0.08)',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#00E676',
+                    tension: 0.3, fill: true
+                },
+                {
+                    label: 'Custo/sc',
+                    data: [43.42, 51.53, 53.76, 72.14, 88.15, 97.06, 106.06],
+                    borderColor: '#FF5252', backgroundColor: 'rgba(255,82,82,0.08)',
+                    borderWidth: 3, pointRadius: 6, pointBackgroundColor: '#FF5252',
+                    tension: 0.3, fill: true
+                },
+                {
+                    label: 'Spread (R$/sc)',
+                    data: [29.08, 30.77, 74.64, 93.16, 41.65, 17.14, 13.54],
+                    type: 'bar',
+                    backgroundColor: (ctx) => {
+                        const v = ctx.raw;
+                        if (v > 50) return 'rgba(0,230,118,0.3)';
+                        if (v > 20) return 'rgba(255,214,0,0.3)';
+                        return 'rgba(255,82,82,0.3)';
+                    },
+                    borderColor: 'transparent', borderWidth: 0, borderRadius: 4,
+                    order: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: df } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v } }
+            }
+        }
+    });
+
+    // ==================== COMPOSIÇÃO HISTÓRICA ====================
+    new Chart(document.getElementById('chartComposicaoHist'), {
+        type: 'bar',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [
+                { label: 'Insumos', data: [38,39,41,41,45,47,49], backgroundColor: 'rgba(255,82,82,0.6)', borderRadius: 2 },
+                { label: 'ADM', data: [20,19,18,17,16,16,16], backgroundColor: 'rgba(249,168,37,0.6)', borderRadius: 2 },
+                { label: 'Arrendamento', data: [16,16,15,15,15,16,16], backgroundColor: 'rgba(255,145,0,0.5)', borderRadius: 2 },
+                { label: 'Maquinário', data: [12,12,11,11,10,9,9], backgroundColor: 'rgba(64,196,255,0.5)', borderRadius: 2 },
+                { label: 'Depreciação', data: [6,6,6,6,5,5,5], backgroundColor: 'rgba(179,136,255,0.5)', borderRadius: 2 },
+                { label: 'Outros', data: [8,8,9,10,9,7,5], backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: 2 }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: gc }, ticks: { color: tc, font: df } },
+                y: { stacked: true, grid: { color: gc }, ticks: { color: tc, font: df, callback: v => v + '%' }, max: 100 }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: { ...df, size: 10 }, usePointStyle: true } },
+                datalabels: {
+                    color: '#000', font: { weight: 'bold', size: 10, family: 'Inter' },
+                    formatter: v => v >= 9 ? v + '%' : ''
+                }
+            }
+        }
+    });
+
+    // ==================== CUSTO/HA POR FAZENDA ====================
+    new Chart(document.getElementById('chartCustoFazenda'), {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Continental MT', 'Araras MT', 'Média Grupo'],
+            datasets: [
+                { label: 'Insumos', data: [4823,4728,5005,5158,4907], backgroundColor: 'rgba(255,82,82,0.6)', borderRadius: 2 },
+                { label: 'ADM', data: [1122,1122,1122,1122,1122], backgroundColor: 'rgba(249,168,37,0.6)', borderRadius: 2 },
+                { label: 'Maquinário', data: [629,629,629,629,629], backgroundColor: 'rgba(64,196,255,0.5)', borderRadius: 2 },
+                { label: 'Arrendamento', data: [721,808,853,845,807], backgroundColor: 'rgba(255,145,0,0.5)', borderRadius: 2 },
+                { label: 'Depreciação', data: [348,348,348,348,348], backgroundColor: 'rgba(179,136,255,0.5)', borderRadius: 2 },
+                { label: 'Royalties+Outros', data: [41,41,41,41,41], backgroundColor: 'rgba(255,128,171,0.4)', borderRadius: 2 }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: gc }, ticks: { color: '#E8F5E9', font: { ...df, weight: 'bold', size: 12 } } },
+                y: {
+                    stacked: true, grid: { color: gc },
+                    ticks: { color: tc, font: df, callback: v => 'R$ ' + v.toLocaleString('pt-BR') }
+                }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: { ...df, size: 10 }, usePointStyle: true } },
+                datalabels: { display: false }
+            }
+        }
+    });
+
+    // ==================== CUSTO/SC POR FAZENDA ====================
+    new Chart(document.getElementById('chartCustoSc'), {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Continental', 'Araras'],
+            datasets: [{
+                data: [83.18, 89.11, 99.35, 101.93],
+                backgroundColor: ['rgba(0,230,118,0.6)', 'rgba(64,196,255,0.6)', 'rgba(255,145,0,0.6)', 'rgba(255,82,82,0.6)'],
+                borderColor: ['#00E676', '#40C4FF', '#FF9100', '#FF5252'],
+                borderWidth: 2, borderRadius: 8
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end', align: 'end', color: '#E8F5E9',
+                    font: { weight: 'bold', size: 12, family: 'Inter' },
+                    formatter: v => 'R$ ' + v.toFixed(2)
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v }, min: 70 },
+                y: { grid: { display: false }, ticks: { color: '#E8F5E9', font: { ...df, weight: 'bold', size: 11 } } }
+            }
+        }
+    });
+
+    // ==================== EFICIÊNCIA (R$ receita / R$ custo) ====================
+    new Chart(document.getElementById('chartEficiencia'), {
+        type: 'bar',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [
+                {
+                    label: 'Soja (R$ receita / R$ custo)',
+                    data: [1.67, 1.60, 2.39, 2.29, 1.47, 1.18, 1.13],
+                    backgroundColor: 'rgba(0,230,118,0.5)', borderColor: '#00E676',
+                    borderWidth: 2, borderRadius: 6
+                },
+                {
+                    label: 'Milho (R$ receita / R$ custo)',
+                    data: [1.30, 1.45, 1.85, 1.72, 1.32, 1.10, 1.24],
+                    backgroundColor: 'rgba(249,168,37,0.5)', borderColor: '#F9A825',
+                    borderWidth: 2, borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tc, font: df, usePointStyle: true } },
+                datalabels: {
+                    anchor: 'end', align: 'top', color: '#E8F5E9',
+                    font: { weight: 'bold', size: 10, family: 'Inter' },
+                    formatter: v => v.toFixed(2) + 'x'
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: df } },
+                y: {
+                    grid: { color: gc }, ticks: { color: tc, font: df, callback: v => v.toFixed(1) + 'x' },
+                    min: 0.8, max: 2.6
+                }
+            }
+        }
+    });
+
+    // ==================== SPREAD HISTÓRICO ====================
+    new Chart(document.getElementById('chartSpread'), {
+        type: 'bar',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [{
+                label: 'Spread PMV-Custo (R$/sc)',
+                data: [29.08, 30.77, 74.64, 93.16, 41.65, 17.14, 13.54],
+                backgroundColor: [
+                    'rgba(255,214,0,0.5)', 'rgba(255,214,0,0.5)', 'rgba(0,230,118,0.6)',
+                    'rgba(0,230,118,0.7)', 'rgba(255,214,0,0.5)', 'rgba(255,82,82,0.5)',
+                    'rgba(255,82,82,0.6)'
+                ],
+                borderColor: ['#FFD600','#FFD600','#00E676','#00E676','#FFD600','#FF5252','#FF5252'],
+                borderWidth: 2, borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end', align: 'top', color: '#E8F5E9',
+                    font: { weight: 'bold', size: 12, family: 'Inter' },
+                    formatter: v => 'R$ ' + v.toFixed(2)
+                }
+            },
+            scales: {
+                x: { grid: { color: gc }, ticks: { color: tc, font: df } },
+                y: { grid: { color: gc }, ticks: { color: tc, font: df, callback: v => 'R$ ' + v }, min: 0 }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

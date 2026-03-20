@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Executivo | Grupo Baptistella | Safra 24/25</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #2E7D32;
+            --primary-dark: #0D3311;
+            --accent: #F9A825;
+            --accent-light: #FDD835;
+            --bg-dark: #0a0f0a;
+            --bg-card: #111a11;
+            --bg-card-hover: #162016;
+            --text-primary: #E8F5E9;
+            --text-secondary: #A5D6A7;
+            --text-muted: #66BB6A;
+            --border: rgba(46, 125, 50, 0.2);
+            --green: #00E676;
+            --green-bg: rgba(0, 230, 118, 0.1);
+            --yellow: #FFD600;
+            --yellow-bg: rgba(255, 214, 0, 0.1);
+            --red: #FF5252;
+            --red-bg: rgba(255, 82, 82, 0.1);
+            --blue: #40C4FF;
+            --blue-bg: rgba(64, 196, 255, 0.1);
+            --gradient-green: linear-gradient(135deg, #1B5E20 0%, #2E7D32 50%, #43A047 100%);
+            --gradient-gold: linear-gradient(135deg, #F57F17 0%, #F9A825 50%, #FDD835 100%);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(46, 125, 50, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(249, 168, 37, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-left h1 span {
+            color: var(--accent);
+        }
+
+        .header-left p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 300;
+        }
+
+        .header-right {
+            text-align: right;
+        }
+
+        .header-right .safra-badge {
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 18px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .header-right .nota-safra {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .header-right .nota-safra .stars {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 30px 24px;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .icon {
+            font-size: 22px;
+        }
+
+        /* KPI CARDS ROW */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .kpi-card .kpi-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .kpi-card .kpi-value {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .kpi-card .kpi-delta {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .kpi-card .kpi-sublabel {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .kpi-card.green .kpi-value { color: var(--green); }
+        .kpi-card.green .kpi-delta { background: var(--green-bg); color: var(--green); }
+        .kpi-card.green { border-left: 4px solid var(--green); }
+
+        .kpi-card.yellow .kpi-value { color: var(--yellow); }
+        .kpi-card.yellow .kpi-delta { background: var(--yellow-bg); color: var(--yellow); }
+        .kpi-card.yellow { border-left: 4px solid var(--yellow); }
+
+        .kpi-card.red .kpi-value { color: var(--red); }
+        .kpi-card.red .kpi-delta { background: var(--red-bg); color: var(--red); }
+        .kpi-card.red { border-left: 4px solid var(--red); }
+
+        .kpi-card.blue .kpi-value { color: var(--blue); }
+        .kpi-card.blue .kpi-delta { background: var(--blue-bg); color: var(--blue); }
+        .kpi-card.blue { border-left: 4px solid var(--blue); }
+
+        .kpi-card.gold .kpi-value { color: var(--accent); }
+        .kpi-card.gold .kpi-delta { background: rgba(249, 168, 37, 0.15); color: var(--accent); }
+        .kpi-card.gold { border-left: 4px solid var(--accent); }
+
+        /* GRID LAYOUTS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2-1 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grid-1-2 {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* MINI TABLE */
+        .mini-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .mini-table th {
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mini-table td {
+            padding: 10px 10px;
+            border-bottom: 1px solid rgba(46, 125, 50, 0.08);
+            color: var(--text-primary);
+        }
+
+        .mini-table tr:hover td {
+            background: rgba(46, 125, 50, 0.05);
+        }
+
+        .mini-table .right {
+            text-align: right;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* SEMÁFORO BADGES */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+        .badge-red { background: var(--red-bg); color: var(--red); }
+        .badge-blue { background: var(--blue-bg); color: var(--blue); }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            margin: 12px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .progress-label span:first-child {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .progress-label span:last-child {
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1.5s ease;
+        }
+
+        .progress-fill.green { background: linear-gradient(90deg, #00C853, #00E676); }
+        .progress-fill.yellow { background: linear-gradient(90deg, #FFD600, #FFFF00); }
+        .progress-fill.red { background: linear-gradient(90deg, #FF1744, #FF5252); }
+        .progress-fill.blue { background: linear-gradient(90deg, #0091EA, #40C4FF); }
+
+        /* DRE WATERFALL */
+        .dre-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .dre-line:hover {
+            background: rgba(46, 125, 50, 0.08);
+        }
+
+        .dre-line.highlight {
+            background: rgba(46, 125, 50, 0.12);
+            border-left: 3px solid var(--green);
+            font-weight: 700;
+        }
+
+        .dre-line.negative {
+            color: var(--red);
+        }
+
+        .dre-line .label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .dre-line .value {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ALERT BOX */
+        .alert-box {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .alert-box.critical {
+            background: var(--red-bg);
+            border: 1px solid rgba(255, 82, 82, 0.3);
+        }
+
+        .alert-box.warning {
+            background: var(--yellow-bg);
+            border: 1px solid rgba(255, 214, 0, 0.3);
+        }
+
+        .alert-box.success {
+            background: var(--green-bg);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+        }
+
+        .alert-box .alert-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .alert-box .alert-text {
+            line-height: 1.5;
+        }
+
+        .alert-box .alert-text strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* CHART CONTAINER */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+
+        .chart-container.tall {
+            height: 360px;
+        }
+
+        /* GAUGE */
+        .gauge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .gauge-value {
+            font-size: 36px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .gauge-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer .brand {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* FAZENDA BAR */
+        .fazenda-bar {
+            display: flex;
+            gap: 4px;
+            margin: 8px 0;
+            height: 24px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .fazenda-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: #000;
+            min-width: 30px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .kpi-row { grid-template-columns: repeat(3, 1fr); }
+            .grid-2, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: 1fr; }
+            .header { flex-direction: column; text-align: center; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<div class="header">
+    <div class="header-left">
+        <h1>Grupo <span>Baptistella</span></h1>
+        <p>Carlos David Baptistella | Alto Garças — MT & Goiás | 18.692 ha</p>
+    </div>
+    <div class="header-right">
+        <div class="safra-badge">SAFRA 24/25</div>
+        <div class="nota-safra">
+            Nota: <span class="stars">★★★★☆</span> Boa Recuperação
+        </div>
+    </div>
+</div>
+
+<!-- ==================== CONTAINER ==================== -->
+<div class="container">
+
+    <!-- ========== KPIs PRINCIPAIS ========== -->
+    <div class="section-title"><span class="icon">📊</span> INDICADORES-CHAVE DE DESEMPENHO</div>
+    
+    <div class="kpi-row">
+        <div class="kpi-card green">
+            <div class="kpi-label">Receita Bruta</div>
+            <div class="kpi-value">R$ 152,0 mi</div>
+            <div class="kpi-delta">▲ +31,7% vs 23/24</div>
+            <div class="kpi-sublabel">R$ 8.131/ha</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">EBITDA</div>
+            <div class="kpi-value">R$ 49,2 mi</div>
+            <div class="kpi-delta">▲ +75,4% vs 23/24</div>
+            <div class="kpi-sublabel">R$ 2.634/ha</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">Lucro Líquido</div>
+            <div class="kpi-value">R$ 18,8 mi</div>
+            <div class="kpi-delta">▲ +399% vs 23/24</div>
+            <div class="kpi-sublabel">R$ 1.008/ha</div>
+        </div>
+        <div class="kpi-card yellow">
+            <div class="kpi-label">Margem EBITDA</div>
+            <div class="kpi-value">32,7%</div>
+            <div class="kpi-delta">▲ +8,4 p.p.</div>
+            <div class="kpi-sublabel">Média 7a: 42,3%</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">EVA</div>
+            <div class="kpi-value">+R$ 22,2 mi</div>
+            <div class="kpi-delta">CRIA VALOR</div>
+            <div class="kpi-sublabel">Acima do custo de oportunidade</div>
+        </div>
+    </div>
+
+    <!-- ========== SEGUNDA LINHA KPIs ========== -->
+    <div class="kpi-row">
+        <div class="kpi-card green">
+            <div class="kpi-label">Dív. Líq./EBITDA</div>
+            <div class="kpi-value">-0,45x</div>
+            <div class="kpi-delta">CAIXA LÍQUIDO</div>
+            <div class="kpi-sublabel">Sem dívida líquida</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">DSCR</div>
+            <div class="kpi-value">6,8x</div>
+            <div class="kpi-delta">FOLGA TOTAL</div>
+            <div class="kpi-sublabel">Referência: >1,5x</div>
+        </div>
+        <div class="kpi-card green">
+            <div class="kpi-label">Liquidez Geral</div>
+            <div class="kpi-value">1,23</div>
+            <div class="kpi-delta">▲ +0,39 vs 23/24</div>
+            <div class="kpi-sublabel">Referência: >1,0</div>
+        </div>
+        <div class="kpi-card yellow">
+            <div class="kpi-label">Margem Líquida</div>
+            <div class="kpi-value">12,4%</div>
+            <div class="kpi-delta">▲ +8,9 p.p.</div>
+            <div class="kpi-sublabel">Média 7a: 24,5%</div>
+        </div>
+        <div class="kpi-card blue">
+            <div class="kpi-label">Patrimônio (VP)</div>
+            <div class="kpi-value">R$ 1,12 bi</div>
+            <div class="kpi-delta">▲ +1,0% vs 23/24</div>
+            <div class="kpi-sublabel">CAGR 7a: 9,5% a.a.</div>
+        </div>
+    </div>
+
+    <!-- ========== DRE RESUMIDA + EVOLUÇÃO ========== -->
+    <div class="section-title"><span class="icon">📋</span> DRE GERENCIAL RESUMIDA & EVOLUÇÃO</div>
+    
+    <div class="grid-2">
+        <!-- DRE -->
+        <div class="card">
+            <div class="card-title">📋 DRE Gerencial — Safra 24/25</div>
+            <div class="dre-line">
+                <span class="label">Receita Bruta</span>
+                <span class="value" style="color: var(--green);">R$ 152.036.928</span>
+            </div>
+            <div class="dre-line negative">
+                <span class="label">(-) Impostos s/ venda</span>
+                <span class="value">- R$ 3.800.923</span>
+            </div>
+            <div class="dre-line highlight">
+                <span class="label">= Receita Líquida</span>
+                <span class="value" style="color: var(--green);">R$ 148.236.005</span>
+            </div>
+            <div class="dre-line negative">
+                <span class="label">(-) COGS (Insumos)</span>
+                <span class="value">- R$ 64.168.697</span>
+            </div>
+            <div class="dre-line highlight">
+                <span class="label">= Lucro Bruto</span>
+                <span class="value" style="color: var(--green);">R$ 84.067.308</span>
+            </div>
+            <div class="dre-line negative">
+                <span class="label">(-) Despesas Operacionais</span>
+                <span class="value">- R$ 34.830.650</span>
+            </div>
+            <div class="dre-line highlight" style="border-left-color: var(--accent);">
+                <span class="label">= EBITDA</span>
+                <span class="value" style="color: var(--accent);">R$ 49.236.658</span>
+            </div>
+            <div class="dre-line negative">
+                <span class="label">(-) Depreciação</span>
+                <span class="value">- R$ 6.500.000</span>
+            </div>
+            <div class="dre-line negative">
+                <span class="label">(-) Arrendamento</span>
+                <span class="value">- R$ 20.487.825</span>
+            </div>
+            <div class="dre-line negative">
+                <span class="label">(-) Desp. Financeiras + IR</span>
+                <span class="value">- R$ 3.406.270</span>
+            </div>
+            <div class="dre-line highlight" style="background: rgba(0, 230, 118, 0.15); border-left-color: var(--green);">
+                <span class="label" style="color: var(--green); font-size: 15px;">= LUCRO LÍQUIDO</span>
+                <span class="value" style="color: var(--green); font-size: 20px;">R$ 18.842.563</span>
+            </div>
+        </div>
+
+        <!-- EVOLUÇÃO CHART -->
+        <div class="card">
+            <div class="card-title">📈 Evolução Receita, EBITDA e Lucro (7 safras)</div>
+            <div class="chart-container tall">
+                <canvas id="chartEvolucao"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PERFORMANCE POR CULTURA ========== -->
+    <div class="section-title"><span class="icon">🌱</span> PERFORMANCE POR CULTURA</div>
+    
+    <div class="grid-2">
+        <!-- SOJA -->
+        <div class="card">
+            <div class="card-title">🫘 Soja — 11.877 ha</div>
+            <div style="display: flex; gap: 20px; margin-bottom: 16px;">
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Produtividade</div>
+                    <div style="font-size:28px; font-weight:800; color:var(--green);">68,34</div>
+                    <div style="font-size:11px; color:var(--text-muted);">sc/ha</div>
+                </div>
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Custo/sc</div>
+                    <div style="font-size:28px; font-weight:800; color:var(--red);">R$ 106</div>
+                    <div style="font-size:11px; color:var(--text-muted);">2º maior da série</div>
+                </div>
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">PMV</div>
+                    <div style="font-size:28px; font-weight:800; color:var(--accent);">R$ 119,60</div>
+                    <div style="font-size:11px; color:var(--text-muted);">/sc</div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Breakeven: 60,6 sc/ha</span>
+                    <span style="color: var(--yellow);">Margem: 12,8%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill yellow" style="width: 87%;"></div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Resultado Soja</span>
+                    <span style="color: var(--green);">~R$ 11,0 mi</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" style="width: 52%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MILHO -->
+        <div class="card">
+            <div class="card-title">🌽 Milho Safrinha — 6.815 ha</div>
+            <div style="display: flex; gap: 20px; margin-bottom: 16px;">
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Produtividade</div>
+                    <div style="font-size:28px; font-weight:800; color:var(--green);">154,51</div>
+                    <div style="font-size:11px; color:var(--text-muted);">sc/ha</div>
+                </div>
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">Custo/sc</div>
+                    <div style="font-size:28px; font-weight:800; color:var(--yellow);">R$ 42,17</div>
+                    <div style="font-size:11px; color:var(--text-muted);">controlado</div>
+                </div>
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase;">PMV</div>
+                    <div style="font-size:28px; font-weight:800; color:var(--accent);">R$ 52,20</div>
+                    <div style="font-size:11px; color:var(--text-muted);">/sc</div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Breakeven: 124,8 sc/ha</span>
+                    <span style="color: var(--green);">Margem: 23,8%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" style="width: 76%;"></div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Resultado Milho</span>
+                    <span style="color: var(--green);">~R$ 10,7 mi</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" style="width: 48%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PERFORMANCE POR FAZENDA ========== -->
+    <div class="section-title"><span class="icon">🏠</span> PERFORMANCE POR FAZENDA — SOJA</div>
+    
+    <div class="card" style="margin-bottom: 30px;">
+        <div class="card-title">📊 Comparativo de Fazendas — Resultado/ha Soja</div>
+        <table class="mini-table">
+            <thead>
+                <tr>
+                    <th>Fazenda</th>
+                    <th>Área (ha)</th>
+                    <th class="right">Prod. sc/ha</th>
+                    <th class="right">CT/ha</th>
+                    <th class="right">Resultado/ha</th>
+                    <th class="right">CV% Resultado</th>
+                    <th class="right">Talhões 🔴</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Planalto MT</strong></td>
+                    <td>6.539</td>
+                    <td class="right" style="color: var(--green);">76,11</td>
+                    <td class="right">R$ 6.332</td>
+                    <td class="right" style="color: var(--green); font-weight:800;">R$ 2.770</td>
+                    <td class="right">51,8%</td>
+                    <td class="right">3/14 (21%)</td>
+                    <td><span class="badge badge-green">🟢 REFERÊNCIA</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Planalto Central GO</strong></td>
+                    <td>2.380</td>
+                    <td class="right" style="color: var(--yellow);">70,67</td>
+                    <td class="right">R$ 6.297</td>
+                    <td class="right" style="color: var(--yellow); font-weight:800;">R$ 2.171</td>
+                    <td class="right" style="color: var(--green);">39,3%</td>
+                    <td class="right">1/20 (5%)</td>
+                    <td><span class="badge badge-yellow">🟡 BOM</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Continental MT</strong></td>
+                    <td>1.687</td>
+                    <td class="right" style="color: var(--red);">~64,15</td>
+                    <td class="right">~R$ 6.374</td>
+                    <td class="right" style="color: var(--red); font-weight:800;">~R$ 1.300</td>
+                    <td class="right" style="color: var(--red);">~80%</td>
+                    <td class="right">~5/23 (22%)</td>
+                    <td><span class="badge badge-red">🔴 ATENÇÃO</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Araras MT</strong></td>
+                    <td>1.271</td>
+                    <td class="right" style="color: var(--red);">62,33</td>
+                    <td class="right">R$ 6.353</td>
+                    <td class="right" style="color: var(--red); font-weight:800;">R$ 1.054</td>
+                    <td class="right" style="color: var(--red);">101,9%</td>
+                    <td class="right">8/25 (32%)</td>
+                    <td><span class="badge badge-red">🔴 CRÍTICO</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- BARRA VISUAL DE DISTRIBUIÇÃO -->
+        <div style="margin-top: 20px;">
+            <div style="font-size:12px; color:var(--text-muted); margin-bottom:8px; font-weight:600;">DISTRIBUIÇÃO DO RESULTADO POR FAZENDA</div>
+            <div class="fazenda-bar">
+                <div class="fazenda-segment" style="width:55.1%; background: linear-gradient(90deg, #00C853, #00E676);">Planalto MT 55%</div>
+                <div class="fazenda-segment" style="width:20%; background: linear-gradient(90deg, #FFD600, #FFFF00);">GO 20%</div>
+                <div class="fazenda-segment" style="width:14.2%; background: linear-gradient(90deg, #FF6D00, #FF9100);">Continental 14%</div>
+                <div class="fazenda-segment" style="width:10.7%; background: linear-gradient(90deg, #FF1744, #FF5252); color:#fff;">Araras 11%</div>
+            </div>
+        </div>
+
+        <!-- GAP ANALYSIS -->
+        <div style="margin-top: 20px; padding: 16px; background: rgba(255, 82, 82, 0.06); border-radius: 12px; border: 1px solid rgba(255, 82, 82, 0.15);">
+            <div style="font-size:13px; font-weight:700; color: var(--red); margin-bottom:8px;">⚠️ GAP ANALYSIS — OPORTUNIDADE PERDIDA</div>
+            <div style="font-size:13px; line-height:1.7;">
+                Se <strong>Araras</strong> performasse como a Planalto: <strong style="color: var(--green);">+R$ 2,18 mi</strong><br>
+                Se <strong>Continental</strong> performasse como a Planalto: <strong style="color: var(--green);">+R$ 2,48 mi</strong><br>
+                <strong>Oportunidade total: <span style="color: var(--accent); font-size: 16px;">R$ 4,66 milhões</span></strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CHART: FAZENDAS ========== -->
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 Resultado/ha por Fazenda — Soja</div>
+            <div class="chart-container">
+                <canvas id="chartFazendas"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Evolução de Margens (7 safras)</div>
+            <div class="chart-container">
+                <canvas id="chartMargens"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== INDICADORES FINANCEIROS ========== -->
+    <div class="section-title"><span class="icon">🏦</span> INDICADORES FINANCEIROS & PATRIMONIAIS</div>
+    
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-title">💰 Rentabilidade</div>
+            <table class="mini-table">
+                <tr><td>ROE</td><td class="right" style="color: var(--yellow);">1,71%</td></tr>
+                <tr><td>ROA</td><td class="right" style="color: var(--green);">18,1%</td></tr>
+                <tr><td>ROI</td><td class="right" style="color: var(--green);">21,4%</td></tr>
+                <tr><td>ROIC</td><td class="right" style="color: var(--green);">27,8%</td></tr>
+                <tr><td>M. Bruta</td><td class="right" style="color: var(--yellow);">55,3%</td></tr>
+                <tr><td>M. EBITDA</td><td class="right" style="color: var(--green);">32,7%</td></tr>
+                <tr><td>M. Líquida</td><td class="right" style="color: var(--yellow);">12,4%</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-title">🔒 Endividamento</div>
+            <table class="mini-table">
+                <tr><td>Endiv. Total</td><td class="right" style="color: var(--green);">8,65%</td></tr>
+                <tr><td>Dív. Líq./EBITDA</td><td class="right" style="color: var(--green);">-0,45x</td></tr>
+                <tr><td>DSCR</td><td class="right" style="color: var(--green);">6,8x</td></tr>
+                <tr><td>Pass./Ativo Fin.</td><td class="right" style="color: var(--green);">0,74x</td></tr>
+                <tr><td>Passivo Total</td><td class="right">R$ 97,1 mi</td></tr>
+                <tr><td>Dív. Ajustada</td><td class="right" style="color: var(--green);">-R$ 22,8 mi</td></tr>
+                <tr><td>NCG</td><td class="right">R$ 20,2 mi</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-title">📐 Múltiplos & Crescimento</div>
+            <table class="mini-table">
+                <tr><td>EV/EBITDA</td><td class="right" style="color: var(--yellow);">22,04x</td></tr>
+                <tr><td>P/L</td><td class="right">59,7x</td></tr>
+                <tr><td>Liquidez Geral</td><td class="right" style="color: var(--green);">1,23</td></tr>
+                <tr><td>Liquidez Corrente</td><td class="right" style="color: var(--green);">1,34</td></tr>
+                <tr><td>CAGR Receita 8a</td><td class="right" style="color: var(--green);">39,5%</td></tr>
+                <tr><td>CAGR Lucro 8a</td><td class="right" style="color: var(--green);">45,3%</td></tr>
+                <tr><td>CAGR VP 7a</td><td class="right" style="color: var(--green);">9,5%</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========== ALERTAS ========== -->
+    <div class="section-title"><span class="icon">🚨</span> PAINEL DE ALERTAS</div>
+    
+    <div class="grid-2">
+        <div>
+            <div class="alert-box success">
+                <span class="alert-icon">✅</span>
+                <div class="alert-text">
+                    <strong>EVA positivo de R$ 22,2 milhões</strong>
+                    Negócio cria valor econômico acima do custo de oportunidade do capital (WACC 12%).
+                </div>
+            </div>
+            <div class="alert-box success">
+                <span class="alert-icon">✅</span>
+                <div class="alert-text">
+                    <strong>Dívida líquida NEGATIVA</strong>
+                    Caixa excede dívidas em R$ 22,8 mi. Capacidade de expansão via alavancagem de até 1,5x EBITDA (~R$ 74 mi).
+                </div>
+            </div>
+            <div class="alert-box success">
+                <span class="alert-icon">✅</span>
+                <div class="alert-text">
+                    <strong>DSCR de 6,8x — folga extrema</strong>
+                    Capacidade de servir quase 7 vezes a dívida com geração operacional.
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="alert-box critical">
+                <span class="alert-icon">🔴</span>
+                <div class="alert-text">
+                    <strong>Custo/sc soja R$ 106,06 — 2º maior da série</strong>
+                    Margem de segurança de apenas 12,8%. Qualquer queda >13% no preço ou produtividade leva ao prejuízo.
+                </div>
+            </div>
+            <div class="alert-box critical">
+                <span class="alert-icon">🔴</span>
+                <div class="alert-text">
+                    <strong>Araras: 32% dos talhões no vermelho</strong>
+                    CV% do resultado de 101,9%. Produtividade 18% abaixo da Planalto. Ação urgente necessária.
+                </div>
+            </div>
+            <div class="alert-box warning">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-text">
+                    <strong>Margens abaixo da média histórica</strong>
+                    M. Líquida 12,4% vs média 24,5%. M. EBITDA 32,7% vs média 42,3%. Compressão por custos elevados.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== EVOLUÇÃO PATRIMONIAL ========== -->
+    <div class="section-title"><span class="icon">🏗️</span> EVOLUÇÃO PATRIMONIAL</div>
+    
+    <div class="card" style="margin-bottom: 30px;">
+        <div class="card-title">📈 Valor Patrimonial — 8 Safras (R$ milhões)</div>
+        <div class="chart-container">
+            <canvas id="chartPatrimonio"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+    Relatório gerado em 20/03/2026 | Consultor: Sidney Souza | <span class="brand">Rural In</span> — Software de Gestão Rural<br>
+    Dados da safra 24/25 — Grupo Baptistella | Metodologia padronizada de análise de fechamento de safra
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+    Chart.register(ChartDataLabels);
+    
+    const defaultFont = { family: 'Inter', size: 11 };
+    const gridColor = 'rgba(46, 125, 50, 0.1)';
+    const tickColor = '#66BB6A';
+
+    // ==================== CHART 1: EVOLUÇÃO ====================
+    const ctxEvolucao = document.getElementById('chartEvolucao').getContext('2d');
+    new Chart(ctxEvolucao, {
+        type: 'bar',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [
+                {
+                    label: 'Receita',
+                    data: [55.2, 66.7, 96.3, 153.3, 128.6, 115.4, 152.0],
+                    backgroundColor: 'rgba(0, 230, 118, 0.3)',
+                    borderColor: '#00E676',
+                    borderWidth: 2,
+                    borderRadius: 6,
+                    order: 2
+                },
+                {
+                    label: 'EBITDA',
+                    data: [19.0, 30.9, 60.0, 86.3, 50.9, 28.1, 49.2],
+                    backgroundColor: 'rgba(249, 168, 37, 0.4)',
+                    borderColor: '#F9A825',
+                    borderWidth: 2,
+                    borderRadius: 6,
+                    order: 3
+                },
+                {
+                    label: 'Lucro Líquido',
+                    data: [16.0, 16.4, 41.9, 56.9, 27.8, 3.8, 18.8],
+                    type: 'line',
+                    borderColor: '#40C4FF',
+                    backgroundColor: 'rgba(64, 196, 255, 0.1)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#40C4FF',
+                    fill: true,
+                    tension: 0.3,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { color: tickColor, font: defaultFont, usePointStyle: true, pointStyle: 'circle' }
+                },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: tickColor,
+                        font: defaultFont,
+                        callback: v => 'R$ ' + v + ' mi'
+                    }
+                }
+            }
+        }
+    });
+
+    // ==================== CHART 2: FAZENDAS ====================
+    const ctxFazendas = document.getElementById('chartFazendas').getContext('2d');
+    new Chart(ctxFazendas, {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Planalto GO', 'Continental MT', 'Araras MT'],
+            datasets: [{
+                label: 'Resultado/ha (R$)',
+                data: [2770, 2171, 1300, 1054],
+                backgroundColor: ['#00E676', '#FFD600', '#FF9100', '#FF5252'],
+                borderColor: ['#00C853', '#F9A825', '#FF6D00', '#FF1744'],
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 13, family: 'Inter' },
+                    formatter: v => 'R$ ' + v.toLocaleString('pt-BR')
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: tickColor,
+                        font: defaultFont,
+                        callback: v => 'R$ ' + v.toLocaleString('pt-BR')
+                    }
+                },
+                y: {
+                    grid: { display: false },
+                    ticks: { color: '#E8F5E9', font: { ...defaultFont, weight: 'bold', size: 13 } }
+                }
+            }
+        }
+    });
+
+    // ==================== CHART 3: MARGENS ====================
+    const ctxMargens = document.getElementById('chartMargens').getContext('2d');
+    new Chart(ctxMargens, {
+        type: 'line',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25'],
+            datasets: [
+                {
+                    label: 'M. Bruta',
+                    data: [60.6, 65.8, 74.4, 72.1, 59.3, 49.7, 55.3],
+                    borderColor: '#00E676',
+                    backgroundColor: 'rgba(0, 230, 118, 0.05)',
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#00E676',
+                    tension: 0.3,
+                    fill: false
+                },
+                {
+                    label: 'M. EBITDA',
+                    data: [34.4, 46.3, 62.3, 56.3, 39.6, 24.3, 32.7],
+                    borderColor: '#F9A825',
+                    backgroundColor: 'rgba(249, 168, 37, 0.05)',
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#F9A825',
+                    tension: 0.3,
+                    fill: false
+                },
+                {
+                    label: 'M. Líquida',
+                    data: [29.0, 24.5, 43.5, 37.1, 21.6, 3.5, 12.4],
+                    borderColor: '#40C4FF',
+                    backgroundColor: 'rgba(64, 196, 255, 0.05)',
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#40C4FF',
+                    tension: 0.3,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { color: tickColor, font: defaultFont, usePointStyle: true, pointStyle: 'circle' }
+                },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: tickColor,
+                        font: defaultFont,
+                        callback: v => v + '%'
+                    },
+                    min: 0,
+                    max: 80
+                }
+            }
+        }
+    });
+
+    // ==================== CHART 4: PATRIMÔNIO ====================
+    const ctxPatrimonio = document.getElementById('chartPatrimonio').getContext('2d');
+    new Chart(ctxPatrimonio, {
+        type: 'bar',
+        data: {
+            labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25', '25/26 (proj.)'],
+            datasets: [{
+                label: 'Valor Patrimonial (R$ mi)',
+                data: [600, 750, 1012, 1034, 1044, 1113, 1124, 1134],
+                backgroundColor: [
+                    'rgba(0, 230, 118, 0.2)', 'rgba(0, 230, 118, 0.25)',
+                    'rgba(0, 230, 118, 0.3)', 'rgba(0, 230, 118, 0.35)',
+                    'rgba(0, 230, 118, 0.4)', 'rgba(0, 230, 118, 0.5)',
+                    'rgba(0, 230, 118, 0.7)', 'rgba(249, 168, 37, 0.3)'
+                ],
+                borderColor: [
+                    '#00E676', '#00E676', '#00E676', '#00E676',
+                    '#00E676', '#00E676', '#00E676', '#F9A825'
+                ],
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: '#E8F5E9',
+                    font: { weight: 'bold', size: 12, family: 'Inter' },
+                    formatter: v => 'R$ ' + v + 'mi'
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont }
+                },
+                y: {
+                    grid: { color: gridColor },
+                    ticks: {
+                        color: tickColor,
+                        font: defaultFont,
+                        callback: v => 'R$ ' + v + ' mi'
+                    },
+                    min: 0,
+                    max: 1400
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
