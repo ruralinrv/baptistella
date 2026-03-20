@@ -395,7 +395,7 @@
 
                 // Redirecionar para o relatório
                 setTimeout(function() {
-                    window.location.href = 'painel/index.html';
+                    window.location.href = 'Portal de Navegação Faz. Planalto.html';
                 }, 800);
 
             } else {
@@ -474,7 +474,7 @@
         try {
             var auth = JSON.parse(localStorage.getItem('baptistella_auth'));
             if (auth && auth.hash === HASH_CORRETO && auth.expiry > new Date().getTime()) {
-                window.location.href = 'painel/index.html';
+                window.location.href = 'Portal de Navegação Faz. Planalto.html';
             }
         } catch(e) {}
     }
