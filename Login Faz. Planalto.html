@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Restrito | Grupo Baptistella | Rural In</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        :root{
+            --primary:#1B5E20;--primary-light:#2E7D32;--primary-dark:#0D3311;
+            --accent:#F9A825;--bg-dark:#080c08;--bg-card:#0f170f;
+            --text-primary:#E8F5E9;--text-secondary:#A5D6A7;--text-muted:#66BB6A;
+            --border:rgba(46,125,50,0.25);
+            --green:#00E676;--red:#FF5252;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Inter',sans-serif;
+            background:var(--bg-dark);
+            color:var(--text-primary);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            overflow:hidden;
+            position:relative;
+        }
+
+        /* BACKGROUND ANIMADO */
+        body::before{
+            content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(27,94,32,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(249,168,37,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(46,125,50,0.1) 0%, transparent 50%);
+            z-index:0;
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes bgPulse{
+            0%{opacity:0.7;}
+            100%{opacity:1;}
+        }
+
+        /* PARTÍCULAS DECORATIVAS */
+        .particles{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;overflow:hidden;pointer-events:none;}
+        .particle{
+            position:absolute;
+            width:2px;height:2px;
+            background:rgba(46,125,50,0.3);
+            border-radius:50%;
+            animation: float linear infinite;
+        }
+        @keyframes float{
+            0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+            10%{opacity:1;}
+            90%{opacity:1;}
+            100%{transform:translateY(-100vh) rotate(720deg);opacity:0;}
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .login-container{
+            position:relative;z-index:1;
+            width:100%;max-width:440px;
+            padding:24px;
+        }
+
+        /* LOGO AREA */
+        .logo-area{
+            text-align:center;
+            margin-bottom:32px;
+        }
+        .logo-icon{
+            width:72px;height:72px;
+            background:linear-gradient(135deg,var(--primary),var(--primary-light));
+            border-radius:20px;
+            display:flex;align-items:center;justify-content:center;
+            margin:0 auto 16px;
+            font-size:36px;
+            border:2px solid rgba(76,175,80,0.3);
+            box-shadow:0 8px 32px rgba(27,94,32,0.3);
+        }
+        .logo-title{
+            font-size:24px;font-weight:900;
+            margin-bottom:4px;
+        }
+        .logo-title span{color:var(--accent);}
+        .logo-sub{
+            font-size:13px;color:var(--text-muted);
+            font-weight:400;
+        }
+
+        /* CARD LOGIN */
+        .login-card{
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:20px;
+            padding:32px 28px;
+            box-shadow:0 20px 60px rgba(0,0,0,0.4);
+            backdrop-filter:blur(10px);
+        }
+        .login-card h2{
+            font-size:16px;font-weight:700;
+            color:var(--text-secondary);
+            text-align:center;
+            margin-bottom:6px;
+        }
+        .login-card .subtitle{
+            font-size:11px;color:var(--text-muted);
+            text-align:center;
+            margin-bottom:24px;
+        }
+
+        /* FORM */
+        .form-group{margin-bottom:18px;}
+        .form-label{
+            display:block;
+            font-size:10px;font-weight:700;
+            text-transform:uppercase;letter-spacing:1.5px;
+            color:var(--text-muted);
+            margin-bottom:6px;
+        }
+        .form-input{
+            width:100%;
+            padding:14px 16px;
+            background:rgba(255,255,255,0.04);
+            border:1.5px solid var(--border);
+            border-radius:12px;
+            color:var(--text-primary);
+            font-family:'Inter',sans-serif;
+            font-size:14px;
+            font-weight:500;
+            outline:none;
+            transition:all 0.3s ease;
+        }
+        .form-input:focus{
+            border-color:var(--accent);
+            box-shadow:0 0 0 3px rgba(249,168,37,0.15);
+            background:rgba(255,255,255,0.06);
+        }
+        .form-input::placeholder{
+            color:rgba(165,214,167,0.3);
+            font-weight:400;
+        }
+        .form-input.error{
+            border-color:var(--red);
+            box-shadow:0 0 0 3px rgba(255,82,82,0.15);
+            animation:shake 0.5s ease;
+        }
+        @keyframes shake{
+            0%,100%{transform:translateX(0);}
+            20%{transform:translateX(-8px);}
+            40%{transform:translateX(8px);}
+            60%{transform:translateX(-4px);}
+            80%{transform:translateX(4px);}
+        }
+
+        /* PASSWORD TOGGLE */
+        .input-wrapper{position:relative;}
+        .toggle-pw{
+            position:absolute;right:14px;top:50%;transform:translateY(-50%);
+            background:none;border:none;color:var(--text-muted);
+            cursor:pointer;font-size:16px;padding:4px;
+            transition:color 0.2s;
+        }
+        .toggle-pw:hover{color:var(--accent);}
+
+        /* BUTTON */
+        .btn-login{
+            width:100%;
+            padding:14px;
+            background:linear-gradient(135deg,var(--primary),var(--primary-light));
+            border:2px solid rgba(76,175,80,0.3);
+            border-radius:12px;
+            color:var(--text-primary);
+            font-family:'Inter',sans-serif;
+            font-size:14px;
+            font-weight:700;
+            letter-spacing:0.5px;
+            cursor:pointer;
+            transition:all 0.3s ease;
+            position:relative;
+            overflow:hidden;
+        }
+        .btn-login:hover{
+            background:linear-gradient(135deg,var(--primary-light),#388E3C);
+            box-shadow:0 6px 20px rgba(46,125,50,0.3);
+            transform:translateY(-1px);
+        }
+        .btn-login:active{
+            transform:translateY(0);
+        }
+        .btn-login.loading{
+            pointer-events:none;
+            opacity:0.7;
+        }
+
+        /* ERROR MESSAGE */
+        .error-msg{
+            display:none;
+            text-align:center;
+            padding:10px 14px;
+            background:rgba(255,82,82,0.08);
+            border:1px solid rgba(255,82,82,0.2);
+            border-radius:10px;
+            color:var(--red);
+            font-size:12px;
+            font-weight:600;
+            margin-top:14px;
+            animation:fadeIn 0.3s ease;
+        }
+        .error-msg.visible{display:block;}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+
+        /* ATTEMPTS */
+        .attempts{
+            text-align:center;
+            font-size:10px;
+            color:rgba(255,255,255,0.15);
+            margin-top:8px;
+        }
+
+        /* INFO FOOTER */
+        .login-footer{
+            text-align:center;
+            margin-top:24px;
+        }
+        .login-footer p{
+            font-size:10px;
+            color:var(--text-muted);
+            opacity:0.5;
+            line-height:1.6;
+        }
+        .login-footer .brand{
+            font-weight:800;
+            color:var(--accent);
+            opacity:1;
+        }
+
+        /* LOCK ICON */
+        .lock-badge{
+            display:flex;align-items:center;justify-content:center;gap:6px;
+            margin-bottom:20px;
+        }
+        .lock-badge span{
+            font-size:10px;text-transform:uppercase;letter-spacing:1.5px;
+            color:var(--text-muted);font-weight:600;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:480px){
+            .login-container{padding:16px;}
+            .login-card{padding:24px 20px;}
+            .logo-title{font-size:20px;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- PARTÍCULAS DECORATIVAS -->
+<div class="particles" id="particles"></div>
+
+<!-- LOGIN CONTAINER -->
+<div class="login-container">
+
+    <!-- LOGO -->
+    <div class="logo-area">
+        <div class="logo-icon">🌾</div>
+        <div class="logo-title">Grupo <span>Baptistella</span></div>
+        <div class="logo-sub">Relatório Analítico Completo — Safra 24/25</div>
+    </div>
+
+    <!-- CARD -->
+    <div class="login-card">
+        <div class="lock-badge">
+            <span>🔒</span>
+            <span>Acesso Restrito</span>
+        </div>
+
+        <h2>Autenticação Necessária</h2>
+        <p class="subtitle">Insira a senha fornecida pelo consultor para acessar o relatório</p>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label class="form-label" for="accessCode">Código de Acesso</label>
+                <div class="input-wrapper">
+                    <input
+                        type="password"
+                        id="accessCode"
+                        class="form-input"
+                        placeholder="Digite o código de acesso"
+                        autocomplete="off"
+                        autofocus
+                        maxlength="50"
+                    >
+                    <button type="button" class="toggle-pw" onclick="togglePassword()" title="Mostrar/ocultar senha" id="toggleBtn">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">
+                Acessar Relatório →
+            </button>
+
+            <div class="error-msg" id="errorMsg">
+                ⚠️ Código incorreto. Verifique com o consultor.
+            </div>
+
+            <div class="attempts" id="attemptsMsg"></div>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="login-footer">
+        <p>Consultor: Sidney Souza · <span class="brand">Rural In</span><br>Em caso de dúvidas, entre em contato com o responsável.</p>
+    </div>
+
+</div>
+
+<script>
+    // =====================================================
+    // CONFIGURAÇÃO DA SENHA
+    // =====================================================
+    // Para alterar a senha, mude o valor abaixo.
+    // A senha é convertida em hash para não ficar visível
+    // no código-fonte (proteção básica).
+    // =====================================================
+
+    // SENHA ATUAL: "Baptistella2025"
+    // Para mudar, altere na função generateHash abaixo e
+    // substitua o HASH_CORRETO pelo novo hash gerado.
+
+    // Hash SHA-256 da senha "Baptistella2025"
+    var HASH_CORRETO = null; // será calculado no init
+    var SENHA_DEFINIDA = 'Baptistella2025'; // ← MUDE AQUI A SENHA
+
+    // Máximo de tentativas antes de bloquear
+    var MAX_ATTEMPTS = 5;
+    var LOCK_TIME = 60; // segundos de bloqueio
+    var attempts = 0;
+    var locked = false;
+
+    // Gerar hash simples (djb2 + salt)
+    function simpleHash(str) {
+        var hash = 5381;
+        var salt = 'RuralIn2026$';
+        var salted = salt + str + salt;
+        for (var i = 0; i < salted.length; i++) {
+            var char = salted.charCodeAt(i);
+            hash = ((hash << 5) + hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return Math.abs(hash).toString(36);
+    }
+
+    // Inicializar hash
+    HASH_CORRETO = simpleHash(SENHA_DEFINIDA);
+
+    function handleLogin(e) {
+        e.preventDefault();
+
+        if (locked) {
+            showError('⏳ Acesso bloqueado temporariamente. Aguarde.');
+            return false;
+        }
+
+        var input = document.getElementById('accessCode');
+        var senha = input.value.trim();
+        var btn = document.getElementById('btnLogin');
+
+        if (!senha) {
+            input.classList.add('error');
+            setTimeout(function(){ input.classList.remove('error'); }, 600);
+            return false;
+        }
+
+        // Verificar senha
+        btn.classList.add('loading');
+        btn.textContent = 'Verificando...';
+
+        setTimeout(function() {
+            var hashInput = simpleHash(senha);
+
+            if (hashInput === HASH_CORRETO) {
+                // SUCESSO
+                btn.style.background = 'linear-gradient(135deg, #00E676, #00C853)';
+                btn.textContent = '✅ Acesso Autorizado!';
+                input.style.borderColor = '#00E676';
+
+                // Salvar sessão (expira em 24h)
+                var expiry = new Date().getTime() + (24 * 60 * 60 * 1000);
+                localStorage.setItem('baptistella_auth', JSON.stringify({
+                    hash: hashInput,
+                    expiry: expiry
+                }));
+
+                // Redirecionar para o relatório
+                setTimeout(function() {
+                    window.location.href = 'painel/index.html';
+                }, 800);
+
+            } else {
+                // ERRO
+                attempts++;
+                input.classList.add('error');
+                input.value = '';
+                showError('⚠️ Código incorreto. Tentativa ' + attempts + ' de ' + MAX_ATTEMPTS + '.');
+
+                setTimeout(function(){
+                    input.classList.remove('error');
+                    btn.classList.remove('loading');
+                    btn.textContent = 'Acessar Relatório →';
+                    input.focus();
+                }, 600);
+
+                // Bloquear após máximo de tentativas
+                if (attempts >= MAX_ATTEMPTS) {
+                    lockAccess();
+                }
+            }
+        }, 600); // Delay proposital para parecer que está verificando
+
+        return false;
+    }
+
+    function showError(msg) {
+        var el = document.getElementById('errorMsg');
+        el.textContent = msg;
+        el.classList.add('visible');
+        setTimeout(function() {
+            el.classList.remove('visible');
+        }, 4000);
+    }
+
+    function lockAccess() {
+        locked = true;
+        var btn = document.getElementById('btnLogin');
+        var input = document.getElementById('accessCode');
+        btn.disabled = true;
+        input.disabled = true;
+        btn.textContent = '🔒 Bloqueado — Aguarde ' + LOCK_TIME + 's';
+        btn.style.background = 'rgba(255,82,82,0.2)';
+
+        var remaining = LOCK_TIME;
+        var timer = setInterval(function() {
+            remaining--;
+            btn.textContent = '🔒 Bloqueado — Aguarde ' + remaining + 's';
+            if (remaining <= 0) {
+                clearInterval(timer);
+                locked = false;
+                attempts = 0;
+                btn.disabled = false;
+                input.disabled = false;
+                btn.textContent = 'Acessar Relatório →';
+                btn.style.background = 'linear-gradient(135deg, #1B5E20, #2E7D32)';
+                input.focus();
+            }
+        }, 1000);
+    }
+
+    function togglePassword() {
+        var input = document.getElementById('accessCode');
+        var btn = document.getElementById('toggleBtn');
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = '🔒';
+        } else {
+            input.type = 'password';
+            btn.textContent = '👁️';
+        }
+    }
+
+    // Verificar se já está autenticado (sessão válida)
+    function checkAuth() {
+        try {
+            var auth = JSON.parse(localStorage.getItem('baptistella_auth'));
+            if (auth && auth.hash === HASH_CORRETO && auth.expiry > new Date().getTime()) {
+                window.location.href = 'painel/index.html';
+            }
+        } catch(e) {}
+    }
+
+    // Auto-check ao carregar
+    checkAuth();
+
+    // Enter para submeter
+    document.getElementById('accessCode').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') handleLogin(e);
+    });
+
+    // PARTÍCULAS
+    (function createParticles() {
+        var container = document.getElementById('particles');
+        for (var i = 0; i < 30; i++) {
+            var p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.width = (Math.random() * 3 + 1) + 'px';
+            p.style.height = p.style.width;
+            p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            p.style.animationDelay = (Math.random() * 10) + 's';
+            p.style.opacity = Math.random() * 0.3;
+            container.appendChild(p);
+        }
+    })();
+</script>
+
+</body>
+</html>

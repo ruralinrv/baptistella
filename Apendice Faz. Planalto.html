@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice — Metodologia & Disclaimers | Grupo Baptistella</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        :root{
+            --primary:#1B5E20;--primary-light:#2E7D32;--primary-dark:#0D3311;
+            --accent:#F9A825;--bg-dark:#0a0f0a;--bg-card:#111a11;
+            --text-primary:#E8F5E9;--text-secondary:#A5D6A7;--text-muted:#66BB6A;
+            --border:rgba(46,125,50,0.2);
+            --green:#00E676;--yellow:#FFD600;--red:#FF5252;--blue:#40C4FF;
+            --purple:#B388FF;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text-primary);min-height:100vh;}
+        .header{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--purple);}
+        .header h1{font-size:22px;font-weight:800;}
+        .header h1 span{color:var(--purple);}
+        .header p{font-size:12px;color:var(--text-secondary);margin-top:3px;}
+        .badge{background:linear-gradient(135deg,#7C4DFF,#B388FF);color:#fff;padding:6px 18px;border-radius:30px;font-weight:800;font-size:11px;}
+        .container{max-width:1100px;margin:0 auto;padding:32px 24px;}
+        .sec-title{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--purple);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid rgba(179,136,255,0.2);}
+        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px;}
+        .card-t{font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:12px;}
+        .content{font-size:13px;color:var(--text-secondary);line-height:1.9;}
+        .content h3{font-size:14px;color:var(--accent);font-weight:700;margin:16px 0 8px;text-transform:uppercase;letter-spacing:1px;}
+        .content ul{list-style:none;padding:0;}
+        .content li{padding:4px 0 4px 18px;position:relative;}
+        .content li::before{content:'•';position:absolute;left:0;color:var(--purple);font-weight:800;}
+        .content strong{color:var(--text-primary);}
+        .tb{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0;}
+        .tb th{text-align:left;font-weight:700;color:var(--text-muted);padding:8px;border-bottom:2px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;background:var(--bg-card);}
+        .tb td{padding:8px;border-bottom:1px solid rgba(46,125,50,0.06);color:var(--text-secondary);}
+        .tb td:first-child{font-weight:600;color:var(--text-primary);}
+        .alert{padding:16px 20px;border-radius:12px;margin:16px 0;font-size:13px;line-height:1.7;}
+        .alert-red{background:rgba(255,82,82,0.06);border:1px solid rgba(255,82,82,0.2);color:var(--text-secondary);}
+        .alert-red strong{color:var(--red);}
+        .alert-blue{background:rgba(64,196,255,0.06);border:1px solid rgba(64,196,255,0.2);color:var(--text-secondary);}
+        .alert-purple{background:rgba(179,136,255,0.06);border:1px solid rgba(179,136,255,0.2);}
+        .gloss-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid rgba(46,125,50,0.06);}
+        .gloss-term{min-width:140px;font-weight:700;color:var(--accent);font-size:12px;}
+        .gloss-def{font-size:12px;color:var(--text-muted);line-height:1.5;}
+        .footer{text-align:center;padding:28px;color:var(--text-muted);font-size:11px;border-top:1px solid var(--border);margin-top:32px;}
+        .footer .br{font-weight:700;color:var(--accent);}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div>
+        <h1>Grupo Baptistella — <span>Apêndice Metodológico</span></h1>
+        <p>Fontes de Dados · Premissas · Limitações · Glossário · Disclaimer Legal</p>
+    </div>
+    <span class="badge">APÊNDICE</span>
+</div>
+
+<div class="container">
+
+    <!-- FONTES -->
+    <div class="sec-title">📚 1. FONTES DE DADOS</div>
+    <div class="card">
+        <div class="card-t">1.1 Dados Primários (fornecidos pelo cliente)</div>
+        <div class="content">
+            <table class="tb">
+                <thead><tr><th>Dado</th><th>Fonte</th><th>Período</th><th>Confiabilidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Produtividade por talhão</td><td>Relatório Safra — Grupo Baptistella</td><td>Safras 18/19 a 24/25</td><td>⭐⭐⭐⭐⭐ Primária</td></tr>
+                    <tr><td>Custos operacionais detalhados</td><td>Planilhas de custeio do grupo</td><td>Safras 18/19 a 24/25</td><td>⭐⭐⭐⭐⭐ Primária</td></tr>
+                    <tr><td>Receita e faturamento</td><td>DRE gerencial do grupo</td><td>Safras 18/19 a 24/25</td><td>⭐⭐⭐⭐⭐ Primária</td></tr>
+                    <tr><td>Área por fazenda / talhão</td><td>Mapas e registros do grupo</td><td>Safra 24/25</td><td>⭐⭐⭐⭐⭐ Primária</td></tr>
+                    <tr><td>Contratos de arrendamento</td><td>Jurídico do grupo</td><td>Vigentes</td><td>⭐⭐⭐⭐ Primária</td></tr>
+                    <tr><td>Balanço patrimonial</td><td>Contabilidade do grupo</td><td>Jun/2025</td><td>⭐⭐⭐⭐ Primária</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-t" style="margin-top:18px;">1.2 Dados Secundários (fontes públicas e estimativas)</div>
+        <div class="content">
+            <table class="tb">
+                <thead><tr><th>Dado</th><th>Fonte</th><th>Data Consulta</th><th>Confiabilidade</th></tr></thead>
+                <tbody>
+                    <tr><td>Preços soja / milho</td><td>CBOT, CEPEA/ESALQ, IMEA</td><td>Mar/2026</td><td>⭐⭐⭐⭐⭐ Pública oficial</td></tr>
+                    <tr><td>Produtividade média MT/BR</td><td>CONAB — 12° Levantamento</td><td>Mar/2026</td><td>⭐⭐⭐⭐⭐ Pública oficial</td></tr>
+                    <tr><td>Custos médios de produção</td><td>IMEA, CONAB, Rally da Safra</td><td>Fev/2026</td><td>⭐⭐⭐⭐ Pública estimada</td></tr>
+                    <tr><td>Dados SLC Agrícola / BrasilAgro</td><td>RI das empresas, CVM, B3</td><td>Dez/2025</td><td>⭐⭐⭐⭐ Pública auditada</td></tr>
+                    <tr><td>Preço de terras (Goiás/MT)</td><td>INFORMA FNP, IEG FNP</td><td>Dez/2025</td><td>⭐⭐⭐ Estimada</td></tr>
+                    <tr><td>Taxas de juros / CDI / Selic</td><td>Banco Central do Brasil</td><td>Mar/2026</td><td>⭐⭐⭐⭐⭐ Oficial</td></tr>
+                    <tr><td>Múltiplos de mercado (EV/EBITDA)</td><td>Bloomberg, Capital IQ, TradeMap</td><td>Mar/2026</td><td>⭐⭐⭐⭐ Mercado</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert alert-blue" style="margin-top:12px;">
+            <strong style="color:var(--blue);">📌 Nota sobre dados estimados:</strong> Onde dados primários não estavam disponíveis (ex: NCG mensal detalhada, ciclo financeiro exato, volatilidade para Monte Carlo), foram utilizadas <strong>estimativas baseadas em benchmarks do setor</strong> e ajustadas ao perfil do grupo. Esses dados estão sinalizados ao longo do relatório como estimativas.
+        </div>
+    </div>
+
+    <!-- PREMISSAS -->
+    <div class="sec-title">📐 2. PREMISSAS DO MODELO</div>
+    <div class="card">
+        <div class="card-t">2.1 Premissas Macroeconômicas</div>
+        <div class="content">
+            <table class="tb">
+                <thead><tr><th>Variável</th><th>Valor Utilizado</th><th>Fonte</th></tr></thead>
+                <tbody>
+                    <tr><td>Taxa Selic</td><td>10,5% a.a.</td><td>BCB (decisão COPOM Mar/2026)</td></tr>
+                    <tr><td>CDI</td><td>10,4% a.a.</td><td>B3</td></tr>
+                    <tr><td>IPCA Projetado</td><td>4,8% a.a.</td><td>Focus/BCB</td></tr>
+                    <tr><td>Câmbio (USD/BRL)</td><td>R$ 5,85</td><td>PTAX média Mar/2026</td></tr>
+                    <tr><td>Taxa Livre de Risco</td><td>10,5% a.a.</td><td>NTN-B 2035</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-t" style="margin-top:18px;">2.2 Premissas Específicas do Modelo</div>
+        <div class="content">
+            <table class="tb">
+                <thead><tr><th>Premissa</th><th>Valor</th><th>Justificativa</th></tr></thead>
+                <tbody>
+                    <tr><td>WACC</td><td>11,8% a.a.</td><td>Ponderação real das fontes de funding do grupo</td></tr>
+                    <tr><td>Taxa de crescimento terminal (g)</td><td>3,5% a.a.</td><td>Conservador — abaixo do PIB agro histórico (4,2%)</td></tr>
+                    <tr><td>Margem EBITDA normalizada</td><td>32,5%</td><td>Média das safras excl. 23/24 (outlier)</td></tr>
+                    <tr><td>CAPEX / Receita</td><td>3,5%</td><td>Média histórica do grupo</td></tr>
+                    <tr><td>Alíquota IR efetiva</td><td>8,2%</td><td>Calculada sobre DRE gerencial (PF + Funrural)</td></tr>
+                    <tr><td>Desconto de liquidez (Múltiplos)</td><td>10-15%</td><td>Padrão para empresas não listadas (DLOM)</td></tr>
+                    <tr><td>Volatilidade (Monte Carlo)</td><td>28%</td><td>Desvio-padrão do EBITDA sobre 7 safras</td></tr>
+                    <tr><td>Simulações Monte Carlo</td><td>10.000</td><td>Padrão para convergência estatística</td></tr>
+                    <tr><td>Reavaliação de terras</td><td>+35,3%</td><td>Comparação valor contábil vs IEG FNP (mercado)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- LIMITAÇÕES -->
+    <div class="sec-title">⚠️ 3. LIMITAÇÕES DO MODELO</div>
+    <div class="card">
+        <div class="content">
+            <h3>3.1 Limitações Estatísticas</h3>
+            <ul>
+                <li><strong>Amostra pequena (n=7 safras):</strong> Séries históricas de 7 observações limitam a significância estatística de regressões e correlações. Resultados devem ser interpretados como indicativos, não determinísticos.</li>
+                <li><strong>Não-normalidade dos retornos:</strong> Retornos agrícolas apresentam distribuição assimétrica (cauda esquerda pesada — risco de seca). A simulação Monte Carlo assume distribuição log-normal, que pode subestimar eventos extremos.</li>
+                <li><strong>Autocorrelação climática:</strong> Safras não são independentes — eventos La Niña/El Niño afetam múltiplos anos consecutivos. O modelo trata cada safra como independente.</li>
+            </ul>
+
+            <h3>3.2 Limitações do Valuation</h3>
+            <ul>
+                <li><strong>Valor de terras é estimado:</strong> Não foi realizada avaliação formal (laudo de engenheiro agrônomo). O valor de R$ 920 mi para terras próprias é baseado em referências de mercado regionais.</li>
+                <li><strong>Múltiplos de empresas listadas:</strong> SLC e BrasilAgro são comparáveis imperfeitos — operam em escala muito maior. Ajustes de porte e liquidez foram aplicados, mas são subjetivos.</li>
+                <li><strong>Real Options — modelo simplificado:</strong> A adaptação de Black-Scholes para ativos reais assume volatilidade constante e exercício europeu, o que não reflete perfeitamente a flexibilidade agrícola.</li>
+                <li><strong>Valor terminal é sensível:</strong> O valor terminal representa ~47% do DCF. Pequenas variações em g (crescimento terminal) causam grande impacto no valor. A tabela de sensibilidade mitiga esse risco.</li>
+            </ul>
+
+            <h3>3.3 Limitações Operacionais</h3>
+            <ul>
+                <li><strong>Dados de custo podem ter diferentes critérios:</strong> O regime de caixa vs competência pode gerar diferenças entre safras. Custos de depreciação e arrendamento podem ter tratamento variável.</li>
+                <li><strong>Fluxo de caixa mensal é projetado:</strong> A DFC mensal foi construída com base em padrões sazonais do setor, não em dados reais mês a mês do grupo.</li>
+                <li><strong>Produtividade futura é incerta:</strong> Projeções de produtividade para 25/26 e além são baseadas em tendências históricas e condições climáticas esperadas. Eventos extremos não estão contemplados no cenário base.</li>
+            </ul>
+        </div>
+
+        <div class="alert alert-red">
+            <strong>⚠️ IMPORTANTE:</strong> Este relatório não deve ser a única base para decisões de investimento, venda de ativos, captação de crédito ou reestruturação societária. Recomenda-se validação com <strong>auditoria independente, laudo de avaliação formal e assessoria jurídica</strong> para fins transacionais.
+        </div>
+    </div>
+
+    <!-- GLOSSÁRIO -->
+    <div class="sec-title">📖 4. GLOSSÁRIO TÉCNICO</div>
+    <div class="card">
+        <div class="gloss-item"><div class="gloss-term">EBITDA</div><div class="gloss-def">Earnings Before Interest, Taxes, Depreciation and Amortization. Lucro operacional antes de juros, impostos, depreciação e amortização. Proxy de geração de caixa operacional.</div></div>
+        <div class="gloss-item"><div class="gloss-term">EBIT</div><div class="gloss-def">Earnings Before Interest and Taxes. Lucro antes de juros e impostos (inclui depreciação).</div></div>
+        <div class="gloss-item"><div class="gloss-term">NOPAT</div><div class="gloss-def">Net Operating Profit After Taxes. EBIT × (1 − alíquota). Lucro operacional líquido de IR.</div></div>
+        <div class="gloss-item"><div class="gloss-term">FCFF</div><div class="gloss-def">Free Cash Flow to Firm. Fluxo de caixa livre para a firma = NOPAT + Depreciação − CAPEX − Δ NCG.</div></div>
+        <div class="gloss-item"><div class="gloss-term">DCF</div><div class="gloss-def">Discounted Cash Flow. Método de valuation que projeta fluxos futuros e traz a valor presente pelo WACC.</div></div>
+        <div class="gloss-item"><div class="gloss-term">WACC</div><div class="gloss-def">Weighted Average Cost of Capital. Custo médio ponderado de capital — taxa mínima de retorno exigida.</div></div>
+        <div class="gloss-item"><div class="gloss-term">NAV</div><div class="gloss-def">Net Asset Value. Valor líquido dos ativos — soma de ativos a valor de mercado menos passivos.</div></div>
+        <div class="gloss-item"><div class="gloss-term">EVA</div><div class="gloss-def">Economic Value Added. Lucro econômico = (ROIC − WACC) × Capital Investido. Positivo = cria valor.</div></div>
+        <div class="gloss-item"><div class="gloss-term">ROIC</div><div class="gloss-def">Return on Invested Capital. NOPAT / Capital Investido. Retorno sobre o capital empregado.</div></div>
+        <div class="gloss-item"><div class="gloss-term">ROE</div><div class="gloss-def">Return on Equity. Lucro Líquido / Patrimônio Líquido. Retorno sobre capital próprio.</div></div>
+        <div class="gloss-item"><div class="gloss-term">NCG</div><div class="gloss-def">Necessidade de Capital de Giro. (Estoques + Contas a Receber) − (Fornecedores + Adiantamentos).</div></div>
+        <div class="gloss-item"><div class="gloss-term">CCC</div><div class="gloss-def">Cash Conversion Cycle (Ciclo de Conversão de Caixa). PME + PMR − PMP. Dias que o dinheiro fica preso no ciclo.</div></div>
+        <div class="gloss-item"><div class="gloss-term">PME / PMR / PMP</div><div class="gloss-def">Prazo Médio de Estocagem / Recebimento / Pagamento. Componentes do ciclo financeiro.</div></div>
+        <div class="gloss-item"><div class="gloss-term">GAO / GAF / GAT</div><div class="gloss-def">Grau de Alavancagem Operacional / Financeira / Total. Medem a sensibilidade do lucro a variações na receita.</div></div>
+        <div class="gloss-item"><div class="gloss-term">DuPont</div><div class="gloss-def">Análise que decompõe o ROE em 3 fatores: Margem × Giro do Ativo × Alavancagem Financeira.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Monte Carlo</div><div class="gloss-def">Simulação estocástica que gera milhares de cenários aleatórios para estimar distribuição de probabilidade de resultados.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Real Options</div><div class="gloss-def">Método de valuation que precifica a flexibilidade gerencial (expandir, adiar, abandonar) usando teoria de opções financeiras.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Black-Scholes</div><div class="gloss-def">Modelo de precificação de opções adaptado para ativos reais neste relatório.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Football Field</div><div class="gloss-def">Gráfico que mostra faixas de valor (mín-máx) de múltiplos métodos de valuation lado a lado.</div></div>
+        <div class="gloss-item"><div class="gloss-term">EV/EBITDA</div><div class="gloss-def">Enterprise Value / EBITDA. Múltiplo de mercado. Indica quantos anos de EBITDA o mercado paga pela empresa.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Barter</div><div class="gloss-def">Operação de troca de insumos por grãos na colheita, sem desembolso de caixa no plantio.</div></div>
+        <div class="gloss-item"><div class="gloss-term">CPR</div><div class="gloss-def">Cédula de Produto Rural. Título vinculado à produção agrícola, usado para financiamento antecipado.</div></div>
+        <div class="gloss-item"><div class="gloss-term">Relação de Troca</div><div class="gloss-def">Quantas sacas de grão são necessárias para comprar 1 unidade de insumo. Menor = melhor poder de compra.</div></div>
+        <div class="gloss-item" style="border-bottom:none;"><div class="gloss-term">DSCR</div><div class="gloss-def">Debt Service Coverage Ratio. Geração de caixa / serviço da dívida. Acima de 1,5x é saudável.</div></div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="sec-title">⚖️ 5. DISCLAIMER LEGAL</div>
+    <div class="card">
+        <div class="alert alert-red">
+            <strong>AVISO LEGAL</strong><br><br>
+            Este relatório analítico foi elaborado por <strong>Sidney Souza</strong>, consultor independente, através da plataforma <strong>Rural In — Software de Gestão Rural</strong>, com base em informações fornecidas pelo Grupo Baptistella e dados públicos de mercado.<br><br>
+            <strong>Este documento NÃO constitui:</strong>
+            <ul style="margin:8px 0 8px 18px;list-style:disc;color:var(--text-secondary);">
+                <li>Recomendação de compra, venda ou manutenção de ativos</li>
+                <li>Laudo formal de avaliação (CPC 46 / IFRS 13)</li>
+                <li>Parecer contábil, jurídico ou tributário</li>
+                <li>Garantia de resultados futuros</li>
+            </ul>
+            <strong>Projeções e estimativas</strong> são baseadas em premissas que podem não se concretizar. Resultados reais podem diferir materialmente das projeções apresentadas devido a fatores climáticos, de mercado, regulatórios e operacionais.<br><br>
+            O consultor <strong>não se responsabiliza</strong> por decisões tomadas exclusivamente com base neste relatório. Para fins transacionais (M&A, captação de crédito, cisão, fusão), recomenda-se a contratação de <strong>avaliação formal por empresa credenciada (Big Four, boutique de M&A ou perito judicial)</strong>.<br><br>
+            <strong>Confidencialidade:</strong> Este relatório é de uso exclusivo do Grupo Baptistella e seus representantes autorizados. A reprodução total ou parcial sem autorização é vedada.<br><br>
+            <strong>Data-base:</strong> 20 de março de 2026. Validade das projeções: 6 meses a partir da data-base.
+        </div>
+    </div>
+
+    <!-- CONTATO -->
+    <div class="sec-title">📞 6. CONTATO DO CONSULTOR</div>
+    <div class="card" style="text-align:center;">
+        <div style="font-size:22px;font-weight:900;color:var(--accent);margin-bottom:4px;">Sidney Souza</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Consultor em Gestão Rural & Análise Financeira Agro</div>
+        <div style="display:inline-block;padding:12px 24px;background:rgba(249,168,37,0.08);border-radius:12px;border:1px solid rgba(249,168,37,0.2);">
+            <div style="font-size:18px;font-weight:800;color:var(--green);margin-bottom:4px;">Rural In</div>
+            <div style="font-size:11px;color:var(--text-muted);">Software de Gestão Rural</div>
+        </div>
+        <div style="margin-top:16px;font-size:12px;color:var(--text-muted);">
+            Rio Verde — GO · Brasil<br>
+            Relatório gerado em 20/03/2026
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <span class="br">Rural In</span> — Software de Gestão Rural · Apêndice Metodológico<br>
+    Grupo Baptistella · Safra 24/25 · Versão 1.0 · 20/03/2026
+</div>
+
+</body>
+</html>
