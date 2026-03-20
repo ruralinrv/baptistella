@@ -474,7 +474,7 @@
         try {
             var auth = JSON.parse(localStorage.getItem('baptistella_auth'));
             if (auth && auth.hash === HASH_CORRETO && auth.expiry > new Date().getTime()) {
-                window.location.href = 'Portal de Navegação Faz. Planalto.html';
+                window.location.href = 'portal.html';
             }
         } catch(e) {}
     }
