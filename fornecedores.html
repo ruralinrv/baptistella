@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rural In | Fornecedores — Drill-Down 12 Parceiros</title>
+<style>
+:root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+
+.topbar{padding:14px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:1.05rem;font-weight:700}.topbar h1 span{color:var(--accent)}
+.topbar-r{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--muted)}
+.btn{padding:7px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:8px;cursor:pointer;font-size:.75rem;transition:all .2s}
+.btn:hover{background:var(--accent);color:#0b1120}
+
+.container{max-width:1400px;margin:0 auto;padding:28px}
+
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.sum{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.sum .lb{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.sum .vl{font-size:1.4rem;font-weight:700}
+.sum .sub{font-size:.68rem;color:var(--muted);margin-top:4px}
+
+.section-title{font-size:1.05rem;font-weight:700;margin:30px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-title span{color:var(--accent)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-bottom:30px}
+
+.fcard{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .25s;cursor:pointer;position:relative}
+.fcard:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,230,118,.08)}
+.fcard-top{display:flex;align-items:center;gap:14px;padding:18px 18px 12px}
+.fcard-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:#fff;flex-shrink:0}
+.fcard-info h3{font-size:.92rem;font-weight:700}.fcard-info p{font-size:.7rem;color:var(--muted);margin-top:2px;line-height:1.4}
+.fcard-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.fcard-stat{background:var(--card);padding:10px 12px;text-align:center}
+.fcard-stat .lb{font-size:.55rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:3px}
+.fcard-stat .vl{font-size:.88rem;font-weight:700}
+.fcard-rank{position:absolute;top:12px;right:14px;font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(0,230,118,.1);color:var(--accent)}
+.fcard-rank.mid{background:rgba(0,176,255,.1);color:var(--accent2)}
+.fcard-rank.low{background:rgba(255,145,0,.1);color:var(--accent3)}
+.fcard-rank.risk{background:rgba(255,82,82,.1);color:var(--red)}
+
+.pos{color:var(--green)}.neg{color:var(--red)}
+
+.table-wrapper{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.73rem}
+thead th{background:var(--card2);padding:9px 11px;text-align:left;font-weight:600;color:var(--accent);border-bottom:2px solid var(--border);white-space:nowrap}
+tbody td{padding:8px 11px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:hover{background:rgba(0,230,118,.04)}
+.tr{text-align:right}.tc{text-align:center}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.66rem;font-weight:600}
+.tg{background:rgba(0,230,118,.15);color:var(--green)}
+.tb{background:rgba(0,176,255,.15);color:var(--accent2)}
+.to{background:rgba(255,145,0,.15);color:var(--accent3)}
+.tr2{background:rgba(255,82,82,.15);color:var(--red)}
+.tp{background:rgba(179,136,255,.15);color:#b388ff}
+
+.insight{background:rgba(0,230,118,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:.79rem;line-height:1.7}
+.insight b{color:var(--accent)}
+.insight.warn{background:rgba(255,145,0,.06);border-left-color:var(--accent3)}.insight.warn b{color:var(--accent3)}
+
+.footer{text-align:center;padding:30px;font-size:.66rem;color:var(--muted);border-top:1px solid var(--border);margin-top:40px;line-height:1.8}
+.footer b{color:var(--accent)}
+
+@media(max-width:768px){.grid{grid-template-columns:1fr}.container{padding:16px}.summary{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<h1>🏢 Fornecedores — <span>12 Drill-Downs</span></h1>
+<div class="topbar-r">
+<span>📍 Fazenda Planalto · Alto Garças — MT</span>
+<button class="btn" onclick="location.href='insumos.html'">🏠 Painel Insumos</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- RESUMO -->
+<div class="summary">
+<div class="sum"><div class="lb">Fornecedores Ativos</div><div class="vl" style="color:var(--accent)">12</div><div class="sub">Safra 25/26</div></div>
+<div class="sum"><div class="lb">Investimento Total</div><div class="vl">R$ 17,0M</div><div class="sub">Defensivos 25/26</div></div>
+<div class="sum"><div class="lb">Top 4 Concentram</div><div class="vl" style="color:var(--accent3)">57%</div><div class="sub">Bayer+Syng.+BASF+Corteva</div></div>
+<div class="sum"><div class="lb">Score Médio</div><div class="vl">7,1</div><div class="sub">De 5,3 a 8,6</div></div>
+<div class="sum"><div class="lb">100% BRL</div><div class="vl" style="color:var(--green)">8 de 12</div><div class="sub">4 com exposição USD</div></div>
+</div>
+
+<!-- GRID CARDS -->
+<div class="section-title">📊 Selecione um fornecedor para <span>análise completa</span></div>
+
+<div class="grid">
+
+<!-- 1. BAYER -->
+<div class="fcard" onclick="location.href='f-bayer.html'">
+<div class="fcard-rank">🥇 #1 · 8,6</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#00c853,#009624)">BA</div>
+<div class="fcard-info">
+<h3>Bayer</h3>
+<p>Líder absoluto · Sementes + Defensivos · Alemã</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">4,20M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">24,7%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">14</div></div>
+</div>
+</div>
+
+<!-- 2. SYNGENTA -->
+<div class="fcard" onclick="location.href='f-syngenta.html'">
+<div class="fcard-rank">🥈 #2 · 8,0</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#7c4dff,#4527a0)">SY</div>
+<div class="fcard-info">
+<h3>Syngenta</h3>
+<p>Vice-líder · Inovação fungicidas · Suíça-ChemChina</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">2,10M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">12,4%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">10</div></div>
+</div>
+</div>
+
+<!-- 3. BASF -->
+<div class="fcard" onclick="location.href='f-basf.html'">
+<div class="fcard-rank">🥉 #3 · 7,9</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#2979ff,#1565c0)">BF</div>
+<div class="fcard-info">
+<h3>BASF</h3>
+<p>Rei dos fungicidas · Carboxamidas · Alemã</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">1,85M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">10,9%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">9</div></div>
+</div>
+</div>
+
+<!-- 4. CORTEVA -->
+<div class="fcard" onclick="location.href='f-corteva.html'">
+<div class="fcard-rank">#4 · 7,7</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#ff6d00,#e65100)">CO</div>
+<div class="fcard-info">
+<h3>Corteva</h3>
+<p>Sementes + Herbicidas premium · Americana</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">1,65M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">9,7%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">8</div></div>
+</div>
+</div>
+
+<!-- 5. ALBAUGH -->
+<div class="fcard" onclick="location.href='f-albaugh.html'">
+<div class="fcard-rank mid">#5 · 7,6</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#00bfa5,#00897b)">AL</div>
+<div class="fcard-info">
+<h3>Albaugh</h3>
+<p>Genérico nacional líder · Commodities · Americana-BR</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">1,55M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">9,1%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">10</div></div>
+</div>
+</div>
+
+<!-- 6. UPL -->
+<div class="fcard" onclick="location.href='f-upl.html'">
+<div class="fcard-rank mid">#6 · 7,4</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#ffd600,#f9a825)">UP</div>
+<div class="fcard-info">
+<h3>UPL</h3>
+<p>Indiana diversificada · Mancozebe + Herbicidas</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">1,40M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">8,2%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">9</div></div>
+</div>
+</div>
+
+<!-- 7. SUMITOMO -->
+<div class="fcard" onclick="location.href='f-sumitomo.html'">
+<div class="fcard-rank mid">#7 · 7,4</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#e91e63,#ad1457)">SU</div>
+<div class="fcard-info">
+<h3>Sumitomo</h3>
+<p>Nicho inseticida japonês · Diamidas exclusivas</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">848k</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">5,0%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">5</div></div>
+</div>
+</div>
+
+<!-- 8. IHARA -->
+<div class="fcard" onclick="location.href='f-ihara.html'">
+<div class="fcard-rank mid">#8 · 7,1</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#ef5350,#b71c1c)">IH</div>
+<div class="fcard-info">
+<h3>Ihara</h3>
+<p>Japonesa mista · Premio genérico + Fungicidas</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">1,12M</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">6,6%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">7</div></div>
+</div>
+</div>
+
+<!-- 9. FMC -->
+<div class="fcard" onclick="location.href='f-fmc.html'">
+<div class="fcard-rank mid">#9 · 7,0</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#ff6d00,#bf360c)">FM</div>
+<div class="fcard-info">
+<h3>FMC</h3>
+<p>Diamida + Pré-emergentes exclusivos · Americana</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">720k</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">4,2%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">6</div></div>
+</div>
+</div>
+
+<!-- 10. RAINBOW -->
+<div class="fcard" onclick="location.href='f-rainbow.html'">
+<div class="fcard-rank low">#10 · 6,4</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#76ff03,#64dd17)">RB</div>
+<div class="fcard-info">
+<h3>Rainbow</h3>
+<p>Genérico chinês agressivo · Commodities baratas</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">780k</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">4,6%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">6</div></div>
+</div>
+</div>
+
+<!-- 11. OURO FINO -->
+<div class="fcard" onclick="location.href='f-ourofino.html'">
+<div class="fcard-rank low">#11 · 6,4</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#ffd600,#f9a825)">OF</div>
+<div class="fcard-info">
+<h3>Ouro Fino</h3>
+<p>Brasileira adjuvantes · Óleo Mineral + Agral</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">390k</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">2,3%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">7</div></div>
+</div>
+</div>
+
+<!-- 12. TECNOMYL -->
+<div class="fcard" onclick="location.href='f-tecnomyl.html'">
+<div class="fcard-rank risk">#12 · 5,3</div>
+<div class="fcard-top">
+<div class="fcard-icon" style="background:linear-gradient(135deg,#b388ff,#7c4dff)">TM</div>
+<div class="fcard-info">
+<h3>Tecnomyl</h3>
+<p>Paraguaia piso de preço · Menor preço em tudo</p>
+</div>
+</div>
+<div class="fcard-stats">
+<div class="fcard-stat"><div class="lb">R$ 25/26</div><div class="vl">285k</div></div>
+<div class="fcard-stat"><div class="lb">Share</div><div class="vl">1,6%</div></div>
+<div class="fcard-stat"><div class="lb">SKUs</div><div class="vl">5</div></div>
+</div>
+</div>
+
+</div><!-- /grid -->
+
+<!-- RANKING TABLE -->
+<div class="section-title">🏆 Ranking Consolidado — <span>Score × Investimento × Perfil</span></div>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>#</th><th>Fornecedor</th><th>Origem</th><th class="tr">R$ 25/26</th><th class="tr">Share</th><th class="tc">Score</th><th class="tc">Moeda</th><th>Perfil</th><th>Tendência 26/27</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>Bayer</b></td><td>🇩🇪 Alemanha</td><td class="tr">R$ 4,20M</td><td class="tr">24,7%</td><td class="tc"><span class="tag tg">8,6</span></td><td class="tc">70% BRL</td><td>Líder Premium</td><td class="pos">Manter pilar</td></tr>
+<tr><td>2</td><td><b>Syngenta</b></td><td>🇨🇭 Suíça</td><td class="tr">R$ 2,10M</td><td class="tr">12,4%</td><td class="tc"><span class="tag tg">8,0</span></td><td class="tc">60% BRL</td><td>Vice-líder Inovação</td><td class="pos">Expandir fungic.</td></tr>
+<tr><td>3</td><td><b>BASF</b></td><td>🇩🇪 Alemanha</td><td class="tr">R$ 1,85M</td><td class="tr">10,9%</td><td class="tc"><span class="tag tg">7,9</span></td><td class="tc">80% BRL</td><td>Rei Fungicidas</td><td class="pos">Manter</td></tr>
+<tr><td>4</td><td><b>Corteva</b></td><td>🇺🇸 EUA</td><td class="tr">R$ 1,65M</td><td class="tr">9,7%</td><td class="tc"><span class="tag tg">7,7</span></td><td class="tc">75% BRL</td><td>Sementes+Herb.</td><td style="color:var(--accent3)">Renegociar</td></tr>
+<tr><td>5</td><td><b>Albaugh</b></td><td>🇧🇷 Brasil/EUA</td><td class="tr">R$ 1,55M</td><td class="tr">9,1%</td><td class="tc"><span class="tag tg">7,6</span></td><td class="tc">100% BRL</td><td>Genérico Nac. Líder</td><td class="pos">Expandir</td></tr>
+<tr><td>6</td><td><b>UPL</b></td><td>🇮🇳 Índia</td><td class="tr">R$ 1,40M</td><td class="tr">8,2%</td><td class="tc"><span class="tag tb">7,4</span></td><td class="tc">100% BRL</td><td>Indiana Diversif.</td><td style="color:var(--accent3)">Renegociar</td></tr>
+<tr><td>7</td><td><b>Sumitomo</b></td><td>🇯🇵 Japão</td><td class="tr">R$ 848k</td><td class="tr">5,0%</td><td class="tc"><span class="tag tb">7,4</span></td><td class="tc">100% BRL</td><td>Nicho Inseticida</td><td class="pos">Expandir</td></tr>
+<tr><td>8</td><td><b>Ihara</b></td><td>🇯🇵 Japão/BR</td><td class="tr">R$ 1,12M</td><td class="tr">6,6%</td><td class="tc"><span class="tag tb">7,1</span></td><td class="tc">100% BRL</td><td>Japonesa Mista</td><td style="color:var(--accent3)">Otimizar</td></tr>
+<tr><td>9</td><td><b>FMC</b></td><td>🇺🇸 EUA</td><td class="tr">R$ 720k</td><td class="tr">4,2%</td><td class="tc"><span class="tag tb">7,0</span></td><td class="tc">70% BRL</td><td>Diamida+Pré-emerg.</td><td style="color:var(--accent3)">Enxugar</td></tr>
+<tr><td>10</td><td><b>Rainbow</b></td><td>🇨🇳 China</td><td class="tr">R$ 780k</td><td class="tr">4,6%</td><td class="tc"><span class="tag to">6,4</span></td><td class="tc">100% BRL</td><td>Genérico Chinês</td><td style="color:var(--accent3)">Pressionar preço</td></tr>
+<tr><td>11</td><td><b>Ouro Fino</b></td><td>🇧🇷 Brasil</td><td class="tr">R$ 390k</td><td class="tr">2,3%</td><td class="tc"><span class="tag to">6,4</span></td><td class="tc">100% BRL</td><td>Brasileira Adjuv.</td><td class="neg">Reestruturar</td></tr>
+<tr><td>12</td><td><b>Tecnomyl</b></td><td>🇵🇾 Paraguai</td><td class="tr">R$ 285k</td><td class="tr">1,6%</td><td class="tc"><span class="tag tr2">5,3</span></td><td class="tc">100% BRL</td><td>Piso de Preço</td><td style="color:var(--accent3)">Âncora negoc.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="insight"><b>📌 Como usar os drill-downs:</b> Clique em qualquer card acima para acessar a <b>análise completa do fornecedor</b> — portfólio produto a produto, curvas de preço, benchmarks, diagnósticos e estratégias de negociação para a safra 26/27. Cada página tem gráficos interativos, tabelas detalhadas e recomendações acionáveis.</div>
+
+<div class="insight warn"><b>⚠️ Concentração de risco:</b> Os 4 maiores (Bayer + Syngenta + BASF + Corteva) concentram <b>57% do investimento</b>. Estratégia 26/27: <b>redistribuir 5-8% para Albaugh, Sumitomo e Rainbow</b> — pressionar os grandes pela competição e reduzir dependência de multinacionais europeias/americanas.</div>
+
+<div class="footer">
+<b>Rural In</b> · Inteligência Econômica Agro<br>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
+</div>
+</div>
+
+<script>
+if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='insumos.html';}
+</script>
+</body>
+</html>
