@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rural In | Corteva — Drill-Down Fornecedor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--cor:#f44336}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+
+.topbar{padding:14px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:1rem;font-weight:600}.topbar h1 span{color:var(--cor)}
+.topbar-r{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--muted)}
+.btn{padding:7px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:8px;cursor:pointer;font-size:.75rem;transition:all .2s}
+.btn:hover{background:var(--accent);color:#0b1120}
+.btn-out{border-color:var(--muted);color:var(--muted)}.btn-out:hover{background:var(--muted);color:#0b1120}
+
+.container{max-width:1400px;margin:0 auto;padding:24px 28px}
+
+.nav-f{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.nav-f span{font-size:.7rem;color:var(--muted);padding:6px 0}
+.nav-f a{padding:6px 14px;border-radius:16px;font-size:.72rem;border:1px solid var(--border);color:var(--muted);transition:all .2s}
+.nav-f a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.nav-f a.on{background:var(--cor);color:#fff;border-color:var(--cor);font-weight:700}
+
+.hdr{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.hdr-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0}
+.hdr-info h2{font-size:1.25rem;font-weight:700}.hdr-info h2 span{color:var(--cor)}
+.hdr-info p{font-size:.78rem;color:var(--muted);margin-top:4px;line-height:1.5}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.kpi .lb{font-size:.63rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.kpi .vl{font-size:1.3rem;font-weight:700}.kpi .sub{font-size:.68rem;color:var(--muted);margin-top:3px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card h3{font-size:.88rem;font-weight:600;margin-bottom:14px;color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:20px;margin-bottom:20px}
+
+.chart-box{position:relative;height:320px;margin:10px 0}.chart-box.tall{height:420px}
+
+.table-wrapper{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.73rem}
+thead th{background:var(--card2);padding:9px 11px;text-align:left;font-weight:600;color:var(--accent);border-bottom:2px solid var(--border);white-space:nowrap}
+tbody td{padding:7px 11px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:hover{background:rgba(0,230,118,.04)}
+.tr{text-align:right}.tc{text-align:center}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.66rem;font-weight:600}
+.tg{background:rgba(0,230,118,.15);color:var(--green)}
+.tr2{background:rgba(255,82,82,.15);color:var(--red)}
+.tb{background:rgba(0,176,255,.15);color:var(--accent2)}
+.to{background:rgba(255,145,0,.15);color:var(--accent3)}
+.tp{background:rgba(224,64,251,.15);color:var(--accent4)}
+.ty{background:rgba(255,235,59,.15);color:var(--accent5)}
+.tc2{background:rgba(244,67,54,.15);color:var(--cor)}
+
+.insight{background:rgba(0,230,118,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:.79rem;line-height:1.7}
+.insight b{color:var(--accent)}
+.insight.warn{background:rgba(255,145,0,.06);border-left-color:var(--accent3)}.insight.warn b{color:var(--accent3)}
+.insight.danger{background:rgba(255,82,82,.06);border-left-color:var(--red)}.insight.danger b{color:var(--red)}
+
+.rec{background:var(--card2);border-radius:10px;padding:14px 18px;margin:10px 0;border-left:3px solid var(--accent);font-size:.78rem;line-height:1.6}
+.rec.w{border-left-color:var(--accent3)}.rec.d{border-left-color:var(--red)}
+.rec b{color:var(--accent)}.rec.w b{color:var(--accent3)}.rec.d b{color:var(--red)}
+
+.section-title{font-size:1.05rem;font-weight:700;margin:30px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-title span{color:var(--accent)}
+
+.highlight{background:linear-gradient(135deg,rgba(244,67,54,.08),rgba(255,145,0,.08));border:1px solid rgba(244,67,54,.2);border-radius:12px;padding:20px;margin:20px 0}
+.highlight h4{font-size:.85rem;color:var(--cor);margin-bottom:10px}
+
+.footer{text-align:center;padding:30px;font-size:.66rem;color:var(--muted);border-top:1px solid var(--border);margin-top:40px;line-height:1.8}
+.footer b{color:var(--accent)}
+
+@media(max-width:768px){.card-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.container{padding:16px}.hdr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<h1>🏢 <span>CORTEVA</span> — Drill-Down Fornecedor</h1>
+<div class="topbar-r">
+<span>📍 Fazenda Planalto · Alto Garças — MT</span>
+<button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
+<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- NAV -->
+<div class="nav-f">
+<span>Ir para:</span>
+<a href="f-bayer.html">Bayer</a>
+<a href="f-basf.html">BASF</a>
+<a href="f-upl.html">UPL</a>
+<a href="f-albaugh.html">Albaugh</a>
+<a href="f-syngenta.html">Syngenta</a>
+<a class="on" href="f-corteva.html">Corteva</a>
+<a href="f-ihara.html">Ihara</a>
+<a href="f-sumitomo.html">Sumitomo</a>
+<a href="f-rainbow.html">Rainbow</a>
+<a href="f-fmc.html">FMC</a>
+<a href="f-ourofino.html">Ouro Fino</a>
+<a href="f-tecnomyl.html">Tecnomyl</a>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+<div class="hdr-icon" style="background:linear-gradient(135deg,#f44336,#c62828)">CO</div>
+<div class="hdr-info">
+<h2>CORTEVA <span>AGRISCIENCE</span></h2>
+<p>Presente em <b>6/7 safras</b> (ausente 20/21) · Herbicidas, Inseticidas, Fungicidas<br>
+Moeda: <b>Mix USD/BRL</b> — Operou USD até 21/22, migrou para BRL a partir de 22/23<br>
+Perfil: <b>Herbicidas premium + Inseticidas diamida</b> · Ex-Dow + Ex-DuPont<br>
+Produtos-chave: Galil SC · Spider · Isoclast · Closer · Delegate · Vessarya · DMA 806</p>
+</div>
+</div>
+
+<!-- DESTAQUE -->
+<div class="highlight">
+<h4>⚡ Especialista em Herbicidas Premium: Galil + Spider dominam pré-emergência</h4>
+<p style="font-size:.8rem;color:var(--text);line-height:1.6">Corteva é herdeira dos portfólios <b style="color:var(--cor)">Dow AgroSciences + DuPont Crop Protection</b>. Na Fazenda Planalto, consolidou posição com herbicidas de alta tecnologia (Galil SC = Haloxifope + Cloransulam) e inseticidas de nova geração (Isoclast = Sulfoxaflor para percevejo). A <b>queda de 56% desde o pico (22/23)</b> abriu janela de negociação para expandir volume com preço favorável.</p>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-row">
+<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--cor)">R$ 1,38M</div><div class="sub">8,0% do total defensivos</div></div>
+<div class="kpi"><div class="lb">Acumulado 6 Safras</div><div class="vl">~R$ 8,95M</div><div class="sub">Média R$ 1,49M/safra ativa</div></div>
+<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 3,14M</div><div class="sub">Safra 22/23</div></div>
+<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −56%</div><div class="sub">Queda acentuada</div></div>
+<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">8</div><div class="sub">Herb. + Inset. + Fung.</div></div>
+<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Galil SC</div><div class="sub">~R$ 378k · 27% do total</div></div>
+</div>
+
+<!-- GRÁFICOS TOPO -->
+<div class="card-grid">
+<div class="card">
+<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<div class="chart-box"><canvas id="chInvest"></canvas></div>
+</div>
+<div class="card">
+<h3>📊 Composição do Portfólio 25/26</h3>
+<div class="chart-box"><canvas id="chMix"></canvas></div>
+</div>
+</div>
+
+<!-- PORTFÓLIO -->
+<div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
+
+<div class="card">
+<h3>🌿 Herbicidas (4 produtos)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Galil SC</b></td><td style="font-size:.65rem;color:var(--muted)">Haloxifope+Cloransulam</td>
+<td class="tr">$42<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr">$48<br><small style="color:var(--muted)">1.500L</small></td>
+<td class="tr">R$245<br><small style="color:var(--muted)">3.000L</small></td>
+<td class="tr">R$195<br><small style="color:var(--muted)">2.500L</small></td>
+<td class="tr">R$115<br><small style="color:var(--muted)">2.800L</small></td>
+<td class="tr"><b>R$105</b><br><small style="color:var(--muted)">3.600L</small></td>
+<td><span class="tag tg">▼−57% · Vol▲20%</span></td>
+</tr>
+<tr>
+<td><b>Spider 840 WG</b></td><td style="font-size:.65rem;color:var(--muted)">Diclosulam 840 WG</td>
+<td class="tr">$180<br><small style="color:var(--muted)">120kg</small></td>
+<td class="tr">$195<br><small style="color:var(--muted)">80kg</small></td>
+<td class="tr">R$980<br><small style="color:var(--muted)">200kg</small></td>
+<td class="tr">R$820<br><small style="color:var(--muted)">150kg</small></td>
+<td class="tr">R$450<br><small style="color:var(--muted)">200kg</small></td>
+<td class="tr"><b>R$380</b><br><small style="color:var(--muted)">250kg</small></td>
+<td><span class="tag tg">▼−61% · Premium pré-em.</span></td>
+</tr>
+<tr>
+<td><b>DMA 806</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL (ex-Dow)</td>
+<td class="tr">$8<br><small style="color:var(--muted)">6.000L</small></td>
+<td class="tr">$10<br><small style="color:var(--muted)">4.000L</small></td>
+<td class="tr">R$22<br><small style="color:var(--muted)">8.000L</small></td>
+<td class="tr">R$18<br><small style="color:var(--muted)">5.000L</small></td>
+<td class="tr">R$15<br><small style="color:var(--muted)">4.000L</small></td>
+<td class="tr"><b>R$13</b><br><small style="color:var(--muted)">5.000L</small></td>
+<td><span class="tag tg">▼−41% · Commodity</span></td>
+</tr>
+<tr>
+<td><b>Truvist</b></td><td style="font-size:.65rem;color:var(--muted)">Arylexⓡ + Halauxifen</td>
+<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
+<td class="tr">R$285<br><small style="color:var(--muted)">300L</small></td>
+<td class="tr"><b>R$260</b><br><small style="color:var(--muted)">500L</small></td>
+<td><span class="tag tb">Novo · Latifoliada</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🐛 Inseticidas (3 produtos)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Isoclast</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfoxaflor 200 SC</td>
+<td class="tr">—</td><td class="tr">—</td>
+<td class="tr">R$180<br><small style="color:var(--muted)">1.500L</small></td>
+<td class="tr">R$155<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr">R$125<br><small style="color:var(--muted)">1.800L</small></td>
+<td class="tr"><b>R$108</b><br><small style="color:var(--muted)">2.200L</small></td>
+<td><span class="tag tg">▼−40% · Percevejo premium</span></td>
+</tr>
+<tr>
+<td><b>Closer</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfoxaflor 480 SC</td>
+<td class="tr">$65<br><small style="color:var(--muted)">800L</small></td>
+<td class="tr">$72<br><small style="color:var(--muted)">600L</small></td>
+<td class="tr">R$340<br><small style="color:var(--muted)">500L</small></td>
+<td class="tr">R$280<br><small style="color:var(--muted)">400L</small></td>
+<td class="tr">R$195<br><small style="color:var(--muted)">350L</small></td>
+<td class="tr"><b>R$170</b><br><small style="color:var(--muted)">300L</small></td>
+<td><span class="tag tg">▼−50% · Mosca-br./Pulgão</span></td>
+</tr>
+<tr>
+<td><b>Delegate</b></td><td style="font-size:.65rem;color:var(--muted)">Espinetoram 250 WG</td>
+<td class="tr">$120<br><small style="color:var(--muted)">200kg</small></td>
+<td class="tr">$135<br><small style="color:var(--muted)">150kg</small></td>
+<td class="tr">R$580<br><small style="color:var(--muted)">250kg</small></td>
+<td class="tr">R$480<br><small style="color:var(--muted)">200kg</small></td>
+<td class="tr">R$350<br><small style="color:var(--muted)">180kg</small></td>
+<td class="tr"><b>R$310</b><br><small style="color:var(--muted)">200kg</small></td>
+<td><span class="tag tg">▼−47% · Tripes/Lagarta</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🍄 Fungicida (1 produto)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Vessarya</b></td><td style="font-size:.65rem;color:var(--muted)">Picoxistrobina+Benzovindiflupir</td>
+<td class="tr">R$165<br><small style="color:var(--muted)">1.200L</small></td>
+<td class="tr">R$140<br><small style="color:var(--muted)">1.000L</small></td>
+<td class="tr">R$105<br><small style="color:var(--muted)">800L</small></td>
+<td class="tr"><b>R$92</b><br><small style="color:var(--muted)">1.000L</small></td>
+<td><span class="tag tg">▼−44% · Fung. premium</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- CURVAS PREÇO -->
+<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave (BRL)</span></div>
+<div class="card-grid">
+<div class="card">
+<h3>💰 Herbicidas (R$/L ou kg)</h3>
+<div class="chart-box"><canvas id="chPreco1"></canvas></div>
+</div>
+<div class="card">
+<h3>💰 Inseticidas + Fungicida (R$/L ou kg)</h3>
+<div class="chart-box"><canvas id="chPreco2"></canvas></div>
+</div>
+</div>
+
+<!-- VOLUME -->
+<div class="card">
+<h3>📦 Evolução de Volume — Top 5 Produtos</h3>
+<div class="chart-box tall"><canvas id="chVolume"></canvas></div>
+</div>
+
+<!-- DEEP DIVE GALIL -->
+<div class="section-title">🔬 Deep Dive — <span>Galil SC (Haloxifope+Cloransulam)</span></div>
+<div class="card">
+<h3>O herbicida pós-emergente premium da soja</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Safra</th><th class="tc">Moeda</th><th class="tr">Preço</th><th class="tr">Volume</th><th class="tr">Total R$</th><th class="tr">% Corteva</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td>19/20</td><td class="tc"><span class="tag tb">USD</span></td><td class="tr">$42</td><td class="tr">2.000L</td><td class="tr">~R$330k</td><td class="tr">22%</td><td>Entrada</td></tr>
+<tr><td>21/22</td><td class="tc"><span class="tag tb">USD</span></td><td class="tr">$48</td><td class="tr">1.500L</td><td class="tr">~R$378k</td><td class="tr">26%</td><td>Pico USD</td></tr>
+<tr><td>22/23</td><td class="tc"><span class="tag tg">BRL</span></td><td class="tr">R$245</td><td class="tr">3.000L</td><td class="tr">R$735k</td><td class="tr">23%</td><td>Migrou BRL · pico vol.</td></tr>
+<tr><td>23/24</td><td class="tc"><span class="tag tg">BRL</span></td><td class="tr">R$195</td><td class="tr">2.500L</td><td class="tr">R$488k</td><td class="tr">26%</td><td>Deflação inicia</td></tr>
+<tr><td>24/25</td><td class="tc"><span class="tag tg">BRL</span></td><td class="tr">R$115</td><td class="tr">2.800L</td><td class="tr">R$322k</td><td class="tr">25%</td><td>Deflação forte −41%</td></tr>
+<tr style="background:rgba(244,67,54,.06)"><td><b>25/26</b></td><td class="tc"><span class="tag tg">BRL</span></td><td class="tr"><b>R$105</b></td><td class="tr"><b>3.600L</b></td><td class="tr"><b>R$378k</b></td><td class="tr"><b>27%</b></td><td>Preço mín. · Vol. máx.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📌 Galil SC caiu 57% em BRL (R$ 245 → R$ 105):</b> Herbicida premium que combina graminicida (Haloxifope) + latifolicida (Cloransulam) em uma formulação. Elimina 2 passadas do pulverizador. A R$ 105/L × 3.600 L = R$ 378k, volume é o maior da série histórica. Concorre com <b>Krypto (Albaugh R$ 350/kg) + Select (Arysta)</b> como pré-emergente, mas Galil é pós-emergente de contato+sistêmico — <b>uso diferente e complementar</b>.</div>
+</div>
+
+<!-- BENCHMARK SULFOXAFLOR -->
+<div class="section-title">⚔️ Benchmark — <span>Isoclast vs. Concorrentes para Percevejo</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>Fornecedor</th><th>P.A.</th><th class="tr">R$/L 25/26</th><th class="tr">Dose/ha</th><th class="tr">R$/ha</th><th>Nota</th></tr></thead>
+<tbody>
+<tr style="background:rgba(244,67,54,.04)"><td><b>Isoclast</b></td><td>Corteva</td><td>Sulfoxaflor 200</td><td class="tr">R$108</td><td class="tr">0,30L</td><td class="tr pos"><b>R$32,40</b></td><td>Melhor R$/ha · Seletivo</td></tr>
+<tr><td><b>Connect</b></td><td>Bayer</td><td>Imida+Lambda</td><td class="tr">R$46</td><td class="tr">1,00L</td><td class="tr">R$46,00</td><td>Amplo espectro</td></tr>
+<tr><td><b>Chlorfenapyr</b></td><td>Albaugh</td><td>Clorfenapir 240</td><td class="tr">R$58</td><td class="tr">0,75L</td><td class="tr">R$43,50</td><td>Boa eficácia</td></tr>
+<tr><td><b>Polo</b></td><td>Syngenta</td><td>Diafentiurom 500</td><td class="tr">R$42</td><td class="tr">0,80L</td><td class="tr">R$33,60</td><td>Mosca-branca</td></tr>
+<tr><td><b>Ethrole</b></td><td>Rainbow</td><td>Clorfenapir 240</td><td class="tr">R$52</td><td class="tr">0,75L</td><td class="tr">R$39,00</td><td>Genérico</td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📊 Isoclast = menor custo/ha para percevejo:</b> A R$ 32,40/ha, Sulfoxaflor supera todos os concorrentes em custo por hectare. Além disso, é <b>seletivo a inimigos naturais</b> (abelhas, parasitoides), o que melhora o MIP (Manejo Integrado de Pragas). A Corteva deveria usar esse argumento para expandir volume de 2.200 L para 3.000+ L.</div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Corteva</span></div>
+
+<div class="insight"><b>1. Deflação média de −49%:</b> Galil (−57%), Spider (−61%), Closer (−50%), Polo/Delegate (−47%), Vessarya (−44%), Isoclast (−40%), DMA (−41%). A Corteva sofreu deflação <b>comparável à Syngenta</b>, abrindo oportunidade de compra premium a preço de genérico.</div>
+
+<div class="insight"><b>2. Isoclast = arma secreta para percevejo:</b> Sulfoxaflor é o <b>único IA de nova geração</b> para percevejo-marrom no portfólio. A R$ 108/L com dose de 0,30 L/ha = R$ 32,40/ha — o menor custo por hectare entre todas as opções. Seletividade a inimigos naturais é diferencial real no MIP.</div>
+
+<div class="insight"><b>3. Spider vs. Krypto — premium vs. genérico:</b> Spider R$ 380/kg (Corteva) vs. Krypto R$ 350/kg (Albaugh). Mesmo IA (Diclosulam 840 WG). Diferença de R$ 30/kg × 250 kg = <b>R$ 7.500 de premium</b>. Se formulação for idêntica, Spider perde para Krypto. Negociar Spider a R$ 340 ou migrar.</div>
+
+<div class="insight warn"><b>4. Ausência na 20/21:</b> Assim como Albaugh, Corteva não forneceu na 20/21. A marca é grande, mas a relação comercial tem <b>histórico de interrupção</b>. Manter backup para Galil (Poquer — Syngenta) e Isoclast (Chlorfenapyr — Albaugh).</div>
+
+<div class="insight"><b>5. DMA 806 como commodity atrelada:</b> 2,4-D a R$ 13/L × 5.000 L = R$ 65k. É o 2,4-D mais barato do portfólio (Afiado Albaugh = R$ 14/L). Provavelmente vem como <b>bonificação no pacote</b> Corteva. Valor baixo mas garante que a fazenda use DMA em 100% da dessecação.</div>
+
+<div class="insight"><b>6. Vessarya como fungicida alternativo:</b> Picoxistrobina + Benzovindiflupir a R$ 92/L × 1.000 L = R$ 92k. Concorre com Elatus (Syngenta R$ 120/L) e Fox Supra (Bayer). A R$ 92/L, é o <b>fungicida premium mais barato</b> do portfólio — considerar expansão para 1.500 L.</div>
+
+<div class="insight warn"><b>7. Truvist como aposta:</b> Arylexⓡ (Halauxifen) é molécula exclusiva Corteva para latifoliadas resistentes. R$ 260/L × 500 L = R$ 130k. Produto novo, precisa de <b>validação em talhões pareados</b>. Se eficaz contra buva resistente a 2,4-D, pode crescer significativamente.</div>
+
+<!-- ESTRATÉGIA -->
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
+
+<div class="card">
+<h3>✅ Oportunidades</h3>
+<div class="rec"><b>🎯 Galil a R$ 90 (−14%):</b> Com deflação de 57%, há espaço. Meta: R$ 90/L × 4.000 L = R$ 360k. Economia: <b>R$ 54k</b>. Argumento: "Pretorian Albaugh (pré) + Prefer (graminicida) juntos custam menos que Galil."</div>
+<div class="rec"><b>🎯 Isoclast como pilar anti-percevejo:</b> Expandir de 2.200 L para 3.000 L. A R$ 32,40/ha é imbatível. Negociar R$ 95/L (−12%) em troca do volume. Economia: R$ 29k + redução de custo/ha no programa MIP.</div>
+<div class="rec"><b>🎯 Pacote Corteva Top 4:</b> Galil + Isoclast + Spider + DMA = ~R$ 808k. Pedir 10% desconto pacote = <b>economia R$ 81k</b>. Em troca: exclusividade nos 4 itens por 2 safras.</div>
+</div>
+
+<div class="card">
+<h3>⚠️ Alertas</h3>
+<div class="rec w"><b>⚠️ Spider vs. Krypto:</b> Premium de R$ 30/kg sobre genérico Albaugh. Se Corteva não equiparar a R$ 340/kg, migrar 100% do Diclosulam para Krypto. Economia potencial: <b>R$ 7.500</b>.</div>
+<div class="rec w"><b>⚠️ Delegate caro vs. alternativas:</b> Espinetoram R$ 310/kg × 200 kg = R$ 62k. Premio Star (FMC — Clorantraniliprole) e Ampligo (Syngenta) são alternativas para tripes/lagarta. Comparar custo/ha antes de renovar.</div>
+<div class="rec d"><b>🔴 Closer em declínio:</b> Volume caiu de 800 L para 300 L (−63%). R$ 170/L × 300 L = R$ 51k. Pode ser descontinuado se Isoclast cobrir mesmas pragas. Consolidar sulfoxaflor em um único SKU.</div>
+</div>
+
+<!-- SCORE -->
+<div class="card">
+<h3>📊 Score Card — Resumo Executivo</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Dimensão</th><th class="tc">Nota</th><th>Comentário</th></tr></thead>
+<tbody>
+<tr><td><b>Diversidade de Portfólio</b></td><td class="tc"><span class="tag tg">7/10</span></td><td>8 produtos cobrindo 3 classes</td></tr>
+<tr><td><b>Competitividade de Preço</b></td><td class="tc"><span class="tag tg">8/10</span></td><td>Deflação média −49% · Isoclast imbatível/ha</td></tr>
+<tr><td><b>Tendência de Preço</b></td><td class="tc"><span class="tag tg">9/10</span></td><td>Queda contínua em todos os ativos</td></tr>
+<tr><td><b>Flexibilidade Comercial</b></td><td class="tc"><span class="tag tg">7/10</span></td><td>Migrou para BRL · Pacotes possíveis</td></tr>
+<tr><td><b>Risco Cambial</b></td><td class="tc"><span class="tag tg">8/10</span></td><td>Maioria BRL desde 22/23</td></tr>
+<tr><td><b>Inovação</b></td><td class="tc"><span class="tag tg">9/10</span></td><td>Sulfoxaflor, Arylexⓡ, Espinetoram — pipeline forte</td></tr>
+<tr><td><b>Confiabilidade</b></td><td class="tc"><span class="tag to">6/10</span></td><td>Ausência na 20/21 gera dúvida</td></tr>
+<tr style="background:rgba(244,67,54,.06)"><td><b>SCORE GERAL</b></td><td class="tc"><span class="tag tc2" style="font-size:.8rem">7,7 / 10</span></td><td><b>Inovação premium em deflação. Oportunidade de expandir.</b></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- PROJEÇÃO -->
+<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
+<tbody>
+<tr><td>Galil SC</td><td class="tr">105</td><td class="tr pos"><b>90</b></td><td class="tr">4.000L</td><td class="tr">R$360k</td><td>Pilar herb. · −14%</td></tr>
+<tr><td>Isoclast</td><td class="tr">108</td><td class="tr pos"><b>95</b></td><td class="tr">3.000L</td><td class="tr">R$285k</td><td>Expandir MIP · −12%</td></tr>
+<tr><td>Spider 840</td><td class="tr">380</td><td class="tr pos"><b>340</b></td><td class="tr">280kg</td><td class="tr">R$95k</td><td>Igualar Krypto · −11%</td></tr>
+<tr><td>DMA 806</td><td class="tr">13</td><td class="tr pos"><b>11</b></td><td class="tr">6.000L</td><td class="tr">R$66k</td><td>Expandir · −15%</td></tr>
+<tr><td>Truvist</td><td class="tr">260</td><td class="tr pos"><b>230</b></td><td class="tr">700L</td><td class="tr">R$161k</td><td>Expandir se validado · −12%</td></tr>
+<tr><td>Delegate</td><td class="tr">310</td><td class="tr pos"><b>270</b></td><td class="tr">220kg</td><td class="tr">R$59k</td><td>Manter · −13%</td></tr>
+<tr><td>Vessarya</td><td class="tr">92</td><td class="tr pos"><b>80</b></td><td class="tr">1.500L</td><td class="tr">R$120k</td><td>Expandir fung. · −13%</td></tr>
+<tr><td>Closer</td><td class="tr">170</td><td class="tr pos"><b>145</b></td><td class="tr">200L</td><td class="tr">R$29k</td><td>Reduzir · −15%</td></tr>
+<tr style="background:rgba(244,67,54,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 1.175k</b></td><td></td></tr>
+<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 207k</b></td><td class="pos"><b>−15% c/ mais vol.</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>💰 Meta 26/27:</b> Economia projetada de <b>R$ 207k (−15%)</b> combinando deflação agressiva + expansão de Isoclast, Vessarya e Truvist. A Corteva tem o melhor pipeline de inovação entre os fornecedores pós-patente. Se aceitar o pacote, a Fazenda consolida <b>herbicida premium + inseticida MIP + fungicida alternativo</b> em fornecedor único com preços deflacionados.</div>
+</div>
+
+<div class="footer">
+<b>Rural In</b> · Inteligência Econômica Agro<br>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
+</div>
+</div>
+
+<script>
+if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
+
+Chart.defaults.color='#7b8a9e';
+Chart.defaults.borderColor='#1e2d4a';
+Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+Chart.defaults.font.size=11;
+const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
+
+// Investimento
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
+label:'R$ mil',data:[1520,0,1450,3140,1950,1290,1382],
+backgroundColor:S.map((_,i)=>i===1?'rgba(255,82,82,.4)':'rgba(244,67,54,.'+(3+i)+')')
+,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
+scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?'R$'+(v/1000).toFixed(1)+'M':'R$'+v+'k'}}}}});
+
+// Mix
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
+labels:['Galil SC R$378k','Isoclast R$238k','Truvist R$130k','Spider R$95k','Vessarya R$92k','DMA 806 R$65k','Delegate R$62k','Closer R$51k'],
+datasets:[{data:[378,238,130,95,92,65,62,51],
+backgroundColor:['#f44336','#00b0ff','#ffeb3b','#e040fb','#4caf50','#90a4ae','#ff9100','#7c4dff']}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+
+// Preço Herbicidas (BRL desde 22/23)
+new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
+{label:'Galil SC',data:[245,195,115,105],borderColor:'#f44336',backgroundColor:'rgba(244,67,54,.1)',fill:true,tension:.3,pointRadius:6},
+{label:'Spider 840',data:[980,820,450,380],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false,yAxisID:'y1'},
+{label:'DMA 806',data:[22,18,15,13],borderColor:'#90a4ae',borderDash:[5,5],tension:.3,pointRadius:4,fill:false},
+{label:'Truvist',data:[null,null,285,260],borderColor:'#ffeb3b',tension:.3,pointRadius:6,pointBackgroundColor:'#ffeb3b',fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true},
+y1:{position:'right',title:{display:true,text:'Spider R$/kg'},grid:{display:false}}}}});
+
+// Preço Inseticidas + Fungicida
+new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
+{label:'Delegate',data:[580,480,350,310],borderColor:'#ff9100',backgroundColor:'rgba(255,145,0,.1)',fill:true,tension:.3,pointRadius:5},
+{label:'Closer',data:[340,280,195,170],borderColor:'#7c4dff',tension:.3,pointRadius:5,fill:false},
+{label:'Isoclast',data:[180,155,125,108],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false},
+{label:'Vessarya',data:[165,140,105,92],borderColor:'#4caf50',tension:.3,pointRadius:5,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/L ou kg'}}}}});
+
+// Volume
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
+{label:'Galil SC',data:[2000,0,1500,3000,2500,2800,3600],backgroundColor:'rgba(244,67,54,.7)',borderRadius:4},
+{label:'Isoclast',data:[0,0,0,1500,2000,1800,2200],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
+{label:'DMA 806',data:[6000,0,4000,8000,5000,4000,5000],backgroundColor:'rgba(144,164,174,.5)',borderRadius:4},
+{label:'Spider',data:[120,0,80,200,150,200,250],backgroundColor:'rgba(224,64,251,.5)',borderRadius:4},
+{label:'Vessarya',data:[0,0,0,1200,1000,800,1000],backgroundColor:'rgba(76,175,80,.5)',borderRadius:4}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+</script>
+</body>
+</html>

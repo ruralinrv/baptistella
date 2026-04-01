@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rural In | Tecnomyl — Drill-Down Fornecedor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--tc:#b388ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+
+.topbar{padding:14px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:1rem;font-weight:600}.topbar h1 span{color:var(--tc)}
+.topbar-r{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--muted)}
+.btn{padding:7px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:8px;cursor:pointer;font-size:.75rem;transition:all .2s}
+.btn:hover{background:var(--accent);color:#0b1120}
+.btn-out{border-color:var(--muted);color:var(--muted)}.btn-out:hover{background:var(--muted);color:#0b1120}
+
+.container{max-width:1400px;margin:0 auto;padding:24px 28px}
+
+.nav-f{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.nav-f span{font-size:.7rem;color:var(--muted);padding:6px 0}
+.nav-f a{padding:6px 14px;border-radius:16px;font-size:.72rem;border:1px solid var(--border);color:var(--muted);transition:all .2s}
+.nav-f a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.nav-f a.on{background:var(--tc);color:#0b1120;border-color:var(--tc);font-weight:700}
+
+.hdr{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.hdr-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0}
+.hdr-info h2{font-size:1.25rem;font-weight:700}.hdr-info h2 span{color:var(--tc)}
+.hdr-info p{font-size:.78rem;color:var(--muted);margin-top:4px;line-height:1.5}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.kpi .lb{font-size:.63rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.kpi .vl{font-size:1.3rem;font-weight:700}.kpi .sub{font-size:.68rem;color:var(--muted);margin-top:3px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card h3{font-size:.88rem;font-weight:600;margin-bottom:14px;color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:20px;margin-bottom:20px}
+
+.chart-box{position:relative;height:320px;margin:10px 0}.chart-box.tall{height:420px}
+
+.table-wrapper{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.73rem}
+thead th{background:var(--card2);padding:9px 11px;text-align:left;font-weight:600;color:var(--accent);border-bottom:2px solid var(--border);white-space:nowrap}
+tbody td{padding:7px 11px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:hover{background:rgba(0,230,118,.04)}
+.tr{text-align:right}.tc2{text-align:center}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.66rem;font-weight:600}
+.tg{background:rgba(0,230,118,.15);color:var(--green)}
+.tr2{background:rgba(255,82,82,.15);color:var(--red)}
+.tb{background:rgba(0,176,255,.15);color:var(--accent2)}
+.to{background:rgba(255,145,0,.15);color:var(--accent3)}
+.tp{background:rgba(224,64,251,.15);color:var(--accent4)}
+.ty{background:rgba(255,235,59,.15);color:var(--accent5)}
+.ttc{background:rgba(179,136,255,.15);color:var(--tc)}
+
+.insight{background:rgba(0,230,118,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:.79rem;line-height:1.7}
+.insight b{color:var(--accent)}
+.insight.warn{background:rgba(255,145,0,.06);border-left-color:var(--accent3)}.insight.warn b{color:var(--accent3)}
+.insight.danger{background:rgba(255,82,82,.06);border-left-color:var(--red)}.insight.danger b{color:var(--red)}
+
+.rec{background:var(--card2);border-radius:10px;padding:14px 18px;margin:10px 0;border-left:3px solid var(--accent);font-size:.78rem;line-height:1.6}
+.rec.w{border-left-color:var(--accent3)}.rec.d{border-left-color:var(--red)}
+.rec b{color:var(--accent)}.rec.w b{color:var(--accent3)}.rec.d b{color:var(--red)}
+
+.section-title{font-size:1.05rem;font-weight:700;margin:30px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-title span{color:var(--accent)}
+
+.highlight{background:linear-gradient(135deg,rgba(179,136,255,.08),rgba(224,64,251,.06));border:1px solid rgba(179,136,255,.25);border-radius:12px;padding:20px;margin:20px 0}
+.highlight h4{font-size:.85rem;color:var(--tc);margin-bottom:10px}
+
+.footer{text-align:center;padding:30px;font-size:.66rem;color:var(--muted);border-top:1px solid var(--border);margin-top:40px;line-height:1.8}
+.footer b{color:var(--accent)}
+
+@media(max-width:768px){.card-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.container{padding:16px}.hdr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<h1>🏢 <span>TECNOMYL</span> — Drill-Down Fornecedor</h1>
+<div class="topbar-r">
+<span>📍 Fazenda Planalto · Alto Garças — MT</span>
+<button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
+<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- NAV -->
+<div class="nav-f">
+<span>Ir para:</span>
+<a href="f-bayer.html">Bayer</a>
+<a href="f-basf.html">BASF</a>
+<a href="f-upl.html">UPL</a>
+<a href="f-albaugh.html">Albaugh</a>
+<a href="f-syngenta.html">Syngenta</a>
+<a href="f-corteva.html">Corteva</a>
+<a href="f-ihara.html">Ihara</a>
+<a href="f-sumitomo.html">Sumitomo</a>
+<a href="f-rainbow.html">Rainbow</a>
+<a href="f-fmc.html">FMC</a>
+<a href="f-ourofino.html">Ouro Fino</a>
+<a class="on" href="f-tecnomyl.html">Tecnomyl</a>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+<div class="hdr-icon" style="background:linear-gradient(135deg,#b388ff,#7c4dff)">TM</div>
+<div class="hdr-info">
+<h2>TECNOMYL <span>S.A.</span></h2>
+<p>Presente em <b>5/7 safras</b> (ausente 19/20 e 20/21) · Inseticidas, Herbicidas, Fungicidas<br>
+Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br>
+Perfil: <b>Paraguaia-brasileira · Genéricos Mercosul de preço agressivo</b><br>
+Produtos-chave: Tecnomyl Glifosato · Tecnomyl Atrazina · Tecnomyl Imidacloprido · Tecnomyl Mancozebe · Tecnomyl Paraquate</p>
+</div>
+</div>
+
+<!-- DESTAQUE -->
+<div class="highlight">
+<h4>🇵🇾 A "Guerrilheira do Mercosul": menor fornecedor, maior agressividade</h4>
+<p style="font-size:.8rem;color:var(--text);line-height:1.6">Tecnomyl é o <b style="color:var(--tc)">12º e menor fornecedor</b> da Fazenda Planalto com R$ 285k na 25/26 (1,6% do total). Nascida no Paraguai (Villeta — Gran Asunción), opera no Brasil desde 2018 com fábrica em Foz do Iguaçu (PR). Estratégia: <b>genéricos de moléculas commodity com preço mais baixo que Rainbow e Albaugh</b>. Portfólio enxuto de 5 produtos — todos moléculas pós-patente de alta demanda. Papel: <b>"seguro de preço" — se todos os outros subirem, Tecnomyl ancora o piso</b>.</p>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-row">
+<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--tc)">R$ 285k</div><div class="sub">1,6% do total defensivos</div></div>
+<div class="kpi"><div class="lb">Acumulado 5 Safras</div><div class="vl">~R$ 1,52M</div><div class="sub">Média R$ 304k/safra</div></div>
+<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 380k</div><div class="sub">Safra 22/23</div></div>
+<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −25%</div><div class="sub">Deflação puxou valor pra baixo</div></div>
+<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">5</div><div class="sub">100% commodities genéricos</div></div>
+<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">TM Glifosato</div><div class="sub">~R$ 88k · 31% do total</div></div>
+</div>
+
+<!-- GRÁFICOS TOPO -->
+<div class="card-grid">
+<div class="card">
+<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<div class="chart-box"><canvas id="chInvest"></canvas></div>
+</div>
+<div class="card">
+<h3>📊 Composição do Portfólio 25/26</h3>
+<div class="chart-box"><canvas id="chMix"></canvas></div>
+</div>
+</div>
+
+<!-- PORTFÓLIO -->
+<div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
+
+<div class="card">
+<h3>🌿 Herbicidas (3 produtos) — O core da Tecnomyl</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>TM Glifosato</b></td><td style="font-size:.65rem;color:var(--muted)">Glifosato 480 SL</td>
+<td class="tr">R$18<br><small style="color:var(--muted)">5.000L</small></td>
+<td class="tr">R$20<br><small style="color:var(--muted)">6.000L</small></td>
+<td class="tr">R$15<br><small style="color:var(--muted)">7.000L</small></td>
+<td class="tr">R$12<br><small style="color:var(--muted)">7.500L</small></td>
+<td class="tr"><b>R$11</b><br><small style="color:var(--muted)">8.000L</small></td>
+<td><span class="tag tg">▼−39% · Vol▲60%</span></td>
+</tr>
+<tr>
+<td><b>TM Atrazina</b></td><td style="font-size:.65rem;color:var(--muted)">Atrazina 500 SC</td>
+<td class="tr">R$14<br><small style="color:var(--muted)">3.000L</small></td>
+<td class="tr">R$16<br><small style="color:var(--muted)">3.500L</small></td>
+<td class="tr">R$12<br><small style="color:var(--muted)">4.000L</small></td>
+<td class="tr">R$10<br><small style="color:var(--muted)">4.500L</small></td>
+<td class="tr"><b>R$9</b><br><small style="color:var(--muted)">5.000L</small></td>
+<td><span class="tag tg">▼−36% · Vol▲67%</span></td>
+</tr>
+<tr>
+<td><b>TM Paraquate</b></td><td style="font-size:.65rem;color:var(--muted)">Paraquate 200 SL</td>
+<td class="tr">R$22<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr">R$25<br><small style="color:var(--muted)">2.500L</small></td>
+<td class="tr">R$18<br><small style="color:var(--muted)">2.200L</small></td>
+<td class="tr">R$15<br><small style="color:var(--muted)">1.800L</small></td>
+<td class="tr"><b>R$13</b><br><small style="color:var(--muted)">1.500L</small></td>
+<td><span class="tag to">▼−41% · Vol▼−25% ⚠️</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🐛 Inseticida (1 produto)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>TM Imidacloprido</b></td><td style="font-size:.65rem;color:var(--muted)">Imidacloprido 700 WG</td>
+<td class="tr">R$85<br><small style="color:var(--muted)">300kg</small></td>
+<td class="tr">R$95<br><small style="color:var(--muted)">400kg</small></td>
+<td class="tr">R$72<br><small style="color:var(--muted)">500kg</small></td>
+<td class="tr">R$55<br><small style="color:var(--muted)">600kg</small></td>
+<td class="tr"><b>R$45</b><br><small style="color:var(--muted)">700kg</small></td>
+<td><span class="tag tg">▼−47% · Vol▲133%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🍄 Fungicida (1 produto)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>TM Mancozebe</b></td><td style="font-size:.65rem;color:var(--muted)">Mancozebe 800 WP</td>
+<td class="tr">R$18<br><small style="color:var(--muted)">2.000kg</small></td>
+<td class="tr">R$15<br><small style="color:var(--muted)">2.500kg</small></td>
+<td class="tr">R$12<br><small style="color:var(--muted)">3.000kg</small></td>
+<td class="tr"><b>R$10</b><br><small style="color:var(--muted)">3.500kg</small></td>
+<td><span class="tag tg">▼−44% · Vol▲75%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- CURVAS PREÇO -->
+<div class="section-title">📈 Curvas de Preço — <span>Todos os Produtos</span></div>
+<div class="card-grid">
+<div class="card">
+<h3>💰 Herbicidas (R$/L)</h3>
+<div class="chart-box"><canvas id="chPreco1"></canvas></div>
+</div>
+<div class="card">
+<h3>💰 Inseticida + Fungicida (R$/kg)</h3>
+<div class="chart-box"><canvas id="chPreco2"></canvas></div>
+</div>
+</div>
+
+<!-- VOLUME -->
+<div class="card">
+<h3>📦 Evolução de Volume — Todos os Produtos</h3>
+<div class="chart-box tall"><canvas id="chVolume"></canvas></div>
+</div>
+
+<!-- DEEP DIVE: GUERRA DO GLIFOSATO -->
+<div class="section-title">🔬 Deep Dive — <span>A Guerra do Glifosato: 4 fornecedores × 1 molécula</span></div>
+<div class="card">
+<h3>💀 Glifosato 480 SL — Quem cobra menos?</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Fornecedor</th><th>Produto</th><th class="tr">R$/L 25/26</th><th class="tr">Volume 25/26</th><th class="tr">Total R$</th><th>Posição</th></tr></thead>
+<tbody>
+<tr style="background:rgba(179,136,255,.06)">
+<td><b>Tecnomyl</b></td><td>TM Glifosato</td><td class="tr pos"><b>R$11</b></td><td class="tr">8.000L</td><td class="tr">R$88k</td>
+<td><span class="tag ttc">🥇 MAIS BARATO</span></td>
+</tr>
+<tr>
+<td>Rainbow</td><td>Rainbowgly</td><td class="tr">R$12</td><td class="tr">12.000L</td><td class="tr">R$144k</td>
+<td><span class="tag tg">🥈 +9%</span></td>
+</tr>
+<tr>
+<td>Ouro Fino</td><td>OF Glifosato</td><td class="tr">R$13</td><td class="tr">3.500L</td><td class="tr">R$46k</td>
+<td><span class="tag to">🥉 +18%</span></td>
+</tr>
+<tr>
+<td>Albaugh</td><td>Glif. Albaugh</td><td class="tr">R$14</td><td class="tr">10.000L</td><td class="tr">R$140k</td>
+<td><span class="tag tr2">4º +27%</span></td>
+</tr>
+<tr style="background:rgba(0,230,118,.06)">
+<td colspan="3"><b>Total Glifosato Fazenda Planalto</b></td>
+<td class="tr"><b>33.500L</b></td><td class="tr"><b>R$418k</b></td>
+<td>Preço médio pond. R$12,48/L</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📌 Tecnomyl é o glifosato mais barato da fazenda a R$ 11/L.</b> Mas tem apenas 24% do volume (8.000 de 33.500 L). Rainbow lidera com 36% do volume (12.000 L). Se <b>consolidar 100% em Tecnomyl</b> a R$ 11/L × 33.500 L = R$ 369k vs. R$ 418k atual = <b>economia de R$ 49k</b>. Porém, concentrar 100% em um fornecedor paraguaio é arriscado. Estratégia: <b>usar Tecnomyl para forçar Rainbow e Albaugh a baterem R$ 11</b>.</div>
+</div>
+
+<!-- DEEP DIVE ATRAZINA -->
+<div class="section-title">🔬 Deep Dive — <span>TM Atrazina (herbicida do milho safrinha)</span></div>
+<div class="card">
+<h3>Atrazina 500 SC — a molécula que não morre</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Safra</th><th class="tr">R$/L</th><th class="tr">Volume</th><th class="tr">Total R$</th><th class="tr">% Tecnomyl</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td>21/22</td><td class="tr">R$14</td><td class="tr">3.000L</td><td class="tr">R$42k</td><td class="tr">18%</td><td>Entrada</td></tr>
+<tr><td>22/23</td><td class="tr">R$16</td><td class="tr">3.500L</td><td class="tr">R$56k</td><td class="tr">15%</td><td>Pico preço</td></tr>
+<tr><td>23/24</td><td class="tr">R$12</td><td class="tr">4.000L</td><td class="tr">R$48k</td><td class="tr">17%</td><td>Deflação</td></tr>
+<tr><td>24/25</td><td class="tr">R$10</td><td class="tr">4.500L</td><td class="tr">R$45k</td><td class="tr">16%</td><td>Estável</td></tr>
+<tr style="background:rgba(179,136,255,.06)"><td><b>25/26</b></td><td class="tr"><b>R$9</b></td><td class="tr"><b>5.000L</b></td><td class="tr"><b>R$45k</b></td><td class="tr"><b>16%</b></td><td>Preço mín. · Vol máx.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📌 Atrazina é o herbicida mais usado no milho safrinha do MT.</b> Controle pré+pós de folha larga e gramíneas. Volume de 5.000 L = dose para ~3.300 ha de milho (1,5 L/ha). Tecnomyl a R$ 9/L é o <b>menor preço de Atrazina no portfólio</b>. Syngenta vende Gesaprim a R$ 16/L (78% mais caro). A R$ 9, custo de Atrazina por hectare = <b>R$ 13,50</b>. Imbatível.</div>
+</div>
+
+<!-- DEEP DIVE PARAQUATE -->
+<div class="section-title">🔬 Deep Dive — <span>TM Paraquate (a molécula controversa)</span></div>
+<div class="card">
+<h3>⚠️ Paraquate 200 SL — Sob risco regulatório</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Safra</th><th class="tr">R$/L</th><th class="tr">Volume</th><th class="tr">Total R$</th><th>Status Regulatório</th></tr></thead>
+<tbody>
+<tr><td>21/22</td><td class="tr">R$22</td><td class="tr">2.000L</td><td class="tr">R$44k</td><td>Normal</td></tr>
+<tr><td>22/23</td><td class="tr">R$25</td><td class="tr">2.500L</td><td class="tr">R$63k</td><td>ANVISA inicia revisão</td></tr>
+<tr><td>23/24</td><td class="tr">R$18</td><td class="tr">2.200L</td><td class="tr">R$40k</td><td>Prazo de banimento prorrogado</td></tr>
+<tr><td>24/25</td><td class="tr">R$15</td><td class="tr">1.800L</td><td class="tr">R$27k</td><td>Volume caindo por precaução</td></tr>
+<tr style="background:rgba(255,82,82,.06)"><td><b>25/26</b></td><td class="tr"><b>R$13</b></td><td class="tr neg"><b>1.500L</b></td><td class="tr"><b>R$20k</b></td><td><span class="tag tr2">⚠️ RISCO BANIMENTO 2027</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight danger"><b>🔴 Paraquate já foi banido na EU (2007) e está em reavaliação no Brasil pela ANVISA.</b> O volume caiu 25% (2.000 → 1.500 L) e o preço despencou 41% (R$ 22 → R$ 13). Sinais claros de <b>molécula em fim de ciclo</b>. Alternativas: Glufosinato de Amônio (Basta — Bayer) para dessecação rápida, ou Diquate (Syngenta). <b>Não expandir volume. Preparar substituição para 26/27.</b></div>
+</div>
+
+<!-- BENCHMARK -->
+<div class="section-title">⚔️ Benchmark — <span>Tecnomyl vs. Concorrentes</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Molécula</th><th>Tecnomyl</th><th class="tr">R$/L</th><th>Mais Barato</th><th>Fornecedor</th><th class="tr">R$/L</th><th>Δ</th><th>Vencedor</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Glifosato 480</b></td><td>TM Glifosato</td><td class="tr pos"><b>11</b></td>
+<td>Rainbowgly</td><td>Rainbow</td><td class="tr">12</td>
+<td class="pos">−8%</td><td><span class="tag ttc">Tecnomyl 🥇</span></td>
+</tr>
+<tr>
+<td><b>Atrazina 500</b></td><td>TM Atrazina</td><td class="tr pos"><b>9</b></td>
+<td>Gesaprim</td><td>Syngenta</td><td class="tr">16</td>
+<td class="pos">−44%</td><td><span class="tag ttc">Tecnomyl 🥇</span></td>
+</tr>
+<tr>
+<td><b>Paraquate 200</b></td><td>TM Paraquate</td><td class="tr pos"><b>13</b></td>
+<td>Gramoxone</td><td>Syngenta</td><td class="tr">18</td>
+<td class="pos">−28%</td><td><span class="tag ttc">Tecnomyl (c/ risco)</span></td>
+</tr>
+<tr>
+<td><b>Imidacloprido 700</b></td><td>TM Imidacloprido</td><td class="tr pos"><b>45</b></td>
+<td>Evidence</td><td>Bayer</td><td class="tr">78</td>
+<td class="pos">−42%</td><td><span class="tag ttc">Tecnomyl 🥇</span></td>
+</tr>
+<tr>
+<td><b>Mancozebe 800</b></td><td>TM Mancozebe</td><td class="tr pos"><b>10</b></td>
+<td>Dithane</td><td>UPL</td><td class="tr">14</td>
+<td class="pos">−29%</td><td><span class="tag ttc">Tecnomyl 🥇</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📊 Placar: Tecnomyl 5 × 0 — vence TODOS os benchmarks!</b> Menor preço em <b>cada uma das 5 moléculas</b>. Glifosato R$ 11 (menor que Rainbow R$ 12). Atrazina R$ 9 (menor que Syngenta R$ 16). Imidacloprido R$ 45 (menor que Bayer R$ 78). Mancozebe R$ 10 (menor que UPL R$ 14). <b>Tecnomyl é o piso absoluto de preço da fazenda</b>. Problema: qualidade e confiabilidade são questões.</div>
+</div>
+
+<!-- CUSTO/HA -->
+<div class="section-title">🧮 Custo por Hectare — <span>Tecnomyl vs. Referência</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th class="tr">Dose/ha</th><th class="tr">R$/ha TM</th><th>Ref. Marca</th><th class="tr">R$/ha Marca</th><th class="tr">Economia/ha</th><th class="tr">× 8.000 ha</th></tr></thead>
+<tbody>
+<tr>
+<td>TM Glifosato</td><td class="tr">3,0L</td><td class="tr pos"><b>R$33,00</b></td>
+<td>Roundup (Bayer)</td><td class="tr">R$66,00</td><td class="tr pos">R$33,00</td><td class="tr pos"><b>R$264k</b></td>
+</tr>
+<tr>
+<td>TM Atrazina</td><td class="tr">1,5L</td><td class="tr pos"><b>R$13,50</b></td>
+<td>Gesaprim (Syng.)</td><td class="tr">R$24,00</td><td class="tr pos">R$10,50</td><td class="tr pos"><b>R$84k</b></td>
+</tr>
+<tr>
+<td>TM Imidacloprido</td><td class="tr">0,15kg</td><td class="tr pos"><b>R$6,75</b></td>
+<td>Evidence (Bayer)</td><td class="tr">R$11,70</td><td class="tr pos">R$4,95</td><td class="tr pos"><b>R$40k</b></td>
+</tr>
+<tr>
+<td>TM Mancozebe</td><td class="tr">2,5kg</td><td class="tr pos"><b>R$25,00</b></td>
+<td>Dithane (UPL)</td><td class="tr">R$35,00</td><td class="tr pos">R$10,00</td><td class="tr pos"><b>R$80k</b></td>
+</tr>
+<tr>
+<td>TM Paraquate</td><td class="tr">2,0L</td><td class="tr pos"><b>R$26,00</b></td>
+<td>Gramoxone (Syng.)</td><td class="tr">R$36,00</td><td class="tr pos">R$10,00</td><td class="tr pos"><b>R$80k</b></td>
+</tr>
+<tr style="background:rgba(179,136,255,.08)">
+<td colspan="4"><b>ECONOMIA TOTAL POTENCIAL (5 prod. × 8.000 ha)</b></td>
+<td class="tr pos"><b>R$68,45/ha</b></td><td></td><td class="tr pos"><b>R$548k</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>💰 Economia teórica de R$ 548k vs. marcas originais.</b> Na prática, a fazenda já usa parte de Tecnomyl + parte de outros genéricos. A economia real capturada é menor. Mas o valor estratégico é claro: <b>Tecnomyl é o "piso de preço" que impede qualquer fornecedor de cobrar premium injustificado</b>.</div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Tecnomyl</span></div>
+
+<div class="insight"><b>1. Menor fornecedor, menor preço em tudo:</b> R$ 285k (1,6% do total). Mas vence <b>5 de 5 benchmarks de preço</b>. O paradoxo: por que não compra mais se é o mais barato? Resposta: <b>risco de qualidade + baixa capacidade de entrega + marca desconhecida</b>. A fazenda usa Tecnomyl como "pressão" e não como "pilar".</div>
+
+<div class="insight"><b>2. TM Glifosato a R$ 11/L é o piso do mercado:</b> Nenhum outro fornecedor chega a R$ 11. Rainbow = R$ 12 (+9%), Albaugh = R$ 14 (+27%), OF = R$ 13 (+18%). A pergunta é: <b>a qualidade é equivalente?</b> Se a concentração de IA for 480 g/L conforme rótulo, sim. Se houver variação de lote (ex: 440 g/L real), não vale a economia.</div>
+
+<div class="insight"><b>3. TM Atrazina domina o milho safrinha:</b> R$ 9/L × 5.000 L = R$ 45k. É <b>44% mais barato que Gesaprim (Syngenta)</b>. Atrazina é molécula commodity estável — menos risco de variação de qualidade que glifosato. Volume cresceu 67% (3.000 → 5.000 L). Produto sólido para Tecnomyl.</div>
+
+<div class="insight"><b>4. TM Imidacloprido = TS mais barato:</b> R$ 45/kg × 700 kg = R$ 32k. Usado como tratamento de sementes (TS). Evidence Bayer R$ 78/kg = <b>73% mais caro</b>. Para TS de soja e milho, Imidacloprido genérico funciona. Volume cresceu 133% (300 → 700 kg). Produto em expansão.</div>
+
+<div class="insight"><b>5. TM Mancozebe para multissítio barato:</b> R$ 10/kg × 3.500 kg = R$ 35k. Mancozebe é fungicida multissítio essencial no manejo de resistência à ferrugem. Dithane (UPL) R$ 14/kg = <b>40% mais caro</b>. Volume cresceu 75%. Porém, <b>Mancozebe está sob pressão regulatória na EU</b> (banido em 2020). Se ANVISA seguir, pode sair do mercado.</div>
+
+<div class="insight danger"><b>6. TM Paraquate em extinção:</b> Volume caiu 25% (2.000 → 1.500 L). Preço despencou 41%. Paraquate está <b>banido na EU desde 2007</b> e em reavaliação no Brasil. A ANVISA pode proibir a venda até 2027. Alternativa: <b>Glufosinato de Amônio (Basta — Bayer)</b> para dessecação de contato. Não renovar Paraquate na 26/27.</div>
+
+<div class="insight warn"><b>7. Risco estrutural — empresa pequena paraguaia:</b> Tecnomyl não é listada em bolsa, tem fábrica em Foz do Iguaçu com capacidade limitada. Se houver <b>problema de importação de IA do Paraguai, fiscalização da Receita Federal ou embargo fitossanitário</b>, a entrega pode atrasar. Não depender de Tecnomyl para >5% do portfólio total.</div>
+
+<!-- ESTRATÉGIA -->
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
+
+<div class="card">
+<h3>✅ Oportunidades</h3>
+<div class="rec"><b>🎯 TM Glifosato como "cotação-piso":</b> Usar R$ 11/L para forçar Rainbow a bater R$ 10. "Rainbow, tenho Tecnomyl a R$ 11. Se você fizer R$ 10, levo 15.000 L." <b>Economia: R$ 30k</b> (15.000 × R$ 2 de diferença vs. preço médio).</div>
+<div class="rec"><b>🎯 TM Atrazina para 100% do milho:</b> Expandir para 6.000 L. Meta: R$ 8/L (−11%). Total R$ 48k. <b>Economia vs. Gesaprim Syngenta: R$ 48k</b>. Atrazina é molécula commodity estável — risco de qualidade é baixo.</div>
+<div class="rec"><b>🎯 TM Imidacloprido para todo o TS:</b> Expandir para 1.000 kg. Meta: R$ 40/kg (−11%). Total R$ 40k. <b>Economia vs. Evidence Bayer: R$ 38k</b>. Imidacloprido TS genérico é prática consolidada.</div>
+<div class="rec"><b>🎯 Pacote "Commodity TM":</b> 5 SKUs × R$ 285k. Pedir 10% desconto = <b>R$ 29k</b>. Tecnomyl precisa de cada centavo de volume para sobreviver no mercado — pressionar forte.</div>
+</div>
+
+<div class="card">
+<h3>⚠️ Alertas</h3>
+<div class="rec w"><b>⚠️ Exigir laudo de IA por lote:</b> Para cada entrega, exigir <b>certificado de análise com teor de ingrediente ativo</b>. Se Glifosato vier com menos de 456 g/L (5% abaixo dos 480 g/L rotulados), devolver o lote e cobrar reposição.</div>
+<div class="rec w"><b>⚠️ Mancozebe — monitorar regulatório:</b> Banido na EU desde 2020. Se ANVISA seguir, pode sair do mercado brasileiro. Alternativa: <b>Clorotalonil (Syngenta) ou Oxicloreto de Cobre</b> como multissítio substituto.</div>
+<div class="rec d"><b>🔴 Descontinuar Paraquate na 26/27:</b> Volume caindo, risco regulatório alto. Substituir por <b>Glufosinato de Amônio (Basta — Bayer R$ 35/L)</b>. Mais caro, mas sem risco de banimento e com MoA diferenciado.</div>
+<div class="rec d"><b>🔴 Não ultrapassar 5% do portfólio:</b> Atualmente Tecnomyl = 1,6%. Crescer até 3-4% é seguro. Acima de 5%, <b>a dependência de fornecedor pequeno vira risco de abastecimento</b>.</div>
+</div>
+
+<!-- SCORE -->
+<div class="card">
+<h3>📊 Score Card — Resumo Executivo</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Dimensão</th><th class="tc2">Nota</th><th>Comentário</th></tr></thead>
+<tbody>
+<tr><td><b>Diversidade de Portfólio</b></td><td class="tc2"><span class="tag to">4/10</span></td><td>5 SKUs — 100% commodities</td></tr>
+<tr><td><b>Competitividade de Preço</b></td><td class="tc2"><span class="tag tg">10/10</span></td><td>Menor preço em TODOS os 5 benchmarks</td></tr>
+<tr><td><b>Tendência de Preço</b></td><td class="tc2"><span class="tag tg">9/10</span></td><td>Deflação média −41%</td></tr>
+<tr><td><b>Diferenciação</b></td><td class="tc2"><span class="tag tr2">1/10</span></td><td>Zero — genérico commodity puro</td></tr>
+<tr><td><b>Risco Cambial</b></td><td class="tc2"><span class="tag tg">10/10</span></td><td>100% BRL</td></tr>
+<tr><td><b>Qualidade/Confiabilidade</b></td><td class="tc2"><span class="tag tr2">3/10</span></td><td>Empresa pequena · sem histórico longo · risco de lote</td></tr>
+<tr><td><b>Risco Regulatório</b></td><td class="tc2"><span class="tag tr2">3/10</span></td><td>Paraquate e Mancozebe sob ameaça de banimento</td></tr>
+<tr><td><b>Suporte Técnico</b></td><td class="tc2"><span class="tag tr2">2/10</span></td><td>Sem RTV no MT · suporte mínimo</td></tr>
+<tr style="background:rgba(179,136,255,.06)"><td><b>SCORE GERAL</b></td><td class="tc2"><span class="tag ttc" style="font-size:.8rem">5,3 / 10</span></td><td><b>Preço imbatível. Risco elevado. Usar como "pressão".</b></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- PROJEÇÃO -->
+<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
+<tbody>
+<tr><td>TM Glifosato</td><td class="tr">11</td><td class="tr pos"><b>10</b></td><td class="tr">10.000L</td><td class="tr">R$100k</td><td>Expandir · cotação-piso · −9%</td></tr>
+<tr><td>TM Atrazina</td><td class="tr">9</td><td class="tr pos"><b>8</b></td><td class="tr">6.000L</td><td class="tr">R$48k</td><td>Expandir milho · −11%</td></tr>
+<tr><td>TM Imidacloprido</td><td class="tr">45</td><td class="tr pos"><b>40</b></td><td class="tr">1.000kg</td><td class="tr">R$40k</td><td>Expandir TS · −11%</td></tr>
+<tr><td>TM Mancozebe</td><td class="tr">10</td><td class="tr pos"><b>9</b></td><td class="tr">4.000kg</td><td class="tr">R$36k</td><td>Expandir multissítio · −10%</td></tr>
+<tr><td>TM Paraquate</td><td class="tr">13</td><td class="tr neg"><b>desc.</b></td><td class="tr">0</td><td class="tr">R$0</td><td>🔴 Descontinuar (risco regulat.)</td></tr>
+<tr style="background:rgba(179,136,255,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 224k</b></td><td></td></tr>
+<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 61k</b></td><td class="pos"><b>−21% (c/ desc. Paraquate)</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>💰 Meta 26/27:</b> De R$ 285k para R$ 224k (−21%). A queda vem da <b>descontinuação do Paraquate (R$ 20k)</b> e deflação negociada (−9% a −11%). Volumes de Glifosato, Atrazina e Imidacloprido crescem. O papel de Tecnomyl continua sendo <b>"piso de preço" que ancora negociação com todos os outros 11 fornecedores</b>.</div>
+</div>
+
+<!-- PAPEL ESTRATÉGICO -->
+<div class="card">
+<h3>🗺️ O Papel Estratégico da Tecnomyl no Portfólio de 12 Fornecedores</h3>
+<div class="chart-box"><canvas id="chRadar"></canvas></div>
+<div class="table-wrapper" style="margin-top:16px">
+<table>
+<thead><tr><th>Função</th><th>Descrição</th><th>Valor Indireto</th></tr></thead>
+<tbody>
+<tr>
+<td><b>🔨 Âncora de preço</b></td>
+<td>"Tenho Tecnomyl a R$ X — quanto você faz?" Funciona com todos os 11 fornecedores</td>
+<td class="pos"><b>Força −5% a −10% em Rainbow, Albaugh, OF</b></td>
+</tr>
+<tr>
+<td><b>📋 Teste de qualidade</b></td>
+<td>Comprar lote pequeno, analisar IA, comparar com marca. Se equivalente → expandir</td>
+<td>Validação científica do genérico mais barato</td>
+</tr>
+<tr>
+<td><b>🛡️ Seguro contra cartel</b></td>
+<td>Se os 4 grandes (Bayer+Syngenta+BASF+Corteva) alinharem preço, Tecnomyl é a alternativa</td>
+<td class="pos"><b>Garantia de opção fora das multis</b></td>
+</tr>
+<tr>
+<td><b>📦 Volume complementar</b></td>
+<td>Para commodities (Glifosato, Atrazina), complementar volume que outros não entregam a tempo</td>
+<td>Logística emergencial Foz do Iguaçu → MT</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- RANKING FINAL -->
+<div class="section-title">🏆 Ranking Final — <span>12 Fornecedores × Score Geral</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>#</th><th>Fornecedor</th><th class="tr">R$ 25/26</th><th class="tc2">Score</th><th>Perfil</th><th>Arquivo</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>Bayer</b></td><td class="tr">R$ 4,20M</td><td class="tc2"><span class="tag tg">8,6</span></td><td>Líder absoluto · Premium</td><td><a href="f-bayer.html">→ drill-down</a></td></tr>
+<tr><td>2</td><td><b>Syngenta</b></td><td class="tr">R$ 2,10M</td><td class="tc2"><span class="tag tg">8,0</span></td><td>Vice-líder · Inovação</td><td><a href="f-syngenta.html">→ drill-down</a></td></tr>
+<tr><td>3</td><td><b>BASF</b></td><td class="tr">R$ 1,85M</td><td class="tc2"><span class="tag tg">7,9</span></td><td>Rei dos fungicidas</td><td><a href="f-basf.html">→ drill-down</a></td></tr>
+<tr><td>4</td><td><b>Corteva</b></td><td class="tr">R$ 1,65M</td><td class="tc2"><span class="tag tg">7,7</span></td><td>Sementes + Herbicidas</td><td><a href="f-corteva.html">→ drill-down</a></td></tr>
+<tr><td>5</td><td><b>Albaugh</b></td><td class="tr">R$ 1,55M</td><td class="tc2"><span class="tag tg">7,6</span></td><td>Genérico nacional líder</td><td><a href="f-albaugh.html">→ drill-down</a></td></tr>
+<tr><td>6</td><td><b>UPL</b></td><td class="tr">R$ 1,40M</td><td class="tc2"><span class="tag tb">7,4</span></td><td>Indiana diversificada</td><td><a href="f-upl.html">→ drill-down</a></td></tr>
+<tr><td>7</td><td><b>Sumitomo</b></td><td class="tr">R$ 848k</td><td class="tc2"><span class="tag tb">7,4</span></td><td>Nicho inseticida japonês</td><td><a href="f-sumitomo.html">→ drill-down</a></td></tr>
+<tr><td>8</td><td><b>Ihara</b></td><td class="tr">R$ 1,12M</td><td class="tc2"><span class="tag tb">7,1</span></td><td>Japonesa mista</td><td><a href="f-ihara.html">→ drill-down</a></td></tr>
+<tr><td>9</td><td><b>FMC</b></td><td class="tr">R$ 720k</td><td class="tc2"><span class="tag tb">7,0</span></td><td>Diamida + Pré-emerg.</td><td><a href="f-fmc.html">→ drill-down</a></td></tr>
+<tr><td>10</td><td><b>Rainbow</b></td><td class="tr">R$ 780k</td><td class="tc2"><span class="tag to">6,4</span></td><td>Genérico chinês agressivo</td><td><a href="f-rainbow.html">→ drill-down</a></td></tr>
+<tr><td>11</td><td><b>Ouro Fino</b></td><td class="tr">R$ 390k</td><td class="tc2"><span class="tag to">6,4</span></td><td>Brasileira adjuvantes</td><td><a href="f-ourofino.html">→ drill-down</a></td></tr>
+<tr style="background:rgba(179,136,255,.06)"><td>12</td><td><b>Tecnomyl</b></td><td class="tr">R$ 285k</td><td class="tc2"><span class="tag ttc">5,3</span></td><td>Paraguaia piso de preço</td><td><a href="f-tecnomyl.html">→ drill-down</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="footer">
+<b>Rural In</b> · Inteligência Econômica Agro<br>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai<br><br>
+<span style="color:var(--accent)">✅ Todos os 12 Drill-Downs de Fornecedores concluídos.</span>
+</div>
+</div>
+
+<script>
+if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
+
+Chart.defaults.color='#7b8a9e';
+Chart.defaults.borderColor='#1e2d4a';
+Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+Chart.defaults.font.size=11;
+const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
+
+// Investimento
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
+label:'R$ mil',data:[0,0,230,380,298,275,285],
+backgroundColor:S.map((_,i)=>i<2?'rgba(100,100,100,.2)':'rgba(179,136,255,.'+(2+i)+')')
+,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
+scales:{y:{beginAtZero:true,ticks:{callback:v=>'R$'+v+'k'}}}}});
+
+// Mix
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
+labels:['TM Glifosato R$88k','TM Atrazina R$45k','TM Mancozebe R$35k','TM Imidacloprido R$32k','TM Paraquate R$20k'],
+datasets:[{data:[88,45,35,32,20],
+backgroundColor:['#b388ff','#00e676','#00b0ff','#ff9100','#ff5252']}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+
+// Preço Herbicidas
+new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['21/22','22/23','23/24','24/25','25/26'],datasets:[
+{label:'TM Glifosato',data:[18,20,15,12,11],borderColor:'#b388ff',backgroundColor:'rgba(179,136,255,.1)',fill:true,tension:.3,pointRadius:6},
+{label:'TM Atrazina',data:[14,16,12,10,9],borderColor:'#00e676',tension:.3,pointRadius:5,fill:false},
+{label:'TM Paraquate',data:[22,25,18,15,13],borderColor:'#ff5252',borderDash:[5,5],tension:.3,pointRadius:5,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
+
+// Preço Inseticida + Fungicida
+new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['21/22','22/23','23/24','24/25','25/26'],datasets:[
+{label:'TM Imidacloprido (R$/kg)',data:[85,95,72,55,45],borderColor:'#ff9100',backgroundColor:'rgba(255,145,0,.1)',fill:true,tension:.3,pointRadius:6},
+{label:'TM Mancozebe (R$/kg)',data:[null,18,15,12,10],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/kg'},beginAtZero:true}}}});
+
+// Volume
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
+{label:'TM Glifosato',data:[0,0,5000,6000,7000,7500,8000],backgroundColor:'rgba(179,136,255,.7)',borderRadius:4},
+{label:'TM Atrazina',data:[0,0,3000,3500,4000,4500,5000],backgroundColor:'rgba(0,230,118,.5)',borderRadius:4},
+{label:'TM Mancozebe (kg)',data:[0,0,0,2000,2500,3000,3500],backgroundColor:'rgba(0,176,255,.5)',borderRadius:4},
+{label:'TM Paraquate',data:[0,0,2000,2500,2200,1800,1500],backgroundColor:'rgba(255,82,82,.4)',borderRadius:4},
+{label:'TM Imidacloprido (kg)',data:[0,0,300,400,500,600,700],backgroundColor:'rgba(255,145,0,.5)',borderRadius:4}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},
+scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+
+// Radar
+new Chart(document.getElementById('chRadar'),{type:'radar',data:{
+labels:['Preço','Deflação','Portfólio','Diferenciação','Qualidade','Suporte','Risco Reg.','Câmbio'],
+datasets:[
+{label:'Tecnomyl',data:[10,9,4,1,3,2,3,10],backgroundColor:'rgba(179,136,255,.2)',borderColor:'#b388ff',borderWidth:2,pointRadius:4},
+{label:'Rainbow (ref.)',data:[9,9,6,2,5,3,6,10],backgroundColor:'rgba(118,255,3,.1)',borderColor:'#76ff03',borderWidth:1,pointRadius:3,borderDash:[4,4]},
+{label:'Albaugh (ref.)',data:[8,8,8,4,7,7,8,10],backgroundColor:'rgba(0,176,255,.1)',borderColor:'#00b0ff',borderWidth:1,pointRadius:3,borderDash:[4,4]}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:10}}}},
+scales:{r:{beginAtZero:true,max:10,ticks:{stepSize:2,display:false},grid:{color:'rgba(30,45,74,.5)'},pointLabels:{font:{size:10}}}}}});
+</script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rural In | Ihara — Drill-Down Fornecedor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--ih:#e91e63}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+
+.topbar{padding:14px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:1rem;font-weight:600}.topbar h1 span{color:var(--ih)}
+.topbar-r{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--muted)}
+.btn{padding:7px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:8px;cursor:pointer;font-size:.75rem;transition:all .2s}
+.btn:hover{background:var(--accent);color:#0b1120}
+.btn-out{border-color:var(--muted);color:var(--muted)}.btn-out:hover{background:var(--muted);color:#0b1120}
+
+.container{max-width:1400px;margin:0 auto;padding:24px 28px}
+
+.nav-f{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.nav-f span{font-size:.7rem;color:var(--muted);padding:6px 0}
+.nav-f a{padding:6px 14px;border-radius:16px;font-size:.72rem;border:1px solid var(--border);color:var(--muted);transition:all .2s}
+.nav-f a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.nav-f a.on{background:var(--ih);color:#fff;border-color:var(--ih);font-weight:700}
+
+.hdr{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.hdr-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0}
+.hdr-info h2{font-size:1.25rem;font-weight:700}.hdr-info h2 span{color:var(--ih)}
+.hdr-info p{font-size:.78rem;color:var(--muted);margin-top:4px;line-height:1.5}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.kpi .lb{font-size:.63rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.kpi .vl{font-size:1.3rem;font-weight:700}.kpi .sub{font-size:.68rem;color:var(--muted);margin-top:3px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card h3{font-size:.88rem;font-weight:600;margin-bottom:14px;color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:20px;margin-bottom:20px}
+
+.chart-box{position:relative;height:320px;margin:10px 0}.chart-box.tall{height:420px}
+
+.table-wrapper{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.73rem}
+thead th{background:var(--card2);padding:9px 11px;text-align:left;font-weight:600;color:var(--accent);border-bottom:2px solid var(--border);white-space:nowrap}
+tbody td{padding:7px 11px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:hover{background:rgba(0,230,118,.04)}
+.tr{text-align:right}.tc{text-align:center}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.66rem;font-weight:600}
+.tg{background:rgba(0,230,118,.15);color:var(--green)}
+.tr2{background:rgba(255,82,82,.15);color:var(--red)}
+.tb{background:rgba(0,176,255,.15);color:var(--accent2)}
+.to{background:rgba(255,145,0,.15);color:var(--accent3)}
+.tp{background:rgba(224,64,251,.15);color:var(--accent4)}
+.ty{background:rgba(255,235,59,.15);color:var(--accent5)}
+.ti{background:rgba(233,30,99,.15);color:var(--ih)}
+
+.insight{background:rgba(0,230,118,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:.79rem;line-height:1.7}
+.insight b{color:var(--accent)}
+.insight.warn{background:rgba(255,145,0,.06);border-left-color:var(--accent3)}.insight.warn b{color:var(--accent3)}
+.insight.danger{background:rgba(255,82,82,.06);border-left-color:var(--red)}.insight.danger b{color:var(--red)}
+
+.rec{background:var(--card2);border-radius:10px;padding:14px 18px;margin:10px 0;border-left:3px solid var(--accent);font-size:.78rem;line-height:1.6}
+.rec.w{border-left-color:var(--accent3)}.rec.d{border-left-color:var(--red)}
+.rec b{color:var(--accent)}.rec.w b{color:var(--accent3)}.rec.d b{color:var(--red)}
+
+.section-title{font-size:1.05rem;font-weight:700;margin:30px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-title span{color:var(--accent)}
+
+.highlight{background:linear-gradient(135deg,rgba(233,30,99,.08),rgba(224,64,251,.08));border:1px solid rgba(233,30,99,.2);border-radius:12px;padding:20px;margin:20px 0}
+.highlight h4{font-size:.85rem;color:var(--ih);margin-bottom:10px}
+
+.footer{text-align:center;padding:30px;font-size:.66rem;color:var(--muted);border-top:1px solid var(--border);margin-top:40px;line-height:1.8}
+.footer b{color:var(--accent)}
+
+@media(max-width:768px){.card-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.container{padding:16px}.hdr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<h1>🏢 <span>IHARA</span> — Drill-Down Fornecedor</h1>
+<div class="topbar-r">
+<span>📍 Fazenda Planalto · Alto Garças — MT</span>
+<button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
+<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- NAV -->
+<div class="nav-f">
+<span>Ir para:</span>
+<a href="f-bayer.html">Bayer</a>
+<a href="f-basf.html">BASF</a>
+<a href="f-upl.html">UPL</a>
+<a href="f-albaugh.html">Albaugh</a>
+<a href="f-syngenta.html">Syngenta</a>
+<a href="f-corteva.html">Corteva</a>
+<a class="on" href="f-ihara.html">Ihara</a>
+<a href="f-sumitomo.html">Sumitomo</a>
+<a href="f-rainbow.html">Rainbow</a>
+<a href="f-fmc.html">FMC</a>
+<a href="f-ourofino.html">Ouro Fino</a>
+<a href="f-tecnomyl.html">Tecnomyl</a>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+<div class="hdr-icon" style="background:linear-gradient(135deg,#e91e63,#880e4f)">IH</div>
+<div class="hdr-info">
+<h2>IHARABRAS <span>S.A.</span></h2>
+<p>Presente em <b>5/7 safras</b> (ausente 19/20 e 20/21) · Inseticidas, Herbicidas, Fungicidas, Acaricidas<br>
+Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br>
+Perfil: <b>Japonesa-brasileira de nicho</b> · Portfólio de especialidades diferenciadas<br>
+Produtos-chave: Talisman · Avatar · Premio · Rimon Supra · Bim 750 · Targa Max</p>
+</div>
+</div>
+
+<!-- DESTAQUE -->
+<div class="highlight">
+<h4>🇯🇵 A "Boutique Japonesa": Especialidades que ninguém mais tem</h4>
+<p style="font-size:.8rem;color:var(--text);line-height:1.6">Ihara é subsidiária da <b style="color:var(--ih)">Kumiai Chemical Industry (Japão)</b> e opera no Brasil desde 1965. Diferencia-se por trazer moléculas japonesas exclusivas: <b>Talisman</b> (Bifentrina + Carbosulfano = inseticida TS de solo), <b>Avatar</b> (Indoxacarbe + Bifentrina = lagarta premium), <b>Premio</b> (Clorantraniliprole genérico). Entrou na Fazenda Planalto na safra 21/22 e cresceu de R$ 380k para R$ 1,12M (+195%). <b>Fornecedor que mais cresceu em termos percentuais.</b></p>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-row">
+<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--ih)">R$ 1,12M</div><div class="sub">6,5% do total defensivos</div></div>
+<div class="kpi"><div class="lb">Acumulado 5 Safras</div><div class="vl">~R$ 4,28M</div><div class="sub">Média R$ 856k/safra</div></div>
+<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--ih)">R$ 1,12M</div><div class="sub">Safra 25/26 = Pico! 🔝</div></div>
+<div class="kpi"><div class="lb">Crescim. vs 21/22</div><div class="vl" style="color:var(--green)">▲ +195%</div><div class="sub">Maior crescimento % do painel</div></div>
+<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">7</div><div class="sub">Especialidades diferenciadas</div></div>
+<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Talisman</div><div class="sub">~R$ 285k · 25% do total</div></div>
+</div>
+
+<!-- GRÁFICOS TOPO -->
+<div class="card-grid">
+<div class="card">
+<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<div class="chart-box"><canvas id="chInvest"></canvas></div>
+</div>
+<div class="card">
+<h3>📊 Composição do Portfólio 25/26</h3>
+<div class="chart-box"><canvas id="chMix"></canvas></div>
+</div>
+</div>
+
+<!-- PORTFÓLIO -->
+<div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
+
+<div class="card">
+<h3>🐛 Inseticidas + Acaricidas (4 produtos)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Talisman</b></td><td style="font-size:.65rem;color:var(--muted)">Bifentrina+Carbosulfano 400 SC</td>
+<td class="tr">R$95<br><small style="color:var(--muted)">1.000L</small></td>
+<td class="tr">R$105<br><small style="color:var(--muted)">1.500L</small></td>
+<td class="tr">R$88<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr">R$78<br><small style="color:var(--muted)">3.000L</small></td>
+<td class="tr"><b>R$68</b><br><small style="color:var(--muted)">4.200L</small></td>
+<td><span class="tag tg">▼−35% · Vol▲320%</span></td>
+</tr>
+<tr>
+<td><b>Avatar</b></td><td style="font-size:.65rem;color:var(--muted)">Indoxacarbe+Bifentrina 150 EC</td>
+<td class="tr">—</td>
+<td class="tr">R$135<br><small style="color:var(--muted)">600L</small></td>
+<td class="tr">R$118<br><small style="color:var(--muted)">800L</small></td>
+<td class="tr">R$98<br><small style="color:var(--muted)">1.200L</small></td>
+<td class="tr"><b>R$85</b><br><small style="color:var(--muted)">1.800L</small></td>
+<td><span class="tag tg">▼−37% · Vol▲200%</span></td>
+</tr>
+<tr>
+<td><b>Premio</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole 200 SC</td>
+<td class="tr">R$280<br><small style="color:var(--muted)">300L</small></td>
+<td class="tr">R$310<br><small style="color:var(--muted)">500L</small></td>
+<td class="tr">R$245<br><small style="color:var(--muted)">400L</small></td>
+<td class="tr">R$190<br><small style="color:var(--muted)">500L</small></td>
+<td class="tr"><b>R$165</b><br><small style="color:var(--muted)">700L</small></td>
+<td><span class="tag tg">▼−47% · Diamida gen.</span></td>
+</tr>
+<tr>
+<td><b>Rimon Supra</b></td><td style="font-size:.65rem;color:var(--muted)">Novalurom+Bifentrina 100 EC</td>
+<td class="tr">—</td><td class="tr">—</td>
+<td class="tr">R$72<br><small style="color:var(--muted)">1.500L</small></td>
+<td class="tr">R$58<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr"><b>R$48</b><br><small style="color:var(--muted)">2.500L</small></td>
+<td><span class="tag tg">▼−33% · IGR+Piret.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🌿 Herbicidas (2 produtos)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Bim 750</b></td><td style="font-size:.65rem;color:var(--muted)">Saflufenacil 750 WG</td>
+<td class="tr">—</td>
+<td class="tr">R$480<br><small style="color:var(--muted)">80kg</small></td>
+<td class="tr">R$395<br><small style="color:var(--muted)">120kg</small></td>
+<td class="tr">R$320<br><small style="color:var(--muted)">150kg</small></td>
+<td class="tr"><b>R$275</b><br><small style="color:var(--muted)">200kg</small></td>
+<td><span class="tag tg">▼−43% · Dessecação</span></td>
+</tr>
+<tr>
+<td><b>Targa Max</b></td><td style="font-size:.65rem;color:var(--muted)">Quizalofope-P-tefuril 120 EC</td>
+<td class="tr">R$48<br><small style="color:var(--muted)">1.500L</small></td>
+<td class="tr">R$55<br><small style="color:var(--muted)">1.000L</small></td>
+<td class="tr">R$42<br><small style="color:var(--muted)">1.200L</small></td>
+<td class="tr">R$35<br><small style="color:var(--muted)">1.800L</small></td>
+<td class="tr"><b>R$30</b><br><small style="color:var(--muted)">2.200L</small></td>
+<td><span class="tag tg">▼−45% · Graminicida</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🍄 Fungicida (1 produto)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Fusão EC</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Tebuconazol 200 EC</td>
+<td class="tr">R$48<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr">R$38<br><small style="color:var(--muted)">2.500L</small></td>
+<td class="tr"><b>R$32</b><br><small style="color:var(--muted)">3.000L</small></td>
+<td><span class="tag tg">▼−33% · Genérico fung.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- CURVAS PREÇO -->
+<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
+<div class="card-grid">
+<div class="card">
+<h3>💰 Inseticidas (R$/L)</h3>
+<div class="chart-box"><canvas id="chPreco1"></canvas></div>
+</div>
+<div class="card">
+<h3>💰 Herbicidas + Fungicida (R$/L ou kg)</h3>
+<div class="chart-box"><canvas id="chPreco2"></canvas></div>
+</div>
+</div>
+
+<!-- VOLUME -->
+<div class="card">
+<h3>📦 Evolução de Volume — Todos os Produtos</h3>
+<div class="chart-box tall"><canvas id="chVolume"></canvas></div>
+</div>
+
+<!-- DEEP DIVE TALISMAN -->
+<div class="section-title">🔬 Deep Dive — <span>Talisman (Bifentrina + Carbosulfano)</span></div>
+<div class="card">
+<h3>O inseticida de solo que conquistou a fazenda</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Safra</th><th class="tr">Preço R$/L</th><th class="tr">Volume</th><th class="tr">Total R$</th><th class="tr">% Ihara</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td>21/22</td><td class="tr">R$95</td><td class="tr">1.000L</td><td class="tr">R$95k</td><td class="tr">25%</td><td>Entrada · teste</td></tr>
+<tr><td>22/23</td><td class="tr">R$105</td><td class="tr">1.500L</td><td class="tr">R$158k</td><td class="tr">20%</td><td>Validação</td></tr>
+<tr><td>23/24</td><td class="tr">R$88</td><td class="tr">2.000L</td><td class="tr">R$176k</td><td class="tr">22%</td><td>Expansão</td></tr>
+<tr><td>24/25</td><td class="tr">R$78</td><td class="tr">3.000L</td><td class="tr">R$234k</td><td class="tr">24%</td><td>Consolidação</td></tr>
+<tr style="background:rgba(233,30,99,.06)"><td><b>25/26</b></td><td class="tr"><b>R$68</b></td><td class="tr"><b>4.200L</b></td><td class="tr"><b>R$286k</b></td><td class="tr"><b>25%</b></td><td>Pico vol. · Preço mín.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📌 Talisman cresceu 320% em volume:</b> De 1.000 L (21/22) para 4.200 L (25/26). Bifentrina + Carbosulfano para tratamento de solo contra <b>corós, larva-alfinete e percevejo-castanho</b>. Produto de nicho que a Ihara domina — não há genérico direto equivalente. A R$ 68/L, preço já é <b>28% menor que o pico (R$ 95)</b>. Insubstituível no programa de solo da fazenda.</div>
+</div>
+
+<!-- BENCHMARK INSETICIDAS -->
+<div class="section-title">⚔️ Benchmark — <span>Ihara vs. Concorrentes Inseticidas</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Alvo</th><th>Ihara</th><th class="tr">R$/L</th><th>Concorrente</th><th>Fornecedor</th><th class="tr">R$/L</th><th>Diferença</th><th>Vencedor</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Pragas de solo</b></td><td>Talisman</td><td class="tr">R$68</td>
+<td>Regent Duo</td><td>BASF</td><td class="tr">R$92</td>
+<td class="pos">Ihara −26%</td><td><span class="tag ti">Ihara</span></td>
+</tr>
+<tr>
+<td><b>Lagarta premium</b></td><td>Avatar</td><td class="tr">R$85</td>
+<td>Belt</td><td>Bayer</td><td class="tr">R$140</td>
+<td class="pos">Ihara −39%</td><td><span class="tag ti">Ihara</span></td>
+</tr>
+<tr>
+<td><b>Diamida (Clorantr.)</b></td><td>Premio</td><td class="tr">R$165</td>
+<td>Ampligo</td><td>Syngenta</td><td class="tr">R$245</td>
+<td class="pos">Ihara −33%</td><td><span class="tag ti">Ihara</span></td>
+</tr>
+<tr>
+<td><b>Diamida (Clorantr.)</b></td><td>Premio</td><td class="tr">R$165</td>
+<td>Premio Star</td><td>FMC</td><td class="tr">R$185</td>
+<td class="pos">Ihara −11%</td><td><span class="tag ti">Ihara</span></td>
+</tr>
+<tr>
+<td><b>IGR + Piretroide</b></td><td>Rimon Supra</td><td class="tr">R$48</td>
+<td>Nomolt+Lambda</td><td>BASF+genérico</td><td class="tr">~R$55</td>
+<td class="pos">Ihara −13%</td><td><span class="tag ti">Ihara</span></td>
+</tr>
+<tr>
+<td><b>Graminicida</b></td><td>Targa Max</td><td class="tr">R$30</td>
+<td>Prefer (Cletodim)</td><td>Albaugh</td><td class="tr">R$40</td>
+<td class="pos">Ihara −25%</td><td><span class="tag ti">Ihara</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📊 Ihara vence em 6 de 6 comparações diretas!</b> Resultado surpreendente: apesar de ser fornecedor de nicho, Ihara tem o <b>melhor preço em todas as categorias onde compete</b>. Talisman, Avatar, Premio — todos mais baratos que a concorrência. A estratégia japonesa de <b>"preço acessível + formulação diferenciada"</b> está funcionando.</div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Ihara</span></div>
+
+<div class="insight"><b>1. Maior crescimento do painel (+195%):</b> De R$ 380k (21/22) para R$ 1,12M (25/26). Ihara conquistou a fazenda gradualmente: começou com Talisman (TS solo) e expandiu para lagartas (Avatar), diamidas (Premio), IGR (Rimon Supra), herbicida (Targa Max, Bim) e fungicida (Fusão). <b>Modelo de penetração de sucesso</b>.</div>
+
+<div class="insight"><b>2. Avatar = Belt killer:</b> Indoxacarbe + Bifentrina a R$ 85/L vs. Belt (Bayer) a R$ 140/L. <b>Economia de R$ 55/L (−39%)</b>. Em 1.800 L, isso são R$ 99k de economia vs. marca. Avatar tem ação de contato + ingestão, o que amplia o espectro. Se eficácia for confirmada em talhão pareado, <b>substituir 100% do Belt</b>.</div>
+
+<div class="insight"><b>3. Premio = Diamida genérica mais barata:</b> Clorantraniliprole 200 SC a R$ 165/L. Ampligo (Syngenta) = R$ 245/L, Premio Star (FMC) = R$ 185/L. Ihara é <b>33% mais barato que Syngenta</b> na mesma molécula. Volume de 700 L × R$ 165 = R$ 115k. Potencial para expandir substituindo Ampligo.</div>
+
+<div class="insight"><b>4. Rimon Supra — IGR inteligente:</b> Novalurom (regulador de crescimento) + Bifentrina. R$ 48/L × 2.500 L = R$ 120k. Ideal para <b>manejo de resistência</b> — modo de ação diferente de Diamidas e Clorfenapir. Complementa o programa MIP. Preço competitivo (−13% vs. combinação genérica).</div>
+
+<div class="insight"><b>5. Bim 750 = Saflufenacil para dessecação:</b> R$ 275/kg × 200 kg = R$ 55k. Saflufenacil é o herbicida de dessecação que "queima" a palhada pré-plantio. Concorre com Heat (BASF, marca original). A R$ 275/kg, Ihara é genérico competitivo. Volume cresceu 150% (80 kg → 200 kg).</div>
+
+<div class="insight warn"><b>6. Ausência nas 2 primeiras safras (19/20 e 20/21):</b> Ihara entrou tarde na fazenda. Isso significa que a relação comercial tem <b>apenas 5 safras</b>. A confiança está crescendo, mas não é consolidada como Bayer ou Syngenta (7 safras). Manter atenção ao suporte técnico.</div>
+
+<div class="insight"><b>7. Fusão EC como fungicida competitivo:</b> Azoxistrobina + Tebuconazol a R$ 32/L × 3.000 L = R$ 96k. Concorre com Azoxy+Cipro Albaugh (R$ 38/L) — <b>Ihara 16% mais barato</b>. Para milho safrinha e aplicações secundárias, Fusão é excelente opção custo-benefício.</div>
+
+<!-- ESTRATÉGIA -->
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
+
+<div class="card">
+<h3>✅ Oportunidades</h3>
+<div class="rec"><b>🎯 Expandir Avatar para substituir Belt:</b> Belt (Bayer) a R$ 140/L → Avatar (Ihara) a R$ 85/L. Economia de R$ 55/L. Expandir Avatar de 1.800 L para 2.500 L. <b>Economia total vs. Belt: R$ 137k</b>. Exigir Avatar a R$ 78/L (−8%) em troca do volume.</div>
+<div class="rec"><b>🎯 Premio como pilar diamida:</b> Substituir Ampligo (Syngenta R$ 245/L) por Premio (Ihara R$ 165/L) em aplicações de Clorantraniliprole. Expandir de 700 L para 1.000 L. Meta: R$ 150/L (−9%). <b>Economia vs. Ampligo: R$ 95k</b>.</div>
+<div class="rec"><b>🎯 Pacote Ihara 7 itens:</b> Com R$ 1,12M em 7 produtos, negociar desconto de 8% no pacote total. <b>Economia: R$ 90k</b>. Ihara valoriza volume — poucos clientes compram 7 SKUs simultaneamente.</div>
+</div>
+
+<div class="card">
+<h3>⚠️ Alertas</h3>
+<div class="rec w"><b>⚠️ Carbosulfano (Talisman) sob pressão regulatória:</b> Carbosulfano é molécula <b>sob revisão pela ANVISA</b> por toxicidade. Se for banido, Talisman sai do mercado. Manter Regent Duo (BASF) como backup para pragas de solo.</div>
+<div class="rec w"><b>⚠️ Targa Max vs. Prefer (Albaugh):</b> Quizalofope R$ 30/L (Ihara) vs. Cletodim R$ 40/L (Albaugh). Ihara é mais barato, mas Cletodim tem espectro mais amplo de gramíneas. <b>Avaliar eficácia no capim-amargoso</b> antes de migrar 100%.</div>
+<div class="rec d"><b>🔴 Suporte técnico:</b> Ihara tem equipe menor que Bayer/Syngenta/BASF no MT. Para 7 produtos e R$ 1,12M, <b>exigir RTV dedicado</b> com visitas mensais e suporte em protocolo de aplicação.</div>
+</div>
+
+<!-- SCORE -->
+<div class="card">
+<h3>📊 Score Card — Resumo Executivo</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Dimensão</th><th class="tc">Nota</th><th>Comentário</th></tr></thead>
+<tbody>
+<tr><td><b>Diversidade de Portfólio</b></td><td class="tc"><span class="tag tg">7/10</span></td><td>7 SKUs cobrindo 4 classes</td></tr>
+<tr><td><b>Competitividade de Preço</b></td><td class="tc"><span class="tag tg">10/10</span></td><td>Venceu 6/6 benchmarks diretos</td></tr>
+<tr><td><b>Tendência de Preço</b></td><td class="tc"><span class="tag tg">9/10</span></td><td>Deflação média −38% em todos os ativos</td></tr>
+<tr><td><b>Diferenciação</b></td><td class="tc"><span class="tag tg">9/10</span></td><td>Talisman, Avatar, Rimon Supra = exclusivos</td></tr>
+<tr><td><b>Risco Cambial</b></td><td class="tc"><span class="tag tg">10/10</span></td><td>100% BRL — zero risco</td></tr>
+<tr><td><b>Risco Regulatório</b></td><td class="tc"><span class="tag to">5/10</span></td><td>Carbosulfano sob revisão ANVISA</td></tr>
+<tr><td><b>Suporte Técnico</b></td><td class="tc"><span class="tag to">6/10</span></td><td>Equipe menor no MT</td></tr>
+<tr style="background:rgba(233,30,99,.06)"><td><b>SCORE GERAL</b></td><td class="tc"><span class="tag ti" style="font-size:.8rem">8,0 / 10</span></td><td><b>Melhor custo-benefício em inseticidas. Joia escondida do portfólio.</b></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- PROJEÇÃO -->
+<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
+<tbody>
+<tr><td>Talisman</td><td class="tr">68</td><td class="tr pos"><b>60</b></td><td class="tr">5.000L</td><td class="tr">R$300k</td><td>Expandir solo · −12%</td></tr>
+<tr><td>Avatar</td><td class="tr">85</td><td class="tr pos"><b>78</b></td><td class="tr">2.500L</td><td class="tr">R$195k</td><td>Substituir Belt · −8%</td></tr>
+<tr><td>Premio</td><td class="tr">165</td><td class="tr pos"><b>150</b></td><td class="tr">1.000L</td><td class="tr">R$150k</td><td>Substituir Ampligo · −9%</td></tr>
+<tr><td>Rimon Supra</td><td class="tr">48</td><td class="tr pos"><b>42</b></td><td class="tr">3.000L</td><td class="tr">R$126k</td><td>Expandir IGR · −13%</td></tr>
+<tr><td>Fusão EC</td><td class="tr">32</td><td class="tr pos"><b>28</b></td><td class="tr">3.500L</td><td class="tr">R$98k</td><td>Expandir milho · −13%</td></tr>
+<tr><td>Bim 750</td><td class="tr">275</td><td class="tr pos"><b>245</b></td><td class="tr">250kg</td><td class="tr">R$61k</td><td>Manter · −11%</td></tr>
+<tr><td>Targa Max</td><td class="tr">30</td><td class="tr pos"><b>26</b></td><td class="tr">2.500L</td><td class="tr">R$65k</td><td>Expandir · −13%</td></tr>
+<tr style="background:rgba(233,30,99,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 995k</b></td><td></td></tr>
+<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 127k</b></td><td class="pos"><b>−11% c/ +volume</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>💰 Meta 26/27:</b> Economia direta de <b>R$ 127k (−11%)</b>. Porém, o valor real da Ihara está na <b>economia indireta</b>: substituir Belt por Avatar (−R$ 137k) + substituir Ampligo por Premio (−R$ 95k) = <b>R$ 232k de economia vs. marcas premium</b>. Ihara é o fornecedor que mais gera economia indireta ao portfólio. Se suporte técnico melhorar, pode ser promovido a <b>top 4 fornecedor</b>.</div>
+</div>
+
+<div class="footer">
+<b>Rural In</b> · Inteligência Econômica Agro<br>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
+</div>
+</div>
+
+<script>
+if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
+
+Chart.defaults.color='#7b8a9e';
+Chart.defaults.borderColor='#1e2d4a';
+Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+Chart.defaults.font.size=11;
+const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
+
+// Investimento
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
+label:'R$ mil',data:[0,0,380,785,810,960,1122],
+backgroundColor:S.map((_,i)=>i<2?'rgba(255,82,82,.3)':'rgba(233,30,99,.'+(2+i)+')')
+,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
+scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?'R$'+(v/1000).toFixed(1)+'M':'R$'+v+'k'}}}}});
+
+// Mix
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
+labels:['Talisman R$286k','Avatar R$153k','Premio R$116k','Rimon S. R$120k','Fusão EC R$96k','Targa Max R$66k','Bim 750 R$55k'],
+datasets:[{data:[286,153,116,120,96,66,55],
+backgroundColor:['#e91e63','#00b0ff','#ffeb3b','#e040fb','#4caf50','#ff9100','#90a4ae']}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+
+// Preço Inseticidas
+new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['21/22','22/23','23/24','24/25','25/26'],datasets:[
+{label:'Premio',data:[280,310,245,190,165],borderColor:'#ffeb3b',backgroundColor:'rgba(255,235,59,.1)',fill:true,tension:.3,pointRadius:5},
+{label:'Talisman',data:[95,105,88,78,68],borderColor:'#e91e63',tension:.3,pointRadius:5,fill:false},
+{label:'Avatar',data:[null,135,118,98,85],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false},
+{label:'Rimon Supra',data:[null,null,72,58,48],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
+
+// Preço Herbicidas + Fungicida
+new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['21/22','22/23','23/24','24/25','25/26'],datasets:[
+{label:'Bim 750 (R$/kg)',data:[null,480,395,320,275],borderColor:'#90a4ae',backgroundColor:'rgba(144,164,174,.1)',fill:true,tension:.3,pointRadius:5},
+{label:'Targa Max',data:[48,55,42,35,30],borderColor:'#ff9100',tension:.3,pointRadius:5,fill:false},
+{label:'Fusão EC',data:[null,null,48,38,32],borderColor:'#4caf50',tension:.3,pointRadius:5,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/L ou kg'}}}}});
+
+// Volume
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
+{label:'Talisman',data:[0,0,1000,1500,2000,3000,4200],backgroundColor:'rgba(233,30,99,.7)',borderRadius:4},
+{label:'Avatar',data:[0,0,0,600,800,1200,1800],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
+{label:'Rimon Supra',data:[0,0,0,0,1500,2000,2500],backgroundColor:'rgba(224,64,251,.5)',borderRadius:4},
+{label:'Fusão EC',data:[0,0,0,0,2000,2500,3000],backgroundColor:'rgba(76,175,80,.5)',borderRadius:4},
+{label:'Targa Max',data:[0,0,1500,1000,1200,1800,2200],backgroundColor:'rgba(255,145,0,.5)',borderRadius:4},
+{label:'Premio',data:[0,0,300,500,400,500,700],backgroundColor:'rgba(255,235,59,.5)',borderRadius:4}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+</script>
+</body>
+</html>

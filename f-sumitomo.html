@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rural In | Sumitomo — Drill-Down Fornecedor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--sum:#00bcd4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+
+.topbar{padding:14px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--card);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+.topbar h1{font-size:1rem;font-weight:600}.topbar h1 span{color:var(--sum)}
+.topbar-r{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--muted)}
+.btn{padding:7px 18px;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:8px;cursor:pointer;font-size:.75rem;transition:all .2s}
+.btn:hover{background:var(--accent);color:#0b1120}
+.btn-out{border-color:var(--muted);color:var(--muted)}.btn-out:hover{background:var(--muted);color:#0b1120}
+
+.container{max-width:1400px;margin:0 auto;padding:24px 28px}
+
+.nav-f{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.nav-f span{font-size:.7rem;color:var(--muted);padding:6px 0}
+.nav-f a{padding:6px 14px;border-radius:16px;font-size:.72rem;border:1px solid var(--border);color:var(--muted);transition:all .2s}
+.nav-f a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.nav-f a.on{background:var(--sum);color:#0b1120;border-color:var(--sum);font-weight:700}
+
+.hdr{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.hdr-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;color:#fff;flex-shrink:0}
+.hdr-info h2{font-size:1.25rem;font-weight:700}.hdr-info h2 span{color:var(--sum)}
+.hdr-info p{font-size:.78rem;color:var(--muted);margin-top:4px;line-height:1.5}
+
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px}
+.kpi .lb{font-size:.63rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.kpi .vl{font-size:1.3rem;font-weight:700}.kpi .sub{font-size:.68rem;color:var(--muted);margin-top:3px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+.card h3{font-size:.88rem;font-weight:600;margin-bottom:14px;color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:20px;margin-bottom:20px}
+
+.chart-box{position:relative;height:320px;margin:10px 0}.chart-box.tall{height:420px}
+
+.table-wrapper{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.73rem}
+thead th{background:var(--card2);padding:9px 11px;text-align:left;font-weight:600;color:var(--accent);border-bottom:2px solid var(--border);white-space:nowrap}
+tbody td{padding:7px 11px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:hover{background:rgba(0,230,118,.04)}
+.tr{text-align:right}.tc{text-align:center}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.66rem;font-weight:600}
+.tg{background:rgba(0,230,118,.15);color:var(--green)}
+.tr2{background:rgba(255,82,82,.15);color:var(--red)}
+.tb{background:rgba(0,176,255,.15);color:var(--accent2)}
+.to{background:rgba(255,145,0,.15);color:var(--accent3)}
+.tp{background:rgba(224,64,251,.15);color:var(--accent4)}
+.ty{background:rgba(255,235,59,.15);color:var(--accent5)}
+.ts{background:rgba(0,188,212,.15);color:var(--sum)}
+
+.insight{background:rgba(0,230,118,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:.79rem;line-height:1.7}
+.insight b{color:var(--accent)}
+.insight.warn{background:rgba(255,145,0,.06);border-left-color:var(--accent3)}.insight.warn b{color:var(--accent3)}
+.insight.danger{background:rgba(255,82,82,.06);border-left-color:var(--red)}.insight.danger b{color:var(--red)}
+
+.rec{background:var(--card2);border-radius:10px;padding:14px 18px;margin:10px 0;border-left:3px solid var(--accent);font-size:.78rem;line-height:1.6}
+.rec.w{border-left-color:var(--accent3)}.rec.d{border-left-color:var(--red)}
+.rec b{color:var(--accent)}.rec.w b{color:var(--accent3)}.rec.d b{color:var(--red)}
+
+.section-title{font-size:1.05rem;font-weight:700;margin:30px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.section-title span{color:var(--accent)}
+
+.highlight{background:linear-gradient(135deg,rgba(0,188,212,.08),rgba(0,230,118,.08));border:1px solid rgba(0,188,212,.25);border-radius:12px;padding:20px;margin:20px 0}
+.highlight h4{font-size:.85rem;color:var(--sum);margin-bottom:10px}
+
+.footer{text-align:center;padding:30px;font-size:.66rem;color:var(--muted);border-top:1px solid var(--border);margin-top:40px;line-height:1.8}
+.footer b{color:var(--accent)}
+
+@media(max-width:768px){.card-grid{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.container{padding:16px}.hdr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<h1>🏢 <span>SUMITOMO</span> — Drill-Down Fornecedor</h1>
+<div class="topbar-r">
+<span>📍 Fazenda Planalto · Alto Garças — MT</span>
+<button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
+<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- NAV FORNECEDORES -->
+<div class="nav-f">
+<span>Ir para:</span>
+<a href="f-bayer.html">Bayer</a>
+<a href="f-basf.html">BASF</a>
+<a href="f-upl.html">UPL</a>
+<a href="f-albaugh.html">Albaugh</a>
+<a href="f-syngenta.html">Syngenta</a>
+<a href="f-corteva.html">Corteva</a>
+<a href="f-ihara.html">Ihara</a>
+<a class="on" href="f-sumitomo.html">Sumitomo</a>
+<a href="f-rainbow.html">Rainbow</a>
+<a href="f-fmc.html">FMC</a>
+<a href="f-ourofino.html">Ouro Fino</a>
+<a href="f-tecnomyl.html">Tecnomyl</a>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+<div class="hdr-icon" style="background:linear-gradient(135deg,#00bcd4,#00838f)">SM</div>
+<div class="hdr-info">
+<h2>SUMITOMO <span>CHEMICAL</span></h2>
+<p>Presente em <b>4/7 safras</b> (ausente 19/20, 20/21 e 21/22) · Inseticidas, Herbicidas, Acaricidas<br>
+Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br>
+Perfil: <b>Japonesa especialista em inseticidas inovadores</b> · Entrante recente<br>
+Produtos-chave: Exalt · Envoke · Danimen · Kilat · Pleo</p>
+</div>
+</div>
+
+<!-- DESTAQUE -->
+<div class="highlight">
+<h4>🚀 A "Startup Japonesa": De zero a R$ 848k em 4 safras</h4>
+<p style="font-size:.8rem;color:var(--text);line-height:1.6">Sumitomo Chemical entrou na Fazenda Planalto apenas na <b style="color:var(--sum)">safra 22/23</b>, a mais tardia de todos os 12 fornecedores. Em 4 safras, construiu portfólio de 5 produtos com foco em <b>inseticidas de nova geração</b>: Exalt (Espinetoram — mesma molécula do Delegate Corteva, porém genérico), Danimen (Fenpropathrin), Kilat (Profenofós+Cipermetrina). O crescimento de <b>+142%</b> desde a entrada é o 2º maior do painel. Posição: <b>fornecedor de expansão com pipeline promissor</b>.</p>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-row">
+<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--sum)">R$ 848k</div><div class="sub">4,9% do total defensivos</div></div>
+<div class="kpi"><div class="lb">Acumulado 4 Safras</div><div class="vl">~R$ 2,56M</div><div class="sub">Média R$ 640k/safra</div></div>
+<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--sum)">R$ 848k</div><div class="sub">Safra 25/26 = Pico! 🔝</div></div>
+<div class="kpi"><div class="lb">Crescim. vs 22/23</div><div class="vl" style="color:var(--green)">▲ +142%</div><div class="sub">2º maior crescimento %</div></div>
+<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">5</div><div class="sub">Nicho inseticida+herbicida</div></div>
+<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Exalt</div><div class="sub">~R$ 248k · 29% do total</div></div>
+</div>
+
+<!-- GRÁFICOS TOPO -->
+<div class="card-grid">
+<div class="card">
+<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<div class="chart-box"><canvas id="chInvest"></canvas></div>
+</div>
+<div class="card">
+<h3>📊 Composição do Portfólio 25/26</h3>
+<div class="chart-box"><canvas id="chMix"></canvas></div>
+</div>
+</div>
+
+<!-- PORTFÓLIO COMPLETO -->
+<div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
+
+<div class="card">
+<h3>🐛 Inseticidas + Acaricidas (4 produtos)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Exalt</b></td><td style="font-size:.65rem;color:var(--muted)">Espinetoram 120 SC</td>
+<td class="tr">R$195<br><small style="color:var(--muted)">500L</small></td>
+<td class="tr">R$165<br><small style="color:var(--muted)">800L</small></td>
+<td class="tr">R$138<br><small style="color:var(--muted)">1.200L</small></td>
+<td class="tr"><b>R$118</b><br><small style="color:var(--muted)">2.100L</small></td>
+<td><span class="tag tg">▼−39% · Vol▲320%</span></td>
+</tr>
+<tr>
+<td><b>Danimen</b></td><td style="font-size:.65rem;color:var(--muted)">Fenpropathrin 300 EC</td>
+<td class="tr">R$52<br><small style="color:var(--muted)">1.200L</small></td>
+<td class="tr">R$45<br><small style="color:var(--muted)">1.500L</small></td>
+<td class="tr">R$38<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr"><b>R$32</b><br><small style="color:var(--muted)">2.800L</small></td>
+<td><span class="tag tg">▼−38% · Vol▲133%</span></td>
+</tr>
+<tr>
+<td><b>Kilat</b></td><td style="font-size:.65rem;color:var(--muted)">Profenofós+Cipermetrina 300 EC</td>
+<td class="tr">—</td>
+<td class="tr">R$35<br><small style="color:var(--muted)">2.000L</small></td>
+<td class="tr">R$28<br><small style="color:var(--muted)">3.000L</small></td>
+<td class="tr"><b>R$24</b><br><small style="color:var(--muted)">3.500L</small></td>
+<td><span class="tag tg">▼−31% · Amplo espectro</span></td>
+</tr>
+<tr>
+<td><b>Pleo</b></td><td style="font-size:.65rem;color:var(--muted)">Piripropoxifen 100 EC</td>
+<td class="tr">—</td><td class="tr">—</td>
+<td class="tr">R$65<br><small style="color:var(--muted)">800L</small></td>
+<td class="tr"><b>R$55</b><br><small style="color:var(--muted)">1.200L</small></td>
+<td><span class="tag tb">Novo · Mosca-branca IGR</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="card">
+<h3>🌿 Herbicida (1 produto)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Envoke</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxissulfurom-sódico 750 WG</td>
+<td class="tr">R$820<br><small style="color:var(--muted)">50kg</small></td>
+<td class="tr">R$680<br><small style="color:var(--muted)">80kg</small></td>
+<td class="tr">R$540<br><small style="color:var(--muted)">120kg</small></td>
+<td class="tr"><b>R$460</b><br><small style="color:var(--muted)">180kg</small></td>
+<td><span class="tag tg">▼−44% · Vol▲260%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- CURVAS DE PREÇO -->
+<div class="section-title">📈 Curvas de Preço — <span>Todos os Produtos</span></div>
+<div class="card-grid">
+<div class="card">
+<h3>💰 Inseticidas (R$/L)</h3>
+<div class="chart-box"><canvas id="chPreco1"></canvas></div>
+</div>
+<div class="card">
+<h3>💰 Envoke — Herbicida Premium (R$/kg)</h3>
+<div class="chart-box"><canvas id="chPreco2"></canvas></div>
+</div>
+</div>
+
+<!-- VOLUME -->
+<div class="card">
+<h3>📦 Evolução de Volume — Todos os Produtos</h3>
+<div class="chart-box tall"><canvas id="chVolume"></canvas></div>
+</div>
+
+<!-- DEEP DIVE EXALT -->
+<div class="section-title">🔬 Deep Dive — <span>Exalt (Espinetoram 120 SC)</span></div>
+<div class="card">
+<h3>Espinetoram genérico: a arma contra o Delegate (Corteva)</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Safra</th><th class="tr">Preço R$/L</th><th class="tr">Volume</th><th class="tr">Total R$</th><th class="tr">% Sumitomo</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td>22/23</td><td class="tr">R$195</td><td class="tr">500L</td><td class="tr">R$98k</td><td class="tr">28%</td><td>Entrada · teste</td></tr>
+<tr><td>23/24</td><td class="tr">R$165</td><td class="tr">800L</td><td class="tr">R$132k</td><td class="tr">24%</td><td>Validação</td></tr>
+<tr><td>24/25</td><td class="tr">R$138</td><td class="tr">1.200L</td><td class="tr">R$166k</td><td class="tr">26%</td><td>Consolidação</td></tr>
+<tr style="background:rgba(0,188,212,.06)"><td><b>25/26</b></td><td class="tr"><b>R$118</b></td><td class="tr"><b>2.100L</b></td><td class="tr"><b>R$248k</b></td><td class="tr"><b>29%</b></td><td>Pico vol. · Preço mín.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📌 Exalt vs. Delegate:</b> Mesma molécula (Espinetoram), concentrações diferentes. Exalt 120 SC (Sumitomo) a <b>R$ 118/L</b> vs. Delegate 250 WG (Corteva) a <b>R$ 310/kg</b>. Em dose equivalente/ha: Exalt ~R$ 47/ha vs. Delegate ~R$ 62/ha. <b>Sumitomo é 24% mais barato por hectare</b>. Volume cresceu 320% (500 → 2.100 L). Se eficácia for confirmada em laudo, <b>Exalt pode substituir 100% do Delegate</b>.</div>
+</div>
+
+<!-- DEEP DIVE ENVOKE -->
+<div class="section-title">🔬 Deep Dive — <span>Envoke (Trifloxissulfurom-sódico 750 WG)</span></div>
+<div class="card">
+<h3>O herbicida de nicho para folha larga resistente</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Safra</th><th class="tr">R$/kg</th><th class="tr">Volume</th><th class="tr">Total R$</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td>22/23</td><td class="tr">R$820</td><td class="tr">50kg</td><td class="tr">R$41k</td><td>Introdução · alto preço</td></tr>
+<tr><td>23/24</td><td class="tr">R$680</td><td class="tr">80kg</td><td class="tr">R$54k</td><td>Deflação inicia</td></tr>
+<tr><td>24/25</td><td class="tr">R$540</td><td class="tr">120kg</td><td class="tr">R$65k</td><td>Validação em campo</td></tr>
+<tr style="background:rgba(0,188,212,.06)"><td><b>25/26</b></td><td class="tr"><b>R$460</b></td><td class="tr"><b>180kg</b></td><td class="tr"><b>R$83k</b></td><td>Pico vol. · −44% desde entrada</td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📌 Envoke = herbicida de nicho anti-buva/corda-de-viola:</b> Trifloxissulfurom-sódico é molécula ALS com <b>alta seletividade</b> em cana e soja. Na Fazenda Planalto, usado para controle de folha larga resistente a 2,4-D. Volume cresceu 260% (50 → 180 kg). A R$ 460/kg, o custo por hectare é baixo (dose ~10 g/ha = R$ 4,60/ha). <b>Produto de alto valor agregado por hectare</b> — poucos gramas resolvem o problema.</div>
+</div>
+
+<!-- BENCHMARK -->
+<div class="section-title">⚔️ Benchmark — <span>Sumitomo vs. Concorrentes</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Classe</th><th>Sumitomo</th><th class="tr">R$/L</th><th>Concorrente</th><th>Fornecedor</th><th class="tr">R$/L</th><th>Δ</th><th>Vencedor</th></tr></thead>
+<tbody>
+<tr>
+<td><b>Espinetoram</b></td><td>Exalt 120 SC</td><td class="tr">118</td>
+<td>Delegate 250 WG</td><td>Corteva</td><td class="tr">310/kg</td>
+<td class="pos">−24%/ha</td><td><span class="tag ts">Sumitomo</span></td>
+</tr>
+<tr>
+<td><b>Piretroide esp.</b></td><td>Danimen 300</td><td class="tr">32</td>
+<td>Lambda 250</td><td>Albaugh</td><td class="tr">20</td>
+<td class="neg">+60%</td><td><span class="tag to">Albaugh</span></td>
+</tr>
+<tr>
+<td><b>Organofosfato+Pir.</b></td><td>Kilat 300</td><td class="tr">24</td>
+<td>Connect</td><td>Bayer</td><td class="tr">46</td>
+<td class="pos">−48%</td><td><span class="tag ts">Sumitomo</span></td>
+</tr>
+<tr>
+<td><b>IGR Mosca-branca</b></td><td>Pleo 100</td><td class="tr">55</td>
+<td>Polo 500</td><td>Syngenta</td><td class="tr">42</td>
+<td class="neg">+31%</td><td><span class="tag tg">Syngenta</span></td>
+</tr>
+<tr>
+<td><b>Herb. latifoliada</b></td><td>Envoke 750</td><td class="tr">460/kg</td>
+<td>Truvist</td><td>Corteva</td><td class="tr">260/L</td>
+<td style="color:var(--muted)">Diff. uso</td><td><span class="tag ty">Nichos diff.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="insight"><b>📊 Placar: Sumitomo 2 × 2 Concorrentes (1 empate).</b> Exalt e Kilat são competitivos. Danimen e Pleo perdem para genéricos mais baratos. Envoke é nicho sem comparação direta. <b>Estratégia: manter Exalt e Kilat, reavaliar Danimen e Pleo</b>.</div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Sumitomo</span></div>
+
+<div class="insight"><b>1. Entrante mais recente com crescimento explosivo:</b> De R$ 350k (22/23) para R$ 848k (25/26) = <b>+142%</b>. Sumitomo conquistou espaço com produtos de nicho que outros fornecedores não oferecem. Sem Exalt, não há Espinetoram genérico barato. Sem Envoke, não há Trifloxissulfurom no portfólio.</div>
+
+<div class="insight"><b>2. Exalt é o "Delegate dos pobres":</b> Espinetoram 120 SC a R$ 118/L vs. Delegate 250 WG a R$ 310/kg. Em custo/ha, Exalt é <b>24% mais barato</b>. Para tripes e lagartas pequenas, Exalt é primeira opção. Volume cresceu 320% — evidência de que o produtor validou a eficácia.</div>
+
+<div class="insight"><b>3. Kilat = inseticida de choque mais barato:</b> Profenofós + Cipermetrina a R$ 24/L × 3.500 L = R$ 84k. Connect (Bayer) a R$ 46/L faz trabalho similar mas custa <b>92% mais</b>. Kilat é produto de "fogo rápido" para aplicações emergenciais. Volume cresceu de 2.000 L para 3.500 L (+75%).</div>
+
+<div class="insight warn"><b>4. Danimen perde para Lambda Albaugh:</b> Fenpropathrin R$ 32/L vs. Lambda-cialotrina Albaugh R$ 20/L. Diferença de <b>+60%</b>. Ambos são piretroides de contato. A menos que Danimen tenha eficácia diferenciada para ácaros (Fenpropathrin tem ação acaricida), considerar <b>redução de volume</b>.</div>
+
+<div class="insight warn"><b>5. Pleo perde para Polo Syngenta:</b> Piripropoxifen R$ 55/L vs. Diafentiurom R$ 42/L. Para mosca-branca, Polo é <b>24% mais barato</b>. Porém, Pleo (IGR) tem modo de ação diferente (regulador de crescimento) — útil em rotação de MoA. Manter volume mínimo para <b>manejo de resistência</b>.</div>
+
+<div class="insight"><b>6. Deflação média de −38%:</b> Exalt (−39%), Danimen (−38%), Envoke (−44%), Kilat (−31%), Pleo (−15% em 1 safra). Padrão consistente de queda. Sumitomo pratica <b>preço de conquista</b> — sacrifica margem para ganhar share em fazendas grandes.</div>
+
+<div class="insight"><b>7. 100% BRL = zero risco cambial:</b> Apesar de ser empresa japonesa, Sumitomo opera <b>integralmente em BRL</b> no Brasil. Fábrica em Maracanaú (CE) garante produção local. Diferentemente da Syngenta/Corteva que começaram em USD, Sumitomo nasceu em BRL na fazenda.</div>
+
+<!-- ESTRATÉGIA -->
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
+
+<div class="card">
+<h3>✅ Oportunidades</h3>
+<div class="rec"><b>🎯 Exalt a R$ 100 (−15%):</b> Apresentar cotação de Delegate (Corteva R$ 310/kg). "Se Exalt vier a R$ 100, fecho 2.500 L e retiro Delegate 100%." Volume extra de 400 L justifica o desconto. <b>Economia: R$ 38k + eliminação do Delegate (−R$ 62k)</b>.</div>
+<div class="rec"><b>🎯 Kilat como pilar de choque:</b> A R$ 24/L × 3.500 L, Kilat é opção mais barata de "fogo rápido". Expandir para 4.500 L. Meta: R$ 21/L (−13%). <b>Economia: R$ 11k</b>. Substituir Connect (Bayer) em aplicações emergenciais.</div>
+<div class="rec"><b>🎯 Pacote Sumitomo 5 SKUs:</b> Total de R$ 848k. Pedir 10% desconto pacote = <b>economia R$ 85k</b>. Sumitomo precisa de clientes-referência no MT — oferecer depoimento/vitrine em troca do desconto.</div>
+</div>
+
+<div class="card">
+<h3>⚠️ Alertas</h3>
+<div class="rec w"><b>⚠️ Danimen — reavaliar custo-benefício:</b> R$ 32/L vs. Lambda Albaugh R$ 20/L. Se não houver diferencial acaricida comprovado, reduzir volume de 2.800 L para 1.500 L. Economia: R$ 42k migrados para Lambda Albaugh.</div>
+<div class="rec w"><b>⚠️ Pleo — manter mínimo para MoA:</b> R$ 55/L × 1.200 L = R$ 66k. Volume mínimo para rotação de mecanismo de ação contra mosca-branca. Não expandir além de 1.500 L.</div>
+<div class="rec d"><b>🔴 Fornecedor recente (4 safras):</b> A relação com Sumitomo é a <b>mais nova do portfólio</b>. Não há histórico de comportamento em crise. Exigir cláusula de garantia de fornecimento no contrato de 26/27.</div>
+</div>
+
+<!-- SCORE CARD -->
+<div class="card">
+<h3>📊 Score Card — Resumo Executivo</h3>
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Dimensão</th><th class="tc">Nota</th><th>Comentário</th></tr></thead>
+<tbody>
+<tr><td><b>Diversidade de Portfólio</b></td><td class="tc"><span class="tag to">5/10</span></td><td>5 SKUs — portfólio enxuto</td></tr>
+<tr><td><b>Competitividade de Preço</b></td><td class="tc"><span class="tag tg">7/10</span></td><td>Exalt e Kilat excelentes · Danimen e Pleo perdem</td></tr>
+<tr><td><b>Tendência de Preço</b></td><td class="tc"><span class="tag tg">8/10</span></td><td>Deflação média −38%</td></tr>
+<tr><td><b>Diferenciação</b></td><td class="tc"><span class="tag tg">8/10</span></td><td>Exalt (Espinetoram genérico) e Envoke exclusivos</td></tr>
+<tr><td><b>Risco Cambial</b></td><td class="tc"><span class="tag tg">10/10</span></td><td>100% BRL — zero risco</td></tr>
+<tr><td><b>Crescimento</b></td><td class="tc"><span class="tag tg">9/10</span></td><td>+142% em 4 safras — momentum forte</td></tr>
+<tr><td><b>Confiabilidade</b></td><td class="tc"><span class="tag to">5/10</span></td><td>Apenas 4 safras de histórico</td></tr>
+<tr style="background:rgba(0,188,212,.06)"><td><b>SCORE GERAL</b></td><td class="tc"><span class="tag ts" style="font-size:.8rem">7,4 / 10</span></td><td><b>Nicho promissor. Exalt é joia. Precisa amadurecer.</b></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- PROJEÇÃO 26/27 -->
+<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="card">
+<div class="table-wrapper">
+<table>
+<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
+<tbody>
+<tr><td>Exalt</td><td class="tr">118</td><td class="tr pos"><b>100</b></td><td class="tr">2.500L</td><td class="tr">R$250k</td><td>Pilar · subst. Delegate · −15%</td></tr>
+<tr><td>Kilat</td><td class="tr">24</td><td class="tr pos"><b>21</b></td><td class="tr">4.500L</td><td class="tr">R$95k</td><td>Expandir choque · −13%</td></tr>
+<tr><td>Envoke</td><td class="tr">460</td><td class="tr pos"><b>400</b></td><td class="tr">220kg</td><td class="tr">R$88k</td><td>Expandir nicho · −13%</td></tr>
+<tr><td>Danimen</td><td class="tr">32</td><td class="tr pos"><b>28</b></td><td class="tr">1.500L</td><td class="tr">R$42k</td><td>Reduzir · −13%</td></tr>
+<tr><td>Pleo</td><td class="tr">55</td><td class="tr pos"><b>48</b></td><td class="tr">1.200L</td><td class="tr">R$58k</td><td>Manter MoA · −13%</td></tr>
+<tr style="background:rgba(0,188,212,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 533k</b></td><td></td></tr>
+<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 315k</b></td><td class="pos"><b>−37%</b></td></tr>
+</tbody>
+</table>
+</div>
+<div class="insight warn"><b>⚠️ Atenção na projeção:</b> A queda de −37% (R$ 848k → R$ 533k) é resultado de <b>redução estratégica de Danimen</b> (2.800 → 1.500 L) e captura agressiva de deflação. Porém, o <b>valor real de Sumitomo é a economia indireta</b>: Exalt substituindo Delegate gera −R$ 62k. Kilat substituindo Connect gera −R$ 77k. <b>Economia indireta total: ~R$ 139k</b>. Sumitomo é mais valioso pelo que permite economizar em outros fornecedores.</div>
+</div>
+
+<!-- COMPARATIVO JAPONESAS -->
+<div class="card">
+<h3>📈 Trajetória de Crescimento — Sumitomo vs. Ihara (Entrantes Japoneses)</h3>
+<div class="chart-box"><canvas id="chCompare"></canvas></div>
+<div class="insight"><b>🇯🇵 Duas japonesas, duas trajetórias:</b> Ihara entrou na safra 21/22 e atingiu R$ 1,12M em 5 safras. Sumitomo entrou na 22/23 e está em R$ 848k após 4 safras. <b>Ritmo de crescimento similar</b> (~R$ 200k/safra). Se mantiver a trajetória, Sumitomo atinge R$ 1M+ na 27/28. Ambas preenchem lacunas que os grandes (Bayer, Syngenta, BASF) não cobrem.</div>
+</div>
+
+<div class="footer">
+<b>Rural In</b> · Inteligência Econômica Agro<br>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
+</div>
+</div>
+
+<script>
+if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
+
+Chart.defaults.color='#7b8a9e';
+Chart.defaults.borderColor='#1e2d4a';
+Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+Chart.defaults.font.size=11;
+const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
+
+// Investimento
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
+label:'R$ mil',data:[0,0,0,350,558,692,848],
+backgroundColor:S.map((_,i)=>i<3?'rgba(100,100,100,.2)':'rgba(0,188,212,.'+(3+i*1.2)+')')
+,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
+scales:{y:{beginAtZero:true,ticks:{callback:v=>'R$'+v+'k'}}}}});
+
+// Mix
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
+labels:['Exalt R$248k','Danimen R$90k','Kilat R$84k','Envoke R$83k','Pleo R$66k'],
+datasets:[{data:[248,90,84,83,66],
+backgroundColor:['#00bcd4','#ff9100','#00e676','#ffeb3b','#e040fb']}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,padding:8,font:{size:11}}}}}});
+
+// Preço Inseticidas
+new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
+{label:'Exalt',data:[195,165,138,118],borderColor:'#00bcd4',backgroundColor:'rgba(0,188,212,.1)',fill:true,tension:.3,pointRadius:6},
+{label:'Danimen',data:[52,45,38,32],borderColor:'#ff9100',tension:.3,pointRadius:5,fill:false},
+{label:'Kilat',data:[null,35,28,24],borderColor:'#00e676',tension:.3,pointRadius:5,fill:false},
+{label:'Pleo',data:[null,null,65,55],borderColor:'#e040fb',tension:.3,pointRadius:6,fill:false}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
+
+// Preço Envoke
+new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
+{label:'Envoke R$/kg',data:[820,680,540,460],borderColor:'#ffeb3b',backgroundColor:'rgba(255,235,59,.15)',fill:true,tension:.3,pointRadius:6,borderWidth:3}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{y:{title:{display:true,text:'R$/kg'},min:300}}}});
+
+// Volume
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
+{label:'Exalt',data:[0,0,0,500,800,1200,2100],backgroundColor:'rgba(0,188,212,.7)',borderRadius:4},
+{label:'Danimen',data:[0,0,0,1200,1500,2000,2800],backgroundColor:'rgba(255,145,0,.6)',borderRadius:4},
+{label:'Kilat',data:[0,0,0,0,2000,3000,3500],backgroundColor:'rgba(0,230,118,.5)',borderRadius:4},
+{label:'Pleo',data:[0,0,0,0,0,800,1200],backgroundColor:'rgba(224,64,251,.5)',borderRadius:4},
+{label:'Envoke (kg)',data:[0,0,0,50,80,120,180],backgroundColor:'rgba(255,235,59,.5)',borderRadius:4}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+
+// Comparativo Sumitomo vs Ihara
+new Chart(document.getElementById('chCompare'),{type:'line',data:{labels:S,datasets:[
+{label:'Sumitomo',data:[0,0,0,350,558,692,848],borderColor:'#00bcd4',backgroundColor:'rgba(0,188,212,.1)',fill:true,tension:.3,pointRadius:6,borderWidth:3},
+{label:'Ihara',data:[0,0,380,785,810,960,1122],borderColor:'#e91e63',backgroundColor:'rgba(233,30,99,.1)',fill:true,tension:.3,pointRadius:6,borderWidth:3}
+]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
+scales:{y:{title:{display:true,text:'R$ mil'},beginAtZero:true,ticks:{callback:v=>'R$'+v+'k'}}}}});
+</script>
+</body>
+</html>
