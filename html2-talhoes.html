@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance por Talhão | Grupo Baptistella | Safra 25/26</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #2E7D32;
+            --primary-dark: #0D3311;
+            --accent: #F9A825;
+            --accent-light: #FDD835;
+            --bg-dark: #0a0f0a;
+            --bg-card: #111a11;
+            --bg-card-hover: #162016;
+            --text-primary: #E8F5E9;
+            --text-secondary: #A5D6A7;
+            --text-muted: #66BB6A;
+            --border: rgba(46, 125, 50, 0.2);
+            --green: #00E676;
+            --green-bg: rgba(0, 230, 118, 0.1);
+            --yellow: #FFD600;
+            --yellow-bg: rgba(255, 214, 0, 0.1);
+            --red: #FF5252;
+            --red-bg: rgba(255, 82, 82, 0.1);
+            --blue: #40C4FF;
+            --blue-bg: rgba(64, 196, 255, 0.1);
+            --orange: #FF9100;
+            --orange-bg: rgba(255, 145, 0, 0.1);
+            --purple: #B388FF;
+            --purple-bg: rgba(179, 136, 255, 0.1);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(46, 125, 50, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .header-left h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .header-left h1 span { color: var(--accent); }
+
+        .header-left p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        .header-right .page-badge {
+            background: linear-gradient(135deg, #F57F17, #F9A825);
+            color: var(--primary-dark);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1480px;
+            margin: 0 auto;
+            padding: 28px 24px;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .filter-btn.active-gold {
+            background: linear-gradient(135deg, #F57F17, #F9A825);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        /* GRIDS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .grid-2-1 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .grid-1-2 {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .grid-full {
+            margin-bottom: 28px;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* STAT BOX */
+        .stat-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-box {
+            flex: 1;
+            text-align: center;
+            padding: 14px 10px;
+            background: rgba(46, 125, 50, 0.06);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-box .stat-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .stat-box .stat-value {
+            font-size: 22px;
+            font-weight: 800;
+            margin-top: 4px;
+            line-height: 1.1;
+        }
+
+        .stat-box .stat-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* TABLE */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .data-table thead th {
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-muted);
+            padding: 10px 8px;
+            border-bottom: 2px solid var(--border);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            background: var(--bg-card);
+            z-index: 2;
+        }
+
+        .data-table tbody td {
+            padding: 9px 8px;
+            border-bottom: 1px solid rgba(46, 125, 50, 0.06);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .data-table tbody tr {
+            transition: background 0.2s;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(46, 125, 50, 0.06);
+        }
+
+        .data-table .right { text-align: right; }
+        .data-table .center { text-align: center; }
+        .data-table .bold { font-weight: 700; }
+
+        .data-table .row-green { border-left: 3px solid var(--green); }
+        .data-table .row-yellow { border-left: 3px solid var(--yellow); }
+        .data-table .row-red { border-left: 3px solid var(--red); }
+
+        .data-table .row-top1 td { background: rgba(0, 230, 118, 0.08); }
+        .data-table .row-top2 td { background: rgba(0, 230, 118, 0.05); }
+        .data-table .row-top3 td { background: rgba(0, 230, 118, 0.03); }
+        .data-table .row-bottom td { background: rgba(255, 82, 82, 0.05); }
+
+        /* SCROLLABLE TABLE */
+        .table-scroll {
+            max-height: 520px;
+            overflow-y: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .table-scroll::-webkit-scrollbar { width: 6px; }
+        .table-scroll::-webkit-scrollbar-track { background: var(--bg-card); }
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+        .badge-red { background: var(--red-bg); color: var(--red); }
+        .badge-blue { background: var(--blue-bg); color: var(--blue); }
+        .badge-orange { background: var(--orange-bg); color: var(--orange); }
+
+        .rank-medal {
+            font-size: 16px;
+            display: inline-block;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* CHART */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .chart-container.tall { height: 400px; }
+        .chart-container.xtall { height: 520px; }
+
+        /* DISTRIBUTION BAR */
+        .dist-bar {
+            display: flex;
+            height: 36px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .dist-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .dist-segment:hover {
+            filter: brightness(1.2);
+        }
+
+        /* GAP CARD */
+        .gap-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            background: rgba(255, 82, 82, 0.04);
+            border-left: 3px solid var(--red);
+        }
+
+        .gap-item .gap-talhao {
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .gap-item .gap-values {
+            text-align: right;
+            font-size: 12px;
+        }
+
+        .gap-item .gap-values .gap-per-ha {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .gap-item .gap-values .gap-total {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        /* INSIGHT BOX */
+        .insight-box {
+            padding: 16px 20px;
+            background: rgba(64, 196, 255, 0.06);
+            border: 1px solid rgba(64, 196, 255, 0.2);
+            border-radius: 12px;
+            margin-top: 14px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .insight-box .insight-title {
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* CORRELATION MATRIX */
+        .corr-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .corr-matrix th, .corr-matrix td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .corr-matrix th {
+            background: rgba(46, 125, 50, 0.12);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .corr-strong-pos { background: rgba(0, 230, 118, 0.25); color: var(--green); font-weight: 800; }
+        .corr-mod-pos { background: rgba(0, 230, 118, 0.12); color: var(--green); font-weight: 600; }
+        .corr-weak { background: rgba(255, 255, 255, 0.03); color: var(--text-muted); }
+        .corr-mod-neg { background: rgba(255, 82, 82, 0.12); color: var(--red); font-weight: 600; }
+        .corr-strong-neg { background: rgba(255, 82, 82, 0.25); color: var(--red); font-weight: 800; }
+        .corr-diag { background: rgba(249, 168, 37, 0.15); color: var(--accent); font-weight: 800; }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 28px;
+            color: var(--text-muted);
+            font-size: 11px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer .brand { font-weight: 700; color: var(--accent); }
+
+        @media (max-width: 1024px) {
+            .grid-2, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .stat-row { flex-wrap: wrap; }
+            .header { flex-direction: column; text-align: center; gap: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<div class="header">
+    <div class="header-left">
+        <h1>Grupo <span>Baptistella</span> — Performance por Talhão</h1>
+        <p>Análise de 85 talhões de soja (MT) + 38 de milho (MT) | Soja + Milho | Safra 25/26</p>
+    </div>
+    <div class="header-right">
+        <span class="page-badge">SOJA — 4 FAZENDAS</span>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- ========== FILTROS ========== -->
+    <div class="filter-bar">
+        <button class="filter-btn active-gold" onclick="this.classList.toggle('active-gold')">🫘 SOJA — Todas</button>
+        <button class="filter-btn" onclick="this.classList.toggle('active')">Planalto MT</button>
+        <button class="filter-btn" onclick="this.classList.toggle('active')">Goiás GO</button>
+        <button class="filter-btn" onclick="this.classList.toggle('active')">Araras MT</button>
+        <button class="filter-btn" onclick="this.classList.toggle('active')">Continental MT</button>
+        <button class="filter-btn" onclick="this.classList.toggle('active')">🌽 Milho</button>
+    </div>
+
+    <!-- ========== RESUMO ESTATÍSTICO ========== -->
+    <div class="section-title"><span>📊</span> ESTATÍSTICA DESCRITIVA — SOJA (85 TALHÕES MT)</div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="stat-label">Média Produt.</div>
+            <div class="stat-value" style="color: var(--green);">57,79</div>
+            <div class="stat-sub">sc/ha (média simples)</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Mediana</div>
+            <div class="stat-value" style="color: var(--blue);">59,29</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Desvio Padrão</div>
+            <div class="stat-value" style="color: var(--yellow);">9,24</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">CV%</div>
+            <div class="stat-value" style="color: var(--yellow);">16,0%</div>
+            <div class="stat-sub">produtividade</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Mínimo</div>
+            <div class="stat-value" style="color: var(--red);">35,04</div>
+            <div class="stat-sub">F09 Planalto MT</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Máximo</div>
+            <div class="stat-value" style="color: var(--green);">73,33</div>
+            <div class="stat-sub">A09 Planalto MT</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Amplitude</div>
+            <div class="stat-value" style="color: var(--orange);">38,29</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="stat-label">Média Resultado/ha</div>
+            <div class="stat-value" style="color: var(--yellow);">R$ 392</div>
+            <div class="stat-sub">soja consolidada (4 fazendas)</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">DP Resultado/ha</div>
+            <div class="stat-value" style="color: var(--red);">R$ 1.146</div>
+            <div class="stat-sub">média dos talhões -R$ 136</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões 🟢</div>
+            <div class="stat-value" style="color: var(--green);">29</div>
+            <div class="stat-sub">34% do total</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões 🟡</div>
+            <div class="stat-value" style="color: var(--yellow);">29</div>
+            <div class="stat-sub">34% do total</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões 🔴</div>
+            <div class="stat-value" style="color: var(--red);">27</div>
+            <div class="stat-sub">32% do total</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Perda dos Negativos</div>
+            <div class="stat-value" style="color: var(--red);">-R$ 4,66 mi</div>
+            <div class="stat-sub">45 talhões abaixo de zero</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Breakeven Soja</div>
+            <div class="stat-value" style="color: var(--accent);">58,98</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+    </div>
+
+    <!-- DISTRIBUIÇÃO VISUAL -->
+    <div class="card" style="margin-bottom: 28px;">
+        <div class="card-title">📊 Distribuição dos Talhões por Status</div>
+        <div class="dist-bar">
+            <div class="dist-segment" style="width:34.1%; background: linear-gradient(90deg, #00C853, #00E676); color:#000;">🟢 29 talhões (34%)</div>
+            <div class="dist-segment" style="width:34.1%; background: linear-gradient(90deg, #F9A825, #FDD835); color:#000;">🟡 29 talhões (34%)</div>
+            <div class="dist-segment" style="width:31.8%; background: linear-gradient(90deg, #FF1744, #FF5252); color:#fff;">🔴 27 talhões (32%)</div>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:12px; font-size:12px;">
+            <div>🟢 <strong>Verde:</strong> Resultado > Média + 0,5×DP (R$ 437/ha)</div>
+            <div>🟡 <strong>Amarelo:</strong> Entre Média ± 0,5×DP</div>
+            <div>🔴 <strong>Vermelho:</strong> Resultado < Média - 0,5×DP (-R$ 710/ha)</div>
+        </div>
+        <div style="margin-top:8px; font-size:11px; color:var(--text-muted);">Regra do modelo 24/25 aplicada ao resultado/ha dos 85 talhões de soja do MT (média simples -R$ 136/ha, DP populacional R$ 1.146/ha). Goiás (2.380 ha) veio sem abertura por talhão. Com a média dos talhões negativa, o CV% do resultado deixa de ter leitura e foi trocado pelo desvio-padrão.</div>
+    </div>
+
+    <!-- ========== RANKING TOP 15 ========== -->
+    <div class="section-title"><span>🏆</span> RANKING — TOP 15 MELHORES TALHÕES (SOJA)</div>
+
+    <div class="card grid-full">
+        <div class="table-scroll">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Talhão</th>
+                        <th>Fazenda</th>
+                        <th class="right">Área (ha)</th>
+                        <th class="right">Insumos/ha</th>
+                        <th class="right">CT/ha</th>
+                        <th class="right">Prod. sc/ha</th>
+                        <th class="right">PMV R$/sc</th>
+                        <th class="right">Receita/ha</th>
+                        <th class="right">Resultado/ha</th>
+                        <th class="right">Lucrat. %</th>
+                        <th class="right">Custo/sc</th>
+                        <th class="right">Margem Seg.</th>
+                        <th class="center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-green row-top1">
+                        <td><span class="rank-medal">🥇</span></td>
+                        <td class="bold">B02</td>
+                        <td>Planalto MT</td>
+                        <td class="right">174</td>
+                        <td class="right">R$ 3.326</td>
+                        <td class="right">R$ 6.995</td>
+                        <td class="right bold" style="color:var(--green)">70,61</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.845</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.849</td>
+                        <td class="right" style="color:var(--green)">20,9%</td>
+                        <td class="right">R$ 99,07</td>
+                        <td class="right" style="color:var(--green)">+20,9%</td>
+                        <td class="center"><span class="badge badge-green">EXCELENTE</span></td>
+                    </tr>
+                    <tr class="row-green row-top2">
+                        <td><span class="rank-medal">🥈</span></td>
+                        <td class="bold">B15</td>
+                        <td>Planalto MT</td>
+                        <td class="right">119</td>
+                        <td class="right">R$ 3.643</td>
+                        <td class="right">R$ 7.331</td>
+                        <td class="right bold" style="color:var(--green)">73,01</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 9.145</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.814</td>
+                        <td class="right" style="color:var(--green)">19,8%</td>
+                        <td class="right">R$ 100,41</td>
+                        <td class="right" style="color:var(--green)">+19,8%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green row-top3">
+                        <td><span class="rank-medal">🥉</span></td>
+                        <td class="bold">A07</td>
+                        <td>Planalto MT</td>
+                        <td class="right">71</td>
+                        <td class="right">R$ 2.865</td>
+                        <td class="right">R$ 6.506</td>
+                        <td class="right bold" style="color:var(--green)">65,81</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.243</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.737</td>
+                        <td class="right" style="color:var(--green)">21,1%</td>
+                        <td class="right">R$ 98,87</td>
+                        <td class="right" style="color:var(--green)">+21,1%</td>
+                        <td class="center"><span class="badge badge-green">EXCELENTE</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">4</td>
+                        <td class="bold">A01</td>
+                        <td>Planalto MT</td>
+                        <td class="right">170</td>
+                        <td class="right">R$ 3.241</td>
+                        <td class="right">R$ 6.905</td>
+                        <td class="right bold">68,30</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.555</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.650</td>
+                        <td class="right" style="color:var(--green)">19,3%</td>
+                        <td class="right">R$ 101,10</td>
+                        <td class="right" style="color:var(--green)">+19,3%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">5</td>
+                        <td class="bold">AR10</td>
+                        <td>Araras MT</td>
+                        <td class="right">113</td>
+                        <td class="right">R$ 3.819</td>
+                        <td class="right">R$ 7.518</td>
+                        <td class="right bold">73,15</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 9.163</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.645</td>
+                        <td class="right" style="color:var(--green)">18,0%</td>
+                        <td class="right">R$ 102,77</td>
+                        <td class="right" style="color:var(--green)">+18,0%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">6</td>
+                        <td class="bold">A11</td>
+                        <td>Planalto MT</td>
+                        <td class="right">86</td>
+                        <td class="right">R$ 2.829</td>
+                        <td class="right">R$ 6.468</td>
+                        <td class="right bold">63,84</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 7.997</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.528</td>
+                        <td class="right" style="color:var(--green)">19,1%</td>
+                        <td class="right">R$ 101,32</td>
+                        <td class="right" style="color:var(--green)">+19,1%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">7</td>
+                        <td class="bold">A09</td>
+                        <td>Planalto MT</td>
+                        <td class="right">74</td>
+                        <td class="right">R$ 3.956</td>
+                        <td class="right">R$ 7.663</td>
+                        <td class="right bold">73,33</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 9.185</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.522</td>
+                        <td class="right" style="color:var(--green)">16,6%</td>
+                        <td class="right">R$ 104,50</td>
+                        <td class="right" style="color:var(--green)">+16,6%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">8</td>
+                        <td class="bold">A10</td>
+                        <td>Planalto MT</td>
+                        <td class="right">81</td>
+                        <td class="right">R$ 3.448</td>
+                        <td class="right">R$ 7.124</td>
+                        <td class="right bold">68,78</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.615</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.491</td>
+                        <td class="right" style="color:var(--green)">17,3%</td>
+                        <td class="right">R$ 103,58</td>
+                        <td class="right" style="color:var(--green)">+17,3%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">9</td>
+                        <td class="bold">B01</td>
+                        <td>Planalto MT</td>
+                        <td class="right">158</td>
+                        <td class="right">R$ 3.470</td>
+                        <td class="right">R$ 7.148</td>
+                        <td class="right bold">68,57</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.589</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.441</td>
+                        <td class="right" style="color:var(--green)">16,8%</td>
+                        <td class="right">R$ 104,24</td>
+                        <td class="right" style="color:var(--green)">+16,8%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">10</td>
+                        <td class="bold">C06</td>
+                        <td>Planalto MT</td>
+                        <td class="right">68</td>
+                        <td class="right">R$ 3.119</td>
+                        <td class="right">R$ 6.776</td>
+                        <td class="right bold">64,67</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.101</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.325</td>
+                        <td class="right" style="color:var(--green)">16,4%</td>
+                        <td class="right">R$ 104,77</td>
+                        <td class="right" style="color:var(--green)">+16,4%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">11</td>
+                        <td class="bold">A06</td>
+                        <td>Planalto MT</td>
+                        <td class="right">72</td>
+                        <td class="right">R$ 3.124</td>
+                        <td class="right">R$ 6.781</td>
+                        <td class="right bold">64,44</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.072</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.291</td>
+                        <td class="right" style="color:var(--green)">16,0%</td>
+                        <td class="right">R$ 105,23</td>
+                        <td class="right" style="color:var(--green)">+16,0%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">12</td>
+                        <td class="bold">AR04</td>
+                        <td>Araras MT</td>
+                        <td class="right">161</td>
+                        <td class="right">R$ 3.909</td>
+                        <td class="right">R$ 7.613</td>
+                        <td class="right bold">70,49</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.830</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.216</td>
+                        <td class="right" style="color:var(--yellow)">13,8%</td>
+                        <td class="right">R$ 108,00</td>
+                        <td class="right" style="color:var(--yellow)">+13,8%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">13</td>
+                        <td class="bold">B04</td>
+                        <td>Planalto MT</td>
+                        <td class="right">192</td>
+                        <td class="right">R$ 3.278</td>
+                        <td class="right">R$ 6.944</td>
+                        <td class="right bold">65,11</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.156</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.211</td>
+                        <td class="right" style="color:var(--yellow)">14,9%</td>
+                        <td class="right">R$ 106,65</td>
+                        <td class="right" style="color:var(--yellow)">+14,9%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">14</td>
+                        <td class="bold">B20</td>
+                        <td>Planalto MT</td>
+                        <td class="right">120</td>
+                        <td class="right">R$ 3.421</td>
+                        <td class="right">R$ 7.096</td>
+                        <td class="right bold">65,62</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.220</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.124</td>
+                        <td class="right" style="color:var(--yellow)">13,7%</td>
+                        <td class="right">R$ 108,14</td>
+                        <td class="right" style="color:var(--yellow)">+13,7%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">15</td>
+                        <td class="bold">AR05</td>
+                        <td>Araras MT</td>
+                        <td class="right">201</td>
+                        <td class="right">R$ 3.656</td>
+                        <td class="right">R$ 7.345</td>
+                        <td class="right bold">67,49</td>
+                        <td class="right">R$ 125,26</td>
+                        <td class="right">R$ 8.454</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.109</td>
+                        <td class="right" style="color:var(--yellow)">13,1%</td>
+                        <td class="right">R$ 108,83</td>
+                        <td class="right" style="color:var(--yellow)">+13,1%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">Receita/ha = produtividade × PMV único da soja (R$ 125,26/sc). Margem de segurança = (produtividade − breakeven) ÷ produtividade, a mesma fórmula da soja consolidada (5,04%). Com PMV único ela coincide com a lucratividade. Status: EXCELENTE = verde com lucratividade ≥ 20%, BOM = demais verdes.</div>
+    </div>
+
+    <!-- ========== RANKING BOTTOM 10 ========== -->
+    <div class="section-title"><span>⚠️</span> BOTTOM 10 — TALHÕES CRÍTICOS (SOJA)</div>
+
+    <div class="card grid-full">
+        <div class="table-scroll">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Talhão</th>
+                        <th>Fazenda</th>
+                        <th class="right">Insumos/ha</th>
+                        <th class="right">CT/ha</th>
+                        <th class="right">Prod. sc/ha</th>
+                        <th class="right">Receita/ha</th>
+                        <th class="right">Resultado/ha</th>
+                        <th class="right">Lucrat. %</th>
+                        <th class="right">BE sc/ha</th>
+                        <th class="right">Gap vs Média</th>
+                        <th class="center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">85</td>
+                        <td class="bold">F09</td>
+                        <td>Planalto MT</td>
+                        <td class="right">R$ 3.903</td>
+                        <td class="right">R$ 7.606</td>
+                        <td class="right bold" style="color:var(--red)">35,04</td>
+                        <td class="right">R$ 4.389</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 3.217</td>
+                        <td class="right" style="color:var(--red)">-73,3%</td>
+                        <td class="right">60,72</td>
+                        <td class="right" style="color:var(--red)">-R$ 3.609</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">84</td>
+                        <td class="bold">CT15</td>
+                        <td>Continental MT</td>
+                        <td class="right">R$ 3.949</td>
+                        <td class="right">R$ 7.656</td>
+                        <td class="right bold" style="color:var(--red)">41,97</td>
+                        <td class="right">R$ 5.257</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 2.398</td>
+                        <td class="right" style="color:var(--red)">-45,6%</td>
+                        <td class="right">61,12</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.791</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">83</td>
+                        <td class="bold">D01</td>
+                        <td>Planalto MT</td>
+                        <td class="right">R$ 3.658</td>
+                        <td class="right">R$ 7.347</td>
+                        <td class="right bold" style="color:var(--red)">40,48</td>
+                        <td class="right">R$ 5.071</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 2.277</td>
+                        <td class="right" style="color:var(--red)">-44,9%</td>
+                        <td class="right">58,65</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.669</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">82</td>
+                        <td class="bold">CT17</td>
+                        <td>Continental MT</td>
+                        <td class="right">R$ 3.652</td>
+                        <td class="right">R$ 7.341</td>
+                        <td class="right bold" style="color:var(--red)">41,45</td>
+                        <td class="right">R$ 5.192</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 2.149</td>
+                        <td class="right" style="color:var(--red)">-41,4%</td>
+                        <td class="right">58,60</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.541</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">81</td>
+                        <td class="bold">CT14</td>
+                        <td>Continental MT</td>
+                        <td class="right">R$ 3.650</td>
+                        <td class="right">R$ 7.339</td>
+                        <td class="right bold" style="color:var(--red)">41,97</td>
+                        <td class="right">R$ 5.257</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 2.081</td>
+                        <td class="right" style="color:var(--red)">-39,6%</td>
+                        <td class="right">58,59</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.474</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">80</td>
+                        <td class="bold">D02</td>
+                        <td>Planalto MT</td>
+                        <td class="right">R$ 3.368</td>
+                        <td class="right">R$ 7.040</td>
+                        <td class="right bold" style="color:var(--red)">40,48</td>
+                        <td class="right">R$ 5.071</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.969</td>
+                        <td class="right" style="color:var(--red)">-38,8%</td>
+                        <td class="right">56,20</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.361</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">79</td>
+                        <td class="bold">CT16</td>
+                        <td>Continental MT</td>
+                        <td class="right">R$ 3.424</td>
+                        <td class="right">R$ 7.099</td>
+                        <td class="right bold" style="color:var(--red)">41,45</td>
+                        <td class="right">R$ 5.192</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.907</td>
+                        <td class="right" style="color:var(--red)">-36,7%</td>
+                        <td class="right">56,67</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.299</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">78</td>
+                        <td class="bold">AR07</td>
+                        <td>Araras MT</td>
+                        <td class="right">R$ 3.951</td>
+                        <td class="right">R$ 7.657</td>
+                        <td class="right bold" style="color:var(--red)">47,74</td>
+                        <td class="right">R$ 5.980</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.678</td>
+                        <td class="right" style="color:var(--red)">-28,1%</td>
+                        <td class="right">61,13</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.070</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">77</td>
+                        <td class="bold">CT19</td>
+                        <td>Continental MT</td>
+                        <td class="right">R$ 3.655</td>
+                        <td class="right">R$ 7.344</td>
+                        <td class="right bold" style="color:var(--red)">45,34</td>
+                        <td class="right">R$ 5.679</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.665</td>
+                        <td class="right" style="color:var(--red)">-29,3%</td>
+                        <td class="right">58,63</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.057</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">76</td>
+                        <td class="bold">C08</td>
+                        <td>Planalto MT</td>
+                        <td class="right">R$ 3.115</td>
+                        <td class="right">R$ 6.771</td>
+                        <td class="right bold" style="color:var(--red)">41,17</td>
+                        <td class="right">R$ 5.157</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.615</td>
+                        <td class="right" style="color:var(--red)">-31,3%</td>
+                        <td class="right">54,06</td>
+                        <td class="right" style="color:var(--red)">-R$ 2.007</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- INSIGHT -->
+        <div class="insight-box">
+            <div class="insight-title">🔍 Insight — Padrão dos Talhões Críticos</div>
+            <strong>5 dos 10 piores talhões são da Continental e 4 da Planalto.</strong> Todos colheram no máximo 47,74 sc/ha, contra breakeven de 58,98 sc/ha, e gastaram entre R$ 3.115 e R$ 3.951/ha em insumos, faixa próxima da média da soja (R$ 3.696/ha). Juntos somam 942 ha e perderam -R$ 1,91 mi. <strong>O que separou esses talhões dos demais foi a colheita, não o gasto.</strong> A planilha não traz solo, chuva nem data de semeadura por talhão, então a causa ainda precisa de diagnóstico de campo antes da compra de insumos de 26/27.
+        </div>
+    </div>
+
+    <!-- ========== SCATTER PLOTS ========== -->
+    <div class="section-title"><span>📈</span> ANÁLISE DE DISPERSÃO — CORRELAÇÕES ENTRE VARIÁVEIS</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📈 Produtividade × Resultado/ha (r = 0,95)</div>
+            <div class="chart-container tall">
+                <canvas id="scatterProdResult"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📈 Custo Insumos/ha × Produtividade (r = 0,19)</div>
+            <div class="chart-container tall">
+                <canvas id="scatterCustoResult"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📈 Custo Total/ha × Resultado/ha (r = -0,13)</div>
+            <div class="chart-container tall">
+                <canvas id="scatterCTResult"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Distribuição de Produtividade — Histograma</div>
+            <div class="chart-container tall">
+                <canvas id="histProd"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MATRIZ DE CORRELAÇÃO ========== -->
+    <div class="section-title"><span>🔗</span> MATRIZ DE CORRELAÇÃO — VARIÁVEIS-CHAVE</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🔗 Correlação de Pearson — 85 Talhões Soja (MT)</div>
+        <table class="corr-matrix">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Custo Ins./ha</th>
+                    <th>CT/ha</th>
+                    <th>Prod. sc/ha</th>
+                    <th>Receita/ha</th>
+                    <th>Resultado/ha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Custo Ins./ha</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-weak">-0,13</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">CT/ha</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-weak">-0,13</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Prod. sc/ha</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-strong-pos">0,95</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Receita/ha</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-weak">0,19</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-strong-pos">0,95</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Resultado/ha</td>
+                    <td class="corr-weak">-0,13</td>
+                    <td class="corr-weak">-0,13</td>
+                    <td class="corr-strong-pos">0,95</td>
+                    <td class="corr-strong-pos">0,95</td>
+                    <td class="corr-diag">1,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box" style="margin-top: 16px;">
+            <div class="insight-title">🔑 Insights da Correlação</div>
+            <strong>Produtividade × Resultado (r = 0,95):</strong> Correlação muito forte. Em 25/26 o resultado do talhão foi decidido pela produtividade.<br>
+            <strong>Custo Insumos × Produtividade (r = 0,19):</strong> Correlação fraca. Os talhões que gastaram mais em insumos não colheram mais.<br>
+            <strong>CT/ha × Resultado (r = -0,13):</strong> Correlação fraca. O custo por hectare variou pouco entre talhões e não explica a perda.<br>
+            <strong>Insumos × CT (r = 1,00):</strong> Na planilha o CT de cada talhão é 1,06 × insumos + R$ 3.469,59/ha. Os demais custos foram rateados por área, por isso a correlação é perfeita e não diz nada sobre o manejo.<br>
+            <strong>Conclusão:</strong> O trabalho de 26/27 é levantar por que os talhões de baixo colheram pouco. Cortar insumo de forma linear não resolve, porque o gasto não separou talhão bom de talhão ruim.
+        </div>
+    </div>
+
+    <!-- ========== GAP ANALYSIS DETALHADO ========== -->
+    <div class="section-title"><span>🎯</span> GAP ANALYSIS — OPORTUNIDADES POR FAZENDA</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🔴 Continental MT — 11 talhões no vermelho</div>
+            <div class="gap-item">
+                <div class="gap-talhao">CT15 <span style="font-size:11px; color:var(--text-muted);">41,97 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 2.791/ha vs média</div>
+                    <div class="gap-total">Pior talhão da Continental</div>
+                </div>
+            </div>
+            <div class="gap-item">
+                <div class="gap-talhao">CT17 <span style="font-size:11px; color:var(--text-muted);">41,45 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 2.541/ha vs média</div>
+                    <div class="gap-total">Insumos R$ 3.652/ha</div>
+                </div>
+            </div>
+            <div class="gap-item">
+                <div class="gap-talhao">CT14 <span style="font-size:11px; color:var(--text-muted);">41,97 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 2.474/ha vs média</div>
+                    <div class="gap-total">Insumos R$ 3.650/ha</div>
+                </div>
+            </div>
+            <div class="gap-item">
+                <div class="gap-talhao">CT16 <span style="font-size:11px; color:var(--text-muted);">41,45 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 2.299/ha vs média</div>
+                    <div class="gap-total">Insumos R$ 3.424/ha</div>
+                </div>
+            </div>
+            <div style="margin-top:14px; padding:12px 16px; background:rgba(255,82,82,0.08); border-radius:10px; text-align:center;">
+                <div style="font-size:12px; color:var(--text-muted);">GAP TOTAL CONTINENTAL</div>
+                <div style="font-size:24px; font-weight:800; color:var(--red);">R$ 1.847.405</div>
+                <div style="font-size:11px; color:var(--text-muted);">se atingisse o resultado/ha da Planalto (R$ 173,86/ha)</div>
+            </div>
+            <div style="margin-top:12px; font-size:12px; line-height:1.7; color:var(--text-secondary);">
+                <strong>Foco por fazenda:</strong> 15 dos 22 talhões da Continental fecharam negativos. O bloco CT14 a CT17 (388 ha) colheu entre 41,45 e 41,97 sc/ha e perdeu -R$ 0,83 mi. Na Planalto, 25 dos 54 talhões ficaram negativos, e na Araras, 5 dos 9. Goiás não tem talhões na planilha.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📊 Resultado/ha por Fazenda — Box Plot Simulado</div>
+            <div class="chart-container tall">
+                <canvas id="chartBoxPlot"></canvas>
+            </div>
+            <div style="margin-top:12px; font-size:12px; line-height:1.7; color:var(--text-secondary);">
+                <strong>Leitura:</strong> A linha fina vai do mínimo ao máximo, a caixa mostra Q1-Q3 (50% central) e a marca branca é a mediana.
+                Continental tem a menor mediana (-R$ 660/ha) e só 7 talhões acima de zero. Araras tem a maior distância entre Q1 e Q3 (-R$ 1.006 a R$ 1.109). Planalto tem mediana de R$ 159/ha e o pior talhão do grupo (F09). Goiás fica fora porque veio sem talhões.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== EFICIÊNCIA DE INSUMOS ========== -->
+    <div class="section-title"><span>💉</span> EFICIÊNCIA DE INSUMOS — CUSTO-BENEFÍCIO</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 Eficiência: sc produzidas por R$ 1.000 em insumos</div>
+            <div class="chart-container tall">
+                <canvas id="chartEficiencia"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Custo de Insumos/ha por Fazenda</div>
+            <div class="chart-container tall">
+                <canvas id="chartCustoFazenda"></canvas>
+            </div>
+            <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">Por fazenda a planilha abre só insumos e custo total. A segunda faixa é CT/ha − insumos/ha (administração, máquinas, terra, depreciação e demais), sem abertura por rubrica.</div>
+        </div>
+    </div>
+
+    <!-- ========== MILHO ========== -->
+    <div class="section-title"><span>🌽</span> MILHO SAFRINHA — 38 TALHÕES MT + BLOCO GOIÁS</div>
+    <div style="border:1px solid rgba(249,168,37,0.35); background:rgba(249,168,37,0.03); border-radius:18px; padding:24px 22px 4px; margin-bottom:28px;">
+
+    <!-- ========== MILHO — ESTATÍSTICA DESCRITIVA ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>📊</span> ESTATÍSTICA DESCRITIVA — MILHO (38 TALHÕES MT)</div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="stat-label">Média Produt.</div>
+            <div class="stat-value" style="color: var(--green);">129,40</div>
+            <div class="stat-sub">sc/ha (simples) · ponderada 129,55</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Mediana</div>
+            <div class="stat-value" style="color: var(--blue);">128,58</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Desvio Padrão</div>
+            <div class="stat-value" style="color: var(--yellow);">14,60</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">CV%</div>
+            <div class="stat-value" style="color: var(--yellow);">11,3%</div>
+            <div class="stat-sub">produtividade</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Mínimo</div>
+            <div class="stat-value" style="color: var(--red);">104,94</div>
+            <div class="stat-sub">B03 · Mistura</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Máximo</div>
+            <div class="stat-value" style="color: var(--green);">167,38</div>
+            <div class="stat-sub">A03 · DKB 360</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Amplitude</div>
+            <div class="stat-value" style="color: var(--orange);">62,44</div>
+            <div class="stat-sub">sc/ha</div>
+        </div>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="stat-label">Média Resultado/ha</div>
+            <div class="stat-value" style="color: var(--yellow);">R$ 161</div>
+            <div class="stat-sub">milho MT ponderado · grupo -R$ 443</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">DP Resultado/ha</div>
+            <div class="stat-value" style="color: var(--red);">R$ 1.025</div>
+            <div class="stat-sub">média dos talhões R$ 140</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões 🟢</div>
+            <div class="stat-value" style="color: var(--green);">13</div>
+            <div class="stat-sub">34% do total</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões 🟡</div>
+            <div class="stat-value" style="color: var(--yellow);">16</div>
+            <div class="stat-sub">42% do total</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões 🔴</div>
+            <div class="stat-value" style="color: var(--red);">9</div>
+            <div class="stat-sub">24% do total</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Perda dos Negativos</div>
+            <div class="stat-value" style="color: var(--red);">-R$ 1,55 mi</div>
+            <div class="stat-sub">16 talhões abaixo de zero</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Breakeven Milho</div>
+            <div class="stat-value" style="color: var(--accent);">128,86</div>
+            <div class="stat-sub">sc/ha (grupo)</div>
+        </div>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box">
+            <div class="stat-label">Resultado MT</div>
+            <div class="stat-value" style="color: var(--green);">R$ 0,77 mi</div>
+            <div class="stat-sub">R$ 160,90/ha em 4.801 ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões MT ➕</div>
+            <div class="stat-value" style="color: var(--green);">22</div>
+            <div class="stat-sub">2.635 ha · R$ 2,32 mi</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Talhões MT ➖</div>
+            <div class="stat-value" style="color: var(--red);">16</div>
+            <div class="stat-sub">2.166 ha · -R$ 1,55 mi</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Goiás (bloco)</div>
+            <div class="stat-value" style="color: var(--red);">91,90</div>
+            <div class="stat-sub">sc/ha em 1.616 ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Resultado Goiás</div>
+            <div class="stat-value" style="color: var(--red);">-R$ 3,23 mi</div>
+            <div class="stat-sub">-R$ 1.997,93/ha</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Resultado Milho</div>
+            <div class="stat-value" style="color: var(--red);">-R$ 2,46 mi</div>
+            <div class="stat-sub">-R$ 442,90/ha em 6.417 ha</div>
+        </div>
+    </div>
+
+    <!-- DISTRIBUIÇÃO VISUAL — MILHO -->
+    <div class="card" style="margin-bottom: 28px;">
+        <div class="card-title">📊 Distribuição dos Talhões de Milho por Status</div>
+        <div class="dist-bar">
+            <div class="dist-segment" style="width:34.2%; background: linear-gradient(90deg, #00C853, #00E676); color:#000;">🟢 13 talhões (34%)</div>
+            <div class="dist-segment" style="width:42.1%; background: linear-gradient(90deg, #F9A825, #FDD835); color:#000;">🟡 16 talhões (42%)</div>
+            <div class="dist-segment" style="width:23.7%; background: linear-gradient(90deg, #FF1744, #FF5252); color:#fff;">🔴 9 talhões (24%)</div>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:12px; font-size:12px;">
+            <div>🟢 <strong>Verde:</strong> Resultado > Média + 0,5×DP (R$ 652/ha)</div>
+            <div>🟡 <strong>Amarelo:</strong> Entre Média ± 0,5×DP</div>
+            <div>🔴 <strong>Vermelho:</strong> Resultado < Média - 0,5×DP (-R$ 373/ha)</div>
+        </div>
+        <div style="margin-top:8px; font-size:11px; color:var(--text-muted);">Mesma regra da soja aplicada ao resultado/ha dos 38 talhões de milho do MT (média simples R$ 140/ha, DP populacional R$ 1.025/ha). Goiás (1.616 ha, -R$ 1.997,93/ha) veio em bloco único, sem abertura por talhão, e fica fora da contagem. Se entrasse como um talhão, seria vermelho.</div>
+    </div>
+
+    <!-- ========== MILHO — RANKING TOP 15 ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>🏆</span> RANKING — TOP 15 MELHORES TALHÕES (MILHO)</div>
+
+    <div class="card grid-full">
+        <div class="table-scroll">
+            <table class="data-table" style="white-space:nowrap;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Talhão</th>
+                        <th>Material</th>
+                        <th class="right">Área (ha)</th>
+                        <th class="right">Insumos/ha</th>
+                        <th class="right">CT/ha</th>
+                        <th class="right">Prod. sc/ha</th>
+                        <th class="right">PMV R$/sc</th>
+                        <th class="right">Receita/ha</th>
+                        <th class="right">Resultado/ha</th>
+                        <th class="right">Lucrat. %</th>
+                        <th class="right">Custo/sc</th>
+                        <th class="right">Margem Seg.</th>
+                        <th class="center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-green row-top1">
+                        <td><span class="rank-medal">🥇</span></td>
+                        <td class="bold">A14</td>
+                        <td style="white-space:normal;">DKB 360</td>
+                        <td class="right">97</td>
+                        <td class="right">R$ 2.359</td>
+                        <td class="right">R$ 5.912</td>
+                        <td class="right bold" style="color:var(--green)">161,30</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 8.130</td>
+                        <td class="right bold" style="color:var(--green)">R$ 2.218</td>
+                        <td class="right" style="color:var(--green)">27,3%</td>
+                        <td class="right">R$ 36,65</td>
+                        <td class="right" style="color:var(--green)">+27,3%</td>
+                        <td class="center"><span class="badge badge-green">EXCELENTE</span></td>
+                    </tr>
+                    <tr class="row-green row-top2">
+                        <td><span class="rank-medal">🥈</span></td>
+                        <td class="bold">A03</td>
+                        <td style="white-space:normal;">DKB 360</td>
+                        <td class="right">175</td>
+                        <td class="right">R$ 2.913</td>
+                        <td class="right">R$ 6.499</td>
+                        <td class="right bold" style="color:var(--green)">167,38</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 8.436</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.937</td>
+                        <td class="right" style="color:var(--green)">23,0%</td>
+                        <td class="right">R$ 38,83</td>
+                        <td class="right" style="color:var(--green)">+23,0%</td>
+                        <td class="center"><span class="badge badge-green">EXCELENTE</span></td>
+                    </tr>
+                    <tr class="row-green row-top3">
+                        <td><span class="rank-medal">🥉</span></td>
+                        <td class="bold">A01</td>
+                        <td style="white-space:normal;">DKB 360</td>
+                        <td class="right">170</td>
+                        <td class="right">R$ 2.934</td>
+                        <td class="right">R$ 6.521</td>
+                        <td class="right bold" style="color:var(--green)">164,74</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 8.303</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.782</td>
+                        <td class="right" style="color:var(--green)">21,5%</td>
+                        <td class="right">R$ 39,58</td>
+                        <td class="right" style="color:var(--green)">+21,5%</td>
+                        <td class="center"><span class="badge badge-green">EXCELENTE</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">4</td>
+                        <td class="bold">A02</td>
+                        <td style="white-space:normal;">DKB 360</td>
+                        <td class="right">163</td>
+                        <td class="right">R$ 3.252</td>
+                        <td class="right">R$ 6.858</td>
+                        <td class="right bold">155,09</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 7.817</td>
+                        <td class="right bold" style="color:var(--green)">R$ 959</td>
+                        <td class="right" style="color:var(--yellow)">12,3%</td>
+                        <td class="right">R$ 44,22</td>
+                        <td class="right" style="color:var(--yellow)">+12,3%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">5</td>
+                        <td class="bold">B12</td>
+                        <td style="white-space:normal;">DKB 335 + DKB 380</td>
+                        <td class="right">155</td>
+                        <td class="right">R$ 1.966</td>
+                        <td class="right">R$ 5.495</td>
+                        <td class="right bold">127,63</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.433</td>
+                        <td class="right bold" style="color:var(--green)">R$ 938</td>
+                        <td class="right" style="color:var(--yellow)">14,6%</td>
+                        <td class="right">R$ 43,05</td>
+                        <td class="right" style="color:var(--yellow)">+14,6%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">6</td>
+                        <td class="bold">B08</td>
+                        <td style="white-space:normal;">DKB 335</td>
+                        <td class="right">70</td>
+                        <td class="right">R$ 1.931</td>
+                        <td class="right">R$ 5.458</td>
+                        <td class="right bold">126,82</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.392</td>
+                        <td class="right bold" style="color:var(--green)">R$ 934</td>
+                        <td class="right" style="color:var(--yellow)">14,6%</td>
+                        <td class="right">R$ 43,03</td>
+                        <td class="right" style="color:var(--yellow)">+14,6%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">7</td>
+                        <td class="bold">C05</td>
+                        <td style="white-space:normal;">SS 2222E + SS 236E</td>
+                        <td class="right">173</td>
+                        <td class="right">R$ 2.786</td>
+                        <td class="right">R$ 6.364</td>
+                        <td class="right bold">144,68</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 7.292</td>
+                        <td class="right bold" style="color:var(--green)">R$ 928</td>
+                        <td class="right" style="color:var(--yellow)">12,7%</td>
+                        <td class="right">R$ 43,99</td>
+                        <td class="right" style="color:var(--yellow)">+12,7%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">8</td>
+                        <td class="bold">B11</td>
+                        <td style="white-space:normal;">P3858</td>
+                        <td class="right">82</td>
+                        <td class="right">R$ 2.112</td>
+                        <td class="right">R$ 5.650</td>
+                        <td class="right bold">130,02</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.553</td>
+                        <td class="right bold" style="color:var(--green)">R$ 903</td>
+                        <td class="right" style="color:var(--yellow)">13,8%</td>
+                        <td class="right">R$ 43,45</td>
+                        <td class="right" style="color:var(--yellow)">+13,8%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">9</td>
+                        <td class="bold">F04</td>
+                        <td style="white-space:normal;">SS 236E</td>
+                        <td class="right">152</td>
+                        <td class="right">R$ 2.145</td>
+                        <td class="right">R$ 5.684</td>
+                        <td class="right bold">130,65</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.585</td>
+                        <td class="right bold" style="color:var(--green)">R$ 901</td>
+                        <td class="right" style="color:var(--yellow)">13,7%</td>
+                        <td class="right">R$ 43,51</td>
+                        <td class="right" style="color:var(--yellow)">+13,7%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">10</td>
+                        <td class="bold">B07</td>
+                        <td style="white-space:normal;">P3858</td>
+                        <td class="right">111</td>
+                        <td class="right">R$ 2.020</td>
+                        <td class="right">R$ 5.552</td>
+                        <td class="right bold">127,82</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.442</td>
+                        <td class="right bold" style="color:var(--green)">R$ 891</td>
+                        <td class="right" style="color:var(--yellow)">13,8%</td>
+                        <td class="right">R$ 43,43</td>
+                        <td class="right" style="color:var(--yellow)">+13,8%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">11</td>
+                        <td class="bold">B09</td>
+                        <td style="white-space:normal;">DKB 335</td>
+                        <td class="right">161</td>
+                        <td class="right">R$ 2.260</td>
+                        <td class="right">R$ 5.807</td>
+                        <td class="right bold">132,54</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.680</td>
+                        <td class="right bold" style="color:var(--green)">R$ 873</td>
+                        <td class="right" style="color:var(--yellow)">13,1%</td>
+                        <td class="right">R$ 43,81</td>
+                        <td class="right" style="color:var(--yellow)">+13,1%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">12</td>
+                        <td class="bold">A10</td>
+                        <td style="white-space:normal;">AG 8701</td>
+                        <td class="right">81</td>
+                        <td class="right">R$ 2.775</td>
+                        <td class="right">R$ 6.352</td>
+                        <td class="right bold">142,22</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 7.168</td>
+                        <td class="right bold" style="color:var(--green)">R$ 816</td>
+                        <td class="right" style="color:var(--yellow)">11,4%</td>
+                        <td class="right">R$ 44,66</td>
+                        <td class="right" style="color:var(--yellow)">+11,4%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="center bold">13</td>
+                        <td class="bold">B01</td>
+                        <td style="white-space:normal;">DKB 335</td>
+                        <td class="right">158</td>
+                        <td class="right">R$ 2.378</td>
+                        <td class="right">R$ 5.932</td>
+                        <td class="right bold">133,81</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.744</td>
+                        <td class="right bold" style="color:var(--green)">R$ 812</td>
+                        <td class="right" style="color:var(--yellow)">12,0%</td>
+                        <td class="right">R$ 44,33</td>
+                        <td class="right" style="color:var(--yellow)">+12,0%</td>
+                        <td class="center"><span class="badge badge-green">BOM</span></td>
+                    </tr>
+                    <tr class="row-yellow">
+                        <td class="center bold">14</td>
+                        <td class="bold">A09</td>
+                        <td style="white-space:normal;">DKB 335</td>
+                        <td class="right">74</td>
+                        <td class="right">R$ 2.351</td>
+                        <td class="right">R$ 5.903</td>
+                        <td class="right bold">129,61</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.532</td>
+                        <td class="right bold" style="color:var(--yellow)">R$ 629</td>
+                        <td class="right" style="color:var(--yellow)">9,6%</td>
+                        <td class="right">R$ 45,55</td>
+                        <td class="right" style="color:var(--yellow)">+9,6%</td>
+                        <td class="center"><span class="badge badge-yellow">REGULAR</span></td>
+                    </tr>
+                    <tr class="row-yellow">
+                        <td class="center bold">15</td>
+                        <td class="bold">A11</td>
+                        <td style="white-space:normal;">AG 8701 + AG 8450</td>
+                        <td class="right">85</td>
+                        <td class="right">R$ 2.723</td>
+                        <td class="right">R$ 6.297</td>
+                        <td class="right bold">136,40</td>
+                        <td class="right">R$ 50,40</td>
+                        <td class="right">R$ 6.875</td>
+                        <td class="right bold" style="color:var(--yellow)">R$ 578</td>
+                        <td class="right" style="color:var(--yellow)">8,4%</td>
+                        <td class="right">R$ 46,17</td>
+                        <td class="right" style="color:var(--yellow)">+8,4%</td>
+                        <td class="center"><span class="badge badge-yellow">REGULAR</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">Receita/ha = produtividade × PMV único do milho (R$ 50,40/sc). Resultado/ha da planilha (confere com receita − CT em todos os talhões). Margem de segurança = (produtividade − breakeven do talhão) ÷ produtividade, com breakeven = CT/ha ÷ R$ 50,40. Com PMV único ela coincide com a lucratividade. Status: EXCELENTE = verde com lucratividade ≥ 20%, BOM = demais verdes, REGULAR = amarelo (entre média ± 0,5×DP). Goiás fica fora do ranking por vir em bloco. Com -R$ 1.997,93/ha ocuparia a 38ª posição entre 39.</div>
+    </div>
+
+    <!-- ========== MILHO — BOTTOM 10 ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>⚠️</span> BOTTOM 10 — TALHÕES CRÍTICOS (MILHO)</div>
+
+    <div class="card grid-full">
+        <div class="table-scroll">
+            <table class="data-table" style="white-space:nowrap;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Talhão</th>
+                        <th>Material</th>
+                        <th class="right">Insumos/ha</th>
+                        <th class="right">CT/ha</th>
+                        <th class="right">Prod. sc/ha</th>
+                        <th class="right">Receita/ha</th>
+                        <th class="right">Resultado/ha</th>
+                        <th class="right">Lucrat. %</th>
+                        <th class="right">BE sc/ha</th>
+                        <th class="right">Gap vs Média</th>
+                        <th class="center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">38</td>
+                        <td class="bold">C01</td>
+                        <td style="white-space:normal;">SS 2222E</td>
+                        <td class="right">R$ 6.283</td>
+                        <td class="right">R$ 10.071</td>
+                        <td class="right bold" style="color:var(--yellow)">138,71</td>
+                        <td class="right">R$ 6.991</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 3.080</td>
+                        <td class="right" style="color:var(--red)">-44,1%</td>
+                        <td class="right">199,83</td>
+                        <td class="right" style="color:var(--red)">-R$ 3.241</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">37</td>
+                        <td class="bold">C02</td>
+                        <td style="white-space:normal;">SS 2222E</td>
+                        <td class="right">R$ 3.807</td>
+                        <td class="right">R$ 7.446</td>
+                        <td class="right bold" style="color:var(--red)">112,82</td>
+                        <td class="right">R$ 5.686</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.760</td>
+                        <td class="right" style="color:var(--red)">-31,0%</td>
+                        <td class="right">147,74</td>
+                        <td class="right" style="color:var(--red)">-R$ 1.921</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">36</td>
+                        <td class="bold">F01</td>
+                        <td style="white-space:normal;">DKB 360 + DKB 335</td>
+                        <td class="right">R$ 3.543</td>
+                        <td class="right">R$ 7.167</td>
+                        <td class="right bold" style="color:var(--red)">109,17</td>
+                        <td class="right">R$ 5.502</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.665</td>
+                        <td class="right" style="color:var(--red)">-30,3%</td>
+                        <td class="right">142,20</td>
+                        <td class="right" style="color:var(--red)">-R$ 1.825</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">35</td>
+                        <td class="bold">A12</td>
+                        <td style="white-space:normal;">AG 8701 + AG 8450</td>
+                        <td class="right">R$ 4.022</td>
+                        <td class="right">R$ 7.674</td>
+                        <td class="right bold" style="color:var(--yellow)">129,34</td>
+                        <td class="right">R$ 6.519</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.156</td>
+                        <td class="right" style="color:var(--red)">-17,7%</td>
+                        <td class="right">152,27</td>
+                        <td class="right" style="color:var(--red)">-R$ 1.316</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">34</td>
+                        <td class="bold">F02</td>
+                        <td style="white-space:normal;">SS 236E</td>
+                        <td class="right">R$ 3.126</td>
+                        <td class="right">R$ 6.724</td>
+                        <td class="right bold" style="color:var(--red)">113,58</td>
+                        <td class="right">R$ 5.724</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.000</td>
+                        <td class="right" style="color:var(--red)">-17,5%</td>
+                        <td class="right">133,42</td>
+                        <td class="right" style="color:var(--red)">-R$ 1.161</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">33</td>
+                        <td class="bold">F03</td>
+                        <td style="white-space:normal;">SS 236E</td>
+                        <td class="right">R$ 3.219</td>
+                        <td class="right">R$ 6.823</td>
+                        <td class="right bold" style="color:var(--red)">121,05</td>
+                        <td class="right">R$ 6.101</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 722</td>
+                        <td class="right" style="color:var(--red)">-11,8%</td>
+                        <td class="right">135,37</td>
+                        <td class="right" style="color:var(--red)">-R$ 883</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">32</td>
+                        <td class="bold">C06</td>
+                        <td style="white-space:normal;">SS 236E</td>
+                        <td class="right">R$ 3.477</td>
+                        <td class="right">R$ 7.096</td>
+                        <td class="right bold" style="color:var(--red)">127,07</td>
+                        <td class="right">R$ 6.404</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 692</td>
+                        <td class="right" style="color:var(--red)">-10,8%</td>
+                        <td class="right">140,80</td>
+                        <td class="right" style="color:var(--red)">-R$ 853</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">31</td>
+                        <td class="bold">B03</td>
+                        <td style="white-space:normal;">Mistura</td>
+                        <td class="right">R$ 2.304</td>
+                        <td class="right">R$ 5.853</td>
+                        <td class="right bold" style="color:var(--red)">104,94</td>
+                        <td class="right">R$ 5.289</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 564</td>
+                        <td class="right" style="color:var(--red)">-10,7%</td>
+                        <td class="right">116,13</td>
+                        <td class="right" style="color:var(--red)">-R$ 725</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-red row-bottom">
+                        <td class="center bold" style="color:var(--red)">30</td>
+                        <td class="bold">B04</td>
+                        <td style="white-space:normal;">Mistura</td>
+                        <td class="right">R$ 2.360</td>
+                        <td class="right">R$ 5.912</td>
+                        <td class="right bold" style="color:var(--red)">106,41</td>
+                        <td class="right">R$ 5.363</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 549</td>
+                        <td class="right" style="color:var(--red)">-10,2%</td>
+                        <td class="right">117,31</td>
+                        <td class="right" style="color:var(--red)">-R$ 710</td>
+                        <td class="center"><span class="badge badge-red">CRÍTICO</span></td>
+                    </tr>
+                    <tr class="row-yellow row-bottom">
+                        <td class="center bold" style="color:var(--red)">29</td>
+                        <td class="bold">F06</td>
+                        <td style="white-space:normal;">DKB 335</td>
+                        <td class="right">R$ 3.375</td>
+                        <td class="right">R$ 6.988</td>
+                        <td class="right bold" style="color:var(--yellow)">132,79</td>
+                        <td class="right">R$ 6.693</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 296</td>
+                        <td class="right" style="color:var(--red)">-4,4%</td>
+                        <td class="right">138,65</td>
+                        <td class="right" style="color:var(--red)">-R$ 457</td>
+                        <td class="center"><span class="badge badge-yellow">REGULAR</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">BE sc/ha = CT/ha do talhão ÷ R$ 50,40. Gap vs média = resultado/ha do talhão − resultado/ha do milho MT (R$ 160,90/ha). Produtividade em amarelo = acima do breakeven do grupo (128,86 sc/ha) e mesmo assim negativa.</div>
+
+        <!-- INSIGHT -->
+        <div class="insight-box">
+            <div class="insight-title">🔍 Insight — Padrão dos Talhões Críticos do Milho</div>
+            <strong>4 dos 10 piores talhões são do bloco F e 3 do bloco C.</strong> Juntos somam 1.258 ha e perderam -R$ 1,38 mi. No milho o gasto pesou, ao contrário da soja. C01, A12 e F06 colheram acima do breakeven do grupo e ainda assim fecharam negativos porque o custo do talhão subiu o breakeven próprio. C01 é o caso extremo, com R$ 6.283,34/ha em insumos, breakeven de 199,83 sc/ha e perda de -R$ 0,41 mi em 132 ha. Os demais (C02, F01, F02, F03, C06, B03, B04) perderam pela colheita, entre 104,94 e 127,07 sc/ha. <strong>Antes de comprar insumo para o milho de 26/27 é preciso abrir o lançamento de C01, C02 e A12, que gastaram muito acima da média do MT (R$ 2.790/ha).</strong>
+        </div>
+    </div>
+
+    <!-- ========== MILHO — DISPERSÃO ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>📈</span> ANÁLISE DE DISPERSÃO — CORRELAÇÕES ENTRE VARIÁVEIS (MILHO)</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📈 Produtividade × Resultado/ha (r = 0,61)</div>
+            <div class="chart-container tall">
+                <canvas id="mScatterProdResult"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📈 Custo Insumos/ha × Produtividade (r = 0,13)</div>
+            <div class="chart-container tall">
+                <canvas id="mScatterCustoResult"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📈 Custo Total/ha × Resultado/ha (r = -0,70)</div>
+            <div class="chart-container tall">
+                <canvas id="mScatterCTResult"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Distribuição de Produtividade — Histograma (Milho)</div>
+            <div class="chart-container tall">
+                <canvas id="mHistProd"></canvas>
+            </div>
+        </div>
+    </div>
+    <div style="margin:-16px 0 28px; font-size:11px; color:var(--text-muted);">Cores por bloco de talhões do MT (A: 14 talhões, 1.631 ha · B: 10 talhões, 1.485 ha · C: 6 talhões, 897 ha · F: 8 talhões, 788 ha). O milho do MT não tem fazendas distintas, por isso os blocos A, B, C e F fazem o papel das fazendas da soja. Goiás fica fora dos gráficos por vir em bloco único.</div>
+
+    <!-- ========== MILHO — MATRIZ DE CORRELAÇÃO ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>🔗</span> MATRIZ DE CORRELAÇÃO — VARIÁVEIS-CHAVE (MILHO)</div>
+
+    <div class="card grid-full">
+        <div class="card-title">🔗 Correlação de Pearson — 38 Talhões Milho (MT)</div>
+        <table class="corr-matrix">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Custo Ins./ha</th>
+                    <th>CT/ha</th>
+                    <th>Prod. sc/ha</th>
+                    <th>Receita/ha</th>
+                    <th>Resultado/ha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Custo Ins./ha</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-strong-neg">-0,70</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">CT/ha</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-strong-neg">-0,70</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Prod. sc/ha</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-mod-pos">0,61</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Receita/ha</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-weak">0,13</td>
+                    <td class="corr-strong-pos">1,00</td>
+                    <td class="corr-diag">1,00</td>
+                    <td class="corr-mod-pos">0,61</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700; color: var(--text-secondary); text-align:left; background:rgba(46,125,50,0.08);">Resultado/ha</td>
+                    <td class="corr-strong-neg">-0,70</td>
+                    <td class="corr-strong-neg">-0,70</td>
+                    <td class="corr-mod-pos">0,61</td>
+                    <td class="corr-mod-pos">0,61</td>
+                    <td class="corr-diag">1,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box" style="margin-top: 16px;">
+            <div class="insight-title">🔑 Insights da Correlação</div>
+            <strong>Produtividade × Resultado (r = 0,61):</strong> Correlação moderada. A colheita ainda pesa, mas bem menos do que na soja (0,95).<br>
+            <strong>Custo Insumos × Produtividade (r = 0,13):</strong> Correlação fraca. Os talhões que gastaram mais em insumos não colheram mais.<br>
+            <strong>CT/ha × Resultado (r = -0,70):</strong> Correlação forte e negativa. No milho o custo do talhão variou o bastante para decidir o resultado. Sem C01 o r fica em -0,56 e o de produtividade × resultado sobe para 0,78, então C01 puxa a leitura mas não a cria sozinho.<br>
+            <strong>Insumos × CT (r = 1,00):</strong> Na planilha o CT de cada talhão de milho é 1,06 × insumos + R$ 3.410,84/ha. Os demais custos foram rateados por área, por isso a correlação é perfeita e não diz nada sobre o manejo.<br>
+            <strong>Conclusão:</strong> No milho de 26/27 o controle do gasto por talhão vale tanto quanto a produtividade. O teto de insumos por talhão precisa ser definido antes do plantio.
+        </div>
+    </div>
+
+    <!-- ========== MILHO — GAP ANALYSIS ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>🎯</span> GAP ANALYSIS — OPORTUNIDADES POR BLOCO (MILHO)</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🔴 Bloco C MT — 3 talhões no vermelho</div>
+            <div class="gap-item">
+                <div class="gap-talhao">C01 <span style="font-size:11px; color:var(--text-muted);">138,71 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 3.241/ha vs média</div>
+                    <div class="gap-total">Pior talhão do bloco C</div>
+                </div>
+            </div>
+            <div class="gap-item">
+                <div class="gap-talhao">C02 <span style="font-size:11px; color:var(--text-muted);">112,82 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 1.921/ha vs média</div>
+                    <div class="gap-total">Insumos R$ 3.807/ha</div>
+                </div>
+            </div>
+            <div class="gap-item">
+                <div class="gap-talhao">C06 <span style="font-size:11px; color:var(--text-muted);">127,07 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 853/ha vs média</div>
+                    <div class="gap-total">Insumos R$ 3.477/ha</div>
+                </div>
+            </div>
+            <div class="gap-item">
+                <div class="gap-talhao">C07 <span style="font-size:11px; color:var(--text-muted);">125,85 sc/ha</span></div>
+                <div class="gap-values">
+                    <div class="gap-per-ha">-R$ 435/ha vs média</div>
+                    <div class="gap-total">Insumos R$ 3.025/ha</div>
+                </div>
+            </div>
+            <div style="margin-top:14px; padding:12px 16px; background:rgba(255,82,82,0.08); border-radius:10px; text-align:center;">
+                <div style="font-size:12px; color:var(--text-muted);">GAP TOTAL BLOCO C</div>
+                <div style="font-size:24px; font-weight:800; color:var(--red);">R$ 598.377</div>
+                <div style="font-size:11px; color:var(--text-muted);">se atingisse o resultado/ha do milho MT (R$ 160,90/ha)</div>
+            </div>
+            <div style="margin-top:12px; font-size:12px; line-height:1.7; color:var(--text-secondary);">
+                <strong>Foco por bloco:</strong> 4 dos 6 talhões do bloco C fecharam negativos (-R$ 506,18/ha). O bloco F teve 6 de 8 negativos (-R$ 343,99/ha) e um gap de R$ 397.853 pela mesma conta. No bloco A, 3 dos 14 ficaram negativos, e no B, 3 dos 10. Goiás, em bloco, tem o maior gap de todos: R$ 3,49 mi para chegar ao resultado/ha do MT.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📊 Resultado/ha por Bloco — Box Plot Simulado</div>
+            <div class="chart-container tall">
+                <canvas id="mChartBoxPlot"></canvas>
+            </div>
+            <div style="margin-top:12px; font-size:12px; line-height:1.7; color:var(--text-secondary);">
+                <strong>Leitura:</strong> A linha fina vai do mínimo ao máximo, a caixa mostra Q1-Q3 (50% central) e a marca branca é a mediana.
+                O milho do MT não tem fazendas distintas, então os grupos são os blocos de talhões A, B, C e F. O bloco C tem a menor mediana (-R$ 483/ha) e o pior talhão do ano (C01, -R$ 3.080/ha). O bloco F tem a caixa quase toda abaixo de zero (-R$ 791 a -R$ 9). O bloco B tem mediana de R$ 843/ha, mas Q1 negativo, puxado por B02, B03 e B04. O bloco A tem mediana de R$ 465/ha e o melhor talhão (A14). Goiás fica fora porque veio sem talhões.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MILHO — EFICIÊNCIA DE INSUMOS ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>💉</span> EFICIÊNCIA DE INSUMOS — CUSTO-BENEFÍCIO (MILHO)</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📊 Eficiência: sc produzidas por R$ 1.000 em insumos</div>
+            <div class="chart-container tall">
+                <canvas id="mChartEficiencia"></canvas>
+            </div>
+            <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">sc/R$ 1.000 = produtividade ÷ insumos/ha × 1.000. Média do milho = 120,07 sc/ha ÷ R$ 2.909,04/ha (grupo, MT + GO). Goiás em bloco: 30,26.</div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Custo de Insumos/ha por Bloco</div>
+            <div class="chart-container tall">
+                <canvas id="mChartCustoFazenda"></canvas>
+            </div>
+            <div style="margin-top:10px; font-size:11px; color:var(--text-muted);">Médias ponderadas pela área dos talhões de cada bloco. A segunda faixa é CT/ha − insumos/ha (administração, máquinas, terra, depreciação e demais), sem abertura por rubrica.</div>
+        </div>
+    </div>
+
+    <!-- ========== MILHO — MATERIAIS E FAIXAS ========== -->
+    <div class="section-title" style="color:var(--accent);"><span>🌽</span> MATERIAIS E FAIXAS DE PRODUTIVIDADE (MILHO)</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🌽 Resultado por Material — média ponderada pela área</div>
+            <div class="table-scroll">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Nº Talhões</th>
+                            <th class="right">Área (ha)</th>
+                            <th class="right">Prod. sc/ha</th>
+                            <th class="right">Resultado/ha</th>
+                            <th class="right">Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="row-green">
+                        <td class="bold" style="white-space:nowrap;">DKB 360</td>
+                        <td title="A01, A02, A03, A14">4</td>
+                        <td class="right">605</td>
+                        <td class="right bold">162,35</td>
+                        <td class="right bold" style="color:var(--green)">R$ 1.675</td>
+                        <td class="right" style="color:var(--green); white-space:nowrap;">R$ 1,01 mi</td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="bold" style="white-space:nowrap;">DKB 335 + DKB 380</td>
+                        <td title="B12">1</td>
+                        <td class="right">155</td>
+                        <td class="right bold">127,63</td>
+                        <td class="right bold" style="color:var(--green)">R$ 938</td>
+                        <td class="right" style="color:var(--green); white-space:nowrap;">R$ 0,15 mi</td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="bold" style="white-space:nowrap;">SS 2222E + SS 236E</td>
+                        <td title="C05">1</td>
+                        <td class="right">173</td>
+                        <td class="right bold">144,68</td>
+                        <td class="right bold" style="color:var(--green)">R$ 928</td>
+                        <td class="right" style="color:var(--green); white-space:nowrap;">R$ 0,16 mi</td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="bold" style="white-space:nowrap;">AG 8701</td>
+                        <td title="A10">1</td>
+                        <td class="right">81</td>
+                        <td class="right bold">142,22</td>
+                        <td class="right bold" style="color:var(--green)">R$ 816</td>
+                        <td class="right" style="color:var(--green); white-space:nowrap;">R$ 0,07 mi</td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="bold" style="white-space:nowrap;">P3858</td>
+                        <td title="B07, B10, B11, F07, F08">5</td>
+                        <td class="right">450</td>
+                        <td class="right bold">127,68</td>
+                        <td class="right bold" style="color:var(--green)">R$ 503</td>
+                        <td class="right" style="color:var(--green); white-space:nowrap;">R$ 0,23 mi</td>
+                    </tr>
+                    <tr class="row-green">
+                        <td class="bold" style="white-space:nowrap;">DKB 335</td>
+                        <td title="A06, A07, A08, A09, B01, B02, B08, B09, F05, F06">10</td>
+                        <td class="right">1.059</td>
+                        <td class="right bold">128,06</td>
+                        <td class="right bold" style="color:var(--green)">R$ 334</td>
+                        <td class="right" style="color:var(--green); white-space:nowrap;">R$ 0,35 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">P3808</td>
+                        <td title="A04, A05">2</td>
+                        <td class="right">359</td>
+                        <td class="right bold">120,79</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 161</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 0,06 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">AG 8701 + AG 8450</td>
+                        <td title="A11, A12, A13">3</td>
+                        <td class="right">301</td>
+                        <td class="right bold">133,68</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 207</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 0,06 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">SS 236E</td>
+                        <td title="C06, C07, F02, F03, F04">5</td>
+                        <td class="right">669</td>
+                        <td class="right bold">124,00</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 255</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 0,17 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">Mistura</td>
+                        <td title="B03, B04">2</td>
+                        <td class="right">417</td>
+                        <td class="right bold">105,62</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 557</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 0,23 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">SS 2222E</td>
+                        <td title="C01, C02, C04">3</td>
+                        <td class="right">434</td>
+                        <td class="right bold">122,19</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.167</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 0,51 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">DKB 360 + DKB 335</td>
+                        <td title="F01">1</td>
+                        <td class="right">98</td>
+                        <td class="right bold">109,17</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.665</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 0,16 mi</td>
+                    </tr>
+                    <tr class="row-red">
+                        <td class="bold" style="white-space:nowrap;">MG 540 / NK 509 / NK 501</td>
+                        <td title="GO">GO (bloco)</td>
+                        <td class="right">1.616</td>
+                        <td class="right bold">91,90</td>
+                        <td class="right bold" style="color:var(--red)">-R$ 1.998</td>
+                        <td class="right" style="color:var(--red); white-space:nowrap;">-R$ 3,23 mi</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📊 Milho — Área por Faixa de Produtividade</div>
+            <div class="chart-container tall">
+                <canvas id="chartMilhoFaixas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MILHO — LEITURA DO CONSULTOR ========== -->
+    <div class="card grid-full">
+        <div class="insight-box" style="margin-top:0;">
+            <div class="insight-title">🔍 Insight — Milho por Talhão e Material</div>
+            <strong>O milho do MT fechou positivo em R$ 0,77 mi e Goiás perdeu -R$ 3,23 mi, o que deixou o milho do grupo em -R$ 2,46 mi.</strong> No MT 22 dos 38 talhões deram lucro e o top 3 é todo de DKB 360 (A14, A03 e A01), acima de R$ 1.700/ha. O ranking mostra que o milho se perdeu em dois lugares. Um é o custo, porque C01, C02 e A12 gastaram de R$ 3.807 a R$ 6.283/ha em insumos e o CT explica mais o resultado (-0,70) do que a produtividade (0,61). O outro é a colheita baixa nos blocos B e F, com a Mistura (B03 e B04) e o F01 abaixo de 110 sc/ha. O DKB 360 (605 ha) colheu 162,35 sc/ha e deu R$ 1.674,92/ha, o melhor material do ano. Materiais com um ou dois talhões não permitem conclusão sobre o híbrido, porque o efeito do talhão se mistura ao do material. O dado não mostra data de plantio nem chuva por talhão, e no milho safrinha isso pesa. Para 26/27 a recomendação é fixar teto de insumo por talhão, revisar o lançamento de C01 e registrar a data de semeadura de cada talhão.<br>
+            <strong>Soja:</strong> o quadro de variedades da soja que veio na planilha corresponde a 24/25 (6.815 ha, a área do milho daquela safra). A variedade da soja por talhão de 25/26 não foi informada, por isso não há leitura por cultivar da soja nesta página. Registrar a cultivar por talhão na soja de 26/27.
+        </div>
+    </div>
+    </div>
+
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+    Relatório gerado em 08/10/2026 | Versão 2.0 | Consultor: Dr. Sidney Souza | <span class="brand">Rural In</span> — Software de Gestão Rural<br>
+    Dados da safra 25/26 — Grupo Baptistella | 85 talhões de soja e 38 de milho analisados | Metodologia padronizada
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+    Chart.register(ChartDataLabels);
+    Chart.defaults.animation.duration = 500;
+
+    const defaultFont = { family: 'Inter', size: 11 };
+    const gridColor = 'rgba(46, 125, 50, 0.1)';
+    const tickColor = '#66BB6A';
+    const brl = v => 'R$ ' + v.toLocaleString('pt-BR');
+
+    const FAZ = [
+        { label: 'Planalto MT', c: '#00E676', bg: 'rgba(0, 230, 118, 0.7)' },
+        { label: 'Continental MT', c: '#FF9100', bg: 'rgba(255, 145, 0, 0.7)' },
+        { label: 'Araras MT', c: '#FF5252', bg: 'rgba(255, 82, 82, 0.7)' }
+    ];
+    function ds(arr) {
+        return arr.map((d, i) => ({ label: FAZ[i].label, data: d, backgroundColor: FAZ[i].bg, borderColor: FAZ[i].c, pointRadius: 6, pointHoverRadius: 9 }));
+    }
+    function scatterOpts(xt, yt, xr, yr) {
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tickColor, font: defaultFont, usePointStyle: true } },
+                datalabels: { display: false }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: xt, color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont, callback: xr ? brl : undefined }
+                },
+                y: {
+                    title: { display: true, text: yt, color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont, callback: yr ? brl : undefined }
+                }
+            }
+        };
+    }
+
+    // ==================== SCATTER 1: Produtividade × Resultado ====================
+    new Chart(document.getElementById('scatterProdResult'), {
+        type: 'scatter',
+        data: { datasets: ds([[{"x": 68.3, "y": 1650.21}, {"x": 64.32, "y": 734.03}, {"x": 64.58, "y": 62.76}, {"x": 71.2, "y": 764.78}, {"x": 50.66, "y": -847.7}, {"x": 64.44, "y": 1290.72}, {"x": 65.81, "y": 1736.87}, {"x": 67.02, "y": 827.38}, {"x": 73.33, "y": 1522.37}, {"x": 68.78, "y": 1490.91}, {"x": 63.84, "y": 1528.27}, {"x": 58.46, "y": -612.67}, {"x": 62.83, "y": -368.44}, {"x": 59.76, "y": -110.63}, {"x": 68.57, "y": 1441.29}, {"x": 70.61, "y": 1849.46}, {"x": 70.51, "y": 771.63}, {"x": 65.11, "y": 1211.41}, {"x": 55.91, "y": -782.62}, {"x": 57.71, "y": -297.45}, {"x": 60.66, "y": -223.68}, {"x": 59.24, "y": -37.97}, {"x": 65.91, "y": 874.9}, {"x": 63.05, "y": 585.55}, {"x": 65.83, "y": 1054.62}, {"x": 66.3, "y": 664.05}, {"x": 64.4, "y": 446.19}, {"x": 66.25, "y": 752.13}, {"x": 73.01, "y": 1814.06}, {"x": 61.26, "y": 189.62}, {"x": 60.23, "y": -194.86}, {"x": 60.02, "y": 160.44}, {"x": 61.07, "y": -75.86}, {"x": 65.62, "y": 1123.71}, {"x": 57.94, "y": 157.47}, {"x": 43.62, "y": -1492.09}, {"x": 38.05, "y": -1607.85}, {"x": 55.22, "y": -643.27}, {"x": 57.25, "y": -242.71}, {"x": 64.67, "y": 1324.83}, {"x": 58.02, "y": -134.6}, {"x": 41.17, "y": -1614.54}, {"x": 57.59, "y": -668.65}, {"x": 46.52, "y": -1463.79}, {"x": 46.53, "y": -1564.3}, {"x": 51.64, "y": -1134.1}, {"x": 51.64, "y": -1134.1}, {"x": 66.68, "y": 817.65}, {"x": 67.63, "y": 260.36}, {"x": 58.65, "y": 222.03}, {"x": 60.27, "y": -472.87}, {"x": 35.04, "y": -3217.21}, {"x": 40.48, "y": -2276.54}, {"x": 40.48, "y": -1969.14}], [{"x": 47.88, "y": -882.16}, {"x": 50.0, "y": -1147.67}, {"x": 58.26, "y": 148.8}, {"x": 50.66, "y": -896.46}, {"x": 52.66, "y": -781.62}, {"x": 59.29, "y": -103.78}, {"x": 63.54, "y": 866.09}, {"x": 54.67, "y": -538.33}, {"x": 54.35, "y": -196.81}, {"x": 55.54, "y": -429.35}, {"x": 59.58, "y": 204.96}, {"x": 64.44, "y": 847.64}, {"x": 59.65, "y": 275.21}, {"x": 51.51, "y": -870.55}, {"x": 61.98, "y": 666.71}, {"x": 61.72, "y": 34.18}, {"x": 41.97, "y": -2081.43}, {"x": 41.97, "y": -2398.37}, {"x": 41.45, "y": -1907.0}, {"x": 41.45, "y": -2148.68}, {"x": 49.31, "y": -1315.72}, {"x": 45.34, "y": -1664.6}], [{"x": 57.54, "y": 75.57}, {"x": 47.28, "y": -1308.18}, {"x": 52.97, "y": -497.93}, {"x": 70.49, "y": 1216.45}, {"x": 67.49, "y": 1108.85}, {"x": 53.37, "y": -970.4}, {"x": 47.74, "y": -1677.53}, {"x": 51.12, "y": -1006.32}, {"x": 73.15, "y": 1645.04}]]) },
+        options: scatterOpts('Produtividade (sc/ha)', 'Resultado/ha (R$)', false, true)
+    });
+
+    // ==================== SCATTER 2: Custo Insumos × Produtividade ====================
+    new Chart(document.getElementById('scatterCustoResult'), {
+        type: 'scatter',
+        data: { datasets: ds([[{"x": 3241.0, "y": 68.3}, {"x": 3635.0, "y": 64.32}, {"x": 4299.0, "y": 64.58}, {"x": 4419.0, "y": 71.2}, {"x": 3513.0, "y": 50.66}, {"x": 3124.0, "y": 64.44}, {"x": 2865.0, "y": 65.81}, {"x": 3866.0, "y": 67.02}, {"x": 3956.0, "y": 73.33}, {"x": 3448.0, "y": 68.78}, {"x": 2829.0, "y": 63.84}, {"x": 4213.0, "y": 58.46}, {"x": 4499.0, "y": 62.83}, {"x": 3893.0, "y": 59.76}, {"x": 3470.0, "y": 68.57}, {"x": 3326.0, "y": 70.61}, {"x": 4331.0, "y": 70.51}, {"x": 3278.0, "y": 65.11}, {"x": 4072.0, "y": 55.91}, {"x": 3827.0, "y": 57.71}, {"x": 4106.0, "y": 60.66}, {"x": 3763.0, "y": 59.24}, {"x": 3690.0, "y": 65.91}, {"x": 3625.0, "y": 63.05}, {"x": 3511.0, "y": 65.83}, {"x": 3935.0, "y": 66.3}, {"x": 3916.0, "y": 64.4}, {"x": 3846.0, "y": 66.25}, {"x": 3643.0, "y": 73.01}, {"x": 3787.0, "y": 61.26}, {"x": 4028.0, "y": 60.23}, {"x": 3668.0, "y": 60.02}, {"x": 4015.0, "y": 61.07}, {"x": 3421.0, "y": 65.62}, {"x": 3425.0, "y": 57.94}, {"x": 3289.0, "y": 43.62}, {"x": 2740.0, "y": 38.05}, {"x": 3859.0, "y": 55.22}, {"x": 3721.0, "y": 57.25}, {"x": 3119.0, "y": 64.67}, {"x": 3710.0, "y": 58.02}, {"x": 3115.0, "y": 41.17}, {"x": 4163.0, "y": 57.59}, {"x": 3605.0, "y": 46.52}, {"x": 3701.0, "y": 46.53}, {"x": 3899.0, "y": 51.64}, {"x": 3899.0, "y": 51.64}, {"x": 3835.0, "y": 66.68}, {"x": 4473.0, "y": 67.63}, {"x": 3448.0, "y": 58.65}, {"x": 4295.0, "y": 60.27}, {"x": 3902.58, "y": 35.04}, {"x": 3658.0, "y": 40.48}, {"x": 3368.0, "y": 40.48}], [{"x": 3217.0, "y": 47.88}, {"x": 3718.0, "y": 50.0}, {"x": 3471.0, "y": 58.26}, {"x": 3559.0, "y": 50.66}, {"x": 3687.0, "y": 52.66}, {"x": 3831.0, "y": 59.29}, {"x": 3418.25, "y": 63.54}, {"x": 3695.0, "y": 54.67}, {"x": 3335.0, "y": 54.35}, {"x": 3695.0, "y": 55.54}, {"x": 3574.0, "y": 59.58}, {"x": 3542.0, "y": 64.44}, {"x": 3516.0, "y": 59.65}, {"x": 3635.0, "y": 51.51}, {"x": 3422.0, "y": 61.98}, {"x": 3988.0, "y": 61.72}, {"x": 3650.0, "y": 41.97}, {"x": 3949.0, "y": 41.97}, {"x": 3424.0, "y": 41.45}, {"x": 3652.0, "y": 41.45}, {"x": 3795.0, "y": 49.31}, {"x": 3655.0, "y": 45.34}], [{"x": 3455.0, "y": 57.54}, {"x": 3548.0, "y": 47.28}, {"x": 3456.0, "y": 52.97}, {"x": 3909.0, "y": 70.49}, {"x": 3656.0, "y": 67.49}, {"x": 3949.0, "y": 53.37}, {"x": 3950.8, "y": 47.74}, {"x": 3717.0, "y": 51.12}, {"x": 3819.0, "y": 73.15}]]) },
+        options: scatterOpts('Custo Insumos/ha (R$)', 'Produtividade (sc/ha)', true, false)
+    });
+
+    // ==================== SCATTER 3: CT/ha × Resultado/ha ====================
+    new Chart(document.getElementById('scatterCTResult'), {
+        type: 'scatter',
+        data: { datasets: ds([[{"x": 6905.05, "y": 1650.21}, {"x": 7322.69, "y": 734.03}, {"x": 8026.53, "y": 62.76}, {"x": 8153.73, "y": 764.78}, {"x": 7193.37, "y": -847.7}, {"x": 6781.03, "y": 1290.72}, {"x": 6506.49, "y": 1736.87}, {"x": 7567.55, "y": 827.38}, {"x": 7662.95, "y": 1522.37}, {"x": 7124.47, "y": 1490.91}, {"x": 6468.33, "y": 1528.27}, {"x": 7935.37, "y": -612.67}, {"x": 8238.53, "y": -368.44}, {"x": 7596.17, "y": -110.63}, {"x": 7147.79, "y": 1441.29}, {"x": 6995.15, "y": 1849.46}, {"x": 8060.45, "y": 771.63}, {"x": 6944.27, "y": 1211.41}, {"x": 7785.91, "y": -782.62}, {"x": 7526.21, "y": -297.45}, {"x": 7821.95, "y": -223.68}, {"x": 7458.37, "y": -37.97}, {"x": 7380.99, "y": 874.9}, {"x": 7312.09, "y": 585.55}, {"x": 7191.25, "y": 1054.62}, {"x": 7640.69, "y": 664.05}, {"x": 7620.55, "y": 446.19}, {"x": 7546.35, "y": 752.13}, {"x": 7331.17, "y": 1814.06}, {"x": 7483.81, "y": 189.62}, {"x": 7739.27, "y": -194.86}, {"x": 7357.67, "y": 160.44}, {"x": 7725.49, "y": -75.86}, {"x": 7095.85, "y": 1123.71}, {"x": 7100.09, "y": 157.47}, {"x": 6955.93, "y": -1492.09}, {"x": 6373.99, "y": -1607.85}, {"x": 7560.13, "y": -643.27}, {"x": 7413.85, "y": -242.71}, {"x": 6775.73, "y": 1324.83}, {"x": 7402.19, "y": -134.6}, {"x": 6771.49, "y": -1614.54}, {"x": 7882.37, "y": -668.65}, {"x": 7290.89, "y": -1463.79}, {"x": 7392.65, "y": -1564.3}, {"x": 7602.53, "y": -1134.1}, {"x": 7602.53, "y": -1134.1}, {"x": 7534.69, "y": 817.65}, {"x": 8210.97, "y": 260.36}, {"x": 7124.47, "y": 222.03}, {"x": 8022.29, "y": -472.87}, {"x": 7606.32, "y": -3217.21}, {"x": 7347.07, "y": -2276.54}, {"x": 7039.67, "y": -1969.14}], [{"x": 6879.61, "y": -882.16}, {"x": 7410.67, "y": -1147.67}, {"x": 7148.85, "y": 148.8}, {"x": 7242.13, "y": -896.46}, {"x": 7377.81, "y": -781.62}, {"x": 7530.45, "y": -103.78}, {"x": 7092.93, "y": 866.09}, {"x": 7386.29, "y": -538.33}, {"x": 7004.69, "y": -196.81}, {"x": 7386.29, "y": -429.35}, {"x": 7258.03, "y": 204.96}, {"x": 7224.11, "y": 847.64}, {"x": 7196.55, "y": 275.21}, {"x": 7322.69, "y": -870.55}, {"x": 7096.91, "y": 666.71}, {"x": 7696.87, "y": 34.18}, {"x": 7338.59, "y": -2081.43}, {"x": 7655.53, "y": -2398.37}, {"x": 7099.03, "y": -1907.0}, {"x": 7340.71, "y": -2148.68}, {"x": 7492.29, "y": -1315.72}, {"x": 7343.89, "y": -1664.6}], [{"x": 7131.89, "y": 75.57}, {"x": 7230.47, "y": -1308.18}, {"x": 7132.95, "y": -497.93}, {"x": 7613.13, "y": 1216.45}, {"x": 7344.95, "y": 1108.85}, {"x": 7655.53, "y": -970.4}, {"x": 7657.44, "y": -1677.53}, {"x": 7409.61, "y": -1006.32}, {"x": 7517.73, "y": 1645.04}]]) },
+        options: scatterOpts('Custo Total/ha (R$)', 'Resultado/ha (R$)', true, true)
+    });
+
+    // ==================== HISTOGRAMA DE PRODUTIVIDADE ====================
+    new Chart(document.getElementById('histProd'), {
+        type: 'bar',
+        data: {
+            labels: ["35-40", "40-45", "45-50", "50-55", "55-60", "60-65", "65-70", "70-75"],
+            datasets: [{
+                label: 'Nº de Talhões',
+                data: [2, 8, 7, 12, 17, 18, 14, 7],
+                backgroundColor: [
+                    'rgba(255,82,82,0.6)', 'rgba(255,82,82,0.5)', 'rgba(255,82,82,0.4)', 'rgba(255,145,0,0.5)',
+                    'rgba(255,214,0,0.45)', 'rgba(0,230,118,0.4)', 'rgba(0,230,118,0.6)', 'rgba(0,230,118,0.8)'
+                ],
+                borderColor: ['#FF5252', '#FF5252', '#FF5252', '#FF9100', '#FFD600', '#00E676', '#00E676', '#00E676'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: { anchor: 'end', align: 'top', color: '#E8F5E9', font: { weight: 'bold', size: 12, family: 'Inter' } }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Faixa de Produtividade (sc/ha) · breakeven 58,98', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont }
+                },
+                y: {
+                    title: { display: true, text: 'Nº de Talhões', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont },
+                    suggestedMax: 21
+                }
+            }
+        }
+    });
+
+    // ==================== BOX PLOT SIMULADO ====================
+    const BX = [[-3217, -636, 159, 863, 1849], [-2398, -1274, -660, 120, 866], [-1678, -1006, -498, 1109, 1645]];
+    new Chart(document.getElementById('chartBoxPlot'), {
+        type: 'bar',
+        data: {
+            labels: ['Planalto MT', 'Continental MT', 'Araras MT'],
+            datasets: [
+                {
+                    label: 'Mín–Máx',
+                    data: BX.map(b => [b[0], b[4]]),
+                    backgroundColor: 'rgba(165,214,167,0.35)',
+                    borderWidth: 0,
+                    barPercentage: 0.06,
+                    grouped: false
+                },
+                {
+                    label: 'IQR (caixa)',
+                    data: BX.map(b => [b[1], b[3]]),
+                    backgroundColor: ['rgba(0,230,118,0.3)', 'rgba(255,145,0,0.3)', 'rgba(255,82,82,0.3)'],
+                    borderColor: ['#00E676', '#FF9100', '#FF5252'],
+                    borderWidth: 2,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    barPercentage: 0.7,
+                    grouped: false
+                },
+                {
+                    label: 'Mediana',
+                    data: BX.map(b => [b[2] - 12, b[2] + 12]),
+                    backgroundColor: '#E8F5E9',
+                    borderWidth: 0,
+                    barPercentage: 0.7,
+                    grouped: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    title: { display: true, text: 'Resultado/ha (R$)', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont, callback: brl }
+                },
+                y: {
+                    grid: { display: false },
+                    ticks: { color: '#E8F5E9', font: { ...defaultFont, weight: 'bold', size: 13 } }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                datalabels: { display: false }
+            }
+        }
+    });
+
+    // ==================== EFICIÊNCIA DE INSUMOS ====================
+    new Chart(document.getElementById('chartEficiencia'), {
+        type: 'bar',
+        data: {
+            labels: [["A07", "(melhor)"], "A11", "B02", "A01", "C06", ["Média", "soja"], "CT17", "D01", "CT15", ["F09", "(pior)"]],
+            datasets: [{
+                label: 'sc / R$ 1.000 em insumos',
+                data: [22.97, 22.57, 21.23, 21.07, 20.73, 16.8, 11.35, 11.07, 10.63, 8.98],
+                backgroundColor: [
+                    'rgba(0,230,118,0.7)', 'rgba(0,230,118,0.6)', 'rgba(0,230,118,0.6)',
+                    'rgba(0,230,118,0.5)', 'rgba(0,230,118,0.5)', 'rgba(249,168,37,0.5)',
+                    'rgba(255,145,0,0.5)', 'rgba(255,82,82,0.6)', 'rgba(255,82,82,0.6)', 'rgba(255,82,82,0.7)'
+                ],
+                borderColor: ['#00E676', '#00E676', '#00E676', '#00E676', '#00E676', '#F9A825', '#FF9100', '#FF5252', '#FF5252', '#FF5252'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: { anchor: 'end', align: 'top', color: '#E8F5E9', font: { weight: 'bold', size: 11, family: 'Inter' }, formatter: v => v.toFixed(1).replace('.', ',') }
+            },
+            scales: {
+                x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { ...defaultFont, size: 10 }, maxRotation: 0 } },
+                y: {
+                    title: { display: true, text: 'sc / R$ 1.000 insumos', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont },
+                    suggestedMax: 26
+                }
+            }
+        }
+    });
+
+    // ==================== CUSTO POR FAZENDA ====================
+    new Chart(document.getElementById('chartCustoFazenda'), {
+        type: 'bar',
+        data: {
+            labels: ["Planalto MT", "Goiás GO", "Continental MT", "Araras MT"],
+            datasets: [
+                { label: 'Insumos/ha', data: [3740.42, 3633.21, 3611.58, 3710.43], backgroundColor: 'rgba(255,82,82,0.5)', borderColor: '#FF5252', borderWidth: 1, borderRadius: 4 },
+                { label: 'Demais custos/ha (CT − insumos)', data: [3694.01, 3687.58, 3686.28, 3692.22], backgroundColor: 'rgba(249,168,37,0.5)', borderColor: '#F9A825', borderWidth: 1, borderRadius: 4 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, font: defaultFont } },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'R$/ha', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont, callback: brl }
+                }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { color: tickColor, font: defaultFont, usePointStyle: true } },
+                datalabels: { color: '#E8F5E9', font: { weight: 'bold', size: 11, family: 'Inter' }, formatter: v => Math.round(v).toLocaleString('pt-BR') }
+            }
+        }
+    });
+
+
+    // ==================== MILHO — BLOCOS (grupos) ====================
+    const BLK = [
+        { label: 'Bloco A', c: '#F9A825', bg: 'rgba(249, 168, 37, 0.75)' },
+        { label: 'Bloco B', c: '#00E676', bg: 'rgba(0, 230, 118, 0.7)' },
+        { label: 'Bloco C', c: '#FF5252', bg: 'rgba(255, 82, 82, 0.7)' },
+        { label: 'Bloco F', c: '#B388FF', bg: 'rgba(179, 136, 255, 0.7)' }
+    ];
+    function dsm(arr) {
+        return arr.map((d, i) => ({ label: BLK[i].label, data: d, backgroundColor: BLK[i].bg, borderColor: BLK[i].c, pointRadius: 6, pointHoverRadius: 9 }));
+    }
+
+    new Chart(document.getElementById('mScatterProdResult'), {
+        type: 'scatter',
+        data: { datasets: dsm([[{"x": 164.74, "y": 1782.14}, {"x": 155.09, "y": 958.7}, {"x": 167.38, "y": 1937.0}, {"x": 118.86, "y": -212.41}, {"x": 123.82, "y": -80.09}, {"x": 122.26, "y": 260.85}, {"x": 125.65, "y": 138.63}, {"x": 129.9, "y": 352.65}, {"x": 129.61, "y": 629.18}, {"x": 142.22, "y": 815.79}, {"x": 136.4, "y": 577.62}, {"x": 129.34, "y": -1155.54}, {"x": 135.76, "y": 100.64}, {"x": 161.3, "y": 2217.74}], [{"x": 133.81, "y": 812.28}, {"x": 116.7, "y": -198.58}, {"x": 104.94, "y": -563.98}, {"x": 106.41, "y": -549.36}, {"x": 127.82, "y": 890.51}, {"x": 126.82, "y": 934.11}, {"x": 132.54, "y": 873.08}, {"x": 134.1, "y": 340.57}, {"x": 130.02, "y": 903.26}, {"x": 127.63, "y": 937.66}], [{"x": 138.71, "y": -3080.2}, {"x": 112.82, "y": -1760.2}, {"x": 116.07, "y": 397.68}, {"x": 144.68, "y": 927.72}, {"x": 127.07, "y": -692.1}, {"x": 125.85, "y": -274.27}], [{"x": 109.17, "y": -1664.55}, {"x": 113.58, "y": -999.79}, {"x": 121.05, "y": -721.95}, {"x": 130.65, "y": 900.73}, {"x": 130.71, "y": -129.3}, {"x": 132.79, "y": -295.6}, {"x": 115.54, "y": 22.25}, {"x": 115.54, "y": -19.83}]]) },
+        options: scatterOpts('Produtividade (sc/ha)', 'Resultado/ha (R$)', false, true)
+    });
+
+    new Chart(document.getElementById('mScatterCustoResult'), {
+        type: 'scatter',
+        data: { datasets: dsm([[{"x": 2933.88, "y": 164.74}, {"x": 3251.88, "y": 155.09}, {"x": 2913.31, "y": 167.38}, {"x": 2634.07, "y": 118.86}, {"x": 2745.07, "y": 123.82}, {"x": 2349.25, "y": 122.26}, {"x": 2625.74, "y": 125.65}, {"x": 2625.92, "y": 129.9}, {"x": 2351.25, "y": 129.61}, {"x": 2774.77, "y": 142.22}, {"x": 2722.73, "y": 136.4}, {"x": 4022.11, "y": 129.34}, {"x": 3142.28, "y": 135.76}, {"x": 2359.37, "y": 161.3}], [{"x": 2378.21, "y": 133.81}, {"x": 2518.31, "y": 116.7}, {"x": 2303.87, "y": 104.94}, {"x": 2359.98, "y": 106.41}, {"x": 2019.6, "y": 127.82}, {"x": 1930.92, "y": 126.82}, {"x": 2260.46, "y": 132.54}, {"x": 2837.0, "y": 134.1}, {"x": 2112.17, "y": 130.02}, {"x": 1966.09, "y": 127.63}], [{"x": 6283.34, "y": 138.71}, {"x": 3807.06, "y": 112.82}, {"x": 1925.85, "y": 116.07}, {"x": 2786.14, "y": 144.68}, {"x": 3476.96, "y": 127.07}, {"x": 3024.78, "y": 125.85}], [{"x": 3543.27, "y": 109.17}, {"x": 3125.82, "y": 113.58}, {"x": 3218.89, "y": 121.05}, {"x": 2144.51, "y": 130.65}, {"x": 3119.09, "y": 130.71}, {"x": 3374.88, "y": 132.79}, {"x": 2254.84, "y": 115.54}, {"x": 2294.53, "y": 115.54}]]) },
+        options: scatterOpts('Custo Insumos/ha (R$)', 'Produtividade (sc/ha)', true, false)
+    });
+
+    new Chart(document.getElementById('mScatterCTResult'), {
+        type: 'scatter',
+        data: { datasets: dsm([[{"x": 6520.76, "y": 1782.14}, {"x": 6857.84, "y": 958.7}, {"x": 6498.95, "y": 1937.0}, {"x": 6202.96, "y": -212.41}, {"x": 6320.62, "y": -80.09}, {"x": 5901.05, "y": 260.85}, {"x": 6194.13, "y": 138.63}, {"x": 6194.31, "y": 352.65}, {"x": 5903.17, "y": 629.18}, {"x": 6352.1, "y": 815.79}, {"x": 6296.94, "y": 577.62}, {"x": 7674.28, "y": -1155.54}, {"x": 6741.66, "y": 100.64}, {"x": 5911.78, "y": 2217.74}], [{"x": 5931.74, "y": 812.28}, {"x": 6080.26, "y": -198.58}, {"x": 5852.95, "y": -563.98}, {"x": 5912.43, "y": -549.36}, {"x": 5551.62, "y": 890.51}, {"x": 5457.62, "y": 934.11}, {"x": 5806.93, "y": 873.08}, {"x": 6418.07, "y": 340.57}, {"x": 5649.74, "y": 903.26}, {"x": 5494.9, "y": 937.66}], [{"x": 10071.19, "y": -3080.2}, {"x": 7446.33, "y": -1760.2}, {"x": 5452.25, "y": 397.68}, {"x": 6364.15, "y": 927.72}, {"x": 7096.43, "y": -692.1}, {"x": 6617.11, "y": -274.27}], [{"x": 7166.71, "y": -1664.55}, {"x": 6724.22, "y": -999.79}, {"x": 6822.87, "y": -721.95}, {"x": 5684.03, "y": 900.73}, {"x": 6717.08, "y": -129.3}, {"x": 6988.21, "y": -295.6}, {"x": 5800.97, "y": 22.25}, {"x": 5843.04, "y": -19.83}]]) },
+        options: scatterOpts('Custo Total/ha (R$)', 'Resultado/ha (R$)', true, true)
+    });
+
+    new Chart(document.getElementById('mHistProd'), {
+        type: 'bar',
+        data: {
+            labels: ["100-110", "110-120", "120-130", "130-140", "140-150", "150-160", "160-170"],
+            datasets: [{
+                label: 'Nº de Talhões',
+                data: [3, 7, 12, 10, 2, 1, 3],
+                backgroundColor: ['rgba(255,82,82,0.6)', 'rgba(255,82,82,0.45)', 'rgba(255,214,0,0.45)', 'rgba(0,230,118,0.4)', 'rgba(0,230,118,0.55)', 'rgba(0,230,118,0.7)', 'rgba(0,230,118,0.85)'],
+                borderColor: ['#FF5252', '#FF5252', '#FFD600', '#00E676', '#00E676', '#00E676', '#00E676'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: { anchor: 'end', align: 'top', color: '#E8F5E9', font: { weight: 'bold', size: 12, family: 'Inter' } }
+            },
+            scales: {
+                x: {
+                    title: { display: true, text: 'Faixa de Produtividade (sc/ha) · breakeven 128,86', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont }
+                },
+                y: {
+                    title: { display: true, text: 'Nº de Talhões', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont },
+                    suggestedMax: 14
+                }
+            }
+        }
+    });
+
+    const BXM = [[-1156, 110, 465, 923, 2218], [-564, -64, 843, 900, 938], [-3080, -1493, -483, 230, 928], [-1665, -791, -212, -9, 901]];
+    new Chart(document.getElementById('mChartBoxPlot'), {
+        type: 'bar',
+        data: {
+            labels: ['Bloco A', 'Bloco B', 'Bloco C', 'Bloco F'],
+            datasets: [
+                { label: 'Mín–Máx', data: BXM.map(b => [b[0], b[4]]), backgroundColor: 'rgba(165,214,167,0.35)', borderWidth: 0, barPercentage: 0.06, grouped: false },
+                { label: 'IQR (caixa)', data: BXM.map(b => [b[1], b[3]]),
+                  backgroundColor: ['rgba(249,168,37,0.3)', 'rgba(0,230,118,0.3)', 'rgba(255,82,82,0.3)', 'rgba(179,136,255,0.3)'],
+                  borderColor: ['#F9A825', '#00E676', '#FF5252', '#B388FF'], borderWidth: 2, borderRadius: 4, borderSkipped: false, barPercentage: 0.7, grouped: false },
+                { label: 'Mediana', data: BXM.map(b => [b[2] - 14, b[2] + 14]), backgroundColor: '#E8F5E9', borderWidth: 0, barPercentage: 0.7, grouped: false }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            scales: {
+                x: { title: { display: true, text: 'Resultado/ha (R$)', color: tickColor, font: { ...defaultFont, weight: 'bold' } }, grid: { color: gridColor }, ticks: { color: tickColor, font: defaultFont, callback: brl } },
+                y: { grid: { display: false }, ticks: { color: '#E8F5E9', font: { ...defaultFont, weight: 'bold', size: 13 } } }
+            },
+            plugins: { legend: { display: false }, datalabels: { display: false } }
+        }
+    });
+
+    new Chart(document.getElementById('mChartEficiencia'), {
+        type: 'bar',
+        data: {
+            labels: [["A14", "(melhor)"], "B08", "B12", "B07", "B11", ["Média", "milho"], "A12", "F01", "C02", ["C01", "(pior)"]],
+            datasets: [{
+                label: 'sc / R$ 1.000 em insumos',
+                data: [68.37, 65.68, 64.92, 63.29, 61.56, 41.27, 32.16, 30.81, 29.63, 22.08],
+                backgroundColor: [
+                    'rgba(0,230,118,0.7)', 'rgba(0,230,118,0.6)', 'rgba(0,230,118,0.6)',
+                    'rgba(0,230,118,0.5)', 'rgba(0,230,118,0.5)', 'rgba(249,168,37,0.5)',
+                    'rgba(255,145,0,0.5)', 'rgba(255,82,82,0.6)', 'rgba(255,82,82,0.6)', 'rgba(255,82,82,0.7)'
+                ],
+                borderColor: ['#00E676', '#00E676', '#00E676', '#00E676', '#00E676', '#F9A825', '#FF9100', '#FF5252', '#FF5252', '#FF5252'],
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                datalabels: { anchor: 'end', align: 'top', color: '#E8F5E9', font: { weight: 'bold', size: 11, family: 'Inter' }, formatter: v => v.toFixed(1).replace('.', ',') }
+            },
+            scales: {
+                x: { grid: { color: gridColor }, ticks: { color: tickColor, font: { ...defaultFont, size: 10 }, maxRotation: 0 } },
+                y: {
+                    title: { display: true, text: 'sc / R$ 1.000 insumos', color: tickColor, font: { ...defaultFont, weight: 'bold' } },
+                    grid: { color: gridColor },
+                    ticks: { color: tickColor, font: defaultFont },
+                    suggestedMax: 78
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('mChartCustoFazenda'), {
+        type: 'bar',
+        data: {
+            labels: ["Bloco C MT", "Goiás GO", "Bloco F MT", "Bloco A MT", "Bloco B MT"],
+            datasets: [
+                { label: 'Insumos/ha', data: [3336.49, 3036.65, 2925.27, 2860.2, 2311.15], backgroundColor: 'rgba(255,82,82,0.5)', borderColor: '#FF5252', borderWidth: 1, borderRadius: 4 },
+                { label: 'Demais custos/ha (CT − insumos)', data: [3611.04, 3593.04, 3586.36, 3582.46, 3549.51], backgroundColor: 'rgba(249,168,37,0.5)', borderColor: '#F9A825', borderWidth: 1, borderRadius: 4 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, font: defaultFont } },
+                y: { stacked: true, title: { display: true, text: 'R$/ha', color: tickColor, font: { ...defaultFont, weight: 'bold' } }, grid: { color: gridColor }, ticks: { color: tickColor, font: defaultFont, callback: brl } }
+            },
+            plugins: {
+                legend: { position: 'top', labels: { color: tickColor, font: defaultFont, usePointStyle: true } },
+                datalabels: { color: '#E8F5E9', font: { weight: 'bold', size: 11, family: 'Inter' }, formatter: v => Math.round(v).toLocaleString('pt-BR') }
+            }
+        }
+    });
+
+    // ==================== MILHO — FAIXAS ====================
+    new Chart(document.getElementById('chartMilhoFaixas'), {
+        type: 'bar',
+        data: {
+            labels: ["até 100", "100 a 120", "120 a 130", "130 a 140", "140 a 150", "150 ou mais"],
+            datasets: [
+                {
+                    label: 'Área (ha)',
+                    data: [1616, 1439, 1255, 1248, 254, 605],
+                    backgroundColor: ['rgba(255,82,82,0.6)', 'rgba(255,145,0,0.5)', 'rgba(255,214,0,0.45)', 'rgba(0,230,118,0.4)', 'rgba(0,230,118,0.6)', 'rgba(0,230,118,0.8)'],
+                    borderColor: ['#FF5252', '#FF9100', '#FFD600', '#00E676', '#00E676', '#00E676'],
+                    borderWidth: 2, borderRadius: 6, yAxisID: 'y'
+                },
+                {
+                    label: 'Produtividade média (sc/ha)',
+                    data: [91.9, 112.58, 126.28, 133.57, 143.9, 162.35],
+                    type: 'line', borderColor: '#B388FF', backgroundColor: 'transparent', borderWidth: 3,
+                    pointRadius: 6, pointBackgroundColor: '#B388FF', yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { color: tickColor, font: defaultFont, usePointStyle: true } },
+                datalabels: {
+                    anchor: 'end', align: 'top', font: { weight: 'bold', size: 11, family: 'Inter' },
+                    color: ctx => ctx.datasetIndex === 0 ? '#E8F5E9' : '#B388FF',
+                    formatter: (v, ctx) => ctx.datasetIndex === 0 ? v.toLocaleString('pt-BR') + ' ha' : v.toFixed(1).replace('.', ',')
+                }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Faixa de produtividade (sc/ha) · breakeven 128,86', color: tickColor, font: { ...defaultFont, weight: 'bold' } }, grid: { color: gridColor }, ticks: { color: tickColor, font: defaultFont } },
+                y: { position: 'left', title: { display: true, text: 'Área (ha)', color: tickColor, font: { ...defaultFont, weight: 'bold' } }, grid: { color: gridColor }, ticks: { color: tickColor, font: defaultFont, callback: v => v.toLocaleString('pt-BR') }, min: 0, max: 3200 },
+                y1: { position: 'right', title: { display: true, text: 'Produtividade (sc/ha)', color: '#B388FF', font: { ...defaultFont, weight: 'bold' } }, grid: { display: false }, ticks: { color: '#B388FF', font: defaultFont, stepSize: 30, callback: v => v >= 60 ? v : '' }, min: -120, max: 180 }
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>
