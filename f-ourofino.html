@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | Ouro Fino — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | Ouro Fino — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--of:#ffd600}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -81,199 +82,76 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>OURO FINO</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a class="on" href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a class="on" href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon" style="background:linear-gradient(135deg,#ffd600,#f9a825)">OF</div>
 <div class="hdr-info">
 <h2>OURO FINO <span>QUÍMICA</span></h2>
-<p>Presente em <b>7/7 safras</b> · Inseticidas, Fungicidas, Herbicidas, Adjuvantes<br>
-Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br>
-Perfil: <b>Brasileira de Uberaba-MG · Genéricos nacionais + marca própria</b> · B3: OFSA3<br>
+<p>Presente em <b>7/7 safras</b> · Inseticidas, Fungicidas, Herbicidas, Adjuvantes<br/>
+Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br/>
+Perfil: <b>Brasileira de Uberaba-MG · Genéricos nacionais + marca própria</b> · B3: OFSA3<br/>
 Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mineral OF · Adjuvante Agral</p>
 </div>
 </div>
-
 <!-- DESTAQUE -->
 <div class="highlight">
 <h4>🇧🇷 A Brasileira de Raíz: 7/7 safras — o fornecedor mais fiel</h4>
 <p style="font-size:.8rem;color:var(--text);line-height:1.6">Ouro Fino é o <b style="color:var(--of)">único fornecedor presente em todas as 7 safras</b> desde 19/20 junto com Bayer e BASF. Nascida em Uberaba (MG), é a <b>maior empresa 100% brasileira de defensivos</b> (capital aberto na B3). Estratégia: genéricos nacionais de custo intermediário + adjuvantes e óleos minerais de alta qualidade. Na Fazenda Planalto, Ouro Fino ocupa o papel de <b>"comodim" — está em tudo, não lidera nada, mas resolve sempre</b>. De R$ 480k (19/20) caiu para R$ 390k (25/26) = fornecedor em <b>encolhimento lento</b>.</p>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--of)">R$ 390k</div><div class="sub">2,3% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 7 Safras</div><div class="vl">~R$ 3,48M</div><div class="sub">Média R$ 497k/safra</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 610k</div><div class="sub">Safra 22/23</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −36%</div><div class="sub">Queda contínua desde 22/23</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">7</div><div class="sub">Mix diversificado</div></div>
-<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Óleo Min. OF</div><div class="sub">~R$ 96k · 25% do total</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 2,47M</div><div class="sub">10,2% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 683k</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--red)">+261,7%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 6,21M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">6</div><div class="sub">26/27 · 6 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">OFF ROAD</div><div class="sub">R$ 1.085.620</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a Ouro Fino soma R$ 682.578 e o pedido 26/27 soma R$ 2.469.030, +261,7% sobre a 25/26.</p><p style="margin:0 0 8px">A versão anterior desta página registrava R$ 390.000 para a 25/26. Vale a planilha.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em OFF ROAD (R$ 1.085.620), Impar BR (R$ 420.000) e KAIVANA (R$ 374.175).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, VIVANTHA caiu de R$ 305,00 para R$ 255,00 (-16,4%).</p><p style="margin:0 0 8px">Confirme volumes e o vencimento de 20/05/2027 e 20/09/2027 (divisão não informada) com o RTV antes da entrega.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>VIVANTHA</b></td><td class="tr">800</td><td class="tr">—</td><td class="tr">800</td><td class="tr">R$ 305,00</td><td class="tr">R$ 244.000,00</td><td class="tr">35,7%</td></tr><tr><td><b>PONTUAL</b></td><td class="tr">3.600</td><td class="tr">—</td><td class="tr">3.600</td><td class="tr">R$ 52,00</td><td class="tr">R$ 187.200,00</td><td class="tr">27,4%</td></tr><tr><td><b>Impar BR</b></td><td class="tr">360</td><td class="tr">—</td><td class="tr">360</td><td class="tr">R$ 300,00</td><td class="tr">R$ 108.000,00</td><td class="tr">15,8%</td></tr><tr><td><b>INÉDITO</b></td><td class="tr">2.000</td><td class="tr">—</td><td class="tr">2.000</td><td class="tr">R$ 45,30</td><td class="tr">R$ 90.600,00</td><td class="tr">13,3%</td></tr><tr><td><b>TERRA D'OR</b></td><td class="tr">100</td><td class="tr">—</td><td class="tr">100</td><td class="tr">R$ 432,98</td><td class="tr">R$ 43.298,00</td><td class="tr">6,3%</td></tr><tr><td><b>DOTTE</b></td><td class="tr">40</td><td class="tr">—</td><td class="tr">40</td><td class="tr">R$ 237,00</td><td class="tr">R$ 9.480,00</td><td class="tr">1,4%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>R$ 682.578,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 20/05/2026 · RTV/gestor: Paulo Peres</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>OFF ROAD</b></td><td class="tr">50.000</td><td class="tr">12.000</td><td class="tr">62.000</td><td class="tr">R$ 17,51</td><td class="tr">R$ 1.085.620,00</td><td class="tr">44,0%</td></tr><tr><td><b>Impar BR</b></td><td class="tr">1.500</td><td class="tr">—</td><td class="tr">1.500</td><td class="tr">R$ 280,00</td><td class="tr">R$ 420.000,00</td><td class="tr">17,0%</td></tr><tr><td><b>KAIVANA</b></td><td class="tr">7.500</td><td class="tr">—</td><td class="tr">7.500</td><td class="tr">R$ 49,89</td><td class="tr">R$ 374.175,00</td><td class="tr">15,2%</td></tr><tr><td><b>TERRA D'OR</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 419,90</td><td class="tr">R$ 251.940,00</td><td class="tr">10,2%</td></tr><tr><td><b>VIVANTHA</b></td><td class="tr">820</td><td class="tr">—</td><td class="tr">820</td><td class="tr">R$ 255,00</td><td class="tr">R$ 209.100,00</td><td class="tr">8,5%</td></tr><tr><td><b>Impar BR</b></td><td class="tr">500</td><td class="tr">—</td><td class="tr">500</td><td class="tr">R$ 256,39</td><td class="tr">R$ 128.195,00</td><td class="tr">5,2%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 2.469.030,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 20/05/2027 e 20/09/2027 (divisão não informada) · RTV/gestor: Paulo Peres</div></div></div>
 <!-- GRÁFICOS TOPO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- PORTFÓLIO COMPLETO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>🛢️ Adjuvantes e Óleos (2 produtos) — O coração da Ouro Fino</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>Tipo</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Óleo Mineral OF</b></td><td style="font-size:.65rem;color:var(--muted)">Óleo Mineral 756 EC</td>
-<td class="tr">R$8,5<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">R$9,0<br><small style="color:var(--muted)">9.000L</small></td>
-<td class="tr">R$10,5<br><small style="color:var(--muted)">10.000L</small></td>
-<td class="tr">R$12,0<br><small style="color:var(--muted)">12.000L</small></td>
-<td class="tr">R$9,5<br><small style="color:var(--muted)">11.000L</small></td>
-<td class="tr">R$8,0<br><small style="color:var(--muted)">11.000L</small></td>
-<td class="tr"><b>R$7,5</b><br><small style="color:var(--muted)">12.800L</small></td>
-<td><span class="tag tg">▼−12% · Vol▲60%</span></td>
-</tr>
-<tr>
-<td><b>Agral OF</b></td><td style="font-size:.65rem;color:var(--muted)">Espalhante Adesivo Nonil Fenol</td>
-<td class="tr">R$12<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$13<br><small style="color:var(--muted)">2.200L</small></td>
-<td class="tr">R$15<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$14<br><small style="color:var(--muted)">2.800L</small></td>
-<td class="tr">R$11<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr"><b>R$10</b><br><small style="color:var(--muted)">2.800L</small></td>
-<td><span class="tag tg">▼−17% · Estável</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">Tipo</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Óleo Mineral OF</b></td><td style="font-size:.65rem;color:var(--muted)">Óleo Mineral 756 EC</td><td class="tr">R$8,5<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">R$9,0<br/><small style="color:var(--muted)">9.000L</small></td><td class="tr">R$10,5<br/><small style="color:var(--muted)">10.000L</small></td><td class="tr">R$12,0<br/><small style="color:var(--muted)">12.000L</small></td><td class="tr">R$9,5<br/><small style="color:var(--muted)">11.000L</small></td><td class="tr">R$8,0<br/><small style="color:var(--muted)">11.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$7,50</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Agral OF</b></td><td style="font-size:.65rem;color:var(--muted)">Espalhante Adesivo Nonil Fenol</td><td class="tr">R$12<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$13<br/><small style="color:var(--muted)">2.200L</small></td><td class="tr">R$15<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$14<br/><small style="color:var(--muted)">2.800L</small></td><td class="tr">R$11<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$10</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🐛 Inseticidas (2 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>OF Metomil</b></td><td style="font-size:.65rem;color:var(--muted)">Metomil 215 SL</td>
-<td class="tr">R$28<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$30<br><small style="color:var(--muted)">2.200L</small></td>
-<td class="tr">R$35<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$38<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">1.800L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr"><b>R$18</b><br><small style="color:var(--muted)">1.200L</small></td>
-<td><span class="tag tr2">▼−36% · Vol▼−40%</span></td>
-</tr>
-<tr>
-<td><b>OF Acefato</b></td><td style="font-size:.65rem;color:var(--muted)">Acefato 750 SP</td>
-<td class="tr">R$22<br><small style="color:var(--muted)">1.500kg</small></td>
-<td class="tr">R$24<br><small style="color:var(--muted)">1.800kg</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">2.000kg</small></td>
-<td class="tr">R$32<br><small style="color:var(--muted)">1.500kg</small></td>
-<td class="tr">R$25<br><small style="color:var(--muted)">1.200kg</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">1.000kg</small></td>
-<td class="tr"><b>R$15</b><br><small style="color:var(--muted)">800kg</small></td>
-<td><span class="tag tr2">▼−32% · Vol▼−47%</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>OF Metomil</b></td><td style="font-size:.65rem;color:var(--muted)">Metomil 215 SL</td><td class="tr">R$28<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$30<br/><small style="color:var(--muted)">2.200L</small></td><td class="tr">R$35<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$38<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">1.800L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$18</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>OF Acefato</b></td><td style="font-size:.65rem;color:var(--muted)">Acefato 750 SP</td><td class="tr">R$22<br/><small style="color:var(--muted)">1.500kg</small></td><td class="tr">R$24<br/><small style="color:var(--muted)">1.800kg</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">2.000kg</small></td><td class="tr">R$32<br/><small style="color:var(--muted)">1.500kg</small></td><td class="tr">R$25<br/><small style="color:var(--muted)">1.200kg</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">1.000kg</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$15</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🍄 Fungicida (1 produto)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>OF Azoxy</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina 250 SC</td>
-<td class="tr">R$42<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$48<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">R$38<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr"><b>R$22</b><br><small style="color:var(--muted)">600L</small></td>
-<td><span class="tag tr2">▼−48% · Vol▼−40%</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>OF Azoxy</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina 250 SC</td><td class="tr">R$42<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$48<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">R$38<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">800L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$22</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🌿 Herbicidas (2 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>OF Glifosato</b></td><td style="font-size:.65rem;color:var(--muted)">Glifosato 480 SL</td>
-<td class="tr">R$16<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">7.000L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">R$25<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$15<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr"><b>R$13</b><br><small style="color:var(--muted)">3.500L</small></td>
-<td><span class="tag tr2">▼−19% · Vol▼−42%</span></td>
-</tr>
-<tr>
-<td><b>OF 2,4-D</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL</td>
-<td class="tr">R$18<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$20<br><small style="color:var(--muted)">3.500L</small></td>
-<td class="tr">R$25<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$16<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr"><b>R$14</b><br><small style="color:var(--muted)">1.800L</small></td>
-<td><span class="tag tr2">▼−22% · Vol▼−40%</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>OF Glifosato</b></td><td style="font-size:.65rem;color:var(--muted)">Glifosato 480 SL</td><td class="tr">R$16<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">7.000L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">R$25<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$15<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$13</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>OF 2,4-D</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL</td><td class="tr">R$18<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$20<br/><small style="color:var(--muted)">3.500L</small></td><td class="tr">R$25<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$16<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$14</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- CURVAS PREÇO -->
-<div class="section-title">📈 Curvas de Preço — <span>Todas as Classes</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>OFF ROAD</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$17,61<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$17,51<br/><small style="color:var(--muted)">62.000</small></td><td class="tr">—</td><td class="tr">R$ 1.085.620,00</td><td><span class="tag tg">▼-0,6% 26/27</span></td></tr><tr><td><b>Impar BR</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$300<br/><small style="color:var(--muted)">360</small></td><td class="tr">R$280<br/><small style="color:var(--muted)">1.500</small></td><td class="tr">R$ 108.000,00</td><td class="tr">R$ 420.000,00</td><td><span class="tag tg">▼-6,7% 26/27 · Vol▲317%</span></td></tr><tr><td><b>KAIVANA</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$52<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$49,89<br/><small style="color:var(--muted)">7.500</small></td><td class="tr">—</td><td class="tr">R$ 374.175,00</td><td><span class="tag tg">▼-4,1% 26/27</span></td></tr><tr><td><b>TERRA D'OR</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$432,98<br/><small style="color:var(--muted)">100</small></td><td class="tr">R$419,90<br/><small style="color:var(--muted)">600</small></td><td class="tr">R$ 43.298,00</td><td class="tr">R$ 251.940,00</td><td><span class="tag tg">▼-3,0% 26/27 · Vol▲500%</span></td></tr><tr><td><b>VIVANTHA</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$305<br/><small style="color:var(--muted)">800</small></td><td class="tr">R$255<br/><small style="color:var(--muted)">820</small></td><td class="tr">R$ 244.000,00</td><td class="tr">R$ 209.100,00</td><td><span class="tag tg">▼-16,4% 26/27 · Vol▲2%</span></td></tr><tr><td><b>PONTUAL</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$52<br/><small style="color:var(--muted)">3.600</small></td><td class="tr">—</td><td class="tr">R$ 187.200,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>INÉDITO</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$45,30<br/><small style="color:var(--muted)">2.000</small></td><td class="tr">—</td><td class="tr">R$ 90.600,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>DOTTE</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$237<br/><small style="color:var(--muted)">40</small></td><td class="tr">—</td><td class="tr">R$ 9.480,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Todas as Classes</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Adjuvantes + Óleo Mineral (R$/L)</h3>
@@ -284,15 +162,13 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Todos os Produtos</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- DEEP DIVE ÓLEO MINERAL -->
-<div class="section-title">🔬 Deep Dive — <span>Óleo Mineral OF (o produto mais estável)</span></div>
+<div class="section-title">🔬 Deep Dive — <span>Óleo Mineral OF (o produto mais estável)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>Óleo Mineral: o adjuvante que nunca sai do tanque</h3>
 <div class="table-wrapper">
@@ -311,9 +187,8 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 </div>
 <div class="insight"><b>📌 Óleo Mineral é o "arroz com feijão" do tanque:</b> Usado em <b>100% das aplicações de fungicida</b> como veículo/espalhante. Volume de 12.800 L = ~16 aplicações × 8.000 ha × 0,10 L/ha. Preço caiu de R$ 12 para R$ 7,50 (−38%), mas volume cresceu 60% (8.000 → 12.800 L). É o produto mais <b>previsível e constante</b> do portfólio Ouro Fino — nunca vai sair da fazenda.</div>
 </div>
-
 <!-- BENCHMARK -->
-<div class="section-title">⚔️ Benchmark — <span>Ouro Fino vs. Concorrentes</span></div>
+<div class="section-title">⚔️ Benchmark — <span>Ouro Fino vs. Concorrentes</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -359,9 +234,8 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 </div>
 <div class="insight warn"><b>📊 Placar: Ouro Fino 2 × 4 Concorrentes (1 empate).</b> Ouro Fino só vence em <b>Óleo Mineral</b> (vs. Syngenta) e <b>Metomil</b> (vs. Corteva). Perde para Albaugh em Acefato, Espalhante e 2,4-D. Perde para Rainbow em Glifosato. <b>Diagnóstico: fora dos adjuvantes, Ouro Fino não é competitiva</b>.</div>
 </div>
-
 <!-- MAPA DE DECLÍNIO -->
-<div class="section-title">📉 Mapa de Declínio — <span>Produtos Perdendo Share</span></div>
+<div class="section-title">📉 Mapa de Declínio — <span>Produtos Perdendo Share</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -396,34 +270,23 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 </div>
 <div class="insight danger"><b>🔴 5 de 7 produtos estão em declínio.</b> Apenas Óleo Mineral (R$ 96k) e Agral (R$ 28k) crescem ou estabilizam. Os outros 5 somam R$ 118k e estão <b>todos perdendo para Albaugh ou Rainbow</b>. A tendência é clara: Ouro Fino está sendo espremida entre os genéricos chineses (Rainbow) e os genéricos nacionais mais agressivos (Albaugh). <b>Em 2-3 safras, Ouro Fino pode ficar restrita a adjuvantes</b>.</div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Ouro Fino</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Ouro Fino</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. Fornecedor em erosão silenciosa:</b> De R$ 610k (22/23) para R$ 390k (25/26) = <b>−36%</b>. Não é uma queda abrupta — é uma <b>perda gradual de relevância</b>. A Ouro Fino não lança novos produtos competitivos há 3 safras. Enquanto Rainbow e Albaugh trazem genéricos mais baratos, a OF fica no meio: <b>nem é marca premium (Bayer/BASF) nem é o genérico mais barato (Rainbow)</b>.</div>
-
 <div class="insight"><b>2. Óleo Mineral = o pilar que salva:</b> R$ 96k (25% do total). Volume recorde de 12.800 L. Preço a R$ 7,50/L é <b>38% mais barato que Nimbus (Syngenta)</b>. Enquanto tiver aplicação de fungicida, terá Óleo Mineral OF. É o produto <b>mais estável de todo o portfólio de 12 fornecedores</b> — 7 safras consecutivas sem interrupção.</div>
-
 <div class="insight"><b>3. Agral estável mas ameaçado:</b> R$ 28k (7% do total). Espalhante adesivo a R$ 10/L. Albaugh Break Thru a R$ 8,50 já é <b>15% mais barato</b>. Se Albaugh empurrar Break Thru no pacote, Agral perde espaço. Manter enquanto Ouro Fino der condição de pacote.</div>
-
 <div class="insight warn"><b>4. Metomil e Acefato são moléculas em extinção:</b> Metomil (Carbamato Grupo 1A) e Acefato (Organofosforado Grupo 1B) são <b>inseticidas de 1ª geração</b>. Ambos têm pressão regulatória (Acefato banido na EU). Volumes despencaram 50-60%. Na fazenda, foram substituídos por <b>diamidas (Premio) e neonicotinoides (Acetamiprido)</b>. Tendência: saída natural.</div>
-
 <div class="insight warn"><b>5. Glifosato e 2,4-D perdendo para mais baratos:</b> OF Glifosato R$ 13 vs. Rainbow R$ 12 (−8%). OF 2,4-D R$ 14 vs. Albaugh R$ 11 (−21%). Em herbicidas commodity, <b>R$ 1/L de diferença em 10.000 L = R$ 10k de economia</b>. A fazenda está migrando para quem oferece menos — normal para commodity pura.</div>
-
 <div class="insight"><b>6. 100% BRL e proximidade logística:</b> Ouro Fino é de <b>Uberaba (MG)</b> — fábrica a ~600 km da Fazenda Planalto. Logística rápida, sem câmbio, sem importação. Em caso de emergência ("preciso de produto amanhã"), Ouro Fino entrega mais rápido que qualquer multinacional. <b>Valor estratégico: agilidade</b>.</div>
-
 <div class="insight"><b>7. Empresa listada na B3 (OFSA3):</b> Capital aberto = <b>transparência financeira e governança</b>. Risco de calote ou quebra é menor que genéricos chineses. Se precisar de crédito ou prazo, Ouro Fino pode oferecer <b>condições financeiras mais flexíveis</b> que multinacionais.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Óleo Mineral a R$ 6,50 (−13%):</b> Volume de 12.800 L dá poder de barganha. "Se bater R$ 6,50, fecho 15.000 L e mantenho exclusividade em óleo." <b>Economia: R$ 13k</b>. Ouro Fino precisa desse volume para justificar produção.</div>
 <div class="rec"><b>🎯 Pacote "Adjuvantes OF":</b> Óleo Mineral + Agral = R$ 124k. Pedir 15% desconto pacote = <b>R$ 19k de economia</b>. Concentrar tudo de adjuvante na OF — simplifica logística e dá volume para ela.</div>
 <div class="rec"><b>🎯 Usar OF como "banco de prazo":</b> Empresa nacional listada. Pode oferecer <b>prazo safra 180-240 dias</b> sem custo financeiro embutido. Se negociar R$ 390k com prazo safra, o valor presente com CDI 12% a.a. é ~R$ 365k. <b>Economia financeira: R$ 25k</b>.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas e Migrações</h3>
 <div class="rec w"><b>⚠️ Migrar OF Glifosato → Rainbow:</b> R$ 13 vs. R$ 12/L. Em 3.500 L = economia R$ 3,5k. Simbólico, mas sinaliza que <b>em commodity, preço é tudo</b>.</div>
@@ -432,7 +295,6 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 <div class="rec d"><b>🔴 OF Metomil — descontinuar:</b> R$ 18/L × 1.200 L = R$ 22k. Metomil é inseticida de 1ª geração, substituído por diamidas. Volume caiu 52%. <b>Não renovar na 26/27.</b></div>
 <div class="rec d"><b>🔴 OF Azoxy — descontinuar:</b> R$ 22/L × 600 L = R$ 13k. Azoxistrobina pura perdeu para misturas prontas (Zignal Rainbow, Opera BASF). <b>Não renovar.</b></div>
 </div>
-
 <!-- SCORE -->
 <div class="card">
 <h3>📊 Score Card — Resumo Executivo</h3>
@@ -452,29 +314,14 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Óleo Mineral OF</td><td class="tr">7,50</td><td class="tr pos"><b>6,50</b></td><td class="tr">15.000L</td><td class="tr">R$98k</td><td>Pilar · expandir · −13%</td></tr>
-<tr><td>Agral OF</td><td class="tr">10,00</td><td class="tr pos"><b>8,50</b></td><td class="tr">3.000L</td><td class="tr">R$26k</td><td>Manter · −15%</td></tr>
-<tr><td>OF Glifosato</td><td class="tr">13,00</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>→ Rainbowgly R$12</td></tr>
-<tr><td>OF 2,4-D</td><td class="tr">14,00</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>→ 2,4-D Albaugh R$11</td></tr>
-<tr><td>OF Acefato</td><td class="tr">15,00</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>→ Acefato Albaugh R$12</td></tr>
-<tr><td>OF Metomil</td><td class="tr">18,00</td><td class="tr neg"><b>desc.</b></td><td class="tr">0</td><td class="tr">R$0</td><td>Descontinuar (molécula antiga)</td></tr>
-<tr><td>OF Azoxy</td><td class="tr">22,00</td><td class="tr neg"><b>desc.</b></td><td class="tr">0</td><td class="tr">R$0</td><td>Descontinuar (misturas vencem)</td></tr>
-<tr style="background:rgba(255,214,0,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 124k</b></td><td></td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 266k</b></td><td class="pos"><b>−68% (reestruturação)</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Óleo Mineral OF</td><td class="tr">7,50</td><td class="tr">6,50</td><td class="tr">15.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Agral OF</td><td class="tr">10</td><td class="tr">8,50</td><td class="tr">3.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>OF Glifosato</td><td class="tr">13</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr><td>OF 2,4-D</td><td class="tr">14</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr><td>OF Acefato</td><td class="tr">15</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr><td>OF Metomil</td><td class="tr">18</td><td class="tr">desc.</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr><td>OF Azoxy</td><td class="tr">22</td><td class="tr">desc.</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 2.469.030</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight warn"><b>⚠️ De R$ 390k para R$ 124k (−68%):</b> É uma <b>reestruturação radical</b>. Ouro Fino passa de 7 SKUs para 2 SKUs (Óleo Mineral + Agral). Os 5 defensivos migram para Albaugh e Rainbow (mais baratos) ou são descontinuados (Metomil, Azoxy). O resultado: OF vira <b>fornecedor especialista de adjuvantes</b> — papel menor mas sustentável. A economia real vem da <b>migração para genéricos mais baratos</b>: Glifosato (−R$ 3,5k), 2,4-D (−R$ 5,4k), Acefato (−R$ 2,4k) = R$ 11,3k.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 7 produtos da meta 26/27 da versão anterior, 0 entraram no pedido com preço igual ou abaixo da meta, 0 acima e 7 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 2.469.030</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <!-- CENÁRIO ALTERNATIVO -->
 <div class="card">
 <h3>🔄 Cenário Alternativo — "Pacote de Fidelidade"</h3>
@@ -505,79 +352,34 @@ Produtos-chave: Ouro Fino Metomil · Ouro Fino Azoxy · OF Glifosato · Óleo Mi
 </div>
 <div class="insight"><b>💡 A decisão depende de liquidez:</b> Se a fazenda tem <b>caixa apertado no plantio</b>, o Cenário C (prazo safra 210 dias) é melhor — mesmo pagando R$ 350k, o valor presente é R$ 325k porque o dinheiro fica rendendo CDI. Se a fazenda tem caixa, Cenário A é melhor — <b>migra tudo para genéricos baratos e paga à vista com desconto</b>.</div>
 </div>
-
 <!-- TIMELINE -->
 <div class="card">
-<h3>📅 Timeline: A Erosão da Ouro Fino em 7 Safras</h3>
+<h3>📅 Timeline: A Erosão da Ouro Fino em 7 Safras (versão anterior)</h3>
 <div class="chart-box"><canvas id="chTimeline"></canvas></div>
 <div class="insight"><b>📉 De "comodim" para "adjuvante":</b> A Ouro Fino começou como fornecedor diversificado (7 SKUs, R$ 480k). Ao longo de 7 safras, <b>5 produtos perderam competitividade</b> para genéricos mais baratos (Rainbow, Albaugh). O que resta: <b>Óleo Mineral e Agral</b> — produtos onde qualidade de formulação importa mais que preço puro. É o destino natural de quem fica no meio: ou sobe para premium (Bayer) ou desce para genérico (Rainbow). Ouro Fino não fez nem um nem outro.</div>
 </div>
-
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[480,520,560,610,475,410,390],
-backgroundColor:S.map((_,i)=>'rgba(255,214,0,.'+(3+i)+')')
-,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
-scales:{y:{beginAtZero:true,ticks:{callback:v=>'R$'+v+'k'}}}}});
-
-// Mix
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Óleo Min. R$96k','OF Glifosato R$46k','Agral R$28k','OF 2,4-D R$25k','OF Metomil R$22k','OF Azoxy R$13k','OF Acefato R$12k'],
-datasets:[{data:[96,46,28,25,22,13,12],
-backgroundColor:['#ffd600','#00e676','#00b0ff','#ff9100','#e040fb','#90a4ae','#616161']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:5,font:{size:10}}}}}});
-
-// Preço Adjuvantes
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:S,datasets:[
-{label:'Óleo Mineral',data:[8.5,9,10.5,12,9.5,8,7.5],borderColor:'#ffd600',backgroundColor:'rgba(255,214,0,.1)',fill:true,tension:.3,pointRadius:6},
-{label:'Agral',data:[12,13,15,18,14,11,10],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
-
-// Preço Defensivos
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:S,datasets:[
-{label:'Metomil',data:[28,30,35,38,28,22,18],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false},
-{label:'Acefato',data:[22,24,28,32,25,18,15],borderColor:'#ff9100',tension:.3,pointRadius:5,fill:false},
-{label:'Azoxy',data:[null,null,42,48,38,28,22],borderColor:'#90a4ae',borderDash:[5,5],tension:.3,pointRadius:4,fill:false},
-{label:'Glifosato',data:[16,18,22,25,18,15,13],borderColor:'#00e676',tension:.3,pointRadius:4,fill:false},
-{label:'2,4-D',data:[18,20,25,28,22,16,14],borderColor:'#616161',tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L ou kg'},beginAtZero:true}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Óleo Mineral',data:[8000,9000,10000,12000,11000,11000,12800],backgroundColor:'rgba(255,214,0,.7)',borderRadius:4},
-{label:'Glifosato',data:[6000,7000,8000,6000,5000,4000,3500],backgroundColor:'rgba(0,230,118,.4)',borderRadius:4},
-{label:'Agral',data:[2000,2200,2500,3000,2800,2500,2800],backgroundColor:'rgba(0,176,255,.5)',borderRadius:4},
-{label:'Metomil',data:[2000,2200,2500,2000,1800,1500,1200],backgroundColor:'rgba(224,64,251,.4)',borderRadius:4},
-{label:'2,4-D',data:[3000,3500,4000,3000,2500,2000,1800],backgroundColor:'rgba(255,145,0,.3)',borderRadius:4},
-{label:'Acefato (kg)',data:[1500,1800,2000,1500,1200,1000,800],backgroundColor:'rgba(97,97,97,.3)',borderRadius:4},
-{label:'Azoxy',data:[0,0,1000,1200,1000,800,600],backgroundColor:'rgba(144,164,174,.3)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},
-scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [480.0, 520.0, 560.0, 610.0, 475.0, 410.0, 682.6, 2469.0], "g1": [{"l": "OFF ROAD", "pr": [null, null, null, null, null, null, 17.61, 17.51], "vo": [null, null, null, null, null, null, null, 62000.0], "val": 1085620.0}, {"l": "Impar BR", "pr": [null, null, null, null, null, null, 300.0, 280.0], "vo": [null, null, null, null, null, null, 360.0, 1500.0], "val": 420000.0}, {"l": "KAIVANA", "pr": [null, null, null, null, null, null, 52.0, 49.89], "vo": [null, null, null, null, null, null, null, 7500.0], "val": 374175.0}, {"l": "TERRA D'OR", "pr": [null, null, null, null, null, null, 432.98, 419.9], "vo": [null, null, null, null, null, null, 100.0, 600.0], "val": 251940.0}], "g2": [{"l": "VIVANTHA", "pr": [null, null, null, null, null, null, 305.0, 255.0], "vo": [null, null, null, null, null, null, 800.0, 820.0], "val": 244000.0}, {"l": "Óleo Mineral OF", "pr": [8.5, 9.0, 10.5, 12.0, 9.5, 8.0, null, null], "vo": [8000.0, 9000.0, 10000.0, 12000.0, 11000.0, 11000.0, null, null], "val": 0}, {"l": "Agral OF", "pr": [12.0, 13.0, 15.0, 18.0, 14.0, 11.0, null, null], "vo": [2000.0, 2200.0, 2500.0, 3000.0, 2800.0, 2500.0, null, null], "val": 0}, {"l": "OF Metomil", "pr": [28.0, 30.0, 35.0, 38.0, 28.0, 22.0, null, null], "vo": [2000.0, 2200.0, 2500.0, 2000.0, 1800.0, 1500.0, null, null], "val": 0}], "gv": [{"l": "OFF ROAD", "pr": [null, null, null, null, null, null, 17.61, 17.51], "vo": [null, null, null, null, null, null, null, 62000.0], "val": 1085620.0}, {"l": "Impar BR", "pr": [null, null, null, null, null, null, 300.0, 280.0], "vo": [null, null, null, null, null, null, 360.0, 1500.0], "val": 420000.0}, {"l": "KAIVANA", "pr": [null, null, null, null, null, null, 52.0, 49.89], "vo": [null, null, null, null, null, null, null, 7500.0], "val": 374175.0}, {"l": "TERRA D'OR", "pr": [null, null, null, null, null, null, 432.98, 419.9], "vo": [null, null, null, null, null, null, 100.0, 600.0], "val": 251940.0}, {"l": "VIVANTHA", "pr": [null, null, null, null, null, null, 305.0, 255.0], "vo": [null, null, null, null, null, null, 800.0, 820.0], "val": 244000.0}, {"l": "Óleo Mineral OF", "pr": [8.5, 9.0, 10.5, 12.0, 9.5, 8.0, null, null], "vo": [8000.0, 9000.0, 10000.0, 12000.0, 11000.0, 11000.0, null, null], "val": 0}], "mix": [["OFF ROAD R$1.086k", 1085.6], ["Impar BR R$420k", 420.0], ["KAIVANA R$374k", 374.2], ["TERRA D'OR R$252k", 251.9], ["VIVANTHA R$209k", 209.1], ["Impar BR R$128k", 128.2]], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 
 // Timeline - Composição receita
-new Chart(document.getElementById('chTimeline'),{type:'bar',data:{labels:S,datasets:[
+new Chart(document.getElementById('chTimeline'),{type:'bar',data:{labels:S7,datasets:[
 {label:'Adjuvantes (Óleo+Agral)',data:[92,107,143,198,137,116,124],backgroundColor:'rgba(255,214,0,.8)',borderRadius:4},
 {label:'Defensivos (5 prod.)',data:[388,413,417,412,338,294,266],backgroundColor:'rgba(144,164,174,.4)',borderRadius:4}
 ]},options:{responsive:true,maintainAspectRatio:false,

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rural In | Fazenda Planalto - Painel Estratégico de Insumos</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{
 --bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;
@@ -17,21 +17,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
-.login-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:48px 40px;width:420px;max-width:95vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.login-box h1{font-size:1.1rem;color:var(--accent);margin-bottom:4px;letter-spacing:1px}
-.login-box .subtitle{font-size:.78rem;color:var(--muted);margin-bottom:28px}
-.login-box input{width:100%;padding:14px 18px;margin-bottom:14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-size:.95rem;outline:none;transition:border .3s}
-.login-box input:focus{border-color:var(--accent)}
-.login-box button{width:100%;padding:14px;border:none;border-radius:10px;background:linear-gradient(135deg,#00e676,#00b0ff);color:#0b1120;font-weight:700;font-size:1rem;cursor:pointer;transition:transform .2s,box-shadow .3s}
-.login-box button:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,230,118,.3)}
-.login-error{color:var(--red);font-size:.82rem;margin-top:10px;min-height:20px}
-.login-footer{margin-top:24px;font-size:.7rem;color:var(--muted);line-height:1.6}
-.login-footer strong{color:var(--accent)}
 
-.app{display:none;height:100vh;overflow:hidden}
-.app.visible{display:flex}
+.app{display:flex;height:100vh;overflow:hidden}
 .sidebar{width:260px;min-width:260px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow-y:auto}
 .sidebar-header{padding:20px;border-bottom:1px solid var(--border);text-align:center}
 .sidebar-header h2{font-size:.85rem;color:var(--accent);letter-spacing:.5px}
@@ -120,480 +107,639 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 
 @media(max-width:900px){.sidebar{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}.card-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.kpi-grid{grid-template-columns:1fr}.content{padding:16px}}
+
+a{color:var(--accent)}
+.nav-item.new::after{content:'novo';margin-left:auto;font-size:.58rem;padding:1px 6px;border-radius:8px;background:rgba(0,176,255,.15);color:var(--accent2)}
+.sig{display:block;font-size:.66rem;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.08em}
+.insight-box p{margin:0 0 8px}.insight-box p:last-of-type{margin-bottom:0}
+.muted-row td{color:var(--muted)}
+.upd{font-size:.7rem;color:var(--accent3);margin:-6px 0 14px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:20px}
+@media(max-width:900px){.app{height:auto;overflow:visible;flex-direction:column}.main{overflow:visible}.content{overflow:visible}.topnav{display:flex!important}}
+.topnav{display:none;overflow-x:auto;gap:4px;padding:8px 12px;background:var(--sidebar);border-bottom:1px solid var(--border)}
+.topnav a{white-space:nowrap;font-size:.75rem;padding:6px 10px;border-radius:14px;color:var(--text);text-decoration:none;border:1px solid var(--border)}
 </style>
 </head>
 <body>
 
-<!-- ========== LOGIN ========== -->
-<div class="login-overlay" id="loginOverlay">
-<div class="login-box">
-<div style="margin-bottom:12px;">
-<div style="width:90px;height:90px;margin:0 auto;background:linear-gradient(135deg,#00e676,#00b0ff);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-<span style="font-size:2rem;font-weight:900;color:#0b1120;">Ri</span>
-</div>
-</div>
-<h1>RURAL IN</h1>
-<div class="subtitle">Painel Estratégico de Insumos Agrícolas</div>
-<div style="background:var(--card2);border-radius:8px;padding:12px;margin-bottom:20px;text-align:left;">
-<div style="font-size:.72rem;color:var(--accent);font-weight:600;">📍 Fazenda Planalto</div>
-<div style="font-size:.68rem;color:var(--muted);margin-top:2px;">Alto Garças — MT | Safras 2019/20 a 2025/26</div>
-</div>
-<input type="text" id="loginUser" placeholder="Usuário" autocomplete="off">
-<input type="password" id="loginPass" placeholder="Senha" autocomplete="off">
-<button onclick="doLogin()">Acessar Painel</button>
-<div class="login-error" id="loginError"></div>
-<div class="login-footer">
-<strong>Dr. Sidney Souza</strong><br>
-Economista Agrícola — Estrategista Econômico do Produtor<br>
-sidneyagro@gmail.com | (64) 9 9226-6886<br>
-@ruralin.ai
-</div>
-</div>
-</div>
-
-<!-- ========== APP ========== -->
 <div class="app" id="app">
 <aside class="sidebar">
 <div class="sidebar-header">
-<div style="width:60px;height:60px;margin:0 auto 6px;background:linear-gradient(135deg,#00e676,#00b0ff);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-<span style="font-size:1.5rem;font-weight:900;color:#0b1120;">Ri</span>
-</div>
-<h2>RURAL IN</h2>
-<p>Inteligência Econômica Agro</p>
-</div>
-<div class="sidebar-client">
-<h3>📍 Fazenda Planalto</h3>
-<p>Alto Garças — MT<br>7 Safras · 2019/20 a 2025/26</p>
-</div>
-
-<div class="nav-section">
-<div class="nav-section-title">Visão Geral</div>
-<div class="nav-item active" onclick="showTab('dashboard',this)"><span class="icon">📊</span> Dashboard</div>
-<div class="nav-item" onclick="showTab('evolucao',this)"><span class="icon">📈</span> Evolução por Safra</div>
-</div>
-
-<div class="nav-section">
-<div class="nav-section-title">Análise Financeira</div>
-<div class="nav-item" onclick="showTab('fornecedores',this)"><span class="icon">🏢</span> Fornecedores</div>
-<div class="nav-item" onclick="showTab('precos',this)"><span class="icon">💲</span> Evolução de Preços</div>
-<div class="nav-item" onclick="showTab('cambio',this)"><span class="icon">💱</span> Exposição Cambial</div>
-<div class="nav-item" onclick="showTab('pagamentos',this)"><span class="icon">📅</span> Fluxo Pagamentos</div>
-</div>
-
-<div class="nav-section">
-<div class="nav-section-title">Análise Agronômica</div>
-<div class="nav-item" onclick="showTab('categorias',this)"><span class="icon">🧪</span> Categorias</div>
-<div class="nav-item" onclick="showTab('sementes',this)"><span class="icon">🌽</span> Sementes Milho</div>
-<div class="nav-item" onclick="showTab('biologicos',this)"><span class="icon">🦠</span> Biológicos</div>
-<div class="nav-item" onclick="showTab('fertilizantes',this)"><span class="icon">🧪</span> Fertilizantes</div>
-</div>
-
-<div class="nav-section">
-<div class="nav-section-title">Estratégia</div>
-<div class="nav-item" onclick="showTab('benchmark',this)"><span class="icon">🎯</span> Benchmark MT</div>
-<div class="nav-item" onclick="showTab('relacaotroca',this)"><span class="icon">⚖️</span> Relação de Troca</div>
-<div class="nav-item" onclick="showTab('recomendacoes',this)"><span class="icon">💡</span> Recomendações</div>
-</div>
-
-<div class="nav-section">
-<div class="nav-section-title">🔍 Drill-Down Detalhado</div>
-<div class="nav-link" onclick="window.open('fornecedores.html','_self')"><span class="icon">🏢</span> Por Fornecedor</div>
-<div class="nav-link" onclick="window.open('produtos.html','_self')"><span class="icon">🧬</span> Por Produto / P.A.</div>
-</div>
-
-<div class="sidebar-footer">
-<strong>Análise e Construção</strong><br>
-Dr. Sidney Souza<br>
-Economista Agrícola<br>
-Estrategista Econômico do Produtor<br>
-<span style="color:var(--accent);">sidneyagro@gmail.com</span><br>
-(64) 9 9226-6886<br>
-<a href="#">@ruralin.ai</a>
-</div>
+<div style="width:60px;height:60px;margin:0 auto 6px;background:linear-gradient(135deg,#00e676,#00b0ff);border-radius:50%;display:flex;align-items:center;justify-content:center;"><span style="font-size:1.5rem;font-weight:900;color:#0b1120;">Ri</span></div>
+<h2>RURAL IN</h2><p>Inteligência Econômica Agro</p></div>
+<div class="sidebar-client"><h3>📍 Fazenda Planalto</h3><p>Alto Garças — MT<br>8 Safras · 2019/20 a 2026/27</p></div>
+<div class="nav-section"><div class="nav-section-title">Visão Geral</div>
+<div class="nav-item active" data-t="dashboard"><span class="icon">📊</span> Dashboard</div>
+<div class="nav-item" data-t="evolucao"><span class="icon">📈</span> Evolução por Safra</div></div>
+<div class="nav-section"><div class="nav-section-title">Análise Financeira</div>
+<div class="nav-item" data-t="fornecedores"><span class="icon">🏢</span> Fornecedores</div>
+<div class="nav-item" data-t="precos"><span class="icon">💲</span> Evolução de Preços</div>
+<div class="nav-item" data-t="cambio"><span class="icon">💱</span> Exposição Cambial</div>
+<div class="nav-item" data-t="pagamentos"><span class="icon">📅</span> Fluxo Pagamentos</div></div>
+<div class="nav-section"><div class="nav-section-title">Análise Agronômica</div>
+<div class="nav-item" data-t="categorias"><span class="icon">🧪</span> Categorias</div>
+<div class="nav-item" data-t="sementes"><span class="icon">🌽</span> Sementes Milho</div>
+<div class="nav-item" data-t="biologicos"><span class="icon">🦠</span> Biológicos</div>
+<div class="nav-item" data-t="fertilizantes"><span class="icon">🧪</span> Fertilizantes</div></div>
+<div class="nav-section"><div class="nav-section-title">Estratégia</div>
+<div class="nav-item" data-t="benchmark"><span class="icon">🎯</span> Benchmark MT</div>
+<div class="nav-item" data-t="relacaotroca"><span class="icon">⚖️</span> Relação de Troca</div>
+<div class="nav-item new" data-t="estatistica"><span class="icon">📐</span> Estatística</div>
+<div class="nav-item new" data-t="projecao"><span class="icon">🔮</span> Projeção 3 safras</div>
+<div class="nav-item" data-t="recomendacoes"><span class="icon">💡</span> Recomendações</div>
+<div class="nav-item new" data-t="fontes"><span class="icon">🧾</span> Fontes e Pendências</div></div>
+<div class="nav-section"><div class="nav-section-title">🔍 Drill-Down Detalhado</div>
+<div class="nav-link" onclick="location.href='fornecedores.html'"><span class="icon">🏢</span> Por Fornecedor</div>
+<div class="nav-link" data-t="precos" data-a="tabela-produtos"><span class="icon">🧬</span> Por Produto / P.A.</div></div>
+<div class="sidebar-footer"><strong>Análise e Construção</strong><br>Dr. Sidney Souza<br>Economista Agrícola<br>Estrategista Econômico do Produtor<br><span style="color:var(--accent);">sidneyagro@gmail.com</span><br>(64) 9 9226-6886<br><a href="#">@ruralin.ai</a></div>
 </aside>
-
 <div class="main">
-<div class="topbar">
-<h1>Painel Estratégico <span>Insumos Agrícolas</span></h1>
-<div class="topbar-right">
-<span>👤 David</span>
-<span id="currentDate"></span>
-<button class="btn-logout" onclick="doLogout()">Sair</button>
-</div>
-</div>
-
+<div class="topbar"><h1>Painel Estratégico <span>Insumos Agrícolas</span></h1><div class="topbar-right"><span>👤 David</span><span>Atualizado em 20/10/2026 · safras 25/26 e 26/27</span></div></div>
+<div class="topnav" id="topnav"></div>
 <div class="content">
 
-<!-- ========== TAB: DASHBOARD ========== -->
+<!-- DASHBOARD -->
 <div class="tab-content active" id="tab-dashboard">
-<h2 style="font-size:1.2rem;margin-bottom:6px;">Dashboard Consolidado — <span style="color:var(--accent);">7 Safras</span></h2>
-<p style="font-size:.78rem;color:var(--muted);margin-bottom:20px;">Visão macro do investimento em insumos · Fazenda Planalto · Alto Garças — MT</p>
-
+<h2 style="font-size:1.2rem;margin-bottom:6px;">Dashboard Consolidado — <span style="color:var(--accent);">8 Safras</span></h2>
+<p style="font-size:.78rem;color:var(--muted);margin-bottom:20px;">Visão macro do investimento em insumos · Fazenda Planalto · Alto Garças — MT · 25/26 pela planilha INSUMOS.AGRO.25.26 e 26/27 pela INSUMOS.AGRO.26.27 · US$ a R$ 5,50</p>
 <div class="kpi-grid">
-<div class="kpi-card green"><div class="kpi-label">Investimento Total 7 Safras</div><div class="kpi-value">R$ 148,5 Mi</div><div class="kpi-sub">Defens. + Fert. + Sementes + Bio</div></div>
-<div class="kpi-card blue"><div class="kpi-label">Área Total Gerenciada</div><div class="kpi-value">~12.350 ha</div><div class="kpi-sub">MT Planalto + MT Continental + GO</div></div>
-<div class="kpi-card orange"><div class="kpi-label">Fornecedores Ativos 25/26</div><div class="kpi-value">14</div><div class="kpi-sub">vs. 11 na safra 19/20 (+27%)</div></div>
-<div class="kpi-card purple"><div class="kpi-label">Produtos Biológicos 24/25</div><div class="kpi-value">34+</div><div class="kpi-sub">De 0 (19/20) para 34 produtos</div></div>
-<div class="kpi-card yellow"><div class="kpi-label">Custo Semente Milho/sc</div><div class="kpi-value">R$ 681</div><div class="kpi-sub">+97% vs. safra 2020</div><div class="kpi-delta up">▲ Dobrou em 5 safras</div></div>
+<div class="kpi-card green"><div class="kpi-label">Defensivos 26/27</div><div class="kpi-value">R$ 24,15 Mi</div><div class="kpi-sub">pedido nas planilhas</div><div class="kpi-delta up">▲ +38,2% sobre a 25/26</div></div>
+<div class="kpi-card blue"><div class="kpi-label">Defensivos 8 Safras</div><div class="kpi-value">R$ 139,7 Mi</div><div class="kpi-sub">19/20 a 26/27 · só defensivos</div></div>
+<div class="kpi-card orange"><div class="kpi-label">Fornecedores 26/27</div><div class="kpi-value">14</div><div class="kpi-sub">vs. 12 na 25/26 · entram Agriconnection e Adama</div></div>
+<div class="kpi-card purple"><div class="kpi-label">Custo por hectare 26/27</div><div class="kpi-value">R$ 1.956/ha</div><div class="kpi-sub">~12.350 ha · 25/26: R$ 1.415/ha</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">Em sacas de soja 26/27</div><div class="kpi-value">203.106 sc</div><div class="kpi-sub">a R$ 118,92/sc (fazenda, 28/09/2026) · ~16,4 sc/ha</div></div>
 </div>
-
 <div class="card-grid">
 <div class="card"><h3>📊 Investimento por Safra (R$ mil)</h3><div class="chart-container"><canvas id="chartInvestSafra"></canvas></div></div>
-<div class="card"><h3>🏢 Top Fornecedores 25/26</h3><div class="chart-container"><canvas id="chartFornecPie"></canvas></div></div>
+<div class="card"><h3>🏢 Fornecedores 26/27 (pedido)</h3><div class="chart-container"><canvas id="chartFornecPie"></canvas></div></div>
+</div>
+<div class="card"><h3>📋 Resumo Financeiro por Safra — Defensivos (R$ mil)</h3>
+<div class="table-wrapper"><table id="t-resumo"></table></div>
+<p style="font-size:.68rem;color:var(--muted);margin-top:6px;">19/20 a 24/25: versão anterior do painel. 25/26 e 26/27: planilhas. Outros 25/26 = Rainbow, Sumitomo, Tecnomyl e Ouro Fino. Outros 26/27 = Agriconnection, Adama, Rainbow, Sumitomo, Tecnomyl e Ouro Fino. Ihara 25/26 inclui a Ag. Alvorada (R$ 249 mil), que a versão anterior não somava.</p>
+<div class="insight-box"><p><strong>📌 Insight:</strong> A 26/27 tem R$ 24,15 milhões contratados em defensivos, a segunda maior safra da série depois dos R$ 26,97 milhões da 22/23 e 38,2% acima da 25/26. A conta ainda está incompleta: a Syngenta mandou só o total de 2.930.000, sem preço por produto e sem moeda, e cinco itens da Rainbow, da Tecnomyl e da Adama vieram com volume e sem preço.</p><p>Em sacas, ao preço da própria fazenda de R$ 118,92 em 28/09/2026, o pacote custa 203.106 sacas, contra 146.924 da 25/26 ao mesmo preço. Antes de fechar o orçamento, peça os preços que faltam à Syngenta, à Rainbow e à Adama.</p><span class="sig">Dr. Sidney Souza · 20/10/2026</span></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3>📐 Distribuição por Região — 25/26 (planilha)</h3><div class="chart-container small"><canvas id="chartRegiao25"></canvas></div></div>
+<div class="card"><h3>📐 Distribuição por Região — 26/27 (pedido)</h3><div class="chart-container small"><canvas id="chartRegiao"></canvas></div></div>
+</div>
+<p class="upd">A versão anterior trazia MT Planalto 55%, MT Continental 25% e GO 20% (estimativa). As planilhas separam só MT e GO por produto. Valor alocado pela proporção do volume de cada produto. Sem divisão: BASF 25/26 e Syngenta 26/27 inteiras e itens sem coluna MT/GO.</p>
 </div>
 
-<div class="card">
-<h3>📋 Resumo Financeiro por Safra — Defensivos (R$ mil)</h3>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Safra</th><th class="text-right">BASF</th><th class="text-right">Bayer</th><th class="text-right">Corteva</th><th class="text-right">FMC</th><th class="text-right">Syngenta</th><th class="text-right">Ihara</th><th class="text-right">UPL</th><th class="text-right">Albaugh</th><th class="text-right">Outros</th><th class="text-right">TOTAL</th></tr></thead>
-<tbody>
-<tr><td>19/20</td><td class="text-right">1.830</td><td class="text-right">1.250</td><td class="text-right">1.652</td><td class="text-right">963</td><td class="text-right">1.309</td><td class="text-right">836</td><td class="text-right">553</td><td class="text-right">—</td><td class="text-right">2.307</td><td class="text-right"><b>10.700</b></td></tr>
-<tr><td>20/21</td><td class="text-right">1.695</td><td class="text-right">867</td><td class="text-right">1.473</td><td class="text-right">—</td><td class="text-right">830</td><td class="text-right">385</td><td class="text-right">—</td><td class="text-right">1.818</td><td class="text-right">1.469</td><td class="text-right"><b>8.537</b></td></tr>
-<tr><td>21/22</td><td class="text-right">1.175</td><td class="text-right">1.431</td><td class="text-right">2.486</td><td class="text-right">—</td><td class="text-right">4.221</td><td class="text-right">1.140</td><td class="text-right">1.853</td><td class="text-right">433</td><td class="text-right">1.989</td><td class="text-right"><b>14.728</b></td></tr>
-<tr><td>22/23</td><td class="text-right">2.563</td><td class="text-right">3.078</td><td class="text-right">3.280</td><td class="text-right">1.271</td><td class="text-right">9.721</td><td class="text-right">1.488</td><td class="text-right">3.575</td><td class="text-right">—</td><td class="text-right">1.989</td><td class="text-right"><b>26.965</b></td></tr>
-<tr><td>23/24</td><td class="text-right">2.941</td><td class="text-right">3.319</td><td class="text-right">1.686</td><td class="text-right">1.554</td><td class="text-right">2.201</td><td class="text-right">1.224</td><td class="text-right">4.682</td><td class="text-right">576</td><td class="text-right">1.438</td><td class="text-right"><b>19.621</b></td></tr>
-<tr><td>24/25</td><td class="text-right">2.553</td><td class="text-right">2.287</td><td class="text-right">1.431</td><td class="text-right">989</td><td class="text-right">1.205</td><td class="text-right">1.699</td><td class="text-right">1.388</td><td class="text-right">1.869</td><td class="text-right">4.127</td><td class="text-right"><b>17.548</b></td></tr>
-<tr style="background:rgba(0,230,118,.06);"><td><b>25/26</b></td><td class="text-right">1.425</td><td class="text-right">2.707</td><td class="text-right">231</td><td class="text-right">386</td><td class="text-right">1.598</td><td class="text-right">1.437</td><td class="text-right">2.447</td><td class="text-right">2.152</td><td class="text-right">4.839</td><td class="text-right"><b>17.222</b></td></tr>
-</tbody>
-</table>
-</div>
-<div class="insight-box"><strong>📌 Insight:</strong> Pico na 22/23 (~R$ 27M). Safra 25/26 apresenta <strong>redução de 36%</strong> frente ao pico, sinalizando normalização de preços e maior adoção de genéricos.</div>
-</div>
-
-<div class="card"><h3>📐 Distribuição por Região — 25/26</h3><div class="chart-container small"><canvas id="chartRegiao"></canvas></div></div>
-</div>
-
-<!-- ========== TAB: EVOLUÇÃO ========== -->
+<!-- EVOLUCAO -->
 <div class="tab-content" id="tab-evolucao">
 <h2 class="section-title">📈 Evolução <span>por Safra</span></h2>
-<div class="card"><h3>Investimento Total por Categoria (R$ mil)</h3><div class="chart-container tall"><canvas id="chartEvolCategoria"></canvas></div></div>
+<div class="card"><h3>Investimento Total por Categoria (R$ mil)</h3><div class="chart-container tall"><canvas id="chartEvolCategoria"></canvas></div>
+<p style="font-size:.68rem;color:var(--muted)">19/20 a 24/25: estimativa da versão anterior. 25/26 e 26/27: classificação produto a produto das planilhas. "Outros" inclui multissítios, adjuvantes, nutrição e itens não classificados (na 26/27, a Syngenta inteira).</p></div>
+<div class="card"><h3>📋 Evolução Nº Fornecedores e Produtos</h3>
+<div class="table-wrapper"><table><thead><tr><th>Safra</th><th class="text-center">Fornecedores</th><th class="text-center">Prod. Defens.</th><th class="text-center">Biológicos</th><th class="text-center">Híbridos Milho</th><th class="text-center">Fert. Formulações</th></tr></thead><tbody>
+<tr><td>19/20</td><td class="text-center">11</td><td class="text-center">~65</td><td class="text-center">0</td><td class="text-center">15</td><td class="text-center">8</td></tr>
+<tr><td>20/21</td><td class="text-center">10</td><td class="text-center">~55</td><td class="text-center">0</td><td class="text-center">13</td><td class="text-center">25+</td></tr>
+<tr><td>21/22</td><td class="text-center">10</td><td class="text-center">~70</td><td class="text-center">0</td><td class="text-center">16</td><td class="text-center">22</td></tr>
+<tr><td>22/23</td><td class="text-center">10</td><td class="text-center">~75</td><td class="text-center">22</td><td class="text-center">14</td><td class="text-center">18</td></tr>
+<tr><td>23/24</td><td class="text-center">11</td><td class="text-center">~80</td><td class="text-center">0</td><td class="text-center">10</td><td class="text-center">20+</td></tr>
+<tr><td>24/25</td><td class="text-center">14</td><td class="text-center">~95</td><td class="text-center">34</td><td class="text-center">10</td><td class="text-center">21</td></tr>
+<tr style="background:rgba(0,176,255,.05)"><td>25/26 <small style="color:var(--accent2)">planilha</small></td><td class="text-center">12</td><td class="text-center">80 com volume</td><td class="text-center">—</td><td class="text-center">—</td><td class="text-center">cotações</td></tr>
+<tr style="background:rgba(0,230,118,.06)"><td><b>26/27</b> <small style="color:var(--accent)">planilha</small></td><td class="text-center"><b>14</b></td><td class="text-center"><b>96 com volume</b></td><td class="text-center">—</td><td class="text-center">—</td><td class="text-center">cotações</td></tr>
+</tbody></table></div>
+<p style="font-size:.68rem;color:var(--muted)">Na 25/26 a versão anterior contava 14 fornecedores e ~100 produtos. As planilhas trazem 12 fornecedores (Ihara e Ag. Alvorada juntas) e 80 produtos com volume. As planilhas de defensivos não trazem biológicos, milho nem formulações de fertilizante.</p>
+<div class="insight-box"><strong>📌 Tendência:</strong> de 11 fornecedores na 19/20 para 14 na 26/27, e de 80 para 96 produtos com volume entre a 25/26 e a 26/27. A diversificação continua, agora puxada por revendas (Agriconnection) e não por novos fabricantes.</div></div>
+<div class="card"><h3>🌱 Marcos Estratégicos por Safra</h3><div style="display:grid;gap:10px;">
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-green">19/20</span><div><strong style="font-size:.82rem;">Base Tradicional</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">Portfólio concentrado em BASF, Bayer, Corteva, FMC, Syngenta. Sem biológicos. Operação em MT + GO.</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-blue">20/21</span><div><strong style="font-size:.82rem;">Entrada Albaugh + Agriconnection</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">Primeira diversificação com genéricos. Albaugh entra com R$ 1,8M. Forte investimento em fertilizantes com múltiplos fornecedores.</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-orange">21/22</span><div><strong style="font-size:.82rem;">Expansão Syngenta + UPL</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">Syngenta atinge R$ 4,2M. UPL passa de R$ 1,85M. Zapp QI comprado em volumes massivos (58-72 mil L).</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-red">22/23</span><div><strong style="font-size:.82rem;">Pico de Custos + Entrada Biológicos</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">SAFRA MAIS CARA — ~R$ 27M em defensivos. Syngenta R$ 9,7M. Primeira adoção massiva de biológicos (Simbiose, Koppert, Agrivalle).</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-purple">23/24</span><div><strong style="font-size:.82rem;">Ajuste + Fortalecimento UPL</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">UPL/Origeo ultrapassa R$ 4,6M, tornando-se o maior fornecedor. Entrada da Nortox. Corteva recua para R$ 1,7M.</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-yellow">24/25</span><div><strong style="font-size:.82rem;">Massificação Biológicos + Rainbow + Sumitomo</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">34 produtos biológicos de 15+ empresas. Rainbow entra com R$ 1,3M. Sumitomo com R$ 1,1M. Diversificação máxima.</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:var(--card2);border-radius:8px;"><span class="tag tag-green">25/26</span><div><strong style="font-size:.82rem;">Consolidação + Novos Players</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">Pela planilha: Bayer R$ 2,71M, UPL R$ 2,45M, Albaugh R$ 2,15M, Ihara + Alvorada R$ 1,69M, Rainbow R$ 1,66M. Corteva R$ 231k (mínima histórica). Tecnomyl R$ 925k com pedido marcado SUSPENSO.</p></div></div>
+<div style="display:flex;gap:14px;align-items:start;padding:12px;background:rgba(0,230,118,.06);border-radius:8px;border:1px solid rgba(0,230,118,.25)"><span class="tag tag-blue">26/27</span><div><strong style="font-size:.82rem;">Revendas e volume: R$ 24,15M</strong><p style="font-size:.75rem;color:var(--muted);margin-top:4px;">Agriconnection entra como 2º maior fornecedor (R$ 3,37M) revendendo clorfenapir, glifosato, Certeza N e Absoluto Fix. Adama entra com R$ 0,84M. Ouro Fino salta para R$ 2,47M com 62.000 L de Off Road. Rainbow cai para R$ 180k e Ihara para R$ 436k. Preços caem 11,2% no cesto comum e o volume sobe 48,8%.</p></div></div>
+</div></div>
+</div>
 
-<div class="card">
-<h3>📋 Evolução Nº Fornecedores e Produtos</h3>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Safra</th><th class="text-center">Fornecedores</th><th class="text-center">Prod. Defens.</th><th class="text-center">Biológicos</th><th class="text-center">Híbridos Milho</th></tr></thead>
-<tbody>
-<tr><td>19/20</td><td class="text-center">11</td><td class="text-center">~65</td><td class="text-center">0</td><td class="text-center">15</td></tr>
-<tr><td>20/21</td><td class="text-center">10</td><td class="text-center">~55</td><td class="text-center">0</td><td class="text-center">13</td></tr>
-<tr><td>21/22</td><td class="text-center">10</td><td class="text-center">~70</td><td class="text-center">0</td><td class="text-center">16</td></tr>
-<tr><td>22/23</td><td class="text-center">10</td><td class="text-center">~75</td><td class="text-center">22</td><td class="text-center">14</td></tr>
-<tr><td>23/24</td><td class="text-center">11</td><td class="text-center">~80</td><td class="text-center">0</td><td class="text-center">10</td></tr>
-<tr><td>24/25</td><td class="text-center">14</td><td class="text-center">~95</td><td class="text-center">34</td><td class="text-center">10</td></tr>
-<tr><td>25/26</td><td class="text-center">14</td><td class="text-center">~100</td><td class="text-center">30+</td><td class="text-center">—</td></tr>
-</tbody>
-</table>
-</div>
-<div class="insight-box"><strong>📌 Tendência:</strong> +27% fornecedores, +54% produtos = <strong>diversificação estratégica</strong>.</div>
-</div>
-</div>
-
-<!-- ========== TAB: FORNECEDORES ========== -->
+<!-- FORNECEDORES -->
 <div class="tab-content" id="tab-fornecedores">
 <h2 class="section-title">🏢 Análise de <span>Fornecedores</span></h2>
 <div class="card"><h3>Evolução por Fornecedor (R$ mil)</h3><div class="chart-container tall"><canvas id="chartFornecEvolucao"></canvas></div></div>
-
-<div class="card">
-<h3>🔝 Ranking 25/26 — <a href="fornecedores.html" style="font-size:.75rem;">🔍 Ver drill-down completo →</a></h3>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>#</th><th>Fornecedor</th><th class="text-right">R$ mil</th><th class="text-right">Part. %</th><th>Tendência</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>1</td><td>Bayer</td><td class="text-right">2.707</td><td class="text-right">15,7%</td><td><span class="tag tag-green">Estável</span></td><td><a href="f-bayer.html">Detalhar →</a></td></tr>
-<tr><td>2</td><td>UPL/Origeo</td><td class="text-right">2.447</td><td class="text-right">14,2%</td><td><span class="tag tag-green">▲ Crescente</span></td><td><a href="f-upl.html">Detalhar →</a></td></tr>
-<tr><td>3</td><td>Albaugh</td><td class="text-right">2.152</td><td class="text-right">12,5%</td><td><span class="tag tag-green">▲ Crescente</span></td><td><a href="f-albaugh.html">Detalhar →</a></td></tr>
-<tr><td>4</td><td>Rainbow</td><td class="text-right">1.663</td><td class="text-right">9,7%</td><td><span class="tag tag-blue">Novo</span></td><td><a href="f-rainbow.html">Detalhar →</a></td></tr>
-<tr><td>5</td><td>Syngenta</td><td class="text-right">1.598</td><td class="text-right">9,3%</td><td><span class="tag tag-red">▼ Queda</span></td><td><a href="f-syngenta.html">Detalhar →</a></td></tr>
-<tr><td>6</td><td>Sumitomo</td><td class="text-right">1.569</td><td class="text-right">9,1%</td><td><span class="tag tag-green">▲ Crescente</span></td><td><a href="f-sumitomo.html">Detalhar →</a></td></tr>
-<tr><td>7</td><td>Ihara</td><td class="text-right">1.437</td><td class="text-right">8,3%</td><td><span class="tag tag-green">Estável</span></td><td><a href="f-ihara.html">Detalhar →</a></td></tr>
-<tr><td>8</td><td>BASF</td><td class="text-right">1.425</td><td class="text-right">8,3%</td><td><span class="tag tag-red">▼ Queda</span></td><td><a href="f-basf.html">Detalhar →</a></td></tr>
-<tr><td>9</td><td>Tecnomyl</td><td class="text-right">925</td><td class="text-right">5,4%</td><td><span class="tag tag-blue">Novo</span></td><td><a href="f-tecnomyl.html">Detalhar →</a></td></tr>
-<tr><td>10</td><td>Ouro Fino</td><td class="text-right">683</td><td class="text-right">4,0%</td><td><span class="tag tag-green">Estável</span></td><td><a href="f-ourofino.html">Detalhar →</a></td></tr>
-<tr><td>11</td><td>FMC</td><td class="text-right">386</td><td class="text-right">2,2%</td><td><span class="tag tag-red">▼ Forte Queda</span></td><td><a href="f-fmc.html">Detalhar →</a></td></tr>
-<tr><td>12</td><td>Corteva</td><td class="text-right">231</td><td class="text-right">1,3%</td><td><span class="tag tag-red">▼ Mínima</span></td><td><a href="f-corteva.html">Detalhar →</a></td></tr>
-</tbody>
-</table>
-</div>
-</div>
-
+<div class="card-grid">
+<div class="card"><h3>🔝 Ranking 26/27 — <a href="fornecedores.html" style="font-size:.75rem;">🔍 Ver drill-down completo →</a></h3><div class="table-wrapper"><table id="t-ranking"></table></div></div>
+<div class="card"><h3>🔄 Mudanças Estruturais no Mix de Fornecedores</h3>
+<div class="insight-box"><strong>Big 4 (BASF + Bayer + Corteva + Syngenta):</strong> ~55% na 19/20 pela versão anterior. Pelas planilhas, 34,1% na 25/26 e 38,2% na 26/27. A volta para cima vem da Bayer (R$ 3,42M), da Syngenta (R$ 2,93M, moeda a confirmar) e da Corteva (de R$ 231k para R$ 954k).</div>
+<div class="insight-box warning"><strong>Genéricos e revendas:</strong> Albaugh, Rainbow, Tecnomyl, UPL, Agriconnection e Adama somam 41,1% na 25/26 e 35,3% na 26/27. O valor caiu em participação, mas as moléculas mudaram de mão: Rainbow e Albaugh perderam clorfenapir e glifosato para a Agriconnection.</div>
+<div class="insight-box"><strong>Corteva — Caso emblemático:</strong> De R$ 2,5M (21/22) para R$ 231k (25/26) e volta a R$ 954k na 26/27, com Vessarya de R$ 138,00 para R$ 90,00 o litro e 3.400 L no pedido.</div></div></div>
 <div class="card"><h3>📊 Índice HHI — Concentração</h3><div class="chart-container small"><canvas id="chartHHI"></canvas></div>
-<div class="insight-box"><strong>Índice HHI:</strong> De ~1.800 (concentrado) para ~950 (diversificado). Risco de dependência reduzido significativamente.</div></div>
+<div class="insight-box"><p><strong>Índice HHI:</strong> a linha tracejada é a estimativa da versão anterior (1.800 para 950). A linha cheia é o HHI calculado: 19/20 a 24/25 a partir da tabela de resumo, com "Outros" como um só fornecedor, e 25/26 e 26/27 fornecedor a fornecedor nas planilhas. Na 25/26 o calculado é 1.052 e na 26/27 é 1.008, abaixo de 1.500 nos dois casos. A fazenda está diversificada, mas não tanto quanto a estimativa anterior dizia.</p><span class="sig">Dr. Sidney Souza</span></div></div>
 </div>
 
-<!-- ========== TAB: PREÇOS ========== -->
+<!-- PRECOS -->
 <div class="tab-content" id="tab-precos">
 <h2 class="section-title">💲 Evolução de <span>Preços</span></h2>
 <div class="card-grid">
 <div class="card"><h3>Fungicidas (R$/L)</h3><div class="chart-container"><canvas id="chartPrecoFung"></canvas></div></div>
 <div class="card"><h3>Inseticidas (R$/L)</h3><div class="chart-container"><canvas id="chartPrecoInse"></canvas></div></div>
 </div>
-<div class="insight-box"><strong>📌 Tendência geral:</strong> Deflação de 15-40% nas últimas 2-3 safras. Normalização pós-crise de suprimentos + concorrência de genéricos.</div>
+<div class="card"><h3>📋 Tabela Comparativa — Preços Unitários por Safra (R$)</h3><div class="table-wrapper"><table id="t-precos-hist"></table></div>
+<p style="font-size:.68rem;color:var(--muted);margin-top:6px;">* Valores convertidos de USD. 19/20 a 24/25 da versão anterior. 25/26 e 26/27 das planilhas (Fastac Duo a R$ 5,50/US$).</p>
+<div class="insight-box"><strong>📌 Tendência geral:</strong> no cesto de 41 produtos comprados nas duas planilhas, o índice de preços de Fisher é 0,888: os preços caíram 11,2% da 25/26 para a 26/27. Dos 41, 36 caíram. A mediana é −10,0%.</div></div>
+<div class="card" id="tabela-produtos"><h3>🧬 Por Produto — 25/26 × 26/27 (todas as planilhas)</h3>
+<label style="font-size:.75rem;color:var(--muted);display:flex;gap:6px;align-items:center;margin-bottom:8px"><input type="checkbox" id="p-all"> incluir itens só cotados</label>
+<div class="table-wrapper" style="max-height:520px;overflow:auto"><table id="t-precos"></table></div>
+<p style="font-size:.68rem;color:var(--muted);margin-top:6px;">Variação = preço 26/27 ÷ preço 25/26 − 1. Mesmo nome de produto nas duas planilhas, inclusive quando mudou de fornecedor. Conferir concentração antes de usar em negociação.</p>
+<div class="insight-box"><p>Curbix caiu de R$ 75,00 para R$ 55,00, Vessarya de R$ 138,00 para R$ 90,00 e Feroce de R$ 65,21 para R$ 52,07. Na Bayer cinco itens subiram: Aureo 11,2%, Bulldock 9,0%, Fox Supra 2,5%, para R$ 309,52, Fox Xpro 2,4% e Nativo Plus 0,7%. Use o Curbix e o Vessarya como referência na conversa com a Bayer sobre Fox Supra e Bulldock antes de 30/10/2026, quando vence a primeira parcela.</p><span class="sig">Dr. Sidney Souza</span></div></div>
 </div>
 
-<!-- ========== TAB: CÂMBIO ========== -->
+<!-- CAMBIO -->
 <div class="tab-content" id="tab-cambio">
 <h2 class="section-title">💱 Exposição <span>Cambial</span></h2>
-<div class="card"><h3>% USD vs R$ por Safra</h3><div class="chart-container"><canvas id="chartCambio"></canvas></div></div>
+<div class="card"><h3>% USD vs R$ por Safra</h3><div class="chart-container"><canvas id="chartCambio"></canvas></div>
+<p style="font-size:.68rem;color:var(--muted)">19/20 a 24/25: estimativa da versão anterior. 25/26 e 26/27: calculado nas planilhas (contratos com total em US$ a R$ 5,50 sobre o total).</p></div>
+<div class="card-grid">
+<div class="card"><h3>📋 Contratos em USD — 25/26 (planilha)</h3><div class="table-wrapper"><table>
+<thead><tr><th>Fornecedor</th><th>Modalidade</th><th class="text-right">Valor USD</th><th>Obs.</th></tr></thead><tbody>
+<tr><td>BASF</td><td><span class="badge badge-usd">CAP Dólar</span></td><td class="text-right">USD 259.060</td><td>Vcto 30/04/2026</td></tr>
+<tr><td>Syngenta</td><td><span class="badge badge-usd">FAT/PTAX</span></td><td class="text-right">USD 290.653</td><td>Vcto 05/08/2025</td></tr>
+<tr class="muted-row"><td>Sumitomo</td><td>Negociado em R$</td><td class="text-right">(ref. USD 260.963)</td><td>Pode virar barter</td></tr>
+<tr class="muted-row"><td>Tecnomyl</td><td>R$ · SUSPENSO</td><td class="text-right">(ref. USD 142.750)</td><td>Pedido suspenso</td></tr>
+<tr><td colspan="2"><strong>Total Exposição USD</strong></td><td class="text-right"><strong>USD 549.713</strong></td><td>17,3% do total</td></tr></tbody></table></div>
+<p style="font-size:.68rem;color:var(--muted)">A versão anterior somava USD ~953k incluindo Sumitomo e Tecnomyl.</p></div>
+<div class="card"><h3>📋 Contratos em USD — 26/27 (planilha)</h3><div class="table-wrapper"><table>
+<thead><tr><th>Fornecedor</th><th>Modalidade</th><th class="text-right">Valor USD</th><th>Obs.</th></tr></thead><tbody>
+<tr><td>BASF</td><td><span class="badge badge-usd">CAP Dólar</span></td><td class="text-right">USD 347.180</td><td>Vcto 30/04/2027</td></tr>
+<tr class="muted-row"><td>Syngenta</td><td>moeda a confirmar</td><td class="text-right">2.930.000 (tratado como R$)</td><td>Sem unitários</td></tr>
+<tr><td colspan="2"><strong>Total Exposição USD</strong></td><td class="text-right"><strong>USD 347.180</strong></td><td>7,9% do total</td></tr></tbody></table></div></div>
+</div>
+<div class="card"><h3>📋 Simulação Cenários Cambiais — BASF 26/27</h3><div class="table-wrapper"><table id="t-fx"></table></div>
+<div class="insight-box warning"><p><strong>⚠️ Risco cambial:</strong> o único contrato em dólar da 26/27 é o da BASF, US$ 347.180,00 no modelo CAP, com vencimento em 30/04/2027. Na 25/26 eram US$ 549.713,00 entre BASF e Syngenta. Cada R$ 0,10 no câmbio muda a conta da BASF em R$ 34.718,00. A PTAX oficial mais recente no grafo do RuralIn é R$ 5,1253 (BCB, 04/09/2026). Confirme com a BASF o teto do CAP e com a Syngenta a moeda do pedido antes de decidir travar câmbio.</p><span class="sig">Dr. Sidney Souza</span></div></div>
+</div>
 
-<div class="card">
-<h3>📋 Simulação Cenários Cambiais 25/26</h3>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Cenário</th><th class="text-right">USD/BRL</th><th class="text-right">Total (R$)</th><th>vs. Base</th></tr></thead>
-<tbody>
-<tr><td><span class="tag tag-green">Otimista</span></td><td class="text-right">5,30</td><td class="text-right">4.296k</td><td class="positive">-R$ 387k</td></tr>
-<tr><td><span class="tag tag-blue">Base</span></td><td class="text-right">5,75</td><td class="text-right">4.662k</td><td>—</td></tr>
-<tr><td><span class="tag tag-orange">Moderado</span></td><td class="text-right">6,00</td><td class="text-right">4.864k</td><td class="negative">+R$ 202k</td></tr>
-<tr><td><span class="tag tag-red">Pessimista</span></td><td class="text-right">6,50</td><td class="text-right">5.269k</td><td class="negative">+R$ 607k</td></tr>
-</tbody>
-</table>
-</div>
-<div class="insight-box warning"><strong>⚠️ Risco cambial:</strong> USD ~953k expostos. Variação potencial de R$ 667k. Travar câmbio para BASF e Syngenta.</div>
-</div>
-</div>
-
-<!-- ========== TAB: PAGAMENTOS ========== -->
+<!-- PAGAMENTOS -->
 <div class="tab-content" id="tab-pagamentos">
-<h2 class="section-title">📅 Fluxo de <span>Pagamentos</span> 25/26</h2>
-<div class="card"><h3>Calendário de Vencimentos</h3><div class="chart-container"><canvas id="chartPagamentos"></canvas></div></div>
-<div class="insight-box warning"><strong>⚠️ Atenção:</strong> Syngenta (Ago/25) + Bayer (Out/25) = R$ 4,3M ANTES da colheita. Necessário capital de giro ou fixação antecipada.</div>
+<h2 class="section-title">📅 Fluxo de <span>Pagamentos</span></h2>
+<div class="card-grid">
+<div class="card"><h3>Calendário 25/26 (planilha)</h3><div class="chart-container"><canvas id="chartPagamentos"></canvas></div></div>
+<div class="card"><h3>Calendário 26/27 (pedido)</h3><div class="chart-container"><canvas id="chartPagamentos26"></canvas></div></div>
 </div>
+<div class="insight-box warning"><p><strong>⚠️ Atenção:</strong> na 25/26, Syngenta (05/08/2025) e Bayer (30/10/2025) somaram R$ 4,31 milhões antes da colheita. Na 26/27 só a primeira parcela da Bayer, R$ 79.274,00 em 30/10/2026, vence antes da soja. Abril de 2027 concentra R$ 12,03 milhões e maio R$ 4,65 milhões. Faltam a data da Syngenta e a divisão da Ouro Fino entre maio e setembro. Programe a venda da soja para cobrir abril de 2027 e peça as duas datas.</p><span class="sig">Dr. Sidney Souza</span></div>
+<div class="card-grid">
+<div class="card"><h3>📋 Detalhamento 26/27</h3><div class="table-wrapper"><table id="t-pag26"></table></div></div>
+<div class="card"><h3>📋 Detalhamento 25/26</h3><div class="table-wrapper"><table id="t-pag25"></table></div></div>
+</div></div>
 
-<!-- ========== TAB: CATEGORIAS ========== -->
+<!-- CATEGORIAS -->
 <div class="tab-content" id="tab-categorias">
-<h2 class="section-title">🧪 Análise por <span>Categoria</span></h2>
-<div class="card"><h3>Distribuição por Tipo 25/26</h3><div class="chart-container"><canvas id="chartCategorias"></canvas></div></div>
-<div class="insight-box danger"><strong>🚨 Alerta:</strong> Uso contínuo de triazóis + estrobilurinas por 7 safras = risco de resistência da ferrugem asiática. Intensificar carboxamidas (SDHI) e multissítios.</div>
+<h2 class="section-title">🧪 Análise por <span>Categorias</span></h2>
+
+<div class="card" style="margin-bottom:18px"><h3>📦 Resumo por grupo de insumo</h3>
+<p class="upd" style="margin:0 0 10px">Percentual sobre o total conhecido de cada safra (defensivos + fertilizantes + biológicos das planilhas). Sementes ficam fora porque as planilhas não trazem sementes.</p>
+<div style="font-size:.72rem;color:var(--accent);font-weight:600;margin:6px 0">SAFRA 26/27 · R$ 40,65 Mi conhecidos</div>
+<div class="kpi-grid">
+<div class="kpi-card green"><div class="kpi-label">🛡️ Defensivos</div><div class="kpi-value">R$ 24,15M</div><div class="kpi-sub">pedido nas planilhas · 14 fornecedores</div><div class="kpi-delta up" style="color:var(--text)">59,4% do total conhecido</div></div>
+<div class="kpi-card blue"><div class="kpi-label">🧪 Fertilizantes</div><div class="kpi-value">R$ 16,19M</div><div class="kpi-sub">estimativa à menor cotação · só KCL, MAP, 00-20-00 e 00-21-00</div><div class="kpi-delta up" style="color:var(--text)">39,8% do total conhecido</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">🌽 Sementes</div><div class="kpi-value">sem dado</div><div class="kpi-sub">planilha de sementes 26/27 não enviada</div><div class="kpi-delta" style="color:var(--muted)">fora do total</div></div>
+<div class="kpi-card purple"><div class="kpi-label">🦠 Biológicos</div><div class="kpi-value">R$ 0,31M</div><div class="kpi-sub">só Nimaxxa e Utrisha N nas planilhas</div><div class="kpi-delta up" style="color:var(--text)">0,8% do total conhecido</div></div>
+</div>
+<div style="font-size:.72rem;color:var(--accent2);font-weight:600;margin:12px 0 6px">SAFRA 25/26 · R$ 38,65 Mi conhecidos</div>
+<div class="kpi-grid">
+<div class="kpi-card green"><div class="kpi-label">🛡️ Defensivos</div><div class="kpi-value">R$ 17,47M</div><div class="kpi-sub">planilha INSUMOS.AGRO.25.26</div><div class="kpi-delta up" style="color:var(--text)">45,2% do total conhecido</div></div>
+<div class="kpi-card blue"><div class="kpi-label">🧪 Fertilizantes</div><div class="kpi-value">R$ 21,03M</div><div class="kpi-sub">estimativa à menor cotação · 6 produtos</div><div class="kpi-delta up" style="color:var(--text)">54,4% do total conhecido</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">🌽 Sementes</div><div class="kpi-value">sem dado</div><div class="kpi-sub">último dado: milho 2025, R$ 5,04M (versão anterior)</div><div class="kpi-delta" style="color:var(--muted)">fora do total</div></div>
+<div class="kpi-card purple"><div class="kpi-label">🦠 Biológicos</div><div class="kpi-value">R$ 0,14M</div><div class="kpi-sub">só Nimaxxa e Utrisha N · versão anterior estimava R$ 3,5M</div><div class="kpi-delta up" style="color:var(--text)">0,4% do total conhecido</div></div>
+</div>
+<div style="font-size:.72rem;color:var(--muted);font-weight:600;margin:12px 0 6px">MODELO ANTERIOR · print enviado em 19/10/2026 (a safra não aparece no print)</div>
+<div class="kpi-grid" style="opacity:.75">
+<div class="kpi-card green"><div class="kpi-label">🛡️ Defensivos</div><div class="kpi-value">R$ 17,2M</div><div class="kpi-sub">58% do investimento total</div></div>
+<div class="kpi-card blue"><div class="kpi-label">🧪 Fertilizantes</div><div class="kpi-value">R$ 7,8M</div><div class="kpi-sub">26% do investimento total</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">🌽 Sementes</div><div class="kpi-value">R$ 3,2M</div><div class="kpi-sub">11% do investimento total</div></div>
+<div class="kpi-card purple"><div class="kpi-label">🦠 Biológicos</div><div class="kpi-value">R$ 1,5M</div><div class="kpi-sub">5% do investimento total</div></div>
+</div>
+<div class="insight-box warning" style="margin-top:12px"><p>Na 25/26 o programa de fertilizantes cotado somava R$ 21,03 milhões à menor cotação, acima dos R$ 17,47 milhões de defensivos. O print do modelo anterior trazia R$ 7,8 milhões em fertilizantes. A distância mostra que a aba de fertilizantes é um programa cotado e não a compra fechada. Na 26/27 o peso cai para 39,8% porque só quatro produtos foram atualizados e boro, enxofre e gesso repetem as linhas da 25/26. Envie os pedidos fechados de fertilizantes, sementes e biológicos das duas safras para trocar estas estimativas pelo valor comprado.</p><span class="sig">Dr. Sidney Souza</span></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3>Distribuição por Tipo 25/26 (planilha)</h3><div class="chart-container"><canvas id="chartCategorias25"></canvas></div></div>
+<div class="card"><h3>Distribuição por Tipo 26/27 (pedido)</h3><div class="chart-container"><canvas id="chartCategorias"></canvas></div></div>
+</div>
+<p class="upd">Classificação produto a produto pela RuralIn (segmento da planilha quando existe). Na 26/27, 37,2% do valor ficou sem classificação, incluindo a Syngenta inteira (R$ 2,93M) e produtos de revenda sem princípio ativo na planilha. A versão anterior estimava 25/26 em inseticidas 32%, fungicidas 22%, herbicidas 20%.</p>
+<div class="card"><h3>📋 Rotação de Princípios Ativos — Alerta de Resistência</h3><div class="table-wrapper"><table><thead><tr><th>Princípio Ativo</th><th>Grupo Químico</th><th>Alvo</th><th>Safras Presente</th><th>Risco Resistência</th></tr></thead><tbody>
+<tr><td>Mancozeb / Clorotalonil</td><td>Multissítio</td><td>Fungos (contato)</td><td>8/8 safras</td><td><span class="tag tag-green">Baixo (multissítio)</span></td></tr>
+<tr><td>Clorpirifós</td><td>Organofosforado</td><td>Insetos</td><td>5/7 safras</td><td><span class="tag tag-orange">Médio</span></td></tr>
+<tr><td>Triazol (Tebuco/Cipro/Protio)</td><td>Triazol (IDM)</td><td>Ferrugem soja</td><td>8/8 safras</td><td><span class="tag tag-red">Alto — grupo sob pressão</span></td></tr>
+<tr><td>Estrobilurina (Azoxys/Piraclost)</td><td>QoI</td><td>Ferrugem soja</td><td>8/8 safras</td><td><span class="tag tag-red">Alto — resistência crescente</span></td></tr>
+<tr><td>Methomil</td><td>Carbamato</td><td>Lagartas</td><td>5/8 safras</td><td><span class="tag tag-orange">Médio</span></td></tr>
+<tr><td>Bifentrina</td><td>Piretroide</td><td>Percevejos</td><td>5/8 safras</td><td><span class="tag tag-orange">Médio</span></td></tr>
+<tr><td>Acetamiprid / Imidacloprid</td><td>Neonicotinoide</td><td>Sugadores</td><td>6/8 safras</td><td><span class="tag tag-orange">Médio-Alto</span></td></tr>
+<tr><td>Glifosato</td><td>Inibidor EPSPs</td><td>Plantas daninhas</td><td>7/7 safras</td><td><span class="tag tag-red">Alto — buva resistente</span></td></tr>
+<tr><td>2,4-D</td><td>Mimetizador auxina</td><td>Folha larga</td><td>8/8 safras</td><td><span class="tag tag-green">Baixo</span></td></tr>
+<tr><td>Glufosinato</td><td>Inibidor GS</td><td>Dessecação</td><td>4/8 safras</td><td><span class="tag tag-green">Baixo — modo ação alternativo</span></td></tr>
+<tr><td>Clorfenapir</td><td>Desacoplador mitocondrial</td><td>Percevejo / lagartas</td><td>25/26 e 26/27 (planilhas)</td><td><span class="tag tag-orange">Médio — 19.260 L de Killigan na 26/27</span></td></tr>
+</tbody></table></div>
+<p style="font-size:.68rem;color:var(--muted)">Contagem de safras: versão anterior, acrescida da 25/26 e 26/27 quando o princípio ativo aparece nas planilhas (Methomil: Krypto, Metomy, Lannate · Bifentrina: Afiado, Aceway, Krypto · Acetamiprido: Afiado, Aceway, Valex · Glufosinato: Prefer · 2,4-D: Dez · Mancozebe: Dizarm, Rainzeb). Glifosato e clorpirifós não puderam ser confirmados na 26/27 pelo nome do produto.</p>
+<div class="insight-box danger"><strong>🚨 Alerta:</strong> Uso contínuo de triazóis + estrobilurinas = risco de resistência da ferrugem asiática. Na 26/27 o multissítio (mancozebe) cai de R$ 985 mil para R$ 285 mil com preço, mas 42.000 kg de Rainzeb ainda estão sem preço na Rainbow. Confirme que o mancozebe da 26/27 cobre toda a área de soja.</div></div>
 </div>
 
-<!-- ========== TAB: SEMENTES ========== -->
+<!-- SEMENTES -->
 <div class="tab-content" id="tab-sementes">
 <h2 class="section-title">🌽 Sementes de <span>Milho</span></h2>
+<p class="upd">As planilhas 25/26 e 26/27 não trazem sementes. Os dados abaixo são da versão anterior.</p>
 <div class="card"><h3>Volume vs. Custo Médio</h3><div class="chart-container"><canvas id="chartMilho"></canvas></div></div>
-<div class="insight-box warning"><strong>⚠️ Custo dobrou em 5 anos</strong> (R$ 345 → R$ 681/sc). Avaliar híbridos mais econômicos para áreas de menor potencial.</div>
+<div class="card"><h3>📋 Resumo por Safra — Sementes de Milho</h3><div class="table-wrapper"><table><thead><tr><th>Safra</th><th class="text-right">Vol. (sc)</th><th class="text-right">Investimento</th><th class="text-right">Custo méd./sc</th><th class="text-right">Var. %</th><th>Destaques</th></tr></thead><tbody>
+<tr><td>2020</td><td class="text-right">7.320</td><td class="text-right">R$ 2.527k</td><td class="text-right">R$ 345</td><td class="text-right">—</td><td>Base: Dekalb + Pioneer + Agroceres</td></tr>
+<tr><td>2021</td><td class="text-right">7.722</td><td class="text-right">R$ 3.245k</td><td class="text-right">R$ 420</td><td class="text-right negative">+21,7%</td><td>Entrada Brevant, Forseed, Santa Helena</td></tr>
+<tr><td>2022</td><td class="text-right">8.375</td><td class="text-right">R$ 3.817k</td><td class="text-right">R$ 456</td><td class="text-right negative">+8,5%</td><td>Maior volume histórico</td></tr>
+<tr><td>2023</td><td class="text-right">8.350</td><td class="text-right">R$ 5.367k</td><td class="text-right">R$ 643</td><td class="text-right negative">+41,0%</td><td>Pico de preço — crise sementes</td></tr>
+<tr><td>2024</td><td class="text-right">7.340</td><td class="text-right">R$ 4.346k</td><td class="text-right">R$ 592</td><td class="text-right positive">-7,9%</td><td>Entrada Syngenta (híbridos)</td></tr>
+<tr><td>2025</td><td class="text-right">7.400</td><td class="text-right">R$ 5.040k</td><td class="text-right">R$ 681</td><td class="text-right negative">+15,0%</td><td>Concentração em Dekalb PRO4</td></tr>
+<tr class="muted-row"><td>2026 / 2027</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td class="text-right">—</td><td>Não informado nas planilhas</td></tr>
+</tbody></table></div>
+<div class="insight-box warning"><strong>⚠️ Custo dobrou em 5 anos</strong> (R$ 345 → R$ 681/sc). Para completar a série, envie a planilha de sementes de milho de 2026 e 2027.</div></div>
 </div>
 
-<!-- ========== TAB: BIOLÓGICOS ========== -->
+<!-- BIOLOGICOS -->
 <div class="tab-content" id="tab-biologicos">
 <h2 class="section-title">🦠 Produtos <span>Biológicos</span></h2>
+<p class="upd">As planilhas de defensivos não trazem o pacote de biológicos. Na 25/26 e 26/27 aparecem só Nimaxxa (UPL, bionematicida) e Utrisha N (Corteva). Os valores de 25/26 abaixo são a estimativa da versão anterior.</p>
 <div class="card"><h3>Evolução do Investimento</h3><div class="chart-container"><canvas id="chartBio"></canvas></div></div>
-<div class="insight-box"><strong>📌 Investimento 24/25: ~R$ 3,6M</strong> (12% do total). Consolidar em 2-3 fornecedores para simplificar e ganhar desconto.</div>
+<div class="card"><h3>📋 Biológicos nas planilhas 25/26 e 26/27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th>Fornecedor</th><th class="text-right">25/26</th><th class="text-right">26/27</th></tr></thead><tbody>
+<tr><td>Nimaxxa (Paecilomyces)</td><td>UPL/Origeo</td><td class="text-right">120 L × R$ 745,20 = R$ 89.424</td><td class="text-right">550 L × R$ 515,22 = R$ 283.371</td></tr>
+<tr><td>Utrisha N</td><td>Corteva</td><td class="text-right">180 × R$ 300,00 = R$ 54.000</td><td class="text-right">100 × R$ 250,00 = R$ 25.000</td></tr>
+</tbody></table></div>
+<div class="insight-box"><strong>📌 Investimento 24/25: ~R$ 3,6M</strong> (versão anterior). Nimaxxa caiu 30,9% no preço e o volume foi de 120 L para 550 L. Para fechar a série dos biológicos, envie a planilha de biológicos 25/26 e 26/27.</div></div>
 </div>
 
-<!-- ========== TAB: FERTILIZANTES ========== -->
+<!-- FERTILIZANTES -->
 <div class="tab-content" id="tab-fertilizantes">
 <h2 class="section-title">🧪 <span>Fertilizantes</span></h2>
-<div class="card"><h3>Evolução KCL (R$/t)</h3><div class="chart-container"><canvas id="chartKCL"></canvas></div></div>
-<div class="insight-box"><strong>📌 Multi-sourcing:</strong> 6+ fornecedores de KCL. Spread de 14% entre menor e maior preço. Maximizar compras no mais barato.</div>
+
+<div class="kpi-grid">
+<div class="kpi-card blue"><div class="kpi-label">Programa 25/26</div><div class="kpi-value">R$ 21,03 Mi</div><div class="kpi-sub">à menor cotação · 6 produtos</div></div>
+<div class="kpi-card green"><div class="kpi-label">Programa 26/27</div><div class="kpi-value">R$ 16,19 Mi</div><div class="kpi-sub">à menor cotação · 4 produtos atualizados</div></div>
+<div class="kpi-card orange"><div class="kpi-label">Spread de cotações 25/26</div><div class="kpi-value">R$ 937 mil</div><div class="kpi-sub">pior × melhor cotação no mesmo programa · 26/27: R$ 565 mil</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">K₂O pelo KCL</div><div class="kpi-value">R$ 4,52/kg</div><div class="kpi-sub">25/26: R$ 3,91/kg</div><div class="kpi-delta up">▲ +15,4%</div></div>
+<div class="kpi-card purple"><div class="kpi-label">P₂O₅ pelo MAP</div><div class="kpi-value">R$ 9,67/kg</div><div class="kpi-sub">25/26: R$ 9,78/kg</div><div class="kpi-delta down">▼ −1,1%</div></div>
+</div>
+<p class="upd">Estimativas da RuralIn sobre a aba Fertilizantes das planilhas: em cada produto e destino, a menor cotação × toneladas, US$ a R$ 5,50. São cotações concorrentes sem confirmação de compra. Ureia não aparece em nenhuma das planilhas nem nos arquivos da versão anterior enviados.</p>
+<div class="card-grid">
+<div class="card"><h3>💲 Menor preço por produto (R$/t)</h3><div class="chart-container"><canvas id="chFertPreco"></canvas></div><p style="font-size:.68rem;color:var(--muted)">Inclui cotações em US$ a 5,50. Por isso o KCL aparece com R$ 2.348,50 e R$ 2.710,40, abaixo das melhores cotações em reais do gráfico abaixo.</p></div>
+<div class="card"><h3>⚗️ Custo por kg de nutriente (R$/kg)</h3><div class="chart-container"><canvas id="chFertNut"></canvas></div><p style="font-size:.68rem;color:var(--muted)">Menor preço ÷ teor: KCL 60% K₂O, MAP 46% P₂O₅, superfosfatos 21% e 20% P₂O₅, enxofre 90% S, ulexita 10% B, tetraborato 14,8% B.</p></div>
+</div>
+<div class="card"><h3>📏 Faixa de cotações por produto e destino</h3><div class="table-wrapper"><table id="t-fertfaixa"></table></div></div>
+
+<div class="card"><h3>📊 Evolução Preço Fertilizantes (R$/t)</h3><div class="chart-container" style="height:320px"><canvas id="chartKCL"></canvas></div>
+<p style="font-size:.68rem;color:var(--muted)">19/20 a 25/26 (linhas cheias): valores lidos do print do painel anterior enviado em 19/10/2026, medidos pela posição dos pontos (precisão de ±R$ 25). O arquivo com esses números não estava entre os anexos. 25/26 e 26/27 das planilhas (pontos grandes): KCl = menor cotação em R$ para o MT (UPL/Origeo), MAP = MicroEssentials 10-46-0+S9 (Cargill US$ 818 × 5,50 e Mosaic R$ 4.450), que é um MAP enriquecido e não o MAP comum do print. Ureia não aparece nas planilhas 25/26 e 26/27. Linha tracejada: a série de KCl do insumos.html anexado, que difere da do print.</p>
+<div class="table-wrapper"><table id="t-fert-hist"></table></div></div>
+<div class="card-grid">
+<div class="card"><h3>📋 KCL — cotações 25/26</h3><div class="table-wrapper"><table id="t-kcl25"></table></div></div>
+<div class="card"><h3>📋 KCL — cotações 26/27</h3><div class="table-wrapper"><table id="t-kcl26"></table></div></div>
+</div>
+<div class="insight-box"><p><strong>📌 Multi-sourcing:</strong> a aba de fertilizantes traz várias empresas para a mesma área e tonelagem. São cotações concorrentes, não compras somáveis, e não têm data. A melhor cotação de KCL em reais para o MT subiu de R$ 2.450,00 (UPL/Origeo, 25/26) para R$ 2.743,51 (UPL/Origeo, 26/27), 12,0% a mais. Em dólar, de US$ 427,00 (LDC) para US$ 492,80 (A Araguaia), 15,4% a mais. Os pagamentos de 26/27 vencem entre 30/04 e 10/05/2026, então a compra já deve estar feita. Anote qual cotação fechou para a 27/28 partir do preço real.</p><span class="sig">Dr. Sidney Souza</span></div>
+<div class="card"><h3>📋 Fósforo, fosfatados e micronutrientes</h3><div class="table-wrapper"><table id="t-fert"></table></div></div>
 </div>
 
-<!-- ========== TAB: BENCHMARK ========== -->
+<!-- BENCHMARK -->
 <div class="tab-content" id="tab-benchmark">
 <h2 class="section-title">🎯 Benchmark <span>MT</span></h2>
-<div class="card">
-<h3>📋 Fazenda Planalto vs. Mercado MT</h3>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>Faz. Planalto</th><th>Mercado MT</th><th>Dif.</th><th>Avaliação</th></tr></thead>
-<tbody>
-<tr><td>Glifosato 720 WG</td><td>USD 3,90/kg</td><td>USD 4,00-4,50</td><td class="positive">-5 a -13%</td><td><span class="tag tag-green">✓ Abaixo</span></td></tr>
-<tr><td>KCL 00-00-60</td><td>R$ 2.450-2.786</td><td>R$ 2.500-2.900</td><td class="positive">-2 a -4%</td><td><span class="tag tag-green">✓ Competitivo</span></td></tr>
-<tr><td>Curbix (Bayer)</td><td>R$ 75,00</td><td>R$ 80-95</td><td class="positive">-6 a -21%</td><td><span class="tag tag-green">✓ Excelente</span></td></tr>
-<tr><td>Fox Supra</td><td>R$ 302,00</td><td>R$ 290-330</td><td>0 a +4%</td><td><span class="tag tag-blue">≈ Média</span></td></tr>
-<tr><td>Dermacor</td><td>R$ 1.490</td><td>R$ 1.450-1.600</td><td>0 a +3%</td><td><span class="tag tag-blue">≈ Média</span></td></tr>
-<tr><td>MAP/Fosfatados</td><td>R$ 3.350-3.918</td><td>R$ 3.500-4.200</td><td class="positive">-4 a -7%</td><td><span class="tag tag-green">✓ Abaixo</span></td></tr>
-<tr><td>Semente Milho (méd)</td><td>R$ 681/sc</td><td>R$ 650-750</td><td>0 a +5%</td><td><span class="tag tag-blue">≈ Média</span></td></tr>
-</tbody>
-</table>
-</div>
-<div class="insight-box"><strong>📌 Avaliação:</strong> Bom poder de negociação. Destaque para KCL, Curbix e MAP abaixo do mercado.</div>
-</div>
+<div class="card"><h3>📋 Fazenda Planalto vs. Mercado MT</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th>Faz. Planalto 25/26</th><th>Faz. Planalto 26/27</th><th>Mercado MT (versão anterior)</th><th>Dif. 25/26</th><th>Avaliação</th></tr></thead><tbody>
+<tr><td>Glifosato 720 WG</td><td>USD 3,90/kg</td><td>— (sem glifosato nominal no pedido)</td><td>USD 4,00-4,50</td><td class="positive">-5 a -13%</td><td><span class="tag tag-green">✓ Abaixo</span></td></tr>
+<tr><td>KCL 00-00-60</td><td>R$ 2.450-2.786</td><td>R$ 2.722-2.950 · US$ 492,80</td><td>R$ 2.500-2.900</td><td class="positive">-2 a -4%</td><td><span class="tag tag-green">✓ Competitivo</span></td></tr>
+<tr><td>Curbix (Bayer)</td><td>R$ 75,00</td><td><b>R$ 55,00</b></td><td>R$ 80-95</td><td class="positive">-6 a -21%</td><td><span class="tag tag-green">✓ Excelente</span></td></tr>
+<tr><td>Fox Supra</td><td>R$ 302,00</td><td>R$ 309,52</td><td>R$ 290-330</td><td>0 a +4%</td><td><span class="tag tag-blue">≈ Média</span></td></tr>
+<tr><td>Dermacor</td><td>R$ 1.490 (cotado)</td><td>R$ 1.178,10 (cotado)</td><td>R$ 1.450-1.600</td><td>0 a +3%</td><td><span class="tag tag-blue">≈ Média</span></td></tr>
+<tr><td>MAP/Fosfatados</td><td>R$ 3.350-3.918</td><td>MicroEssentials R$ 4.450</td><td>R$ 3.500-4.200</td><td class="positive">-4 a -7%</td><td><span class="tag tag-green">✓ Abaixo</span></td></tr>
+<tr><td>Semente Milho (méd)</td><td>R$ 681/sc</td><td>não informado</td><td>R$ 650-750</td><td>0 a +5%</td><td><span class="tag tag-blue">≈ Média</span></td></tr>
+</tbody></table></div>
+<p style="font-size:.68rem;color:var(--muted)">A faixa de mercado MT é a da versão anterior, sem fonte nomeada, e não foi atualizada. A coluna 26/27 vem das planilhas. Não comparei a 26/27 com o mercado porque não há referência datada no grafo do RuralIn para esses produtos.</p>
+<div class="insight-box"><strong>📌 Avaliação:</strong> Curbix a R$ 55,00 na 26/27 fica abaixo da faixa antiga de mercado. KCL e MAP subiram nas cotações 26/27. Para atualizar o benchmark, é preciso uma referência de mercado com data e fonte.</div></div>
 </div>
 
-<!-- ========== TAB: RELAÇÃO TROCA ========== -->
+<!-- RELACAO TROCA -->
 <div class="tab-content" id="tab-relacaotroca">
 <h2 class="section-title">⚖️ Relação de <span>Troca</span></h2>
-<div class="card"><h3>Sacas de Soja por Produto (Soja = R$ 119,60/sc)</h3><div class="chart-container tall"><canvas id="chartRT"></canvas></div></div>
-<div class="insight-box danger"><strong>🚨 Progibb e Aveo:</strong> 38-37 sacas/unidade. Garantir que o retorno produtivo supere o custo.</div>
+<div class="card-grid">
+<div class="card"><h3>24/25 — Sacas de Soja por Produto (Soja = R$ 119,60/sc, versão anterior)</h3><div class="chart-container tall"><canvas id="chartRT"></canvas></div></div>
+<div class="card"><h3>26/27 — Sacas de Soja por Produto (Soja = R$ 118,92/sc, fazenda 28/09/2026)</h3><div class="chart-container tall"><canvas id="chartRT26"></canvas></div></div>
+</div>
+<div class="insight-box danger"><p><strong>🚨 Progibb:</strong> na 26/27, a R$ 4.389,00 por unidade, cada uma custa 36,9 sacas ao preço da fazenda. São 77,5 unidades, R$ 340 mil. O preço de R$ 118,92 é o registado pela própria fazenda em Alto Garças em 28/09/2026 (grafo RuralIn, cotação não oficial), 26,4% abaixo do CEPEA Paranaguá de R$ 161,88 de 16/09/2026. A relação de troca usa o preço que a fazenda recebe. Peça à Sumitomo o ensaio que mostre o ganho em sacas por hectare do Progibb antes de confirmar o volume.</p><span class="sig">Dr. Sidney Souza</span></div>
 </div>
 
-<!-- ========== TAB: RECOMENDAÇÕES ========== -->
+<!-- ESTATISTICA -->
+<div class="tab-content" id="tab-estatistica">
+<h2 class="section-title">📐 Estatística e <span>Econometria</span></h2>
+<p style="font-size:.78rem;color:var(--muted);margin-bottom:16px">Análises novas desta versão. Série de defensivos 19/20 a 26/27 (8 pontos). Cesto comum: 41 produtos com volume e preço nas planilhas 25/26 e 26/27, US$ a 5,50.</p>
+<div class="stat-grid">
+<div class="kpi-card green"><div class="kpi-label">Tendência MQO</div><div class="kpi-value">+R$ 1,67 Mi</div><div class="kpi-sub">por safra · R² 0,43</div></div>
+<div class="kpi-card blue"><div class="kpi-label">CAGR 19/20→26/27</div><div class="kpi-value">12,3% a.a.</div><div class="kpi-sub">nominal</div></div>
+<div class="kpi-card orange"><div class="kpi-label">Volatilidade</div><div class="kpi-value">CV 35,7%</div><div class="kpi-sub">média R$ 17,47 Mi · DP R$ 6,24 Mi</div></div>
+<div class="kpi-card purple"><div class="kpi-label">Índice de preço Fisher</div><div class="kpi-value">0,888</div><div class="kpi-sub">preços −11,2% no cesto comum</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">Índice de quantidade</div><div class="kpi-value">1,488</div><div class="kpi-sub">volume +48,8% no cesto comum</div></div>
+<div class="kpi-card green"><div class="kpi-label">Elasticidade volume-preço</div><div class="kpi-value">β 1,08</div><div class="kpi-sub">t 0,77 · não significativa</div></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3>📈 Série e tendência linear (R$ mil)</h3><div class="chart-container"><canvas id="chTrend"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">y = 11.634 + 1.666·t, t = 0 na 19/20. Com 8 pontos e o pico da 22/23, a reta explica 43% da variação.</p></div>
+<div class="card"><h3>🧮 Decomposição da variação do cesto comum (R$ mil)</h3><div class="chart-container"><canvas id="chDecomp"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">Fisher: efeito preço = V₀·(F−1), efeito quantidade = V₁ − V₀·F.</p></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3>🔬 Δln volume × Δln preço por produto</h3><div class="chart-container"><canvas id="chElast"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">MQO: Δln(q) = 0,762 + 1,078·Δln(p). Erro-padrão 1,408, t 0,77, R² 0,015, n 41.</p></div>
+<div class="card"><h3>📊 Distribuição das variações de preço 25/26→26/27</h3><div class="chart-container"><canvas id="chHist"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">41 produtos. Mediana −10,0%. Quartis −17,3% e −3,7%. Média −11,3%.</p></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3>📉 Curva de Lorenz dos fornecedores</h3><div class="chart-container"><canvas id="chLorenz"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">Gini 0,289 na 25/26 (12 fornecedores) e 0,364 na 26/27 (14). HHI 1.052 e 1.008. CR4 51,5% e 50,8%.</p></div>
+<div class="card"><h3>🌾 Sensibilidade: pacote 26/27 em sacas de soja</h3><div class="chart-container"><canvas id="chSacas"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">R$ 24,15 Mi ÷ preço da soja. Pontos marcados: fazenda (R$ 118,92, 28/09/2026) e CEPEA Paranaguá (R$ 161,88, 16/09/2026).</p></div>
+</div>
+
+<div class="card-grid">
+<div class="card"><h3>🅰️ Curva ABC dos itens 26/27</h3><div class="chart-container"><canvas id="chABC"></canvas></div>
+<p style="font-size:.7rem;color:var(--muted)">84 itens com valor (Syngenta fora, pedido de R$ 2,93 Mi sem unitários). Classe A até 80% do valor: 38 itens. B até 95%: 21. C: 25. Os 10 maiores somam 34,5%.</p></div>
+<div class="card"><h3>🎛️ Simulador: câmbio × soja</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 12px;font-size:.75rem">
+<label>Dólar (R$/US$): <b id="simFxV">5,50</b><input id="simFx" type="range" min="4.5" max="7" step="0.05" value="5.5" style="width:100%"></label>
+<label>Soja (R$/sc): <b id="simSjV">118,92</b><input id="simSj" type="range" min="90" max="180" step="0.01" value="118.92" style="width:100%"></label></div>
+<div class="kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+<div class="kpi-card green"><div class="kpi-label">Defensivos 26/27</div><div class="kpi-value" id="simT" style="font-size:1.15rem">—</div></div>
+<div class="kpi-card yellow"><div class="kpi-label">Em sacas</div><div class="kpi-value" id="simS" style="font-size:1.15rem">—</div></div>
+<div class="kpi-card blue"><div class="kpi-label">Sacas por ha</div><div class="kpi-value" id="simH" style="font-size:1.15rem">—</div></div></div>
+<p style="font-size:.7rem;color:var(--muted)">Só a BASF (US$ 347.180) varia com o dólar. O restante (R$ 22,24 Mi) é em reais. Área de ~12.350 ha. Pontos de partida: dólar 5,50 das planilhas e soja R$ 118,92 da fazenda (28/09/2026).</p></div>
+</div>
+<div class="insight-box"><p><strong>📌 Leitura:</strong> o aumento de R$ 6,68 milhões da 26/27 é de volume, não de preço. No cesto de 41 produtos comprados nas duas safras, os preços caíram 11,2% e as quantidades subiram 48,8%: o efeito preço tirou R$ 1,09 milhão e o efeito quantidade somou R$ 4,20 milhões. O restante vem de produtos e fornecedores novos.</p>
+<p>A regressão do volume contra o preço não explica nada (R² 0,015). Quem decidiu o volume foi o programa agronômico, não o desconto. Por isso a negociação de preço sozinha não segura o orçamento. A conta que manda é a dose por hectare.</p>
+<p>A série tem tendência de alta de R$ 1,67 milhão por safra e CAGR de 12,3% ao ano, com coeficiente de variação de 35,7%. A 26/27 fica R$ 0,86 milhão acima do valor da reta para a safra (R$ 23,30 milhões), e o pacote ainda tem itens sem preço. Revise com o agrônomo a dose por hectare dos 10 itens de maior volume antes da entrega.</p><span class="sig">Dr. Sidney Souza</span></div>
+</div>
+
+
+<style>.tprj th,.tprj td{padding:7px 6px}</style>
+<!-- PROJECAO -->
+<div class="tab-content" id="tab-projecao">
+<h2 class="section-title">🔮 Projeção <span>27/28 a 29/30</span></h2>
+<div class="card" style="border-color:rgba(124,77,255,.45);background:rgba(124,77,255,.06);padding:14px 18px"><span class="tag tag-purple" style="font-size:.62rem">MÉTODO</span>
+<p style="font-size:.76rem;color:#b39ddb;margin-top:8px;line-height:1.55">Defensivos da fazenda 19/20 a 26/27 (8 safras) e painel CONAB de agrotóxicos da soja em 5 municípios de MT e GO, 2014 a 2026 (58 transições anuais) · volta ao nível de longo prazo estimada por regressão com efeito fixo por município (persistência 0,58 por safra, meia-vida 1,3 safra, tendência nominal 5,3% ao ano) · 20.000 trajetórias de 27/28 a 29/30 com os erros reamostrados e incerteza nos próprios parâmetros · soja: CMA Cascavel mensal jan/2015 a ago/2026 (não oficial) sem a sazonalidade, volta à média de jul/2020 em diante (persistência 0,92 ao mês, meia-vida 8 meses), convertida pela base da fazenda (R$ 118,92 ÷ R$ 139,50)</p></div>
+<div class="card-grid">
+<div class="card"><h3 style="display:flex;justify-content:space-between">Leque dos defensivos · 27/28 a 29/30 <span style="font-size:.62rem;color:var(--muted)">PRJ-1</span></h3><div class="chart-container" style="height:330px"><canvas id="chFanDef"></canvas></div>
+<div class="insight-box" style="margin-top:12px"><p>A mediana da 27/28 fica em R$ 22,51 milhões, abaixo dos R$ 24,15 milhões da 26/27. A 26/27 está 22,8% acima do nível de longo prazo estimado para a fazenda (R$ 20,71 milhões na 27/28), e no painel da CONAB metade de um desvio desaparece em 1,3 safra. A faixa central da 27/28 vai de R$ 18,98 a R$ 28,25 milhões e a de 90% de R$ 15,02 a R$ 41,17 milhões. O modelo mede o risco de preço e volume que já aconteceu na fazenda e na região e não conhece mudança de área nem de programa.</p><span class="sig">Dr. Sidney Souza</span></div></div>
+<div class="card"><h3 style="display:flex;justify-content:space-between">Qual a chance de cada hipótese? <span style="font-size:.62rem;color:var(--muted)">PRJ-2</span></h3>
+<div class="table-wrapper"><table class="tprj" style="font-size:.74rem"><thead><tr><th>Hipótese</th><th class="text-right">Valor 27/28</th><th>Evento</th><th class="text-right">27/28</th><th class="text-right">28/29</th><th class="text-right">29/30</th></tr></thead><tbody><tr><td style="color:#00e676;font-weight:600">Alívio</td><td class="text-right"><b>R$ 17,47 Mi</b></td><td style="color:var(--muted);font-size:.72rem">abaixo de</td><td class="text-right" style="color:#00e676;font-weight:600">14,1%</td><td class="text-right" style="color:#00e676;font-weight:600">21,5%</td><td class="text-right" style="color:#00e676;font-weight:600">22,4%</td></tr><tr><td style="color:#ffeb3b;font-weight:600">Repetir 26/27</td><td class="text-right"><b>R$ 24,15 Mi</b></td><td style="color:var(--muted);font-size:.72rem">acima de</td><td class="text-right" style="color:#ffeb3b;font-weight:600">42,0%</td><td class="text-right" style="color:#ffeb3b;font-weight:600">44,2%</td><td class="text-right" style="color:#ffeb3b;font-weight:600">47,4%</td></tr><tr><td style="color:#00b0ff;font-weight:600">Tendência MQO</td><td class="text-right"><b>R$ 24,96 Mi</b><br><span style=font-size:.62rem;color:var(--muted)>reta: 26,63 e 28,30</span></td><td style="color:var(--muted);font-size:.72rem">acima de</td><td class="text-right" style="color:#00b0ff;font-weight:600">38,4%</td><td class="text-right" style="color:#00b0ff;font-weight:600">34,2%</td><td class="text-right" style="color:#00b0ff;font-weight:600">32,4%</td></tr><tr><td style="color:#ff9100;font-weight:600">Estresse</td><td class="text-right"><b>R$ 26,96 Mi</b></td><td style="color:var(--muted);font-size:.72rem">acima de</td><td class="text-right" style="color:#ff9100;font-weight:600">29,8%</td><td class="text-right" style="color:#ff9100;font-weight:600">32,9%</td><td class="text-right" style="color:#ff9100;font-weight:600">37,0%</td></tr><tr><td style="color:#ff5252;font-weight:600">Choque</td><td class="text-right"><b>R$ 35,00 Mi</b></td><td style="color:var(--muted);font-size:.72rem">acima de</td><td class="text-right" style="color:#ff5252;font-weight:600">9,7%</td><td class="text-right" style="color:#ff5252;font-weight:600">14,1%</td><td class="text-right" style="color:#ff5252;font-weight:600">17,1%</td></tr></tbody></table></div>
+<p style="font-size:.7rem;color:var(--muted);margin:14px 0 6px">Distribuição dos defensivos 27/28 (R$ Mi)</p>
+<div style="display:flex;height:26px;border-radius:6px;overflow:hidden"><div title="<17,47: 14,1%" style="flex:0.14105;background:#00c853;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden">14%</div><div title="17,47–22: 32,9%" style="flex:0.32865;background:#2e7d32;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden">33%</div><div title="22–24,15: 11,0%" style="flex:0.1102;background:#9e9d24;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden">11%</div><div title="24,15–26,97: 12,2%" style="flex:0.1223;background:#f9a825;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden">12%</div><div title="26,97–35: 20,1%" style="flex:0.20115;background:#ef6c00;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden">20%</div><div title=">35: 9,7%" style="flex:0.09665;background:#c62828;color:#fff;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden">10%</div></div><div style="display:flex;margin-top:4px"><div style="flex:0.14105;font-size:.6rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap"><17,47</div><div style="flex:0.32865;font-size:.6rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap">17,47–22</div><div style="flex:0.1102;font-size:.6rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap">22–24,15</div><div style="flex:0.1223;font-size:.6rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap">24,15–26,97</div><div style="flex:0.20115;font-size:.6rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap">26,97–35</div><div style="flex:0.09665;font-size:.6rem;color:var(--muted);text-align:center;overflow:hidden;white-space:nowrap">>35</div></div>
+<div class="insight-box" style="margin-top:12px"><p>O valor da 26/27 é ultrapassado em 42,0% dos caminhos da 27/28. O pico de 22/23 (R$ 26,97 milhões) em 29,8%, e um choque acima de R$ 35 milhões em 9,7%. A reta MQO sobe R$ 1,67 milhão por safra e por isso fica cada vez menos provável. O modelo não segue a reta porque o painel mostra volta ao nível e não alta contínua. Orce a 27/28 pela mediana e deixe limite de custeio até o P75 (R$ 28,25 milhões), que cobre três de cada quatro caminhos.</p><span class="sig">Dr. Sidney Souza</span></div></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3 style="display:flex;justify-content:space-between">Leque da soja · equivalente fazenda (R$/sc) <span style="font-size:.62rem;color:var(--muted)">PRJ-3</span></h3><div class="chart-container" style="height:300px"><canvas id="chFanSoja"></canvas></div>
+<p style="font-size:.68rem;color:var(--muted)">Mediana e, abaixo, P5 a P95 na tabela ao lado. Cascavel (CMA, não oficial) × 0,8525. Nível de longo prazo R$ 123,14 na fazenda (R$ 144,46 em Cascavel). A soja não tem tendência nominal no modelo: a reta de 2015 a 2026 (8,2% ao ano) vem do salto de 2020 e foi descartada.</p></div>
+<div class="card"><h3 style="display:flex;justify-content:space-between">Pacote em sacas de soja <span style="font-size:.62rem;color:var(--muted)">PRJ-4</span></h3><div class="chart-container" style="height:220px"><canvas id="chFanSacas"></canvas></div>
+<div class="table-wrapper"><table class="tprj" style="font-size:.72rem"><thead><tr><th>Safra</th><th class="text-right">Soja abr-mai</th><th class="text-right">Sacas</th><th class="text-right">&gt;203 mil sc</th><th class="text-right">&gt;250 mil sc</th></tr></thead><tbody><tr><td><b>26/27</b></td><td class="text-right">R$ 118,64<br><span style="font-size:.62rem;color:var(--muted)">97,14 a 147,39</span></td><td class="text-right"><b>203.583</b><br><span style="font-size:.62rem;color:var(--muted)">163.871 a 248.632</span></td><td class="text-right" style="color:#ff9100;font-weight:600">50,8%</td><td class="text-right" style="color:#ff5252;font-weight:600">4,6%</td></tr><tr><td><b>27/28</b></td><td class="text-right">R$ 121,47<br><span style="font-size:.62rem;color:var(--muted)">94,71 a 158,23</span></td><td class="text-right"><b>187.775</b><br><span style="font-size:.62rem;color:var(--muted)">112.486 a 355.820</span></td><td class="text-right" style="color:#ff9100;font-weight:600">40,7%</td><td class="text-right" style="color:#ff5252;font-weight:600">21,1%</td></tr><tr><td><b>28/29</b></td><td class="text-right">R$ 122,77<br><span style="font-size:.62rem;color:var(--muted)">94,23 a 162,77</span></td><td class="text-right"><b>187.160</b><br><span style="font-size:.62rem;color:var(--muted)">98.068 a 394.741</span></td><td class="text-right" style="color:#ff9100;font-weight:600">41,9%</td><td class="text-right" style="color:#ff5252;font-weight:600">24,0%</td></tr><tr><td><b>29/30</b></td><td class="text-right">R$ 123,39<br><span style="font-size:.62rem;color:var(--muted)">94,74 a 165,65</span></td><td class="text-right"><b>190.932</b><br><span style="font-size:.62rem;color:var(--muted)">92.485 a 411.585</span></td><td class="text-right" style="color:#ff9100;font-weight:600">44,3%</td><td class="text-right" style="color:#ff5252;font-weight:600">27,1%</td></tr></tbody></table></div></div>
+</div>
+<div class="insight-box warning"><p>Em sacas, a mediana da 27/28 é de 187.775 sc, abaixo das 203.106 sc da 26/27, com soja perto de R$ 121,47 em abril e maio de 2028. A chance de o pacote passar das 203.106 sc é de 40,7% e a de passar de 250 mil sc é de 21,1%. O custo e a soja foram simulados de forma independente. Se os dois subirem juntos, como em 22/23, o risco em sacas é menor do que o mostrado. Se a soja cair enquanto o custo sobe, é maior. Feche parte da soja de 2028 no mesmo mês em que negociar o pacote 27/28, para travar a relação de troca.</p><span class="sig">Dr. Sidney Souza</span></div>
+<p class="upd">Números registados no grafo (conversa 2026-10-19-planalto-insumos-25-26-26-27): nível de longo prazo 27/28, mediana e faixas 27/28, soja abr-mai/2028 e sacas 27/28. Semente fixa do gerador: o mesmo cálculo devolve os mesmos números.</p>
+</div>
+
+<!-- RECOMENDACOES -->
 <div class="tab-content" id="tab-recomendacoes">
 <h2 class="section-title">💡 Recomendações <span>Estratégicas</span></h2>
-
-<div class="card">
-<h3>🔴 Ações Críticas — Imediato</h3>
-<ul class="rec-list">
+<div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização 26/27 — Prioridades</h3><ul class="rec-list">
+<li class="critical"><strong>Syngenta 26/27 sem preço e sem moeda:</strong> 2.930.000 sem unitários. Peça o pedido com preço, moeda e vencimento antes de fechar o orçamento.</li>
+<li class="critical"><strong>Itens com volume e sem preço:</strong> Rainzeb 750 WG (42.000 kg) e Grasidim Full (2.340) na Rainbow, Widclear (2.700) na Tecnomyl, Herbitrin (12.000) e Lancet (20.000) na Adama.</li>
+<li class="critical"><strong>Abril/2027 concentra R$ 12,03 milhões:</strong> programe a venda da soja para cobrir a segunda quinzena de abril.</li>
+<li class="warn"><strong>Clorfenapir:</strong> 19.260 L de Killigan a R$ 40,00 na Agriconnection. O Pretorian da Albaugh está cotado a R$ 38,50 na 26/27. Compare concentração e custo por hectare.</li>
+<li class="warn"><strong>Bayer subiu em cinco itens:</strong> Aureo +11,2%, Bulldock +9,0%, Fox Supra +2,5%. Use Curbix (−26,7%) como referência antes de 30/10/2026.</li>
+<li class="warn"><strong>BASF CAP US$ 347.180:</strong> confirme o teto do CAP antes de decidir travar câmbio.</li>
+<li><strong>Dose por hectare:</strong> o volume subiu 48,8% no cesto comum. Revise com o agrônomo as doses dos maiores volumes (Absoluto Fix 32.100, Off Road 62.000 L, Blowout 20.000, Killigan 19.260 L).</li>
+<li><strong>Tecnomyl 25/26 SUSPENSO:</strong> confirme se foi entregue. Se não, o total 25/26 é R$ 16,55 milhões.</li>
+</ul></div>
+<p class="upd">Os blocos abaixo são da versão anterior e foram mantidos como estavam.</p>
+<div class="card"><h3>🔴 Ações Críticas — Imediato</h3><ul class="rec-list">
 <li class="critical"><strong>Travar câmbio BASF + Syngenta (USD 550k):</strong> Cada R$ 0,50 = R$ 275k de impacto.</li>
 <li class="critical"><strong>Capital de giro Ago-Out/25 (R$ 4,3M):</strong> Fixar venda antecipada de soja.</li>
-<li class="critical"><strong>Renegociar Dermacor (Corteva):</strong> R$ 1.490/L sem alternativa genérica. Meta: &lt; R$ 1.350.</li>
-</ul>
-</div>
-
-<div class="card">
-<h3>🟡 Estratégicas — Próximas 2 Safras</h3>
-<ul class="rec-list">
+<li class="critical"><strong>Renegociar Dermacor (Corteva):</strong> R$ 1.490/L sem alternativa genérica. Meta: &lt; R$ 1.350. <span style="color:var(--accent)">26/27: cotado a R$ 1.178,10, abaixo da meta, sem volume no pedido.</span></li>
+</ul></div>
+<div class="card"><h3>🟡 Estratégicas — Próximas 2 Safras</h3><ul class="rec-list">
 <li class="warn"><strong>Consolidar biológicos em 3-4 fornecedores.</strong> Economia: R$ 200-400k/safra.</li>
 <li class="warn"><strong>Maximizar genéricos commodity.</strong> Economia: R$ 500-800k/safra.</li>
 <li class="warn"><strong>Sementes milho — diversificar.</strong> Economia: R$ 300-500k/safra.</li>
-</ul>
-</div>
-
-<div class="card">
-<h3>🟢 Oportunidades — Médio/Longo Prazo</h3>
-<ul class="rec-list">
+</ul></div>
+<div class="card"><h3>🟢 Oportunidades — Médio/Longo Prazo</h3><ul class="rec-list">
 <li><strong>Implementar MIP/MID formal.</strong> Reduzir 1-2 aplicações = R$ 300-600k.</li>
 <li><strong>Contratos multi-safra Bayer + UPL.</strong> Desconto escalonado: R$ 200-350k.</li>
 <li><strong>Auditar ROI biológicos.</strong> Talhões pareados para medir ganho real.</li>
-</ul>
+</ul></div>
+<div class="card"><h3>💰 Potencial de Economia Identificado (versão anterior)</h3><div class="table-wrapper"><table><thead><tr><th>Ação</th><th class="text-right">Economia/Safra</th></tr></thead><tbody>
+<tr><td>Proteção cambial</td><td class="text-right positive">até R$ 607k</td></tr><tr><td>Maximizar genéricos</td><td class="text-right positive">R$ 500-800k</td></tr><tr><td>Consolidar biológicos</td><td class="text-right positive">R$ 200-400k</td></tr><tr><td>Otimizar sementes milho</td><td class="text-right positive">R$ 300-500k</td></tr><tr><td>MIP (menos aplicações)</td><td class="text-right positive">R$ 300-600k</td></tr><tr><td>Contratos multi-safra</td><td class="text-right positive">R$ 200-350k</td></tr>
+<tr style="background:rgba(0,230,118,.08)"><td><b>TOTAL POTENCIAL</b></td><td class="text-right positive"><b>R$ 1,5 - 3,3 Mi/safra</b></td></tr></tbody></table></div>
+<div class="insight-box"><strong>💰 Conclusão (versão anterior):</strong> Potencial de <strong>R$ 1,5 a R$ 3,3 milhões por safra</strong> = 12.500 a 27.600 sacas de soja = ~1,5 a 3,3 sc/ha de redução no custo. A proteção cambial da 26/27 vale menos: só a BASF está em dólar.</div></div>
 </div>
 
-<div class="card">
-<h3>💰 Potencial de Economia Identificado</h3>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Ação</th><th class="text-right">Economia/Safra</th></tr></thead>
-<tbody>
-<tr><td>Proteção cambial</td><td class="text-right positive">até R$ 607k</td></tr>
-<tr><td>Maximizar genéricos</td><td class="text-right positive">R$ 500-800k</td></tr>
-<tr><td>Consolidar biológicos</td><td class="text-right positive">R$ 200-400k</td></tr>
-<tr><td>Otimizar sementes milho</td><td class="text-right positive">R$ 300-500k</td></tr>
-<tr><td>MIP (menos aplicações)</td><td class="text-right positive">R$ 300-600k</td></tr>
-<tr><td>Contratos multi-safra</td><td class="text-right positive">R$ 200-350k</td></tr>
-<tr style="background:rgba(0,230,118,.08)"><td><b>TOTAL POTENCIAL</b></td><td class="text-right positive"><b>R$ 1,5 - 3,3 Mi/safra</b></td></tr>
-</tbody>
-</table>
-</div>
-<div class="insight-box"><strong>💰 Conclusão:</strong> Potencial de <strong>R$ 1,5 a R$ 3,3 milhões por safra</strong> = 12.500 a 27.600 sacas de soja = ~1,5 a 3,3 sc/ha de redução no custo.</div>
-</div>
+<!-- FONTES -->
+<div class="tab-content" id="tab-fontes">
+<h2 class="section-title">🧾 Fontes e <span>Pendências</span></h2>
+<div class="card"><h3>O que mudou nesta versão</h3><ul class="rec-list">
+<li>Sem login e senha. O painel e as páginas abrem direto.</li>
+<li>Série completa 19/20 a 26/27. 19/20 a 24/25 mantidos como estavam. 25/26 substituída pela planilha INSUMOS.AGRO.25.26 e 26/27 inserida pela INSUMOS.AGRO.26.27.</li>
+<li>Nas páginas de fornecedor, o histórico produto a produto ficou. A coluna 25/26 passou a mostrar a planilha, com o valor antigo da página anotado quando diverge. Entraram a coluna 26/27, a tabela do pedido de cada safra e a comparação meta × pedido 26/27.</li>
+<li class="warn">Divergências encontradas entre a versão anterior e a planilha 25/26: as páginas de fornecedor traziam totais diferentes (Corteva R$ 1,38M na página contra R$ 231k na planilha, por exemplo) e princípios ativos trocados na Albaugh (Pretorian aparece como sulfentrazone, a planilha diz clorfenapir). Ficaram anotadas em cada página.</li>
+<li>Duas páginas novas: Agriconnection e Adama.</li>
+<li>Aba nova de estatística e econometria. Abas de câmbio, pagamentos, categorias, fertilizantes, relação de troca e HHI recalculadas para 25/26 e 26/27.</li>
+</ul></div>
+<div class="card"><h3>Pendências nos dados</h3><div class="table-wrapper"><table><thead><tr><th>Onde</th><th>O que falta</th><th>Efeito</th></tr></thead><tbody>
+<tr><td>Syngenta 26/27</td><td>Preço unitário, moeda e vencimento. Só o total 2.930.000</td><td>Total 26/27 depende de ser em reais</td></tr>
+<tr><td>Rainbow 26/27</td><td>Preço do Rainzeb 750 WG (42.000) e do Grasidim Full (2.340)</td><td>Total subestimado</td></tr>
+<tr><td>Tecnomyl 26/27</td><td>Preço do Widclear (2.700)</td><td>Total subestimado</td></tr>
+<tr><td>Adama 26/27</td><td>Preço do Herbitrin (12.000) e do Lancet (20.000)</td><td>Total subestimado</td></tr>
+<tr><td>Ouro Fino 26/27</td><td>Divisão entre 20/05 e 20/09/2027</td><td>Fluxo mensal aproximado</td></tr>
+<tr><td>Tecnomyl 25/26</td><td>Pedido SUSPENSO. Viance (8.000) e Ditor (1.000) sem preço</td><td>Total 25/26 pode cair R$ 925.200</td></tr>
+<tr><td>Albaugh 25/26</td><td>Vencimento</td><td>Fluxo 25/26 incompleto</td></tr>
+<tr><td>Fertilizantes</td><td>Data das cotações. Boro, enxofre e gesso 26/27 repetidos da 25/26</td><td>Comparação parcial</td></tr>
+<tr><td>Sementes e biológicos</td><td>Não vieram planilhas 25/26 e 26/27</td><td>Abas mantidas com dados da versão anterior</td></tr>
+</tbody></table></div></div>
+<div class="card"><h3>Premissas</h3><ul class="rec-list">
+<li>US$ a R$ 5,50, igual à versão anterior, nas duas safras. PTAX oficial mais recente no grafo: R$ 5,1253 (BCB, 04/09/2026).</li>
+<li>Soja a R$ 118,92/sc: preço registado pela própria fazenda em Alto Garças em 28/09/2026 (grafo RuralIn, não oficial). CEPEA Paranaguá R$ 161,88 em 16/09/2026.</li>
+<li>Área de ~12.350 ha da versão anterior para custo por hectare.</li>
+<li>Itens sem preço entram com valor zero.</li>
+</ul></div>
+<div class="card"><h3>Rasto dos números no grafo do RuralIn</h3><p style="font-size:.75rem;color:var(--muted);margin-bottom:8px">Conversa <code>conversa:2026-10-19-planalto-insumos-25-26-26-27</code>. Cada número tem fórmula, parcelas com a célula de origem e motivo. A Fazenda Planalto ainda não existe como tenant no grafo (lacuna aberta).</p><div class="table-wrapper"><table id="t-calc"></table></div></div>
 </div>
 
-</div><!-- content -->
-</div><!-- main -->
-</div><!-- app -->
+</div></div></div>
 
 <script>
-// ========== LOGIN COM SESSÃO ==========
-function doLogin(){
-const u=document.getElementById('loginUser').value.trim();
-const p=document.getElementById('loginPass').value.trim();
-if(u==='David'&&p==='fazplan2026'){
-localStorage.setItem('ruralin_auth','fazplan2026_ok');
-document.getElementById('loginOverlay').classList.add('hidden');
-document.getElementById('app').classList.add('visible');
-initCharts();
-}else{
-document.getElementById('loginError').textContent='❌ Usuário ou senha incorretos.';
-}
-}
-document.getElementById('loginPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
-document.getElementById('loginUser').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('loginPass').focus()});
-
-function doLogout(){
-localStorage.removeItem('ruralin_auth');
-document.getElementById('loginOverlay').classList.remove('hidden');
-document.getElementById('app').classList.remove('visible');
-document.getElementById('loginUser').value='';
-document.getElementById('loginPass').value='';
-document.getElementById('loginError').textContent='';
-}
-
-// Auto-login se já autenticado
-window.addEventListener('load',function(){
-if(localStorage.getItem('ruralin_auth')==='fazplan2026_ok'){
-document.getElementById('loginOverlay').classList.add('hidden');
-document.getElementById('app').classList.add('visible');
-initCharts();
-}
-});
-
-document.getElementById('currentDate').textContent=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
-
-// ========== TABS ==========
-function showTab(id,el){
-document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-document.getElementById('tab-'+id).classList.add('active');
-if(el)el.classList.add('active');
-}
-
-// ========== CHARTS ==========
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
+const D={"S": ["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"], "T": [10700, 8537, 14728, 26965, 19621, 17548, 17472.1745, 24153.338399999997], "painel": {"BASF": [1830, 1695, 1175, 2563, 2941, 2553], "Bayer": [1250, 867, 1431, 3078, 3319, 2287], "Corteva": [1652, 1473, 2486, 3280, 1686, 1431], "FMC": [963, 0, 0, 1271, 1554, 989], "Syngenta": [1309, 830, 4221, 9721, 2201, 1205], "Ihara": [836, 385, 1140, 1488, 1224, 1699], "UPL": [553, 0, 1853, 3575, 4682, 1388], "Albaugh": [0, 1818, 433, 0, 576, 1869], "Outros": [2307, 1469, 1989, 1989, 1438, 4127]}, "s25": {"Albaugh": 2151.9, "BASF": 1424.8, "Bayer": 2707.3, "Corteva": 231.0, "FMC": 385.8, "Ouro Fino": 682.6, "Rainbow": 1662.9, "Tecnomyl": 925.2, "UPL/Origeo": 2447.1, "Sumitomo": 1568.9, "Syngenta": 1598.6, "Ihara / Ag. Alvorada": 1686.1}, "s26": {"Albaugh": 1263.1, "Agriconnection": 3365.8, "BASF": 1909.5, "Bayer": 3422.5, "Corteva": 954.4, "FMC": 964.2, "Ihara / Ag. Alvorada": 436.1, "Ouro Fino": 2469.0, "Rainbow": 180.4, "Tecnomyl": 328.6, "UPL/Origeo": 2559.5, "Sumitomo": 2532.9, "Syngenta": 2930.0, "Adama": 837.1}, "keyof": {"Bayer": "bayer", "BASF": "basf", "UPL/Origeo": "upl", "Albaugh": "albaugh", "Syngenta": "syngenta", "Corteva": "corteva", "Ihara / Ag. Alvorada": "ihara", "Sumitomo": "sumitomo", "Rainbow": "rainbow", "FMC": "fmc", "Ouro Fino": "ourofino", "Tecnomyl": "tecnomyl", "Agriconnection": "agriconnection", "Adama": "adama"}, "venc26": {"Albaugh": "50% 30/04/2027 · 50% 20/09/2027", "Agriconnection": "R$ 2.965.150 em 30/04/2027 · R$ 400.700 em 30/09/2027", "BASF": "30/04/2027", "Bayer": "R$ 79.274 em 30/10/2026 · R$ 3.343.239,60 em 30/04/2027", "Corteva": "05/05/2027", "FMC": "20/08/2027", "Ihara / Ag. Alvorada": "20/04/2027 (via Agrícola Alvorada)", "Ouro Fino": "20/05/2027 e 20/09/2027 (divisão não informada)", "Rainbow": "20/04/2027", "Tecnomyl": "20/05/2027", "UPL/Origeo": "30/04/2027", "Sumitomo": "05/05/2027", "Syngenta": "não informado", "Adama": "01/05/2027"}, "moeda26": {"Albaugh": "BRL", "Agriconnection": "BRL", "BASF": "USD", "Bayer": "BRL", "Corteva": "BRL", "FMC": "BRL", "Ihara / Ag. Alvorada": "BRL", "Ouro Fino": "BRL", "Rainbow": "BRL", "Tecnomyl": "BRL", "UPL/Origeo": "BRL", "Sumitomo": "BRL", "Syngenta": "BRL?", "Adama": "BRL"}, "st": {"T25": 17472174.5, "T26": 24153338.4, "serie": [10700, 8537, 14728, 26965, 19621, 17548, 17472.1745, 24153.338399999997], "ols": {"a": 11633.679058333333, "b": 1666.2528726190476, "r2": 0.42775760313461897}, "media": 17465.5641125, "sd": 6240.47528501958, "cv": 0.35730167344284686, "cagr": 0.12334547747139557, "C25": {"hhi": 1052.410446814253, "cr4": 0.5146658190713469, "gini": 0.28914606717479097, "n": 12, "lorenz": [0, 0.01322102180240931, 0.035301845228251354, 0.07436841934013423, 0.12732118718251126, 0.20886970880470546, 0.29866643101578455, 0.3901599941094911, 0.48533418092865316, 0.5818347624676025, 0.7049944184108281, 0.8450516276608845, 1.0]}, "C26": {"hhi": 1007.9844193985625, "cr4": 0.5083313493425821, "gini": 0.3640787590434529, "n": 14, "lorenz": [0, 0.007470503539171215, 0.021075248132158827, 0.039131137250989705, 0.07379028813673227, 0.11330449458696774, 0.15322485607206995, 0.205519904445176, 0.2845768848251636, 0.38680002098591887, 0.49166865065741805, 0.5976389085825089, 0.7189471911675779, 0.8583005983139789, 1.0]}, "hhi_hist": [1450.6339418289808, 1659.5213726209315, 1673.5777625106919, 1951.085612796034, 1443.8555065772262, 1349.7940768176113], "idx": {"L": 0.8845699395760549, "P": 0.8909739066039473, "F": 0.8877661486723264, "QL": 1.4828281565223602, "QF": 1.4881860469841997, "V0": 9698274.4, "V1": 12812983.8, "n": 41, "efeito_preco": -1088474.687144583, "efeito_qtd": 4203184.087144583}, "elast": {"beta": 1.0784600085558902, "alpha": 0.7617294404408126, "se": 1.4076539189660089, "t": 0.7661400249203811, "r2": 0.014827366929347385, "n": 41, "pts": [[-0.0282, 0.393, "Ultimato SC (Atrazina 500)"], [-0.3618, 0.4055, "Afiado (Aceta + Bifent)"], [-0.0785, 0.1823, "Krypto (Methom + Bifent)"], [-0.221, 1.0704, "Joya (Flumioxazina 480 SC)"], [-0.1054, 0.0, "ASSIST"], [-0.0715, 2.1484, "MEES"], [-0.055, -0.2877, "ORKESTRA"], [-0.1764, 0.9163, "MELYRA"], [-0.1335, -1.2528, "FASTAC DUO"], [0.1066, 1.204, "Aureo"], [-0.3102, -1.2993, "Curbix"], [-0.0308, 1.7636, "Soberan"], [0.0235, 1.6487, "Fox Xpro"], [0.0246, -0.3716, "Fox Supra"], [-0.0266, 0.8473, "Adengo"], [-0.0198, 0.0, "Verango Prime"], [0.0864, 1.4759, "Bulldock"], [0.0066, -0.9163, "Nativo Plus"], [-0.4274, 1.4469, "Vessarya"], [-0.1823, -0.5878, "Utrisha N"], [-0.179, 0.0247, "VIVANTHA"], [-0.0307, 1.7918, "TERRA D'OR"], [-0.0903, 1.7148, "Impar BR"], [-0.4356, -1.0986, "FULLGUARD (Carfentrazone 400)"], [-0.0587, 0.5596, "METOMY SP (Methomil 900)"], [-0.2605, 0.0, "Widclear (Fluroxipir 200)"], [-0.2634, 0.0, "Valex Full OD (Aceta + Pirip)"], [-0.225, 0.3646, "Feroce"], [-0.0776, -0.7621, "Kennox"], [-0.1133, -1.0981, "Dizarm 750 WG"], [-0.3691, 1.5224, "Nimaxxa (Bio nemat)"], [-0.1897, 0.3185, "K-Fol"], [-0.0941, 1.3437, "Abaday"], [-0.0567, 0.3716, "Maxcel"], [-0.0395, -0.2747, "Progibb"], [-0.113, 2.8449, "Zethamaxx Evo"], [-0.183, 3.2734, "Excalia Max"], [-0.2143, 0.8473, "Certeza N"], [-0.0376, 0.462, "Iharol Gold"], [-0.1354, 2.4849, "Zeus"], [-0.1112, 2.0826, "Absoluto Fix"]]}, "dp": {"n": 41, "med": -0.09999999999999987, "q1": -0.1727608185172761, "q3": -0.03693931398416883, "mean": -0.11339346253808864, "neg": 36}, "common": [["Ultimato SC (Atrazina 500)", "Albaugh", "Albaugh", 18.0, 17.5, 8100.0, 12000.0], ["Afiado (Aceta + Bifent)", "Albaugh", "Albaugh", 112.0, 78.0, 2400.0, 3600.0], ["Krypto (Methom + Bifent)", "Albaugh", "Albaugh", 38.4, 35.5, 10000.0, 12000.0], ["Joya (Flumioxazina 480 SC)", "Albaugh", "Albaugh", 116.0, 93.0, 240.0, 700.0], ["ASSIST", "BASF", "BASF", 16.5, 14.850000000000001, 3000.0, 3000.0], ["MEES", "BASF", "BASF", 15.95, 14.850000000000001, 1400.0, 12000.0], ["ORKESTRA", "BASF", "BASF", 267.3, 253.0, 2000.0, 1500.0], ["MELYRA", "BASF", "BASF", 183.7, 154.0, 1000.0, 2500.0], ["FASTAC DUO", "BASF", "BASF", 88.0, 77.0, 7000.0, 2000.0], ["Aureo", "Bayer", "Bayer", 17.25, 19.19, 900.0, 3000.0], ["Curbix", "Bayer", "Bayer", 75.0, 55.0, 11000.0, 3000.0], ["Soberan", "Bayer", "Bayer", 495.0, 480.0, 240.0, 1400.0], ["Fox Xpro", "Bayer", "Bayer", 210.0, 215.0, 500.0, 2600.0], ["Fox Supra", "Bayer", "Bayer", 302.0, 309.52, 2900.0, 2000.0], ["Adengo", "Bayer", "Bayer", 495.0, 482.0, 600.0, 1400.0], ["Verango Prime", "Bayer", "Bayer", 510.0, 500.0, 600.0, 600.0], ["Bulldock", "Bayer", "Bayer", 92.0, 100.3, 480.0, 2100.0], ["Nativo Plus", "Bayer", "Bayer", 96.0, 96.64, 800.0, 320.0], ["Vessarya", "Corteva", "Corteva", 138.0, 90.0, 800.0, 3400.0], ["Utrisha N", "Corteva", "Corteva", 300.0, 250.0, 180.0, 100.0], ["VIVANTHA", "Ouro Fino", "Ouro Fino", 305.0, 255.0, 800.0, 820.0], ["TERRA D'OR", "Ouro Fino", "Ouro Fino", 432.98, 419.9, 100.0, 600.0], ["Impar BR", "Ouro Fino", "Ouro Fino", 300.0, 274.0975, 360.0, 2000.0], ["FULLGUARD (Carfentrazone 400)", "Rainbow", "Rainbow", 403.0, 260.7, 600.0, 200.0], ["METOMY SP (Methomil 900)", "Rainbow", "Agriconnection", 77.2, 72.8, 2000.0, 3500.0], ["Widclear (Fluroxipir 200)", "Tecnomyl", "Agriconnection", 58.0, 44.7, 1000.0, 1000.0], ["Valex Full OD (Aceta + Pirip)", "Tecnomyl", "Tecnomyl", 95.0, 73.0, 1000.0, 1000.0], ["Feroce", "UPL/Origeo", "UPL/Origeo", 65.21, 52.07, 10000.0, 14400.0], ["Kennox", "UPL/Origeo", "UPL/Origeo", 77.0, 71.25, 4500.0, 2100.0], ["Dizarm 750 WG", "UPL/Origeo", "UPL/Origeo", 31.92, 28.5, 30000.0, 10005.0], ["Nimaxxa (Bio nemat)", "UPL/Origeo", "UPL/Origeo", 745.2, 515.22, 120.0, 550.0], ["K-Fol", "UPL/Origeo", "UPL/Origeo", 29.81, 24.66, 8000.0, 11000.0], ["Abaday", "Sumitomo", "Sumitomo", 75.81, 69.0, 3000.0, 11500.0], ["Maxcel", "Sumitomo", "Sumitomo", 204.25, 193.0, 1600.0, 2320.0], ["Progibb", "Sumitomo", "Sumitomo", 4565.7, 4389.0, 102.0, 77.5], ["Zethamaxx Evo", "Sumitomo", "Sumitomo", 62.7, 56.0, 500.0, 8600.0], ["Excalia Max", "Sumitomo", "Sumitomo", 213.75, 178.0, 100.0, 2640.0], ["Certeza N", "Ihara / Ag. Alvorada", "Agriconnection", 96.64, 78.0, 600.0, 1400.0], ["Iharol Gold", "Ihara / Ag. Alvorada", "Ihara / Ag. Alvorada", 22.74, 21.9, 6300.0, 10000.0], ["Zeus", "Ihara / Ag. Alvorada", "Ihara / Ag. Alvorada", 82.86, 72.37, 250.0, 3000.0], ["Absoluto Fix", "Ihara / Ag. Alvorada", "Agriconnection", 28.5, 25.5, 4000.0, 32100.0]], "sacas": {"soja": 118.92, "cepea": 161.88, "sc26": 203105.77194752774, "sc25": 146923.7680793811}, "common_all": [["Aproach Power", "Corteva", "Corteva", 78.0, 45.0, 0, 3120.0], ["Arceus", "Tecnomyl", "Tecnomyl", 150.0, 93.0, 2000.0, 0], ["ACEWAY WG", "Rainbow", "Rainbow", 115.0, 72.5, 2180.0, 0], ["FULLGUARD", "Rainbow", "Rainbow", 403.0, 260.7, 600.0, 200.0], ["Vessarya", "Corteva", "Corteva", 138.0, 90.0, 800.0, 3400.0], ["KROMSTAR", "Rainbow", "Rainbow", 122.4, 81.15, 0, 0], ["Avatar", "FMC", "FMC", 210.0, 140.0, 0, 4200.0], ["Sperto 4x5Kg", "UPL/Origeo", "UPL/Origeo", 122.23, 82.76, 0, 2200.0], ["Nimaxxa", "UPL/Origeo", "UPL/Origeo", 745.2, 515.22, 120.0, 550.0], ["Afiado", "Albaugh", "Albaugh", 112.0, 78.0, 2400.0, 3600.0], ["Adver", "Tecnomyl", "Tecnomyl", 55.0, 40.0, 0, 0], ["Curbix", "Bayer", "Bayer", 75.0, 55.0, 11000.0, 3000.0], ["Sultan SC", "Albaugh", "Albaugh", 145.0, 107.0, 0, 0], ["Exalt", "Corteva", "Corteva", 610.0, 459.0, 0, 0], ["Valex Full OD", "Tecnomyl", "Tecnomyl", 95.0, 73.0, 1000.0, 1000.0], ["Widclear", "Tecnomyl", "Agriconnection", 58.0, 44.7, 1000.0, 1000.0], ["Loyer", "Tecnomyl", "Tecnomyl", 17.5, 13.5, 0, 0], ["Pretorian", "Albaugh", "Albaugh", 49.5, 38.5, 11700.0, 0], ["Magma", "Tecnomyl", "Tecnomyl", 130.0, 102.0, 0, 0], ["Dermacor", "Corteva", "Corteva", 1490.0, 1178.1, 0, 0], ["BLAVITY", "BASF", "BASF", 319.0, 253.0, 0, 260.0], ["Feroce", "UPL/Origeo", "UPL/Origeo", 65.21, 52.07, 10000.0, 14400.0], ["Joya", "Albaugh", "Albaugh", 116.0, 93.0, 240.0, 700.0], ["Certeza N", "Ihara / Ag. Alvorada", "Agriconnection", 96.64, 78.0, 600.0, 1400.0], ["Topinam", "Tecnomyl", "Tecnomyl", 50.0, 40.5, 1000.0, 0], ["Reator 360 CS", "FMC", "FMC", 61.8, 50.1, 0, 0], ["Glider", "Albaugh", "Albaugh", 32.95, 26.8, 0, 0], ["K-Fol", "UPL/Origeo", "UPL/Origeo", 29.81, 24.66, 8000.0, 11000.0], ["Grasidim 360", "Rainbow", "Agriconnection", 47.45, 39.5, 0, 2000.0], ["Excalia Max", "Sumitomo", "Sumitomo", 213.75, 178.0, 100.0, 2640.0], ["Utrisha N", "Corteva", "Corteva", 300.0, 250.0, 180.0, 100.0], ["VIVANTHA", "Ouro Fino", "Ouro Fino", 305.0, 255.0, 800.0, 820.0], ["MELYRA", "BASF", "BASF", 183.7, 154.0, 1000.0, 2500.0], ["PIRATE", "BASF", "BASF", 68.75, 57.75, 0, 0], ["GLUCARE", "Rainbow", "Rainbow", 17.6, 14.9, 0, 0], ["Freno", "Albaugh", "Albaugh", 36.6, 31.0, 0, 0], ["Onsuva", "FMC", "FMC", 295.0, 252.3, 0, 200.0], ["Gunter PRO", "Tecnomyl", "Tecnomyl", 55.0, 47.5, 5000.0, 0], ["Vasto", "Albaugh", "Albaugh", 28.71, 24.8, 4500.0, 0], ["SAFENITHI", "Rainbow", "Rainbow", 28.9, 25.14, 0, 0], ["Zeus", "Ihara / Ag. Alvorada", "Ihara / Ag. Alvorada", 82.86, 72.37, 250.0, 3000.0], ["FASTAC DUO", "BASF", "BASF", 88.0, 77.0, 7000.0, 2000.0], ["CLOMASTER", "Rainbow", "Rainbow", 47.5, 42.0, 0, 0], ["BELYAN", "BASF", "BASF", 171.05, 152.35, 0, 3600.0], ["Disarm 750 WG", "UPL/Origeo", "UPL/Origeo", 31.92, 28.5, 30000.0, 10005.0], ["Zethamaxx Evo", "Sumitomo", "Sumitomo", 62.7, 56.0, 500.0, 8600.0], ["Absoluto Fix", "Ihara / Ag. Alvorada", "Agriconnection", 28.5, 25.5, 4000.0, 32100.0], ["ASSIST", "BASF", "BASF", 16.5, 14.85, 3000.0, 3000.0], ["Pacto", "Corteva", "Corteva", 1850.0, 1667.7, 36.0, 0], ["Classic", "Corteva", "Corteva", 175.0, 158.76, 0, 0], ["FINALE", "BASF", "BASF", 30.25, 27.5, 0, 0], ["Abaday", "Sumitomo", "Sumitomo", 75.81, 69.0, 3000.0, 11500.0], ["Krypto", "Albaugh", "Albaugh", 38.4, 35.5, 10000.0, 12000.0], ["Kennox", "UPL/Origeo", "UPL/Origeo", 77.0, 71.25, 4500.0, 2100.0], ["Convence FS", "Ihara / Ag. Alvorada", "Ihara / Ag. Alvorada", 270.0, 250.0, 500.0, 0], ["MEES", "BASF", "BASF", 15.95, 14.85, 1400.0, 12000.0], ["ABACUS", "BASF", "BASF", 147.4, 137.5, 0, 0], ["Impar BR", "Ouro Fino", "Ouro Fino", 300.0, 280.0, 360.0, 1500.0], ["Metomy 900 WG", "Rainbow", "Agriconnection", 77.2, 72.8, 2000.0, 3500.0], ["Maxcel", "Sumitomo", "Sumitomo", 204.25, 193.0, 1600.0, 2320.0], ["ORKESTRA", "BASF", "BASF", 267.3, 253.0, 2000.0, 1500.0], ["KAIVANA", "Ouro Fino", "Ouro Fino", 52.0, 49.89, 0, 7500.0], ["Progibb", "Sumitomo", "Sumitomo", 4565.7, 4389.0, 102.0, 77.5], ["Iharol Gold", "Ihara / Ag. Alvorada", "Ihara / Ag. Alvorada", 22.74, 21.9, 6300.0, 10000.0], ["Bazuka", "Albaugh", "Albaugh", 18.6, 18.0, 0, 0], ["Soberan", "Bayer", "Bayer", 495.0, 480.0, 240.0, 1400.0], ["TERRA D'OR", "Ouro Fino", "Ouro Fino", 432.98, 419.9, 100.0, 600.0], ["Ultimato SC", "Albaugh", "Albaugh", 18.0, 17.5, 8100.0, 12000.0], ["Adengo", "Bayer", "Bayer", 495.0, 482.0, 600.0, 1400.0], ["Atrivo", "Tecnomyl", "Tecnomyl", 23.0, 22.5, 0, 0], ["Verango Prime", "Bayer", "Bayer", 510.0, 500.0, 600.0, 600.0], ["OFF ROAD", "Ouro Fino", "Ouro Fino", 17.61, 17.51, 0, 62000.0], ["Nativo Plus", "Bayer", "Bayer", 96.0, 96.64, 800.0, 320.0], ["Fox Xpro", "Bayer", "Bayer", 210.0, 215.0, 500.0, 2600.0], ["Fox Supra", "Bayer", "Bayer", 302.0, 309.52, 2900.0, 2000.0], ["BRILHANTE", "Ouro Fino", "Ouro Fino", 19.9, 20.41, 0, 0], ["Egan", "Albaugh", "Albaugh", 22.0, 22.9, 9600.0, 0], ["DECORUM", "Rainbow", "Rainbow", 18.0, 18.9, 0, 0], ["Bulldock", "Bayer", "Bayer", 92.0, 100.3, 480.0, 2100.0], ["Aureo", "Bayer", "Bayer", 17.25, 19.19, 900.0, 3000.0], ["Exemplo LV", "Albaugh", "Albaugh", 21.4, 24.0, 0, 9000.0], ["2,4 D Tecnomyl", "Tecnomyl", "Tecnomyl", 19.5, 22.0, 0, 0], ["Exemplo", "Albaugh", "Albaugh", 17.28, 20.8, 5400.0, 0], ["Dez", "UPL/Origeo", "UPL/Origeo", 16.88, 21.38, 0, 5000.0]]}, "mc": {"c25": {"Herbicidas": 3419747.0, "Inseticidas": 4556910.0, "Não classificado": 3248235.1, "Fungicidas": 2849990.0, "Adjuvantes/Nutrição/Reguladores": 1293268.4, "Nematicidas/TS": 1118924.0, "Multissítios": 985100.0}, "c26": {"Herbicidas": 3267123.2, "Não classificado": 8981628.6, "Inseticidas": 5672366.0, "Adjuvantes/Nutrição/Reguladores": 1600947.5, "Nematicidas/TS": 737371.0, "Fungicidas": 3608759.5999999996, "Multissítios": 285142.5}, "r25": {"MT": 14352771.062307177, "GO": 1694573.4376928238, "Não alocado": 1424830.0}, "r26": {"MT": 16355304.799999999, "GO": 2958543.6, "Não alocado": 4839490.0}, "nv25": 80, "nv26": 96, "big4": [5961706.5, 9216403.6], "gen": [7187071.0, 8534657.3]}, "items26": [{"p": "Prefer Max (Glufosinato)", "f": "Albaugh", "u": 34.0, "v": 1000.0, "t": 34000.0}, {"p": "Ultimato SC (Atrazina 500)", "f": "Albaugh", "u": 17.5, "v": 12000.0, "t": 210000.0}, {"p": "Excellend", "f": "Albaugh", "u": 52.0, "v": 600.0, "t": 31200.0}, {"p": "Exemplo LV", "f": "Albaugh", "u": 24.0, "v": 9000.0, "t": 216000.0}, {"p": "Afiado (Aceta + Bifent)", "f": "Albaugh", "u": 78.0, "v": 3600.0, "t": 280800.0}, {"p": "Krypto (Methom + Bifent)", "f": "Albaugh", "u": 35.5, "v": 12000.0, "t": 426000.0}, {"p": "Joya (Flumioxazina 480 SC)", "f": "Albaugh", "u": 93.0, "v": 700.0, "t": 65100.0}, {"p": "Metomy 900 WG", "f": "Agriconnection", "u": 72.8, "v": 3500.0, "t": 254800.0}, {"p": "Grasidim 360", "f": "Agriconnection", "u": 39.5, "v": 2000.0, "t": 79000.0}, {"p": "Certeza N", "f": "Agriconnection", "u": 78.0, "v": 1400.0, "t": 109200.0}, {"p": "Impactus CS", "f": "Agriconnection", "u": 46.0, "v": 600.0, "t": 27600.0}, {"p": "Killigan 240 EC", "f": "Agriconnection", "u": 40.0, "v": 19260.0, "t": 770400.0}, {"p": "Widclear", "f": "Agriconnection", "u": 44.7, "v": 1000.0, "t": 44700.0}, {"p": "Vallex", "f": "Agriconnection", "u": 27.9, "v": 3200.0, "t": 89280.0}, {"p": "Support", "f": "Agriconnection", "u": 23.0, "v": 13400.0, "t": 308200.0}, {"p": "Blowout", "f": "Agriconnection", "u": 20.5, "v": 20000.0, "t": 410000.0}, {"p": "Milha WG", "f": "Agriconnection", "u": 323.0, "v": 40.0, "t": 12920.0}, {"p": "Zarpal", "f": "Agriconnection", "u": 66.2, "v": 1000.0, "t": 66200.0}, {"p": "Tarbox SG", "f": "Agriconnection", "u": 48.5, "v": 2000.0, "t": 97000.0}, {"p": "Spireel", "f": "Agriconnection", "u": 95.0, "v": 2500.0, "t": 237500.0}, {"p": "Cruzaro", "f": "Agriconnection", "u": 40.5, "v": 1000.0, "t": 40500.0}, {"p": "Absoluto Fix", "f": "Agriconnection", "u": 25.5, "v": 32100.0, "t": 818550.0}, {"p": "ASSIST", "f": "BASF", "u": 14.850000000000001, "v": 3000.0, "t": 44550.0}, {"p": "MEES", "f": "BASF", "u": 14.850000000000001, "v": 12000.0, "t": 178200.0}, {"p": "ILEVO", "f": "BASF", "u": 1540.0, "v": 100.0, "t": 154000.0}, {"p": "ORKESTRA", "f": "BASF", "u": 253.0, "v": 1500.0, "t": 379500.0}, {"p": "BLAVITY", "f": "BASF", "u": 253.0, "v": 260.0, "t": 65780.0}, {"p": "BELYAN", "f": "BASF", "u": 152.35, "v": 3600.0, "t": 548460.0}, {"p": "MELYRA", "f": "BASF", "u": 154.0, "v": 2500.0, "t": 385000.0}, {"p": "FASTAC DUO", "f": "BASF", "u": 77.0, "v": 2000.0, "t": 154000.0}, {"p": "Convintro Duo", "f": "Bayer", "u": 20.8, "v": 1580.0, "t": 32864.0}, {"p": "Xtendicam", "f": "Bayer", "u": 22.1, "v": 2100.0, "t": 46410.0}, {"p": "Aureo", "f": "Bayer", "u": 19.19, "v": 3000.0, "t": 57570.0}, {"p": "Curbix", "f": "Bayer", "u": 55.0, "v": 3000.0, "t": 165000.0}, {"p": "Soberan", "f": "Bayer", "u": 480.0, "v": 1400.0, "t": 672000.0}, {"p": "Fox Xpro", "f": "Bayer", "u": 215.0, "v": 2600.0, "t": 559000.0}, {"p": "Fox Supra", "f": "Bayer", "u": 309.52, "v": 2000.0, "t": 619040.0}, {"p": "Adengo", "f": "Bayer", "u": 482.0, "v": 1400.0, "t": 674800.0}, {"p": "Verango Prime", "f": "Bayer", "u": 500.0, "v": 600.0, "t": 300000.0}, {"p": "Bulldock", "f": "Bayer", "u": 100.3, "v": 2100.0, "t": 210630.0}, {"p": "Nativo Plus", "f": "Bayer", "u": 96.64, "v": 320.0, "t": 30924.8}, {"p": "Sphere Neo", "f": "Bayer", "u": 53.08, "v": 800.0, "t": 42464.0}, {"p": "Fox Ultra", "f": "Bayer", "u": 295.27, "v": 40.0, "t": 11810.8}, {"p": "Vessarya", "f": "Corteva", "u": 90.0, "v": 3400.0, "t": 306000.0}, {"p": "Aproach Power", "f": "Corteva", "u": 45.0, "v": 3120.0, "t": 140400.0}, {"p": "Verdict Ultra", "f": "Corteva", "u": 180.0, "v": 1060.0, "t": 190800.0}, {"p": "Utrisha N", "f": "Corteva", "u": 250.0, "v": 100.0, "t": 25000.0}, {"p": "Lannate", "f": "Corteva", "u": 18.0, "v": 4500.0, "t": 81000.0}, {"p": "Spider", "f": "Corteva", "u": 880.0, "v": 240.0, "t": 211200.0}, {"p": "Avatar", "f": "FMC", "u": 140.0, "v": 4200.0, "t": 588000.0}, {"p": "Onsuva", "f": "FMC", "u": 252.3, "v": 200.0, "t": 50460.0}, {"p": "Sofero Fall", "f": "FMC", "u": 401.5, "v": 100.0, "t": 40150.0}, {"p": "Premio", "f": "FMC", "u": 340.0, "v": 840.0, "t": 285600.0}, {"p": "Iharol Gold", "f": "Ihara / Ag. Alvorada", "u": 21.9, "v": 10000.0, "t": 219000.0}, {"p": "Zeus", "f": "Ihara / Ag. Alvorada", "u": 72.37, "v": 3000.0, "t": 217110.0}, {"p": "VIVANTHA", "f": "Ouro Fino", "u": 255.0, "v": 820.0, "t": 209100.0}, {"p": "OFF ROAD", "f": "Ouro Fino", "u": 17.51, "v": 62000.0, "t": 1085620.0}, {"p": "TERRA D'OR", "f": "Ouro Fino", "u": 419.9, "v": 600.0, "t": 251940.0}, {"p": "KAIVANA", "f": "Ouro Fino", "u": 49.89, "v": 7500.0, "t": 374175.0}, {"p": "Impar BR", "f": "Ouro Fino", "u": 256.39, "v": 500.0, "t": 128195.0}, {"p": "Impar BR", "f": "Ouro Fino", "u": 280.0, "v": 1500.0, "t": 420000.0}, {"p": "Rainzeb 750 WG (Mancozeb)", "f": "Rainbow", "u": null, "v": 42000.0, "t": 0.0}, {"p": "FULLGUARD (Carfentrazone 400)", "f": "Rainbow", "u": 260.7, "v": 200.0, "t": 52140.0}, {"p": "GRASIDIM FULL (Cletodim 360)", "f": "Rainbow", "u": null, "v": 2340.0, "t": 0.0}, {"p": "GLINT Full (Haloxifope 540)", "f": "Rainbow", "u": 92.15, "v": 600.0, "t": 55290.0}, {"p": "Sungain Xtra (Flumioxazina 800 WG)", "f": "Rainbow", "u": 132.0, "v": 400.0, "t": 52800.0}, {"p": "COFENRIN", "f": "Rainbow", "u": 72.17, "v": 280.0, "t": 20207.6}, {"p": "Acarigen (Abamectina 84) SC", "f": "Tecnomyl", "u": 71.0, "v": 3600.0, "t": 255600.0}, {"p": "Widclear (Fluroxipir 200)", "f": "Tecnomyl", "u": null, "v": 2700.0, "t": 0.0}, {"p": "Valex Full OD (Aceta + Pirip)", "f": "Tecnomyl", "u": 73.0, "v": 1000.0, "t": 73000.0}, {"p": "Feroce", "f": "UPL/Origeo", "u": 52.07, "v": 14400.0, "t": 749808.0}, {"p": "Kennox", "f": "UPL/Origeo", "u": 71.25, "v": 2100.0, "t": 149625.0}, {"p": "Thunder", "f": "UPL/Origeo", "u": 48.29, "v": 4500.0, "t": 217305.0}, {"p": "Disarm 750 WG", "f": "UPL/Origeo", "u": 28.5, "v": 10005.0, "t": 285142.5}, {"p": "Sperto 4x5Kg", "f": "UPL/Origeo", "u": 82.76, "v": 2200.0, "t": 182072.0}, {"p": "Raizal", "f": "UPL/Origeo", "u": 32.61, "v": 6000.0, "t": 195660.0}, {"p": "K-Fol", "f": "UPL/Origeo", "u": 24.66, "v": 11000.0, "t": 271260.0}, {"p": "Propose", "f": "UPL/Origeo", "u": 147.99, "v": 800.0, "t": 118392.0}, {"p": "Dez (2,4 D)", "f": "UPL/Origeo", "u": 21.38, "v": 5000.0, "t": 106900.0}, {"p": "Nimaxxa", "f": "UPL/Origeo", "u": 515.22, "v": 550.0, "t": 283371.0}, {"p": "Abaday", "f": "Sumitomo", "u": 69.0, "v": 11500.0, "t": 793500.0}, {"p": "Maxcel", "f": "Sumitomo", "u": 193.0, "v": 2320.0, "t": 447760.0}, {"p": "Progibb", "f": "Sumitomo", "u": 4389.0, "v": 77.5, "t": 340147.5}, {"p": "Zethamaxx Evo", "f": "Sumitomo", "u": 56.0, "v": 8600.0, "t": 481600.0}, {"p": "Excalia Max", "f": "Sumitomo", "u": 178.0, "v": 2640.0, "t": 469920.0}, {"p": "Ochima", "f": "Syngenta", "u": null, "v": 6000.0, "t": 0.0}, {"p": "Victrato", "f": "Syngenta", "u": null, "v": 40.0, "t": 0.0}, {"p": "Fortenza", "f": "Syngenta", "u": null, "v": 400.0, "t": 0.0}, {"p": "Alade", "f": "Syngenta", "u": null, "v": 3000.0, "t": 0.0}, {"p": "Megafol", "f": "Syngenta", "u": null, "v": 400.0, "t": 0.0}, {"p": "Neture", "f": "Syngenta", "u": null, "v": 2048.0, "t": 0.0}, {"p": "Verdavis", "f": "Syngenta", "u": null, "v": 3100.0, "t": 0.0}, {"p": "Araddo", "f": "Adama", "u": 76.57, "v": 5260.0, "t": 402758.2}, {"p": "Galil Nano", "f": "Adama", "u": 80.44, "v": 5400.0, "t": 434376.0}, {"p": "Herbitrin", "f": "Adama", "u": null, "v": 12000.0, "t": 0.0}, {"p": "Lancet", "f": "Adama", "u": null, "v": 20000.0, "t": 0.0}], "soja": 118.92, "cepea": 161.88, "pd": {"panel": {"n": 58, "phi": 0.5817461254071679, "se_phi": 0.1296862007526838, "b": 0.05167782518357867, "sig": 0.1923641876196259, "regs": ["Primavera do Leste/MT (OGM)", "Sorriso/MT (OGM)", "Rio Verde/GO", "Campo Novo do Parecis/MT (OGM)", "Cristalina/GO"]}, "faz": {"sig": 0.31329685079637787, "c": 16.174438565184943, "a": 16.174438565184943, "lr": [13698921.856596759, 14425463.71246427, 15190538.751735058, 15996190.636740757, 16844571.418359097, 17737947.28455509, 18678704.61380394, 19669356.34956657, 20712548.712843817, 21811068.27074093, 22967849.379923336], "hl": 1.279527663113236}, "fan": {"27/28": {"5": 15020816.383979674, "25": 18981826.354067728, "50": 22513869.020837665, "75": 28247878.226819538, "95": 41170094.96893123}, "28/29": {"5": 13020571.086851435, "25": 18106340.56557319, "50": 22925646.47910025, "75": 29631375.418851934, "95": 46145400.58389854}, "29/30": {"5": 12321624.669667836, "25": 18062428.29524722, "50": 23514628.717454948, "75": 30957779.561656453, "95": 48542861.70676883}}, "prob": {"27/28": [["Alívio", "abaixo da média 8 safras", 17465564.1125, 0.14055], ["Repetir 26/27", "acima de 26/27", 24153338.4, 0.42], ["Tendência MQO", "acima da reta", 24963702.039285716, 0.384], ["Estresse", "acima do pico 22/23", 26965000.0, 0.29805], ["Choque", "acima de R$ 35 Mi", 35000000.0, 0.09665]], "28/29": [["Alívio", "abaixo da média 8 safras", 17465564.1125, 0.21535], ["Repetir 26/27", "acima de 26/27", 24153338.4, 0.4422], ["Tendência MQO", "acima da reta", 26629954.91190476, 0.3423], ["Estresse", "acima do pico 22/23", 26965000.0, 0.32865], ["Choque", "acima de R$ 35 Mi", 35000000.0, 0.14135]], "29/30": [["Alívio", "abaixo da média 8 safras", 17465564.1125, 0.2243], ["Repetir 26/27", "acima de 26/27", 24153338.4, 0.47405], ["Tendência MQO", "acima da reta", 28296207.784523807, 0.3236], ["Estresse", "acima do pico 22/23", 26965000.0, 0.36985], ["Choque", "acima de R$ 35 Mi", 35000000.0, 0.1711]]}, "dist": {"27/28": [0.14105, 0.32865, 0.1102, 0.1223, 0.20115, 0.09665], "28/29": [0.21565, 0.24005, 0.1019, 0.11385, 0.1872, 0.14135], "29/30": [0.2246, 0.20995, 0.0912, 0.1044, 0.19875, 0.1711]}, "edges": [0, 17470000.0, 22000000.0, 24150000.0, 26970000.0, 35000000.0, 1000000000000.0], "hist": [10700000.0, 8537000.0, 14728000.0, 26965000.0, 19621000.0, 17548000.0, 17472174.5, 24153338.4]}, "ps": {"phi": 0.9167948978159998, "se": 0.04088897465710561, "trend": 0.0, "lp": 144.45560490401058, "u0": -0.04644006659511746, "sig": 0.05461381205516728, "hl": 7.97899419890915, "basis": 0.85247311827957, "seas": [-0.021169907706677916, -0.04320757254211611, -0.035186766522453033, -0.04169704983626161, -0.021842440416202414, -0.023460765952465445, -0.005480322302425743, 0.01153244000782025, 0.053958523132777804, 0.057614902298994373, 0.04750003093813279, 0.021438928900877046], "hist": [58.02, 59.03, 63.77, 61.68, 60.66, 62.17, 67.74, 71.81, 76.24, 77.74, 76.25, 76.16, 77.13, 72.18, 68.89, 72.02, 82.05, 90.57, 81.88, 77.0, 77.45, 74.73, 74.45, 73.11, 70.32, 66.77, 63.54, 60.68, 62.86, 62.69, 65.76, 63.28, 65.2, 66.12, 69.24, 69.69, 66.95, 67.94, 72.22, 78.95, 79.74, 77.36, 81.57, 83.54, 88.89, 83.93, 77.77, 74.47, 71.25, 72.07, 73.0, 71.36, 72.39, 75.89, 72.72, 79.43, 80.81, 83.09, 84.53, 83.92, 82.36, 80.11, 88.41, 95.15, 103.75, 103.31, 109.87, 124.95, 138.55, 164.67, 166.2, 142.71, 164.55, 161.89, 160.85, 170.45, 171.12, 156.74, 161.69, 166.41, 169.57, 168.2, 161.95, 167.72, 176.26, 191.11, 195.84, 181.21, 188.36, 191.31, 186.05, 182.76, 183.0, 179.13, 181.15, 177.89, 171.09, 167.56, 154.35, 134.25, 128.07, 125.12, 137.24, 138.83, 136.6, 133.43, 135.25, 136.03, 116.32, 108.97, 114.95, 120.45, 128.98, 129.72, 130.17, 127.3, 135.05, 138.67, 138.28, 134.7, 127.27, 125.28, 127.55, 129.7, 128.6, 128.57, 130.65, 134.76, 133.55, 133.74, 134.68, 135.81, 122.43, 117.36, 119.48, 118.9, 119.55, 121.93, 131.87, 139.5], "lab": ["09/2026", "10/2026", "11/2026", "12/2026", "01/2027", "02/2027", "03/2027", "04/2027", "05/2027", "06/2027", "07/2027", "08/2027", "09/2027", "10/2027", "11/2027", "12/2027", "01/2028", "02/2028", "03/2028", "04/2028", "05/2028", "06/2028", "07/2028", "08/2028", "09/2028", "10/2028", "11/2028", "12/2028", "01/2029", "02/2029", "03/2029", "04/2029", "05/2029", "06/2029", "07/2029", "08/2029", "09/2029", "10/2029", "11/2029", "12/2029", "01/2030", "02/2030", "03/2030", "04/2030", "05/2030"], "fanm": [{"5": 135.02380027518993, "25": 142.58763727646507, "50": 146.19292800373773, "75": 150.27396254428785, "95": 161.44560268326177}, {"5": 131.11093360616331, "25": 141.3021491944288, "50": 147.54965003884266, "75": 154.11051277222214, "95": 169.5664272755828}, {"5": 127.90334729424595, "25": 139.31200559653945, "50": 146.82776650534987, "75": 155.19470021990946, "95": 172.50510913382792}, {"5": 123.20806781794256, "25": 134.94511649502152, "50": 143.7174680425692, "75": 153.35718799617234, "95": 171.11493855758692}, {"5": 117.09905052929955, "25": 129.17499817265022, "50": 138.39165469408408, "75": 148.66705457276902, "95": 166.98204661813955}, {"5": 113.40820094075899, "25": 126.27619723955159, "50": 135.9369466374535, "75": 146.90315569564956, "95": 165.99345216857202}, {"5": 113.41396104760474, "25": 127.34038551147393, "50": 137.75852934486377, "75": 149.28119398694025, "95": 169.5490717412446}, {"5": 112.48387829140921, "25": 126.5657358343567, "50": 137.4930882450106, "75": 149.5313002001394, "95": 171.2066013022249}, {"5": 114.15990216972928, "25": 129.1827166219546, "50": 140.74307126311288, "75": 153.4465659723872, "95": 176.29719443939007}, {"5": 113.54249036514689, "25": 128.94108753307273, "50": 140.83647338186995, "75": 154.42336907216733, "95": 178.08418265752653}, {"5": 115.47039696669289, "25": 131.51964688991882, "50": 143.7611167375658, "75": 157.8722611434514, "95": 182.31488394718812}, {"5": 116.86228928313776, "25": 133.76029694230436, "50": 146.53627604344905, "75": 161.2733663589022, "95": 187.04152874001153}, {"5": 121.62400547717462, "25": 139.44230446616825, "50": 153.31396272696304, "75": 168.8880765276379, "95": 196.11279285538635}, {"5": 122.15343953775958, "25": 140.21940494190687, "50": 154.2458656286671, "75": 170.19691407114416, "95": 198.08743815439635}, {"5": 120.57620351799707, "25": 138.82923347600683, "50": 153.06022703275295, "75": 169.15025826059076, "95": 197.25979377100137}, {"5": 117.34906366063055, "25": 135.3450720805271, "50": 149.3547051260529, "75": 165.27592761887877, "95": 192.8823206798152}, {"5": 112.54590326675807, "25": 129.6584428268966, "50": 143.44975148680183, "75": 158.84713240847645, "95": 185.78192739767138}, {"5": 109.76040134551351, "25": 127.05280735667056, "50": 140.47216673418245, "75": 155.6206257807087, "95": 182.4889132056747}, {"5": 110.5324014280857, "25": 128.04350751298375, "50": 141.8584058016605, "75": 157.2204873700713, "95": 184.97188936052393}, {"5": 109.612409147431, "25": 127.38441236466866, "50": 140.99043895129506, "75": 156.6016653853302, "95": 184.20158425553186}, {"5": 111.86503452124329, "25": 130.02381811274878, "50": 144.08853501979172, "75": 160.2234275788589, "95": 188.97294613661512}, {"5": 111.7136667482314, "25": 129.70931572704873, "50": 143.83969047734087, "75": 160.27611660775733, "95": 188.61352070442157}, {"5": 113.74544783774412, "25": 132.00780218100437, "50": 146.71172039105022, "75": 163.52536037762084, "95": 192.58661315085254}, {"5": 115.50382428598631, "25": 134.26717796361788, "50": 149.47009581861226, "75": 166.58275216735927, "95": 196.73892867908305}, {"5": 120.73968934597042, "25": 140.3070631944319, "50": 156.13003102296506, "75": 173.63799598726033, "95": 205.95204316218957}, {"5": 120.93103839659452, "25": 141.0181001216668, "50": 156.51976515965117, "75": 174.74970183502708, "95": 207.42966524054333}, {"5": 119.8322114119843, "25": 139.5607185096886, "50": 155.13201561104648, "75": 173.20028119020276, "95": 205.31671877157723}, {"5": 116.23485663883912, "25": 135.93920074210382, "50": 151.3003570501158, "75": 168.919330222322, "95": 200.61620600548306}, {"5": 111.60297388088084, "25": 130.20333187840077, "50": 144.8870874345991, "75": 162.14052273866685, "95": 192.8611861456316}, {"5": 109.14490347998749, "25": 127.4509458103879, "50": 141.96282692534584, "75": 158.8708300325696, "95": 188.81157586924644}, {"5": 109.72894530109808, "25": 128.6256081550852, "50": 143.26184528169222, "75": 160.11601519870996, "95": 190.51337398827664}, {"5": 108.98914869068172, "25": 127.7950404209443, "50": 142.36503414067113, "75": 159.20889114312536, "95": 189.4222519116336}, {"5": 111.1360211409075, "25": 130.36411774011407, "50": 145.37677349816343, "75": 162.68609501201215, "95": 193.9030952205517}, {"5": 111.10438705865793, "25": 130.32409876317658, "50": 145.29518423142048, "75": 162.50680517200257, "95": 194.3885081081914}, {"5": 113.18981354808679, "25": 132.7425412091897, "50": 148.07098523358198, "75": 165.65049685001804, "95": 197.56670517481058}, {"5": 115.30705411568931, "25": 135.05775162268856, "50": 150.74929664045456, "75": 168.6713503003674, "95": 201.35908896693226}, {"5": 120.18433317849433, "25": 141.07539413266676, "50": 157.57307683123346, "75": 176.0476816267544, "95": 210.58888920879366}, {"5": 120.48310108829757, "25": 141.72229626484318, "50": 158.27652342523533, "75": 177.1307008675498, "95": 211.67173229140118}, {"5": 119.13550578060313, "25": 140.47149684597963, "50": 156.70703681013396, "75": 175.39769181592018, "95": 209.39040258778644}, {"5": 116.2932411785055, "25": 136.72620120117284, "50": 152.53934169061299, "75": 170.78272352705318, "95": 204.28078875697574}, {"5": 111.40685240617914, "25": 131.00898668369962, "50": 146.15841399737735, "75": 163.60711048828838, "95": 195.98577429607136}, {"5": 109.22498114885767, "25": 128.20172902217735, "50": 142.89886134900627, "75": 159.9985393197463, "95": 192.01127928695084}, {"5": 109.99329608238943, "25": 129.30363048708875, "50": 143.96475437301177, "75": 161.21784055296024, "95": 193.87903918077745}, {"5": 109.37470655906002, "25": 128.37820654264274, "50": 143.26113744184204, "75": 160.4956277013404, "95": 192.40769857655337}, {"5": 111.77550780338201, "25": 131.0083455113038, "50": 146.22595767147385, "75": 163.71270431914013, "95": 196.84037839363518}], "pay": {"26/27": {"5": 97.1449964624588, "25": 109.23613691363333, "50": 118.64107528035919, "75": 129.0440080433506, "95": 147.39236134226928}, "27/28": {"5": 94.70795872256555, "25": 109.93239177544572, "50": 121.47429458957234, "75": 134.93339809768196, "95": 158.22678763788673}, "28/29": {"5": 94.22895081239497, "25": 110.22839059295626, "50": 122.7703423998783, "75": 137.18512347822667, "95": 162.76756811782465}, "29/30": {"5": 94.7405244699154, "25": 110.75858433737433, "50": 123.39259523906114, "75": 138.14893722891762, "95": 165.6513868685905}}, "pay_lt100": {"26/27": 0.0795, "27/28": 0.09555, "28/29": 0.10105, "29/30": 0.0951}, "sac": {"26/27": {"5": 163871.03225754778, "25": 187171.32834427158, "50": 203583.27284986462, "75": 221111.2465397414, "95": 248631.8316193697}, "27/28": {"5": 112485.60018626075, "25": 152119.95506723007, "50": 187774.71127646917, "75": 238336.74921992508, "95": 355819.60658840975}, "28/29": {"5": 98068.169471515, "25": 143395.9713434731, "50": 187160.16163520855, "75": 246739.1679494837, "95": 394740.9948347244}, "29/30": {"5": 92484.73000781979, "25": 142522.17503714084, "50": 190932.04974651578, "75": 256920.65649406632, "95": 411585.2765779302}}, "sac_gt": {"26/27": [0.50785, 0.04625], "27/28": [0.4072, 0.2112], "28/29": [0.41905, 0.24035], "29/30": [0.4432, 0.2708]}}, "fert": {"F25": {"KCL 00-00-60": {"MT Planalto": [["LDC", 427, "USD", 1360], ["Cargill", 444, "USD", 1360], ["Yara", 2623, "BRL", 1360], ["Fertipar", 2515, "BRL", 1360], ["UPL/Origeo", 2450, "BRL", 1360], ["Cofco", 448, "USD", 1360]], "MT Continental": [["Cargill", 446, "USD", 750], ["Yara", 2623, "BRL", 750], ["Fertipar", 2515, "BRL", 750], ["UPL/Origeo", 2450, "BRL", 750]], "GO": [["LDC", 442, "USD", 490], ["Cargill", 454, "USD", 490], ["Fertigran", 2580, "BRL", 490], ["Yara", 2786, "BRL", 490], ["Cofco", 457, "USD", 490], ["UPL/Origeo", 2450, "BRL", 490]]}, "MAP MicroEssentials 10-46-0+S9": {"MT Continental": [["Cargill", 818, "USD", 600]], "MT Planalto": [["Cargill", 818, "USD", 160]]}, "Superfosfato 00-21-00": {"GO": [["FCR/Foco", 2000, "BRL", 735]], "MT Continental": [["FCR/Foco", 2050, "BRL", 640]], "MT Planalto": [["FCR/Foco", 2050, "BRL", 2400]]}, "Boro (ulexita 10% B ou tetraborato 14,8% B)": {"GO": [["Gran Boro/Vittia", 3750, "BRL", 20], ["Comigo", 3234.1, "BRL", 20], ["Tecnomyl", 3698, "BRL", 20], ["BoroBS/Fertimig", 9400, "BRL", 10]], "MT Continental": [["Gran Boro/Vittia", 3340, "BRL", 64], ["Comigo", 3142, "BRL", 60], ["Tecnomyl", 3698, "BRL", 60], ["BoroBS/Fertimig", 8325, "BRL", 30]], "MT Planalto": [["Gran Boro/Vittia", 3340, "BRL", 128], ["Comigo", 3166.61, "BRL", 130], ["Tecnomyl", 3698, "BRL", 130], ["BoroBS/Fertimig", 8325, "BRL", 65]]}, "Enxofre elementar 90%": {"GO": [["Fertimig", 3386, "BRL", 192], ["Comigo", 2877.51, "BRL", 192]], "MT Continental": [["Comigo", 2838.82, "BRL", 150]], "MT Planalto": [["Comigo", 2864.5, "BRL", 130]]}, "Gesso": {"MT Planalto": [["Consube", 335, "BRL", 4985.5], ["Cultibras", 345, "BRL", 4985.5]]}}, "F26": {"KCL 00-00-60": {"MT (Planalto + Continental)": [["Mosaic", 2950, "BRL", 1900], ["Cofco", 2842, "BRL", 1900], ["UPL/Origeo", 2743.51, "BRL", 1900], ["A Araguaia", 492.8, "USD", 1900]], "GO": [["ADM", 2722, "BRL", 410]]}, "MAP MicroEssentials 10-46-0+S9": {"MT Continental": [["Mosaic", 4450, "BRL", 360]], "MT Planalto": [["Mosaic", 4450, "BRL", 1140]]}, "Superfosfato 00-20-00": {"MT Continental": [["A. Maggi", 2110.25, "BRL", 600]]}, "Superfosfato 00-21-00": {"GO": [["Foco/FCR", 2160, "BRL", 916], ["Sudoeste", 2280, "BRL", 916]]}}, "b25": {"KCL 00-00-60": {"min": 6222650.0, "max": 6899670, "rows": [{"dest": "MT Planalto", "lo": "LDC", "lo_v": 3193960.0, "lo_p": 2348.5, "hi": "Yara", "hi_v": 3567280, "hi_p": 2623, "n": 6}, {"dest": "MT Continental", "lo": "UPL/Origeo", "lo_v": 1837500, "lo_p": 2450, "hi": "Yara", "hi_v": 1967250, "hi_p": 2623, "n": 4}, {"dest": "GO", "lo": "LDC", "lo_v": 1191190.0, "lo_p": 2431.0, "hi": "Yara", "hi_v": 1365140, "hi_p": 2786, "n": 6}]}, "MAP MicroEssentials 10-46-0+S9": {"min": 3419240.0, "max": 3419240.0, "rows": [{"dest": "MT Continental", "lo": "Cargill", "lo_v": 2699400.0, "lo_p": 4499.0, "hi": "Cargill", "hi_v": 2699400.0, "hi_p": 4499.0, "n": 1}, {"dest": "MT Planalto", "lo": "Cargill", "lo_v": 719840.0, "lo_p": 4499.0, "hi": "Cargill", "hi_v": 719840.0, "hi_p": 4499.0, "n": 1}]}, "Superfosfato 00-21-00": {"min": 7702000, "max": 7702000, "rows": [{"dest": "GO", "lo": "FCR/Foco", "lo_v": 1470000, "lo_p": 2000, "hi": "FCR/Foco", "hi_v": 1470000, "hi_p": 2000, "n": 1}, {"dest": "MT Continental", "lo": "FCR/Foco", "lo_v": 1312000, "lo_p": 2050, "hi": "FCR/Foco", "hi_v": 1312000, "hi_p": 2050, "n": 1}, {"dest": "MT Planalto", "lo": "FCR/Foco", "lo_v": 4920000, "lo_p": 2050, "hi": "FCR/Foco", "hi_v": 4920000, "hi_p": 2050, "n": 1}]}, "Boro (ulexita 10% B ou tetraborato 14,8% B)": {"min": 664861.3, "max": 777620, "rows": [{"dest": "GO", "lo": "Comigo", "lo_v": 64682.0, "lo_p": 3234.1, "hi": "Gran Boro/Vittia", "hi_v": 75000, "hi_p": 3750, "n": 4}, {"dest": "MT Continental", "lo": "Comigo", "lo_v": 188520, "lo_p": 3142, "hi": "Tecnomyl", "hi_v": 221880, "hi_p": 3698, "n": 4}, {"dest": "MT Planalto", "lo": "Comigo", "lo_v": 411659.3, "lo_p": 3166.61, "hi": "Tecnomyl", "hi_v": 480740, "hi_p": 3698, "n": 4}]}, "Enxofre elementar 90%": {"min": 1350689.92, "max": 1448320.0, "rows": [{"dest": "GO", "lo": "Comigo", "lo_v": 552481.92, "lo_p": 2877.51, "hi": "Fertimig", "hi_v": 650112, "hi_p": 3386, "n": 2}, {"dest": "MT Continental", "lo": "Comigo", "lo_v": 425823.0, "lo_p": 2838.82, "hi": "Comigo", "hi_v": 425823.0, "hi_p": 2838.82, "n": 1}, {"dest": "MT Planalto", "lo": "Comigo", "lo_v": 372385.0, "lo_p": 2864.5, "hi": "Comigo", "hi_v": 372385.0, "hi_p": 2864.5, "n": 1}]}, "Gesso": {"min": 1670142.5, "max": 1719997.5, "rows": [{"dest": "MT Planalto", "lo": "Consube", "lo_v": 1670142.5, "lo_p": 335, "hi": "Cultibras", "hi_v": 1719997.5, "hi_p": 345, "n": 2}]}}, "b26": {"KCL 00-00-60": {"min": 6265780.0, "max": 6721020, "rows": [{"dest": "MT (Planalto + Continental)", "lo": "A Araguaia", "lo_v": 5149760.0, "lo_p": 2710.4, "hi": "Mosaic", "hi_v": 5605000, "hi_p": 2950, "n": 4}, {"dest": "GO", "lo": "ADM", "lo_v": 1116020, "lo_p": 2722, "hi": "ADM", "hi_v": 1116020, "hi_p": 2722, "n": 1}]}, "MAP MicroEssentials 10-46-0+S9": {"min": 6675000, "max": 6675000, "rows": [{"dest": "MT Continental", "lo": "Mosaic", "lo_v": 1602000, "lo_p": 4450, "hi": "Mosaic", "hi_v": 1602000, "hi_p": 4450, "n": 1}, {"dest": "MT Planalto", "lo": "Mosaic", "lo_v": 5073000, "lo_p": 4450, "hi": "Mosaic", "hi_v": 5073000, "hi_p": 4450, "n": 1}]}, "Superfosfato 00-20-00": {"min": 1266150.0, "max": 1266150.0, "rows": [{"dest": "MT Continental", "lo": "A. Maggi", "lo_v": 1266150.0, "lo_p": 2110.25, "hi": "A. Maggi", "hi_v": 1266150.0, "hi_p": 2110.25, "n": 1}]}, "Superfosfato 00-21-00": {"min": 1978560, "max": 2088480, "rows": [{"dest": "GO", "lo": "Foco/FCR", "lo_v": 1978560, "lo_p": 2160, "hi": "Sudoeste", "hi_v": 2088480, "hi_p": 2280, "n": 2}]}}, "m25": 21029583.72, "x25": 21966847.5, "m26": 16185490.0, "x26": 16750650.0, "n25": {"KCL 00-00-60": ["K₂O", 3.9141666666666666], "MAP MicroEssentials 10-46-0+S9": ["P₂O₅", 9.780434782608696], "Superfosfato 00-21-00": ["P₂O₅", 9.523809523809524], "Boro ulexita 10%": ["B", 31.42], "Boro tetraborato 14,8%": ["B", 56.25], "Enxofre elementar 90%": ["S", 3.1542444444444446]}, "n26": {"KCL 00-00-60": ["K₂O", 4.517333333333333], "MAP MicroEssentials 10-46-0+S9": ["P₂O₅", 9.673913043478262], "Superfosfato 00-20-00": ["P₂O₅", 10.55125], "Superfosfato 00-21-00": ["P₂O₅", 10.285714285714286]}}, "abc": {"items": [["OFF ROAD", "Ouro Fino", 1085620.0, "A"], ["Absoluto Fix", "Agriconnection", 818550.0, "A"], ["Abaday", "Sumitomo", 793500.0, "A"], ["Killigan 240 EC", "Agriconnection", 770400.0, "A"], ["Feroce", "UPL/Origeo", 749808.0, "A"], ["Adengo", "Bayer", 674800.0, "A"], ["Soberan", "Bayer", 672000.0, "A"], ["Fox Supra", "Bayer", 619040.0, "A"], ["Avatar", "FMC", 588000.0, "A"], ["Fox Xpro", "Bayer", 559000.0, "A"], ["BELYAN", "BASF", 548460.0, "A"], ["Zethamaxx Evo", "Sumitomo", 481600.0, "A"], ["Excalia Max", "Sumitomo", 469920.0, "A"], ["Maxcel", "Sumitomo", 447760.0, "A"], ["Galil Nano", "Adama", 434376.0, "A"], ["Krypto (Methom + Bifent)", "Albaugh", 426000.0, "A"], ["Impar BR", "Ouro Fino", 420000.0, "A"], ["Blowout", "Agriconnection", 410000.0, "A"], ["Araddo", "Adama", 402758.2, "A"], ["MELYRA", "BASF", 385000.0, "A"], ["ORKESTRA", "BASF", 379500.0, "A"], ["KAIVANA", "Ouro Fino", 374175.0, "A"], ["Progibb", "Sumitomo", 340147.5, "A"], ["Support", "Agriconnection", 308200.0, "A"], ["Vessarya", "Corteva", 306000.0, "A"], ["Verango Prime", "Bayer", 300000.0, "A"], ["Premio", "FMC", 285600.0, "A"], ["Disarm 750 WG", "UPL/Origeo", 285142.5, "A"], ["Nimaxxa", "UPL/Origeo", 283371.0, "A"], ["Afiado (Aceta + Bifent)", "Albaugh", 280800.0, "A"], ["K-Fol", "UPL/Origeo", 271260.0, "A"], ["Acarigen (Abamectina 84) SC", "Tecnomyl", 255600.0, "A"], ["Metomy 900 WG", "Agriconnection", 254800.0, "A"], ["TERRA D'OR", "Ouro Fino", 251940.0, "A"], ["Spireel", "Agriconnection", 237500.0, "A"], ["Iharol Gold", "Ihara / Ag. Alvorada", 219000.0, "A"], ["Thunder", "UPL/Origeo", 217305.0, "A"], ["Zeus", "Ihara / Ag. Alvorada", 217110.0, "A"], ["Exemplo LV", "Albaugh", 216000.0, "B"], ["Spider", "Corteva", 211200.0, "B"], ["Bulldock", "Bayer", 210630.0, "B"], ["Ultimato SC (Atrazina 500)", "Albaugh", 210000.0, "B"], ["VIVANTHA", "Ouro Fino", 209100.0, "B"], ["Raizal", "UPL/Origeo", 195660.0, "B"], ["Verdict Ultra", "Corteva", 190800.0, "B"], ["Sperto 4x5Kg", "UPL/Origeo", 182072.0, "B"], ["MEES", "BASF", 178200.0, "B"], ["Curbix", "Bayer", 165000.0, "B"], ["ILEVO", "BASF", 154000.0, "B"], ["FASTAC DUO", "BASF", 154000.0, "B"], ["Kennox", "UPL/Origeo", 149625.0, "B"], ["Aproach Power", "Corteva", 140400.0, "B"], ["Impar BR", "Ouro Fino", 128195.0, "B"], ["Propose", "UPL/Origeo", 118392.0, "B"], ["Certeza N", "Agriconnection", 109200.0, "B"], ["Dez (2,4 D)", "UPL/Origeo", 106900.0, "B"], ["Tarbox SG", "Agriconnection", 97000.0, "B"], ["Vallex", "Agriconnection", 89280.0, "B"], ["Lannate", "Corteva", 81000.0, "B"], ["Grasidim 360", "Agriconnection", 79000.0, "C"], ["Valex Full OD (Aceta + Pirip)", "Tecnomyl", 73000.0, "C"], ["Zarpal", "Agriconnection", 66200.0, "C"], ["BLAVITY", "BASF", 65780.0, "C"], ["Joya (Flumioxazina 480 SC)", "Albaugh", 65100.0, "C"], ["Aureo", "Bayer", 57570.0, "C"], ["GLINT Full (Haloxifope 540)", "Rainbow", 55290.0, "C"], ["Sungain Xtra (Flumioxazina 800 WG)", "Rainbow", 52800.0, "C"], ["FULLGUARD (Carfentrazone 400)", "Rainbow", 52140.0, "C"], ["Onsuva", "FMC", 50460.0, "C"], ["Xtendicam", "Bayer", 46410.0, "C"], ["Widclear", "Agriconnection", 44700.0, "C"], ["ASSIST", "BASF", 44550.0, "C"], ["Sphere Neo", "Bayer", 42464.0, "C"], ["Cruzaro", "Agriconnection", 40500.0, "C"], ["Sofero Fall", "FMC", 40150.0, "C"], ["Prefer Max (Glufosinato)", "Albaugh", 34000.0, "C"], ["Convintro Duo", "Bayer", 32864.0, "C"], ["Excellend", "Albaugh", 31200.0, "C"], ["Nativo Plus", "Bayer", 30924.8, "C"], ["Impactus CS", "Agriconnection", 27600.0, "C"], ["Utrisha N", "Corteva", 25000.0, "C"], ["COFENRIN", "Rainbow", 20207.6, "C"], ["Milha WG", "Agriconnection", 12920.0, "C"], ["Fox Ultra", "Bayer", 11810.8, "C"]], "T": 21223338.4}};
+const nf=(x,d=0)=>x==null?'—':x.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const R=(x,d=2)=>x==null?'—':'R$ '+nf(x,d);
+const P=x=>(x>0?'+':'')+nf(x*100,1)+'%';
+const S=D.S;
+function showTab(id,el,anchor){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.t===id));document.getElementById('tab-'+id).classList.add('active');if(!built[id]){built[id]=1;(B[id]||(()=>{}))();}
+ const c=document.querySelector('.content');if(anchor){document.getElementById(anchor).scrollIntoView();}else c.scrollTop=0;}
+document.querySelectorAll('[data-t]').forEach(n=>n.addEventListener('click',()=>{showTab(n.dataset.t,n,n.dataset.a);try{history.replaceState(null,'','#'+n.dataset.t)}catch(e){}}));
+document.getElementById('topnav').innerHTML=[...document.querySelectorAll('.nav-item')].map(n=>`<a href="#${n.dataset.t}">${n.textContent.trim()}</a>`).join('')+'<a href="fornecedores.html">🏢 Por Fornecedor</a>';
+document.querySelectorAll('#topnav a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTab(a.getAttribute('href').slice(1));}));
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
 const C={g:'#00e676',b:'#00b0ff',o:'#ff9100',r:'#ff5252',p:'#e040fb',y:'#ffeb3b',c:'#18ffff',pk:'#ff4081',l:'#76ff03',t:'#64ffda'};
+const PAL=[C.b,C.g,C.o,C.r,C.p,C.y,C.c,C.pk,C.l,C.t,'#90a4ae','#546e7a','#7c4dff','#bcaaa4'];
+const built={};const B={};
+const sum=a=>a.reduce((x,y)=>x+y,0);
+function tbl(id,head,rows,num=[]){document.getElementById(id).innerHTML='<thead><tr>'+head.map((h,i)=>`<th class="${num.includes(i)?'text-right':''}">${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>`<tr${r._s?' style="'+r._s+'"':''}>`+r.map((c,i)=>`<td class="${num.includes(i)?'text-right':''}">${c==null?'—':c}</td>`).join('')+'</tr>').join('')+'</tbody>';}
+const OUT25=['Rainbow','Sumitomo','Tecnomyl','Ouro Fino'],OUT26=['Agriconnection','Adama','Rainbow','Sumitomo','Tecnomyl','Ouro Fino'];
+const COLS=[['BASF','BASF'],['Bayer','Bayer'],['Corteva','Corteva'],['FMC','FMC'],['Syngenta','Syngenta'],['Ihara','Ihara / Ag. Alvorada'],['UPL','UPL/Origeo'],['Albaugh','Albaugh']];
+function row(s,i){const p=D.painel;return i<6?[...COLS.map(c=>p[c[0]][i]),p['Outros'][i],D.T[i]]:[...COLS.map(c=>(s[c[1]]||0)),sum((i===6?OUT25:OUT26).map(n=>s[n]||0)),D.T[i]];}
+B.dashboard=()=>{
+ const rows=S.map((sf,i)=>{const r=row(i===6?D.s25:D.s26,i);const o=[i>=6?`<b>${sf}</b> <small style="color:${i===7?'var(--accent)':'var(--accent2)'}">planilha</small>`:sf,...r.slice(0,-1).map(x=>x?nf(x):'—'),'<b>'+nf(r[r.length-1])+'</b>'];if(i>=6)o._s=i===7?'background:rgba(0,230,118,.06)':'background:rgba(0,176,255,.05)';return o;});
+ tbl('t-resumo',['Safra','BASF','Bayer','Corteva','FMC','Syngenta','Ihara','UPL/Origeo','Albaugh','Outros','TOTAL'],rows,[1,2,3,4,5,6,7,8,9,10]);
+ new Chart(document.getElementById('chartInvestSafra'),{type:'bar',data:{labels:S,datasets:[
+ {label:'Defensivos',data:D.T.map(x=>Math.round(x)),backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.95)':'rgba(0,230,118,.6)'),borderRadius:6},
+ {label:'Sem. Milho',data:[2527,3245,3817,5367,4346,5040,null,null],backgroundColor:'rgba(0,176,255,.7)',borderRadius:6},
+ {label:'Biológicos',data:[0,0,0,1600,0,3600,3500,null],backgroundColor:'rgba(224,64,251,.7)',borderRadius:6}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{footer:it=>it[0].dataIndex>=6?'Sementes e biológicos 25/26-26/27: sem planilha':''}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v/1000+'M'}}}}});
+ const arr=Object.entries(D.s26).sort((a,b)=>b[1]-a[1]);
+ new Chart(document.getElementById('chartFornecPie'),{type:'doughnut',data:{labels:arr.map(a=>a[0]),datasets:[{data:arr.map(a=>a[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,padding:8,font:{size:10}}},tooltip:{callbacks:{label:c=>c.label+': R$ '+nf(c.parsed)+' mil ('+nf(c.parsed/D.T[7]*100,1)+'%)'}}}}});
+ const reg=(id,r,T)=>new Chart(document.getElementById(id),{type:'doughnut',data:{labels:Object.keys(r).map(k=>k+' '+nf(r[k]/T/10,1)+'%'),datasets:[{data:Object.values(r).map(x=>Math.round(x/1000)),backgroundColor:[C.g,C.o,'#546e7a']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>'R$ '+nf(c.parsed)+' mil'}}}}});
+ reg('chartRegiao25',D.mc.r25,D.T[6]);reg('chartRegiao',D.mc.r26,D.T[7]);
+};
+const CATS=['Fungicidas','Inseticidas','Herbicidas','Nematicidas/TS'];
+B.evolucao=()=>{const c25=D.mc.c25,c26=D.mc.c26;const g=(c,k)=>Math.round((c[k]||0)/1000);const out=c=>Math.round((Object.values(c).reduce((a,b)=>a+b,0)-CATS.reduce((a,k)=>a+(c[k]||0),0))/1000);
+ new Chart(document.getElementById('chartEvolCategoria'),{type:'bar',data:{labels:S,datasets:[
+ {label:'Fungicidas',data:[3500,3000,4500,8000,5500,4200,g(c25,'Fungicidas'),g(c26,'Fungicidas')],backgroundColor:'rgba(0,230,118,.6)',borderRadius:4},
+ {label:'Inseticidas',data:[2500,2200,3800,7000,5800,5500,g(c25,'Inseticidas'),g(c26,'Inseticidas')],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
+ {label:'Herbicidas',data:[2200,1800,3500,6000,4500,4200,g(c25,'Herbicidas'),g(c26,'Herbicidas')],backgroundColor:'rgba(255,145,0,.6)',borderRadius:4},
+ {label:'Trat. Sementes / Nematicidas',data:[800,700,1200,2000,1400,1200,g(c25,'Nematicidas/TS'),g(c26,'Nematicidas/TS')],backgroundColor:'rgba(224,64,251,.6)',borderRadius:4},
+ {label:'Outros (multissítio, adjuvantes, não classificado)',data:[1700,837,1728,3965,2421,2448,out(c25),out(c26)],backgroundColor:'rgba(255,235,59,.6)',borderRadius:4}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>v/1000+'M'}}}}});};
+B.fornecedores=()=>{
+ const ser=[['Bayer','Bayer',C.b],['BASF','BASF',C.g],['Corteva','Corteva',C.o],['Syngenta','Syngenta',C.p],['UPL','UPL/Origeo',C.c],['Albaugh','Albaugh',C.y],['Ihara','Ihara / Ag. Alvorada',C.pk]];
+ const ds=ser.map(s=>({label:s[0],data:[...D.painel[s[0]],D.s25[s[1]]||0,D.s26[s[1]]||0].map(x=>Math.round(x)),borderColor:s[2],fill:false,tension:.3}));
+ ds.push({label:'Agriconnection',data:[null,null,null,null,null,null,0,Math.round(D.s26['Agriconnection'])],borderColor:'#26a69a',borderDash:[4,4],fill:false,tension:.3,pointRadius:6});
+ ds.push({label:'Ouro Fino',data:[480,520,560,610,475,410,Math.round(D.s25['Ouro Fino']),Math.round(D.s26['Ouro Fino'])],borderColor:'#ffd600',borderDash:[2,3],fill:false,tension:.3});
+ new Chart(document.getElementById('chartFornecEvolucao'),{type:'line',data:{labels:S,datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
+ const ord=Object.keys(D.s26).sort((a,b)=>D.s26[b]-D.s26[a]);
+ tbl('t-ranking',['#','Fornecedor','25/26','26/27','Part.','Var.','Ação'],ord.map((n,i)=>{const a=D.s25[n],b=D.s26[n];const tag=!a?'<span class="tag tag-blue">Novo</span>':b>a*1.1?'<span class="tag tag-green">▲ '+P(b/a-1)+'</span>':b<a*.9?'<span class="tag tag-red">▼ '+P(b/a-1)+'</span>':'<span class="tag tag-yellow">≈ '+P(b/a-1)+'</span>';return [i+1,n,a?nf(a):'—',nf(b),nf(b/D.T[7]*100,1)+'%',tag,`<a href="f-${D.keyof[n]}.html">Detalhar →</a>`];}),[2,3,4]);
+ const est=[1800,1650,1500,1400,1200,1050,950,null];
+ new Chart(document.getElementById('chartHHI'),{type:'line',data:{labels:S,datasets:[
+ {label:'HHI calculado',data:[...D.st.hhi_hist,D.st.C25.hhi,D.st.C26.hhi].map(x=>Math.round(x)),borderColor:C.g,backgroundColor:'rgba(0,230,118,.1)',fill:true,tension:.4,pointRadius:5},
+ {label:'Estimativa da versão anterior',data:est,borderColor:'rgba(123,138,158,.8)',borderDash:[4,4],pointRadius:3,fill:false},
+ {label:'Limiar Concentrado',data:S.map(()=>1500),borderColor:'rgba(255,82,82,.5)',borderDash:[5,5],pointRadius:0,fill:false}]},
+ options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{min:500,max:2200}}}});};
+function prows(all){return D.st.common_all.filter(r=>all||r[5]>0||r[6]>0);}
+B.precos=()=>{
+ new Chart(document.getElementById('chartPrecoFung'),{type:'line',data:{labels:S,datasets:[
+ {label:'Fox Supra',data:[255,224,230,240,350,312,302,309.52],borderColor:C.b,tension:.3,fill:false},
+ {label:'Fusão',data:[66,76,87,120,null,76,87.58,null],borderColor:C.g,tension:.3,fill:false},
+ {label:'Vessarya (Corteva)',data:[null,null,null,165,140,105,138,90],borderColor:C.o,tension:.3,fill:false},
+ {label:'Bravonil 720',data:[null,null,27,28,17,18,null,null],borderColor:C.p,tension:.3,fill:false},
+ {label:'Orkestra (US$×5,50)',data:[null,null,null,null,null,null,267.3,253],borderColor:C.y,tension:.3,fill:false,pointRadius:5}]},options:{responsive:true,maintainAspectRatio:false,spanGaps:true,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'R$/L ou kg'}}}}});
+ new Chart(document.getElementById('chartPrecoInse'),{type:'line',data:{labels:S,datasets:[
+ {label:'Curbix',data:[null,107,102,105,102,89,75,55],borderColor:C.b,tension:.3,fill:false},
+ {label:'Sperto',data:[null,null,169,189,172,150,122.23,82.76],borderColor:C.g,tension:.3,fill:false},
+ {label:'Perito',data:[null,null,null,87,70,50,50.96,null],borderColor:C.o,tension:.3,fill:false},
+ {label:'Fastac Duo',data:[null,107,108,115,124,120,88,77],borderColor:C.r,tension:.3,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'R$/L'}}}}});
+ const H=[['Fox Supra/Xpro (Bayer)','Fungicida','—',224,230,240,350,312,302,309.52],['Curbix (Bayer)','Inseticida','—',107,102,105,102,89,75,55],['Verango Prime (Bayer)','Nematicida','—',606,610,680,'—',530,510,500],['Fastac Duo (BASF)','Inseticida','—',107,108,115,124,120,'88*','77*'],['Engeo Pleno S (Syngenta)','Inseticida','—',159,145,157,143,129,'103* cotado','—'],['Bravonil 720 (Syngenta)','Multissítio','—','—',27,28,17,18,'22,7* cotado','—'],['Unizeb Gold (UPL)','Multissítio','20*','—',15,22,22,21,'—','—'],['Fusão (Ihara)','Fungicida',66,76,87,120,'—',76,'87,58 cotado','—'],['Sperto (UPL)','Inseticida','—','—',169,189,172,150,'122,23 cotado','82,76'],['Perito (UPL)','Inseticida','—','—','—',87,70,50,'50,96 cotado','—'],['Dermacor (Corteva)','Inseticida TS','1.390*',1517,1600,1765,1720,1436,'1.490 cotado','1.178,10 cotado']];
+ tbl('t-precos-hist',['Produto','Categoria',...S],H.map(r=>[r[0],`<span class="tag tag-purple">${r[1]}</span>`,...r.slice(2).map(x=>typeof x==='number'?nf(x,x%1?2:0):x)]),[2,3,4,5,6,7,8,9]);
+ const draw=()=>{const all=document.getElementById('p-all').checked;tbl('t-precos',['Produto','Fornecedor','25/26','26/27','Var.','Vol. 25/26','Vol. 26/27'],prows(all).map(r=>{const x=r[4]/r[3]-1;return [r[0],r[1]===r[2]?r[1]:r[1]+' → '+r[2],R(r[3]),R(r[4]),`<span class="${x>0?'negative':'positive'}">${P(x)}</span>`,nf(r[5]),nf(r[6])];}),[2,3,4,5,6]);};
+ draw();document.getElementById('p-all').addEventListener('change',draw);};
+B.cambio=()=>{
+ new Chart(document.getElementById('chartCambio'),{type:'bar',data:{labels:S,datasets:[
+ {label:'% USD',data:[65,40,30,25,30,35,17.3,7.9],backgroundColor:S.map((_,i)=>i>=6?'rgba(0,176,255,.95)':'rgba(0,176,255,.55)'),borderRadius:4},
+ {label:'% BRL',data:[35,60,70,75,70,65,82.7,92.1],backgroundColor:S.map((_,i)=>i>=6?'rgba(0,230,118,.95)':'rgba(0,230,118,.55)'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true},y:{stacked:true,max:100,ticks:{callback:v=>v+'%'}}}}});
+ const u=347180;tbl('t-fx',['Cenário','USD/BRL','BASF 26/27 (R$)','vs. Base 5,50'],[['<span class="tag tag-blue">PTAX BCB 04/09/2026</span>',5.1253],['<span class="tag tag-green">Otimista</span>',5.0],['<span class="tag tag-blue">Base</span>',5.5],['<span class="tag tag-orange">Moderado</span>',6.0],['<span class="tag tag-red">Pessimista</span>',6.5]].map(r=>[r[0],nf(r[1],r[1]===5.1253?4:2),R(u*r[1],0),r[1]===5.5?'—':`<span class="${r[1]>5.5?'negative':'positive'}">${r[1]>5.5?'+':'−'}${R(Math.abs(u*(r[1]-5.5)),0)}</span>`]),[1,2,3]);};
+const PAG26=[['30/10/2026','Bayer (1ª parcela)',79274],['20/04/2027','Rainbow',180437.6],['20/04/2027','Ihara / Ag. Alvorada',436110],['30/04/2027','Bayer',3343239.6],['30/04/2027','Agriconnection',2965150],['30/04/2027','BASF (US$ 347.180 a 5,50)',1909490],['30/04/2027','UPL/Origeo',2559535.5],['30/04/2027','Albaugh (50%)',631550],['01/05/2027','Adama',837134.2],['05/05/2027','Corteva',954400],['05/05/2027','Sumitomo',2532927.5],['20/05/2027','Tecnomyl',328600],['20/08/2027','FMC',964210],['20/09/2027','Albaugh (50%)',631550],['30/09/2027','Agriconnection',400700],['mai e set/2027','Ouro Fino (divisão não informada)',2469030],['não informado','Syngenta',2930000]];
+const PAG25=[['05/08/2025','Syngenta (US$ 290.653)',1598591.5],['30/10/2025','Bayer',2707285],['05/10/2025 e 05/05/2026','Corteva (divisão não informada)',231000],['20/04/2026','FMC',385800],['20/04/2026','Sumitomo',1568944],['20/04/2026','Tecnomyl (SUSPENSO)',925200],['30/04/2026','BASF (US$ 259.060)',1424830],['30/04/2026','UPL/Origeo',2447104],['30/04/2026','Ihara / Ag. Alvorada',1686075],['20/05/2026','Rainbow',1662900],['20/05/2026','Ouro Fino',682578],['não informado','Albaugh',2151867]];
+B.pagamentos=()=>{
+ new Chart(document.getElementById('chartPagamentos'),{type:'bar',data:{labels:['Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Fev/26','Mar/26','Abr/26','Mai/26','Sem data'],datasets:[{label:'R$ mil',data:[1599,0,2707,0,0,0,0,0,8438,2345,2383],backgroundColor:c=>c.dataIndex===10?'rgba(123,138,158,.5)':c.dataIndex<3?'rgba(255,82,82,.7)':'rgba(0,230,118,.7)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
+ const m=['Out/26','Nov/26','Dez/26','Jan/27','Fev/27','Mar/27','Abr/27','Mai/27','Jun/27','Jul/27','Ago/27','Set/27','Sem data'];const mi=d=>{const x=d.match(/^(\d\d)\/(\d\d)\/(\d{4})$/);if(!x)return 12;return +x[3]===2026?+x[2]-10:+x[2]+2;};const v=m.map(()=>0);PAG26.forEach(p=>v[mi(p[0])]+=p[2]);
+ new Chart(document.getElementById('chartPagamentos26'),{type:'bar',data:{labels:m,datasets:[{label:'R$ mil',data:v.map(x=>Math.round(x/1000)),backgroundColor:m.map((_,i)=>i===12?'rgba(123,138,158,.5)':i<6?'rgba(255,82,82,.7)':'rgba(0,230,118,.7)'),borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
+ const t=(id,a)=>tbl(id,['Vencimento','Fornecedor','Valor'],[...a.map(p=>[p[0],p[1],R(p[2])]),Object.assign(['<b>Total</b>','','<b>'+R(sum(a.map(p=>p[2])))+'</b>'],{_s:'background:rgba(0,230,118,.06)'})],[2]);t('t-pag26',PAG26);t('t-pag25',PAG25);};
+B.categorias=()=>{const d=(id,c)=>{const e=Object.entries(c).sort((a,b)=>b[1]-a[1]);const T=sum(e.map(x=>x[1]));new Chart(document.getElementById(id),{type:'doughnut',data:{labels:e.map(x=>x[0]+' '+nf(x[1]/T*100,1)+'%'),datasets:[{data:e.map(x=>Math.round(x[1]/1000)),backgroundColor:e.map(x=>({'Inseticidas':C.b,'Fungicidas':C.g,'Herbicidas':C.o,'Nematicidas/TS':C.p,'Multissítios':C.y,'Adjuvantes/Nutrição/Reguladores':C.c,'Não classificado':'#546e7a'}[x[0]]))}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'},tooltip:{callbacks:{label:c=>'R$ '+nf(c.parsed)+' mil'}}}}});};d('chartCategorias25',D.mc.c25);d('chartCategorias',D.mc.c26);};
+B.sementes=()=>{new Chart(document.getElementById('chartMilho'),{type:'bar',data:{labels:['2020','2021','2022','2023','2024','2025','2026','2027'],datasets:[{label:'Volume (sc)',data:[7320,7722,8375,8350,7340,7400,null,null],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4,yAxisID:'y'},{label:'Custo/sc (R$)',data:[345,420,456,643,592,681,null,null],type:'line',borderColor:C.r,yAxisID:'y1',tension:.3,pointRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{position:'left',title:{display:true,text:'Volume'}},y1:{position:'right',title:{display:true,text:'R$/sc'},grid:{display:false}}}}});};
+B.biologicos=()=>{new Chart(document.getElementById('chartBio'),{type:'bar',data:{labels:S,datasets:[{label:'Biológicos (R$ mil, versão anterior)',data:[0,0,0,1600,0,3600,3500,null],backgroundColor:'rgba(224,64,251,.7)',borderRadius:6},{label:'Nimaxxa + Utrisha N nas planilhas (R$ mil)',data:[null,null,null,null,null,null,143,308],backgroundColor:'rgba(0,230,118,.7)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'R$'+v+'k'}}}}});};
+B.fertilizantes=()=>{
+ const FP={MAP:[2200,2400,3800,5200,3800,3000,3200,null],KCl:[1800,2000,3200,4800,3200,2200,2400,null],Ureia:[1600,1800,3000,4200,3000,2400,2600,null]};
+ const PL={MAP:[null,null,null,null,null,null,4499,4450],KCl:[null,null,null,null,null,null,2450,2743.51]};
+ new Chart(document.getElementById('chartKCL'),{type:'line',data:{labels:S,datasets:[
+  {label:'MAP (R$/t)',data:FP.MAP,borderColor:C.g,tension:.4,pointRadius:5,pointBackgroundColor:'transparent',fill:false},
+  {label:'KCl (R$/t)',data:FP.KCl,borderColor:C.b,tension:.4,pointRadius:5,pointBackgroundColor:'transparent',fill:false},
+  {label:'Ureia (R$/t)',data:FP.Ureia,borderColor:C.o,tension:.4,pointRadius:5,pointBackgroundColor:'transparent',fill:false},
+  {label:'MAP MicroEssentials (planilhas)',data:PL.MAP,borderColor:C.g,backgroundColor:C.g,borderDash:[2,3],pointRadius:8,pointStyle:'rectRot',fill:false},
+  {label:'KCl (planilhas)',data:PL.KCl,borderColor:C.b,backgroundColor:C.b,borderDash:[2,3],pointRadius:8,pointStyle:'rectRot',fill:false},
+  {label:'KCl (insumos.html anexado)',data:[null,1550,2300,4996,2900,2550,2450,null],borderColor:'rgba(123,138,158,.7)',borderDash:[5,4],tension:.4,pointRadius:2,fill:false}]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{boxWidth:12}},tooltip:{filter:i=>i.raw!=null,callbacks:{label:c=>c.dataset.label+': '+R(c.raw)}}},scales:{y:{ticks:{callback:v=>'R$'+nf(v)}}}}});
+ tbl('t-fert-hist',['Produto','Origem',...S],[['MAP','print',...FP.MAP],['MAP MicroEssentials','planilhas',...PL.MAP],['KCl','print',...FP.KCl],['KCl','planilhas',...PL.KCl],['KCl','insumos.html anexado',null,1550,2300,4996,2900,2550,2450,null],['Ureia','print',...FP.Ureia]].map(r=>[r[0],'<span style="font-size:.66rem">'+r[1]+'</span>',...r.slice(2).map(x=>x==null?'—':nf(x,x%1?2:0))]),[2,3,4,5,6,7,8,9]);
+ const h=['Empresa','Destino','Preço/t','Volume (t)','Pagamento'];
+ tbl('t-kcl25',h,[['UPL/Origeo','MT','R$ 2.450,00',2110,'28/02/2025'],['Fertipar','MT','R$ 2.515,00',2110,'28/02/2025'],['Yara','MT Planalto','R$ 2.623,00',1360,'10/03/2025'],['Yara','MT Continental','R$ 2.623,00',750,'10/03/2025'],['LDC','MT','US$ 427,00',1360,'30/04/2025'],['Cargill','MT Planalto','US$ 444,00',1360,'30/04/2025'],['Cargill','MT Continental','US$ 446,00',750,'30/04/2025'],['Cofco','MT','US$ 448,00',1360,'30/07/2025'],['UPL/Origeo','GO','R$ 2.450,00',490,'28/02/2025'],['Fertigran','GO','R$ 2.580,00',490,'28/02/2025'],['Yara','GO','R$ 2.786,00',490,'10/03/2025'],['LDC','GO','US$ 442,00',490,'30/04/2025'],['Cargill','GO','US$ 454,00',490,'30/04/2025'],['Cofco','GO','US$ 457,00',490,'30/07/2025']].map(r=>[r[0],r[1],r[2],nf(r[3]),r[4]]),[2,3]);
+ tbl('t-kcl26',h,[['UPL/Origeo','MT','R$ 2.743,51',1900,'30/04/2026'],['Cofco','MT','R$ 2.842,00',1900,'30/04/2026'],['Mosaic','MT','R$ 2.950,00',1900,'10/05/2026'],['A Araguaia','MT Planalto','US$ 492,80',1300,'04/05/2026'],['A Araguaia','MT Continental','US$ 492,80',600,'04/05/2026'],['ADM','GO','R$ 2.722,00',410,'30/04/2026']].map(r=>[r[0],r[1],r[2],nf(r[3]),r[4]]),[2,3]);
+ tbl('t-fert',['Produto','Safra','Empresa','Destino e volume','Preço/t'],[['MAP MicroEssentials 10-46 + S9','25/26','Cargill','MT Continental 600 t · MT Planalto 160 t','US$ 818,00'],['MAP MicroEssentials 10-46 + S9','26/27','Mosaic','MT Continental 360 t · MT Planalto 1.140 t','R$ 4.450,00'],['08-40 + 5 S','25/26','UPL/Origeo','sem volume','US$ 654,00'],['09-40 + 5 S','25/26','Dartora/Yara','sem volume','US$ 694,00'],['00-21-00','25/26','FCR/Foco','GO 735 t','R$ 2.000,00'],['00-21-00','25/26','FCR/Foco','MT Continental 640 t · MT Planalto 2.400 t','R$ 2.050,00'],['00-20-00','26/27','A. Maggi','MT Continental 600 t','R$ 2.110,25'],['00-21-00','26/27','Foco/FCR','GO 916 t','R$ 2.160,00'],['00-21-00','26/27','Sudoeste','GO 916 t','R$ 2.280,00'],['Boro 10% (ulexita)','25/26','Gran Boro/Vittia','GO 20 t · MT 192 t','R$ 3.340,00 a 3.750,00'],['Boro 10% (ulexita)','25/26','Comigo','GO 20 t · MT 190 t','R$ 3.142,00 a 3.234,10'],['Boro 10% (ulexita)','25/26','Tecnomyl','GO 20 t · MT 190 t','R$ 3.698,00'],['Boro 14,8% (tetraborato)','25/26','BoroBS/Fertimig','GO 10 t · MT 95 t','R$ 8.325,00 a 9.400,00'],['Enxofre elementar 90%','25/26','Fertimig','GO 192 t','R$ 3.386,00'],['Enxofre elementar 90%','25/26','Comigo','GO 192 t · MT 280 t','R$ 2.838,82 a 2.877,51'],['Gesso','25/26','Consube (Pablo)','MT Planalto 4.985,5 t','R$ 335,00'],['Gesso','25/26','Cultibras (Fortunato Rep.)','MT Planalto 4.985,5 t','R$ 345,00'],['Boro, enxofre e gesso','26/27','mesmas empresas','<span class="tag tag-orange">linhas repetidas da 25/26, não atualizadas</span>','—']],[4]);};
+B.relacaotroca=()=>{
+ new Chart(document.getElementById('chartRT'),{type:'bar',data:{labels:['Progibb','Aveo','Paxeo','Pacto','Dermacor','MIB 108','Fortenza','Verdavis','Soberan','Adengo','Closer','Hexafull','Nema Protect','Utrisha N','Fox Supra'],datasets:[{label:'Sacas Soja/un.',data:[38.55,36.79,17.89,14.97,12.01,51.84,12.43,3.56,4.22,4.14,3.76,2.93,2.97,2.93,2.61],backgroundColor:c=>c.raw>10?'rgba(255,82,82,.7)':c.raw>3?'rgba(255,145,0,.7)':'rgba(0,230,118,.7)',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Sacas de Soja'},beginAtZero:true}}}});
+ const it=D.items26.filter(x=>x.u).map(x=>({l:x.p.replace(/ ?\(.*?\)/,'')+' ('+x.f+')',sc:x.u/D.soja})).sort((a,b)=>b.sc-a.sc).slice(0,15);
+ new Chart(document.getElementById('chartRT26'),{type:'bar',data:{labels:it.map(x=>x.l),datasets:[{label:'Sacas Soja/un.',data:it.map(x=>+x.sc.toFixed(2)),backgroundColor:c=>c.raw>10?'rgba(255,82,82,.7)':c.raw>3?'rgba(255,145,0,.7)':'rgba(0,230,118,.7)',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>nf(c.raw,2)+' sc'}}},scales:{x:{type:'logarithmic',title:{display:true,text:'Sacas de Soja (escala log)'}}}}});};
+B.estatistica=()=>{
+ const st=D.st,T=D.T;
+ new Chart(document.getElementById('chTrend'),{type:'line',data:{labels:S,datasets:[{label:'Defensivos (R$ mil)',data:T.map(x=>Math.round(x)),borderColor:C.g,backgroundColor:'rgba(0,230,118,.12)',fill:true,tension:.25,pointRadius:S.map((_,i)=>i>=6?7:4)},{label:'Tendência MQO',data:S.map((_,i)=>Math.round(st.ols.a+st.ols.b*i)),borderColor:C.o,borderDash:[6,4],pointRadius:0,fill:false},{label:'Média',data:S.map(()=>Math.round(st.media)),borderColor:'rgba(123,138,158,.7)',borderDash:[2,3],pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
+ const ix=st.idx;const wf=[['Cesto 25/26',0,ix.V0],['Efeito preço',ix.V0+ix.efeito_preco,ix.V0],['Efeito quantidade',ix.V0+ix.efeito_preco,ix.V1],['Cesto 26/27',0,ix.V1]];
+ new Chart(document.getElementById('chDecomp'),{type:'bar',data:{labels:wf.map(w=>w[0]),datasets:[{label:'R$ mil',data:wf.map(w=>[Math.round(w[1]/1000),Math.round(w[2]/1000)]),backgroundColor:[C.b,C.r,C.g,C.b].map(c=>c+'cc'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+nf(Math.abs(c.raw[1]-c.raw[0]))+' mil'}}},scales:{y:{ticks:{callback:v=>'R$'+(v/1000).toFixed(1)+'M'}}}}});
+ const pts=st.elast.pts,e=st.elast;const xs=pts.map(p=>p[0]);const mn=Math.min(...xs),mx=Math.max(...xs);
+ new Chart(document.getElementById('chElast'),{type:'scatter',data:{datasets:[{label:'Produtos',data:pts.map(p=>({x:p[0],y:p[1],n:p[2]})),backgroundColor:'rgba(0,176,255,.75)',pointRadius:5},{type:'line',label:'MQO',data:[{x:mn,y:e.alpha+e.beta*mn},{x:mx,y:e.alpha+e.beta*mx}],borderColor:C.o,borderDash:[6,4],pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>(c.raw.n||'MQO')+': Δln p '+nf(c.raw.x,2)+' · Δln q '+nf(c.raw.y,2)}}},scales:{x:{title:{display:true,text:'Δ ln(preço)'}},y:{title:{display:true,text:'Δ ln(volume)'}}}}});
+ const ch=st.common.map(r=>r[4]/r[3]-1);const bins=[-0.5,-0.4,-0.3,-0.2,-0.1,0,0.1,0.2];const lab=bins.slice(0,-1).map((b,i)=>nf(b*100)+'% a '+nf(bins[i+1]*100)+'%');const cnt=lab.map((_,i)=>ch.filter(x=>x>=bins[i]&&x<bins[i+1]).length);
+ new Chart(document.getElementById('chHist'),{type:'bar',data:{labels:lab,datasets:[{label:'Produtos',data:cnt,backgroundColor:bins.slice(0,-1).map(b=>b<0?'rgba(0,230,118,.7)':'rgba(255,82,82,.7)'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:2}}}}});
+ const lz=(l)=>l.map((y,i)=>({x:i/(l.length-1),y}));
+ new Chart(document.getElementById('chLorenz'),{type:'line',data:{datasets:[{label:'25/26 · Gini '+nf(st.C25.gini,3),data:lz(st.C25.lorenz),borderColor:C.b,fill:false,pointRadius:3},{label:'26/27 · Gini '+nf(st.C26.gini,3),data:lz(st.C26.lorenz),borderColor:C.g,fill:false,pointRadius:3},{label:'Igualdade',data:[{x:0,y:0},{x:1,y:1}],borderColor:'rgba(123,138,158,.6)',borderDash:[4,4],pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,parsing:true,plugins:{legend:{position:'bottom'}},scales:{x:{type:'linear',min:0,max:1,title:{display:true,text:'% acumulado de fornecedores'},ticks:{callback:v=>nf(v*100)+'%'}},y:{min:0,max:1,title:{display:true,text:'% acumulado do valor'},ticks:{callback:v=>nf(v*100)+'%'}}}}});
+ const pr=[100,110,118.92,130,140,150,161.88,170];
+ new Chart(document.getElementById('chSacas'),{type:'line',data:{labels:pr.map(p=>'R$ '+nf(p,p%1?2:0)),datasets:[{label:'Sacas para pagar o pacote 26/27',data:pr.map(p=>Math.round(T[7]*1000/p)),borderColor:C.y,backgroundColor:'rgba(255,235,59,.1)',fill:true,tension:.3,pointRadius:pr.map(p=>p===118.92||p===161.88?8:3),pointBackgroundColor:pr.map(p=>p===118.92?C.r:p===161.88?C.b:C.y)}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>nf(c.raw)+' sc'}}},scales:{y:{ticks:{callback:v=>nf(v/1000)+' mil sc'}}}}});};
+B.fontes=()=>{const C0='mkt:calculo:2026-10-19-planalto-insumos-25-26-26-27:';tbl('t-calc',['Número','Valor','Chave'],[['Defensivos 25/26',R(17472174.5),'defensivos-contratados-faz-planalto-safra-25-26-r'],['Defensivos 26/27',R(24153338.4),'defensivos-contratados-faz-planalto-safra-26-27-r'],['Variação 26/27','+38,24%','variacao-dos-defensivos-contratados-26-27-vs-25-26-faz-plana-606298'],['Acumulado 8 safras',R(139724512.9),'defensivos-acumulados-19-20-a-26-27-faz-planalto'],['Custo/ha 26/27','R$ 1.955,74','custo-de-defensivos-por-hectare-26-27-faz-planalto'],['Sacas 26/27','203.105,77 sc','defensivos-26-27-em-sacas-de-soja-faz-planalto'],['Vencimentos abr/2027',R(12025512.7),'vencimentos-de-defensivos-em-abril-2027-faz-planalto'],['Vencimentos mai/2027',R(4653061.7),'vencimentos-de-defensivos-em-maio-2027-faz-planalto'],['Vencimentos abr/2026',R(8437953),'vencimentos-de-defensivos-em-abril-2026-faz-planalto'],['Antes da colheita 25/26',R(4305876.5),'vencimentos-antes-da-colheita-25-26-faz-planalto'],['Dólar 25/26','US$ 549.713','contratos-em-dolar-25-26-faz-planalto-us'],['Dólar 26/27 no total','7,91%','participacao-do-dolar-nos-defensivos-26-27-faz-planalto'],['BASF 26/27 pela PTAX',R(1779401.65),'basf-26-27-convertida-pela-ptax-de-04-09-2026'],['Ihara + Alvorada 25/26',R(1686075),'ihara-e-ag-alvorada-25-26-faz-planalto'],['Sem Tecnomyl 25/26',R(16546974.5),'defensivos-25-26-faz-planalto-sem-o-pedido-tecnomyl-suspenso'],['Big 4 26/27','38,16%','participacao-das-quatro-multinacionais-nos-defensivos-26-27-dfb9a1'],['HHI 25/26','1.052,41','hhi-de-fornecedores-de-defensivos-25-26-faz-planalto'],['HHI 26/27','1.007,98','hhi-de-fornecedores-de-defensivos-26-27-faz-planalto'],['Tendência MQO','R$ 1.666.252,87/safra','tendencia-linear-dos-defensivos-19-20-a-26-27-faz-planalto-r-133736'],['CAGR','12,33% a.a.','cagr-dos-defensivos-19-20-a-26-27-faz-planalto'],['Índice Fisher','0,8878','indice-de-precos-fisher-de-defensivos-26-27-vs-25-26-faz-pla-d4f547'],['Decomposição cesto','+R$ 3.114.709,40','decomposicao-preco-x-quantidade-do-cesto-comum-25-26-para-26-f4eac6'],['Elasticidade','1,078 (t 0,77)','elasticidade-volume-preco-dos-defensivos-25-26-para-26-27-fa-baf4eb']].map(r=>[r[0],r[1],'<code style="font-size:.65rem;color:var(--accent2);word-break:break-all;white-space:normal">'+C0+r[2]+'</code>']),[1]);};
 
-function initCharts(){
+const _bf=B.fertilizantes;B.fertilizantes=()=>{_bf();const F=D.fert,X=5.5,rs=(p,m)=>m==='USD'?p*X:p;
+ const best=(Fx,k,ex)=>{const d=Fx[k];if(!d)return null;let m=Infinity;Object.values(d).forEach(q=>q.forEach(([e,p,mo])=>{if(ex&&e===ex)return;m=Math.min(m,rs(p,mo));}));return m;};
+ const prods=[['KCL 00-00-60','KCL'],['MAP MicroEssentials 10-46-0+S9','MAP 10-46+S9'],['Superfosfato 00-21-00','00-21-00'],['Superfosfato 00-20-00','00-20-00'],['Boro (ulexita 10% B ou tetraborato 14,8% B)','Boro ulexita'],['Enxofre elementar 90%','Enxofre 90%'],['Gesso','Gesso']];
+ new Chart(document.getElementById('chFertPreco'),{type:'bar',data:{labels:prods.map(p=>p[1]),datasets:[{label:'25/26',data:prods.map(p=>best(F.F25,p[0],'BoroBS/Fertimig')),backgroundColor:'rgba(0,176,255,.7)',borderRadius:4},{label:'26/27',data:prods.map(p=>best(F.F26,p[0],'BoroBS/Fertimig')),backgroundColor:'rgba(0,230,118,.8)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+R(c.raw)+'/t'}}},scales:{y:{title:{display:true,text:'R$/t'}}}}});
+ const nk=Object.keys(F.n25).concat(Object.keys(F.n26).filter(k=>!(k in F.n25)));
+ const lb=k=>F.n25[k]?F.n25[k][0]+' · '+k.replace(' 00-00-60','').replace('MicroEssentials 10-46-0+S9','MAP').replace('Superfosfato ',''):F.n26[k][0]+' · '+k.replace('Superfosfato ','');
+ new Chart(document.getElementById('chFertNut'),{type:'bar',data:{labels:nk.map(lb),datasets:[{label:'25/26',data:nk.map(k=>F.n25[k]?+F.n25[k][1].toFixed(2):null),backgroundColor:'rgba(0,176,255,.7)',borderRadius:4},{label:'26/27',data:nk.map(k=>F.n26[k]?+F.n26[k][1].toFixed(2):null),backgroundColor:'rgba(0,230,118,.8)',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+R(c.raw)+'/kg'}}},scales:{x:{type:'logarithmic',title:{display:true,text:'R$/kg de nutriente (escala log)'}}}}});
+ const rows=[];[['25/26',F.b25],['26/27',F.b26]].forEach(([s,b])=>Object.entries(b).forEach(([p,v])=>v.rows.forEach(r=>rows.push([p.replace(' (ulexita 10% B ou tetraborato 14,8% B)',' ulexita'),s,r.dest,r.lo+' · '+R(r.lo_p),r.hi+' · '+R(r.hi_p),r.n,r.hi_v-r.lo_v>0.5?'<span class="negative">'+R(r.hi_v-r.lo_v,0)+'</span>':'—']))));
+ rows.push(Object.assign(['<b>Total spread</b>','25/26','','','','','<b>'+R(F.x25-F.m25,2)+'</b>'],{_s:'background:rgba(255,145,0,.06)'}));
+ rows.push(Object.assign(['<b>Total spread</b>','26/27','','','','','<b>'+R(F.x26-F.m26,2)+'</b>'],{_s:'background:rgba(255,145,0,.06)'}));
+ tbl('t-fertfaixa',['Produto','Safra','Destino','Menor (R$/t)','Maior (R$/t)','Nº cotações','Diferença no volume'],rows,[5,6]);};
+const _be=B.estatistica;B.estatistica=()=>{_be();const it=D.abc.items,T=D.abc.T;let a=0;const cum=it.map(x=>(a+=x[2])/T*100);const n=40;
+ new Chart(document.getElementById('chABC'),{type:'bar',data:{labels:it.slice(0,n).map(x=>x[0].replace(/ ?\(.*?\)/,'')),datasets:[{label:'Valor (R$ mil)',data:it.slice(0,n).map(x=>Math.round(x[2]/1000)),backgroundColor:it.slice(0,n).map(x=>x[3]==='A'?'rgba(0,230,118,.75)':x[3]==='B'?'rgba(255,145,0,.75)':'rgba(123,138,158,.6)'),borderRadius:3,yAxisID:'y'},{type:'line',label:'% acumulado',data:cum.slice(0,n),borderColor:C.b,pointRadius:0,tension:.2,yAxisID:'y1'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{afterLabel:c=>c.datasetIndex===0?it[c.dataIndex][1]+' · classe '+it[c.dataIndex][3]:''}}},scales:{x:{ticks:{display:false}},y:{ticks:{callback:v=>'R$'+v+'k'}},y1:{position:'right',min:0,max:100,grid:{display:false},ticks:{callback:v=>v+'%'}}}}});
+ const fx=document.getElementById('simFx'),sj=document.getElementById('simSj');const upd=()=>{const f=+fx.value,s=+sj.value,t=D.T[7]*1000-347180*5.5+347180*f;document.getElementById('simFxV').textContent=nf(f,2);document.getElementById('simSjV').textContent=nf(s,2);document.getElementById('simT').textContent='R$ '+nf(t/1e6,2)+' Mi';document.getElementById('simS').textContent=nf(t/s)+' sc';document.getElementById('simH').textContent=nf(t/s/12350,1)+' sc/ha';};fx.addEventListener('input',upd);sj.addEventListener('input',upd);upd();};
 
-new Chart(document.getElementById('chartInvestSafra'),{type:'bar',data:{labels:S,datasets:[
-{label:'Defensivos',data:[10700,8537,14728,26965,19621,17548,17222],backgroundColor:'rgba(0,230,118,.7)',borderRadius:6},
-{label:'Sem. Milho',data:[2527,3245,3817,5367,4346,5040,0],backgroundColor:'rgba(0,176,255,.7)',borderRadius:6},
-{label:'Biológicos',data:[0,0,0,1600,0,3600,3500],backgroundColor:'rgba(224,64,251,.7)',borderRadius:6}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v/1000+'M'}}}}});
+B.projecao=()=>{const pd=D.pd,ps=D.ps;
+ const L=['19/20','20/21','21/22','22/23','23/24','24/25','25/26','26/27','27/28','28/29','29/30'];
+ const hist=pd.hist.map(v=>v/1e6).concat([null,null,null]);
+ const q=p=>[null,null,null,null,null,null,null,pd.hist[7]/1e6,...['27/28','28/29','29/30'].map(s=>pd.fan[s][p]/1e6)];
+ const vio='rgba(124,77,255,';
+ new Chart(document.getElementById('chFanDef'),{type:'line',data:{labels:L,datasets:[
+  {label:'Faixa 90% (P5–P95)',data:q('5'),borderWidth:0,pointRadius:0,fill:false,backgroundColor:vio+'.18)'},
+  {label:'_p95',data:q('95'),borderWidth:0,pointRadius:0,fill:'-1',backgroundColor:vio+'.18)'},
+  {label:'Faixa 50% (P25–P75)',data:q('25'),borderWidth:0,pointRadius:0,fill:false,backgroundColor:vio+'.38)'},
+  {label:'_p75',data:q('75'),borderWidth:0,pointRadius:0,fill:'-1',backgroundColor:vio+'.38)'},
+  {label:'Mediana simulada',data:q('50'),borderColor:'#9575cd',borderWidth:3,pointRadius:3,tension:.3,fill:false},
+  {label:'Nível de longo prazo',data:pd.faz.lr.map(v=>v/1e6),borderColor:'#ffca28',borderDash:[6,4],borderWidth:2,pointRadius:0,fill:false},
+  {label:'Realizado',data:hist,borderColor:'#eceff1',backgroundColor:'#eceff1',borderWidth:2.5,pointRadius:5,tension:.3,fill:false}]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{boxWidth:12,filter:i=>!i.text.startsWith('_')}},tooltip:{filter:i=>!i.dataset.label.startsWith('_')&&i.raw!=null,callbacks:{label:c=>c.dataset.label+': R$ '+nf(c.raw,2)+' Mi'}}},scales:{y:{ticks:{callback:v=>'R$ '+v+' Mi'}}}}});
+ // soja mensal: histórico desde jan/2022 + leque
+ const K=84,bs=ps.basis,h=ps.hist.slice(K).map(v=>v*bs),n=h.length,F=ps.fanm;
+ const mn=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+ const lab=[];for(let i=0;i<n+F.length;i++){const m=(K+i)%12,y=2015+Math.floor((K+i)/12);lab.push(mn[m]+'/'+String(y).slice(2));}
+ const pad=a=>Array(n-1).fill(null).concat([h[n-1]],a);
+ const fq=p=>pad(F.map(x=>x[p]*bs));
+ new Chart(document.getElementById('chFanSoja'),{type:'line',data:{labels:lab,datasets:[
+  {label:'Faixa 90%',data:fq('5'),borderWidth:0,pointRadius:0,fill:false,backgroundColor:vio+'.18)'},
+  {label:'_95',data:fq('95'),borderWidth:0,pointRadius:0,fill:'-1',backgroundColor:vio+'.18)'},
+  {label:'Faixa 50%',data:fq('25'),borderWidth:0,pointRadius:0,fill:false,backgroundColor:vio+'.38)'},
+  {label:'_75',data:fq('75'),borderWidth:0,pointRadius:0,fill:'-1',backgroundColor:vio+'.38)'},
+  {label:'Mediana simulada',data:fq('50'),borderColor:'#9575cd',borderWidth:2.5,pointRadius:0,tension:.3,fill:false},
+  {label:'Nível de longo prazo',data:lab.map(()=>ps.lp*bs),borderColor:'#ffca28',borderDash:[6,4],borderWidth:1.5,pointRadius:0,fill:false},
+  {label:'Realizado (médias mensais)',data:h.concat(Array(F.length).fill(null)),borderColor:'#eceff1',borderWidth:2,pointRadius:2,tension:.3,fill:false}]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{boxWidth:12,filter:i=>!i.text.startsWith('_')}},tooltip:{filter:i=>!i.dataset.label.startsWith('_')&&i.raw!=null,callbacks:{label:c=>c.dataset.label+': R$ '+nf(c.raw,2)}}},scales:{x:{ticks:{maxTicksLimit:10}},y:{ticks:{callback:v=>'R$ '+v}}}}});
+ const SS=['26/27','27/28','28/29','29/30'],sc=ps.sac;
+ new Chart(document.getElementById('chFanSacas'),{type:'bar',data:{labels:SS,datasets:[
+  {label:'P5–P95',data:SS.map(s=>[sc[s]['5']/1000,sc[s]['95']/1000]),backgroundColor:vio+'.25)',barPercentage:.55,grouped:false},
+  {label:'P25–P75',data:SS.map(s=>[sc[s]['25']/1000,sc[s]['75']/1000]),backgroundColor:vio+'.6)',barPercentage:.55,grouped:false},
+  {type:'line',label:'Mediana',data:SS.map(s=>sc[s]['50']/1000),borderColor:'#9575cd',backgroundColor:'#9575cd',pointRadius:5,showLine:false},
+  {type:'line',label:'26/27 a R$ 118,92',data:SS.map(()=>203.10577),borderColor:'#ffca28',borderDash:[6,4],pointRadius:0}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(Array.isArray(c.raw)?nf(c.raw[0])+' a '+nf(c.raw[1]):nf(c.raw,1))+' mil sc'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' mil sc'}}}}});
+};
 
-new Chart(document.getElementById('chartFornecPie'),{type:'doughnut',data:{labels:['Bayer','UPL','Albaugh','Rainbow','Syngenta','Sumitomo','Ihara','BASF','Tecnomyl','Ouro Fino','FMC','Corteva'],datasets:[{data:[2707,2447,2152,1663,1598,1569,1437,1425,925,683,386,231],backgroundColor:[C.b,C.g,C.o,C.r,C.p,C.y,C.c,C.pk,C.l,C.t,'#90a4ae','#546e7a']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,padding:8,font:{size:10}}}}}});
-
-new Chart(document.getElementById('chartRegiao'),{type:'doughnut',data:{labels:['MT Planalto ~6.770ha','MT Continental ~3.000ha','GO ~2.450ha'],datasets:[{data:[55,25,20],backgroundColor:[C.g,C.b,C.o]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
-
-new Chart(document.getElementById('chartEvolCategoria'),{type:'bar',data:{labels:S,datasets:[
-{label:'Fungicidas',data:[3500,3000,4500,8000,5500,4200,3800],backgroundColor:'rgba(0,230,118,.6)',borderRadius:4},
-{label:'Inseticidas',data:[2500,2200,3800,7000,5800,5500,5200],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
-{label:'Herbicidas',data:[2200,1800,3500,6000,4500,4200,4000],backgroundColor:'rgba(255,145,0,.6)',borderRadius:4},
-{label:'Trat. Sementes',data:[800,700,1200,2000,1400,1200,1000],backgroundColor:'rgba(224,64,251,.6)',borderRadius:4},
-{label:'Outros',data:[1700,837,1728,3965,2421,2448,3222],backgroundColor:'rgba(255,235,59,.6)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>v/1000+'M'}}}}});
-
-new Chart(document.getElementById('chartFornecEvolucao'),{type:'line',data:{labels:S,datasets:[
-{label:'Bayer',data:[1250,867,1431,3078,3319,2287,2707],borderColor:C.b,fill:false,tension:.3},
-{label:'BASF',data:[1830,1695,1175,2563,2941,2553,1425],borderColor:C.g,fill:false,tension:.3},
-{label:'Corteva',data:[1652,1473,2486,3280,1686,1431,231],borderColor:C.o,fill:false,tension:.3},
-{label:'Syngenta',data:[1309,830,4221,9721,2201,1205,1598],borderColor:C.p,fill:false,tension:.3},
-{label:'UPL',data:[553,0,1853,3575,4682,1388,2447],borderColor:C.c,fill:false,tension:.3},
-{label:'Albaugh',data:[0,1818,433,0,576,1869,2152],borderColor:C.y,fill:false,tension:.3}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
-
-new Chart(document.getElementById('chartHHI'),{type:'line',data:{labels:S,datasets:[
-{label:'Índice HHI',data:[1800,1650,1500,1400,1200,1050,950],borderColor:C.g,backgroundColor:'rgba(0,230,118,.1)',fill:true,tension:.4,pointRadius:5},
-{label:'Limiar Concentrado',data:[1500,1500,1500,1500,1500,1500,1500],borderColor:'rgba(255,82,82,.5)',borderDash:[5,5],pointRadius:0,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{min:500,max:2200}}}});
-
-new Chart(document.getElementById('chartPrecoFung'),{type:'line',data:{labels:S,datasets:[
-{label:'Fox Supra',data:[255,224,230,240,350,312,302],borderColor:C.b,tension:.3,fill:false},
-{label:'Fusão',data:[66,76,87,120,null,76,null],borderColor:C.g,tension:.3,fill:false},
-{label:'Bravonil 720',data:[null,null,27,28,17,18,null],borderColor:C.p,tension:.3,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'R$/L ou kg'}}}}});
-
-new Chart(document.getElementById('chartPrecoInse'),{type:'line',data:{labels:S,datasets:[
-{label:'Curbix',data:[null,107,102,105,102,89,75],borderColor:C.b,tension:.3,fill:false},
-{label:'Sperto',data:[null,null,169,189,172,150,122],borderColor:C.g,tension:.3,fill:false},
-{label:'Perito',data:[null,null,null,87,70,50,51],borderColor:C.o,tension:.3,fill:false},
-{label:'Fastac Duo',data:[null,107,108,115,124,120,88],borderColor:C.r,tension:.3,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'R$/L'}}}}});
-
-new Chart(document.getElementById('chartCambio'),{type:'bar',data:{labels:S,datasets:[
-{label:'% USD',data:[65,40,30,25,30,35,30],backgroundColor:'rgba(0,176,255,.7)',borderRadius:4},
-{label:'% BRL',data:[35,60,70,75,70,65,70],backgroundColor:'rgba(0,230,118,.7)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true},y:{stacked:true,max:100,ticks:{callback:v=>v+'%'}}}}});
-
-new Chart(document.getElementById('chartPagamentos'),{type:'bar',data:{labels:['Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Fev/26','Mar/26','Abr/26','Mai/26'],datasets:[{label:'R$ mil',data:[1598,0,2707,0,0,0,0,0,7264,2346],backgroundColor:ctx=>ctx.parsed&&ctx.parsed.y>2000?'rgba(255,82,82,.7)':'rgba(0,230,118,.7)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
-
-new Chart(document.getElementById('chartCategorias'),{type:'doughnut',data:{labels:['Inseticidas','Fungicidas','Herbicidas','Nematicidas','Multissítios','TS','Outros'],datasets:[{data:[32,22,20,8,8,5,5],backgroundColor:[C.b,C.g,C.o,C.p,C.y,C.c,C.pk]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}});
-
-new Chart(document.getElementById('chartMilho'),{type:'bar',data:{labels:['2020','2021','2022','2023','2024','2025'],datasets:[
-{label:'Volume (sc)',data:[7320,7722,8375,8350,7340,7400],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4,yAxisID:'y'},
-{label:'Custo/sc (R$)',data:[345,420,456,643,592,681],type:'line',borderColor:C.r,yAxisID:'y1',tension:.3,pointRadius:5}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{position:'left',title:{display:true,text:'Volume'}},y1:{position:'right',title:{display:true,text:'R$/sc'},grid:{display:false}}}}});
-
-new Chart(document.getElementById('chartBio'),{type:'bar',data:{labels:S,datasets:[{label:'Biológicos (R$ mil)',data:[0,0,0,1600,0,3600,3500],backgroundColor:'rgba(224,64,251,.7)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$'+v+'k'}}}}});
-
-new Chart(document.getElementById('chartKCL'),{type:'line',data:{labels:S,datasets:[{label:'KCL R$/t',data:[null,1550,2300,4996,2900,2550,2600],borderColor:C.g,backgroundColor:'rgba(0,230,118,.1)',fill:true,tension:.4,pointRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{title:{display:true,text:'R$/tonelada'}}}}});
-
-new Chart(document.getElementById('chartRT'),{type:'bar',data:{labels:['Progibb','Aveo','Paxeo','Pacto','Dermacor','MIB 108','Fortenza','Verdavis','Soberan','Adengo','Closer','Hexafull','Nema Protect','Utrisha N','Fox Supra'],datasets:[{label:'Sacas Soja/un.',data:[38.55,36.79,17.89,14.97,12.01,51.84,12.43,3.56,4.22,4.14,3.76,2.93,2.97,2.93,2.61],backgroundColor:ctx=>ctx.parsed&&ctx.parsed.y>10?'rgba(255,82,82,.7)':ctx.parsed&&ctx.parsed.y>3?'rgba(255,145,0,.7)':'rgba(0,230,118,.7)',borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Sacas de Soja'},beginAtZero:true}}}});
-
-}
+built.dashboard=1;B.dashboard();
+const h=location.hash.slice(1);if(h&&document.getElementById('tab-'+h))showTab(h);
+window.addEventListener('hashchange',()=>{const x=location.hash.slice(1);if(document.getElementById('tab-'+x))showTab(x);});
 </script>
 </body>
 </html>

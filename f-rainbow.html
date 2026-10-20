@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | Rainbow — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | Rainbow — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--rb:#76ff03}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -81,165 +82,70 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>RAINBOW</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a class="on" href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a class="on" href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon" style="background:linear-gradient(135deg,#76ff03,#33691e)">RB</div>
 <div class="hdr-info">
 <h2>RAINBOW <span>DEFENSIVOS AGRÍCOLAS</span></h2>
-<p>Presente em <b>5/7 safras</b> (ausente 19/20 e 20/21) · Inseticidas, Fungicidas, Herbicidas<br>
-Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br>
-Perfil: <b>Chinesa genérica agressiva em preço</b> · Shandong Rainbow Chemical<br>
+<p>Presente em <b>5/7 safras</b> (ausente 19/20 e 20/21) · Inseticidas, Fungicidas, Herbicidas<br/>
+Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br/>
+Perfil: <b>Chinesa genérica agressiva em preço</b> · Shandong Rainbow Chemical<br/>
 Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · Acetamiprido Rainbow</p>
 </div>
 </div>
-
 <!-- DESTAQUE -->
 <div class="highlight">
 <h4>🇨🇳 A "Fábrica Chinesa": Genéricos puros com menor preço do mercado</h4>
-<p style="font-size:.8rem;color:var(--text);line-height:1.6">Rainbow é subsidiária da <b style="color:var(--rb)">Shandong Rainbow Chemical Co.</b>, uma das maiores fabricantes de agroquímicos genéricos do mundo. Estratégia clara: <b>mesma molécula, menor preço</b>. Não investe em P&D de novas moléculas — replica princípios ativos pós-patente com produção verticalizada na China. Na Fazenda Planalto, entrou na 21/22 e atingiu R$ 780k na 25/26. Papel: <b>pressionar preço dos fornecedores premium</b> e ocupar nichos commoditizados.</p>
+<p style="font-size:.8rem;color:var(--text);line-height:1.6">Rainbow é subsidiária da <b style="color:var(--rb)">Shandong Rainbow Chemical Co.</b>, uma das maiores fabricantes de agroquímicos genéricos do mundo. Estratégia clara: <b>mesma molécula, menor preço</b>. Não investe em P&amp;D de novas moléculas — replica princípios ativos pós-patente com produção verticalizada na China. Na Fazenda Planalto, entrou na 21/22 e atingiu R$ 780k na 25/26. Papel: <b>pressionar preço dos fornecedores premium</b> e ocupar nichos commoditizados.</p>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--rb)">R$ 780k</div><div class="sub">4,5% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 5 Safras</div><div class="vl">~R$ 2,95M</div><div class="sub">Média R$ 590k/safra</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 820k</div><div class="sub">Safra 22/23</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −5%</div><div class="sub">Estável (vol. compensou)</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">6</div><div class="sub">Genéricos puros</div></div>
-<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Ethrole</div><div class="sub">~R$ 218k · 28% do total</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 180k</div><div class="sub">0,7% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 1,66M</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--green)">-89,1%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 4,42M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">6</div><div class="sub">26/27 · 4 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">GLINT Full</div><div class="sub">R$ 55.290</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a Rainbow soma R$ 1.662.900 e o pedido 26/27 soma R$ 180.438, -89,1% sobre a 25/26.</p><p style="margin:0 0 8px">A versão anterior desta página registrava R$ 780.000 para a 25/26. Vale a planilha.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em GLINT Full (R$ 55.290), Sungain Xtra (R$ 52.800) e FULLGUARD (R$ 52.140).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, ACEWAY WG caiu de R$ 115,00 para R$ 72,50 (-37,0%).</p><p style="margin:0 0 8px">Peça o preço de Rainzeb 750 WG (Mancozeb) (42.000), GRASIDIM FULL (Cletodim 360) (2.340) antes de fechar o orçamento, porque o total 26/27 está subestimado.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div><div class="insight warn"><b>⚠ Divergências entre a página anterior e a planilha:</b><br/>Ethrole: P.A. na planilha: Etiprole 200 (página: Clorfenapir 240 SC)</div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>SOLDIER WG (Glifosato 720)</b></td><td class="tr">32.000</td><td class="tr">8.000</td><td class="tr">40.000</td><td class="tr">R$ 25,40</td><td class="tr">R$ 1.016.000,00</td><td class="tr">61,1%</td></tr><tr><td><b>ACEWAY WG (Aceta 250 + Bifent 250)</b></td><td class="tr">1.580</td><td class="tr">600</td><td class="tr">2.180</td><td class="tr">R$ 115,00</td><td class="tr">R$ 250.700,00</td><td class="tr">15,1%</td></tr><tr><td><b>FULLGUARD (Carfentrazone 400)</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 403,00</td><td class="tr">R$ 241.800,00</td><td class="tr">14,5%</td></tr><tr><td><b>METOMY SP (Methomil 900)</b></td><td class="tr">2.000</td><td class="tr">—</td><td class="tr">2.000</td><td class="tr">R$ 77,20</td><td class="tr">R$ 154.400,00</td><td class="tr">9,3%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>R$ 1.662.900,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 20/05/2026 · RTV/gestor: Fernando Souza</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>GLINT Full (Haloxifope 540)</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 92,15</td><td class="tr">R$ 55.290,00</td><td class="tr">30,6%</td></tr><tr><td><b>Sungain Xtra (Flumioxazina 800 WG)</b></td><td class="tr">400</td><td class="tr">—</td><td class="tr">400</td><td class="tr">R$ 132,00</td><td class="tr">R$ 52.800,00</td><td class="tr">29,3%</td></tr><tr><td><b>FULLGUARD (Carfentrazone 400)</b></td><td class="tr">200</td><td class="tr">—</td><td class="tr">200</td><td class="tr">R$ 260,70</td><td class="tr">R$ 52.140,00</td><td class="tr">28,9%</td></tr><tr><td><b>COFENRIN</b></td><td class="tr">280</td><td class="tr">—</td><td class="tr">280</td><td class="tr">R$ 72,17</td><td class="tr">R$ 20.207,60</td><td class="tr">11,2%</td></tr><tr><td><b>Rainzeb 750 WG (Mancozeb)</b></td><td class="tr">42.000</td><td class="tr">—</td><td class="tr">42.000</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>GRASIDIM FULL (Cletodim 360)</b></td><td class="tr">2.340</td><td class="tr">—</td><td class="tr">2.340</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 180.437,60</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 20/04/2027 · RTV/gestor: Fernando Souza</div></div></div>
 <!-- GRÁFICOS TOPO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- PORTFÓLIO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>🐛 Inseticidas (3 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Ethrole</b></td><td style="font-size:.65rem;color:var(--muted)">Clorfenapir 240 SC</td>
-<td class="tr">R$88<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$95<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$72<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$58<br><small style="color:var(--muted)">3.200L</small></td>
-<td class="tr"><b>R$52</b><br><small style="color:var(--muted)">4.200L</small></td>
-<td><span class="tag tg">▼−41% · Vol▲320%</span></td>
-</tr>
-<tr>
-<td><b>Acetamiprido RB</b></td><td style="font-size:.65rem;color:var(--muted)">Acetamiprido 200 SP</td>
-<td class="tr">—</td>
-<td class="tr">R$68<br><small style="color:var(--muted)">800kg</small></td>
-<td class="tr">R$55<br><small style="color:var(--muted)">1.000kg</small></td>
-<td class="tr">R$42<br><small style="color:var(--muted)">1.200kg</small></td>
-<td class="tr"><b>R$36</b><br><small style="color:var(--muted)">1.500kg</small></td>
-<td><span class="tag tg">▼−47% · Mosca-br./Pulgão</span></td>
-</tr>
-<tr>
-<td><b>Lambda RB</b></td><td style="font-size:.65rem;color:var(--muted)">Lambda-cialotrina 250 CS</td>
-<td class="tr">R$25<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr"><b>R$15</b><br><small style="color:var(--muted)">1.800L</small></td>
-<td><span class="tag tg">▼−40% · Pir. básico</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Ethrole</b><br/><small style="color:var(--accent3)">⚠ P.A. na planilha: Etiprole 200 (página: Clorfenapir 240 SC)</small></td><td style="font-size:.65rem;color:var(--muted)">Clorfenapir 240 SC</td><td class="tr">R$88<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$95<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$72<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$58<br/><small style="color:var(--muted)">3.200L</small></td><td class="tr">R$78<br/><small style="color:var(--muted)">cotado</small><br/><small style="color:var(--accent3)">pág. ant. R$52</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Acetamiprido RB</b></td><td style="font-size:.65rem;color:var(--muted)">Acetamiprido 200 SP</td><td class="tr">—</td><td class="tr">R$68<br/><small style="color:var(--muted)">800kg</small></td><td class="tr">R$55<br/><small style="color:var(--muted)">1.000kg</small></td><td class="tr">R$42<br/><small style="color:var(--muted)">1.200kg</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$36</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Lambda RB</b></td><td style="font-size:.65rem;color:var(--muted)">Lambda-cialotrina 250 CS</td><td class="tr">R$25<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$15</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🍄 Fungicidas (2 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Zignal</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Ciproconazol 280 SC</td>
-<td class="tr">R$55<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">R$62<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$48<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$38<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr"><b>R$32</b><br><small style="color:var(--muted)">3.500L</small></td>
-<td><span class="tag tg">▼−42% · Vol▲133%</span></td>
-</tr>
-<tr>
-<td><b>Trifloxistrobina RB</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina+Protioconazol 300 SC</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$85<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$68<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr"><b>R$58</b><br><small style="color:var(--muted)">1.500L</small></td>
-<td><span class="tag tg">▼−32% · Fox Supra gen.</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Zignal</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Ciproconazol 280 SC</td><td class="tr">R$55<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">R$62<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$48<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$38<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$32</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Trifloxistrobina RB</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina+Protioconazol 300 SC</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$85<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$68<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$58</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🌿 Herbicida (1 produto)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Rainbowgly</b></td><td style="font-size:.65rem;color:var(--muted)">Glifosato 480 SL</td>
-<td class="tr">R$22<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">R$14<br><small style="color:var(--muted)">10.000L</small></td>
-<td class="tr"><b>R$12</b><br><small style="color:var(--muted)">12.000L</small></td>
-<td><span class="tag tg">▼−45% · Glifosato mais barato</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Rainbowgly</b></td><td style="font-size:.65rem;color:var(--muted)">Glifosato 480 SL</td><td class="tr">R$22<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">R$14<br/><small style="color:var(--muted)">10.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$12</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- CURVAS DE PREÇO -->
-<div class="section-title">📈 Curvas de Preço — <span>Todos os Produtos</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>SOLDIER WG</b></td><td style="font-size:.65rem;color:var(--muted)">Glifosato 720</td><td class="tr">R$25,40<br/><small style="color:var(--muted)">40.000</small></td><td class="tr">—</td><td class="tr">R$ 1.016.000,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>ACEWAY WG</b></td><td style="font-size:.65rem;color:var(--muted)">Aceta 250 + Bifent 250</td><td class="tr">R$115<br/><small style="color:var(--muted)">2.180</small></td><td class="tr">R$72,50<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$ 250.700,00</td><td class="tr">—</td><td><span class="tag tg">▼-37,0% 26/27</span></td></tr><tr><td><b>FULLGUARD</b></td><td style="font-size:.65rem;color:var(--muted)">Carfentrazone 400</td><td class="tr">R$403<br/><small style="color:var(--muted)">600</small></td><td class="tr">R$260,70<br/><small style="color:var(--muted)">200</small></td><td class="tr">R$ 241.800,00</td><td class="tr">R$ 52.140,00</td><td><span class="tag tg">▼-35,3% 26/27 · Vol▼67%</span></td></tr><tr><td><b>METOMY SP</b></td><td style="font-size:.65rem;color:var(--muted)">Methomil 900</td><td class="tr">R$77,20<br/><small style="color:var(--muted)">2.000</small></td><td class="tr">R$70,60<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$ 154.400,00</td><td class="tr">—</td><td><span class="tag tg">▼-8,5% 26/27</span></td></tr><tr><td><b>GLINT Full</b></td><td style="font-size:.65rem;color:var(--muted)">Haloxifope 540</td><td class="tr">—</td><td class="tr">R$92,15<br/><small style="color:var(--muted)">600</small></td><td class="tr">—</td><td class="tr">R$ 55.290,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Sungain Xtra</b></td><td style="font-size:.65rem;color:var(--muted)">Flumioxazina 800 WG</td><td class="tr">—</td><td class="tr">R$132<br/><small style="color:var(--muted)">400</small></td><td class="tr">—</td><td class="tr">R$ 52.800,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>COFENRIN</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$72,17<br/><small style="color:var(--muted)">280</small></td><td class="tr">—</td><td class="tr">R$ 20.207,60</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Rainzeb 750 WG</b></td><td style="font-size:.65rem;color:var(--muted)">Mancozeb</td><td class="tr">—</td><td class="tr">R$—<br/><small style="color:var(--muted)">42.000</small></td><td class="tr">—</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>GRASIDIM FULL</b></td><td style="font-size:.65rem;color:var(--muted)">Cletodim 360</td><td class="tr">R$47,45<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$—<br/><small style="color:var(--muted)">2.340</small></td><td class="tr">—</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Todos os Produtos</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Inseticidas (R$/L ou kg)</h3>
@@ -250,15 +156,13 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Todos os Produtos</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- DEEP DIVE ETHROLE -->
-<div class="section-title">🔬 Deep Dive — <span>Ethrole (Clorfenapir 240 SC)</span></div>
+<div class="section-title">🔬 Deep Dive — <span>Ethrole (Clorfenapir 240 SC)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>O inseticida de ação mitocondrial que domina o portfólio</h3>
 <div class="table-wrapper">
@@ -275,9 +179,8 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 </div>
 <div class="insight"><b>📌 Ethrole = Clorfenapir mais barato do mercado:</b> Pirate (BASF) = R$ 68/L. Chlorfenapyr (Albaugh) = R$ 58/L. Ethrole (Rainbow) = <b>R$ 52/L</b>. Mesma molécula, mesmo modo de ação (mitocondrial), <b>Rainbow é 24% mais barato que BASF e 10% mais barato que Albaugh</b>. Para helicoverpa e lagartas resistentes a diamidas, Clorfenapir é essencial. Volume 4.200 L = dose para ~5.600 ha.</div>
 </div>
-
 <!-- BENCHMARK -->
-<div class="section-title">⚔️ Benchmark — <span>Rainbow vs. Concorrentes (Genérico × Genérico × Marca)</span></div>
+<div class="section-title">⚔️ Benchmark — <span>Rainbow vs. Concorrentes (Genérico × Genérico × Marca)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -330,9 +233,8 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 </div>
 <div class="insight"><b>📊 Rainbow vence 5 de 6 benchmarks!</b> Único caso onde perde: Lambda-cialotrina para Albaugh (R$ 15 vs. R$ 12). Em todas as demais moléculas, Rainbow é o <b>genérico mais barato do portfólio</b>. Destaque: Trifloxistrobina RB a R$ 58/L vs. Fox Xpro Bayer R$ 175/L = <b>economia de 67%</b>.</div>
 </div>
-
 <!-- CUSTO POR HECTARE -->
-<div class="section-title">🧮 Custo por Hectare — <span>Rainbow vs. Marca</span></div>
+<div class="section-title">🧮 Custo por Hectare — <span>Rainbow vs. Marca</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -367,27 +269,17 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 </div>
 <div class="insight"><b>💰 Economia potencial de R$ 814k se 100% migrar para Rainbow:</b> Este é um exercício teórico — não é possível substituir 100% das marcas por genérico em todas as aplicações. Porém, demonstra o <b>poder de pressão</b> que Rainbow exerce. Mesmo que a fazenda migre apenas 30% das aplicações, economia = <b>R$ 244k</b>.</div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Rainbow</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Rainbow</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. O genérico mais barato em 5 de 6 moléculas:</b> Rainbow supera Albaugh (outro genérico) em Clorfenapir, Azoxy+Cipro, Glifosato e Acetamiprido. Perde apenas em Lambda-cialotrina. Estratégia chinesa de <b>preço mais baixo possível</b> funciona — a Fazenda Planalto respondeu com <b>volume crescente em todos os itens</b>.</div>
-
 <div class="insight"><b>2. Trifloxistrobina RB = "Fox Xpro a 1/3 do preço":</b> R$ 58/L vs. Fox Xpro R$ 175/L. Economia de <b>67%</b>. Se eficácia for 80% equivalente (genérico pode ter menor estabilidade de formulação), ainda vale aplicar 2× Rainbow pelo preço de 1× Bayer. Volume cresceu de 800 L para 1.500 L (+88%).</div>
-
 <div class="insight"><b>3. Rainbowgly — glifosato a R$ 12/L:</b> Menor preço de glifosato do portfólio. Roundup (Bayer) R$ 22/L, Glifosato Albaugh R$ 14/L. Rainbow é <b>14% mais barato que Albaugh e 45% que Roundup</b>. Volume de 12.000 L = dose para 4.000 ha de dessecação. Commodity pura — compra quem oferece menos.</div>
-
 <div class="insight"><b>4. Zignal como fungicida commodity:</b> Azoxistrobina + Ciproconazol R$ 32/L × 3.500 L = R$ 112k. Priori Xtra (Syngenta) R$ 62/L = <b>Rainbow é 48% mais barato</b>. Para aplicações iniciais (R1–R3) e milho safrinha, Zignal é opção imbatível. Volume cresceu 133% (1.500 → 3.500 L).</div>
-
 <div class="insight warn"><b>5. Deflação média de −41%:</b> Ethrole (−41%), Acetamiprido (−47%), Lambda (−40%), Zignal (−42%), Triflox (−32%), Glifosato (−45%). Padrão consistente. Rainbow pratica <b>deflação agressiva para proteger share</b> — em um mercado onde todos caem, o genérico chinês cai mais rápido.</div>
-
 <div class="insight warn"><b>6. Risco de qualidade:</b> Genéricos chineses podem ter <b>variação de lote</b>. Concentração do IA pode oscilar ±5%. Formulação pode ser menos estável (precipitação, espuma, dificuldade de mistura). Recomendação: <b>testar cada lote no campo</b> e manter marca premium como backup.</div>
-
 <div class="insight danger"><b>7. Risco regulatório/reputacional:</b> A ANVISA e o IBAMA têm intensificado fiscalização de <b>genéricos importados da China</b>. Se houver recall ou problema de registro, toda a linha Rainbow é impactada. A fazenda depende de R$ 780k em genéricos chineses — se houver interrupção, precisa de <b>plano B imediato com Albaugh + marcas</b>.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Ethrole a R$ 45 (−13%):</b> Apresentar cotação Albaugh Clorfenapir R$ 58/L + BASF Pirate R$ 68/L. "Se Rainbow bater R$ 45, fecho 5.000 L exclusivos." <b>Economia: R$ 29k</b>. Volume extra de 800 L como moeda de troca.</div>
@@ -395,14 +287,12 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 <div class="rec"><b>🎯 Triflox RB para expandir programa fung.:</b> A R$ 58/L × 1.500 L = R$ 87k. Se Fox Xpro (Bayer) é R$ 175/L, cada litro Rainbow economiza R$ 117. Expandir para 2.000 L. Meta: R$ 50/L (−14%). <b>Economia vs. Fox Xpro: R$ 250k</b>.</div>
 <div class="rec"><b>🎯 Pacote Rainbow 6 SKUs:</b> Total R$ 780k. Pedir 12% desconto (genérico aceita margem menor). <b>Economia: R$ 94k</b>. Rainbow precisa de volume para justificar importação — a Fazenda Planalto é cliente-âncora.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas</h3>
 <div class="rec w"><b>⚠️ Lambda RB vs. Albaugh:</b> Rainbow perde para Albaugh (R$ 15 vs. R$ 12). Migrar Lambda-cialotrina 100% para Albaugh. Economia: R$ 5,4k. Quantidade pequena mas sinaliza que <b>não compra cegamente do mais barato</b>.</div>
 <div class="rec w"><b>⚠️ Testar lotes antes de aplicar:</b> Exigir <b>laudo de análise de cada lote importado</b> com teor de IA e impurezas. Genéricos chineses podem ter variação. Se concentração estiver abaixo de 95% do rótulo, devolver o lote.</div>
 <div class="rec d"><b>🔴 Não ultrapassar 15% do portfólio total:</b> Atualmente Rainbow = 4,5% do total. Crescer para até 8% é seguro. Acima de 15%, a dependência de genérico chinês <b>vira risco estrutural</b>. Manter marca premium como pilar (Bayer+Syngenta+BASF ≥50%).</div>
 </div>
-
 <!-- SCORE -->
 <div class="card">
 <h3>📊 Score Card — Resumo Executivo</h3>
@@ -422,28 +312,14 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Ethrole</td><td class="tr">52</td><td class="tr pos"><b>45</b></td><td class="tr">5.000L</td><td class="tr">R$225k</td><td>Pilar inset. · −13%</td></tr>
-<tr><td>Zignal</td><td class="tr">32</td><td class="tr pos"><b>28</b></td><td class="tr">5.000L</td><td class="tr">R$140k</td><td>Expandir fung. · −13%</td></tr>
-<tr><td>Triflox RB</td><td class="tr">58</td><td class="tr pos"><b>50</b></td><td class="tr">2.000L</td><td class="tr">R$100k</td><td>Expandir · −14%</td></tr>
-<tr><td>Rainbowgly</td><td class="tr">12</td><td class="tr pos"><b>10</b></td><td class="tr">15.000L</td><td class="tr">R$150k</td><td>Expandir glif. · −17%</td></tr>
-<tr><td>Acetam. RB</td><td class="tr">36</td><td class="tr pos"><b>30</b></td><td class="tr">1.800kg</td><td class="tr">R$54k</td><td>Expandir · −17%</td></tr>
-<tr><td>Lambda RB</td><td class="tr">15</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>Migrar 100% p/ Albaugh</td></tr>
-<tr style="background:rgba(118,255,3,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 669k</b></td><td></td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 111k</b></td><td class="pos"><b>−14% c/ mais vol.</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Ethrole</td><td class="tr">52</td><td class="tr">45</td><td class="tr">5.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Zignal</td><td class="tr">32</td><td class="tr">28</td><td class="tr">5.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Triflox RB</td><td class="tr">58</td><td class="tr">50</td><td class="tr">2.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Rainbowgly</td><td class="tr">12</td><td class="tr">10</td><td class="tr">15.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Acetam. RB</td><td class="tr">36</td><td class="tr">30</td><td class="tr">1.800kg</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Lambda RB</td><td class="tr">15</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 180.438</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Meta 26/27:</b> Economia direta de <b>R$ 111k (−14%)</b> com expansão de volume em Ethrole, Zignal e Glifosato. Lambda RB migra para Albaugh (mais barato). O papel estratégico de Rainbow é <b>ser a cotação mais baixa que pressiona todos os outros</b>. Mesmo que não compre tudo de Rainbow, ter os preços na mesa força Bayer, Syngenta e BASF a negociar melhor.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 6 produtos da meta 26/27 da versão anterior, 0 entraram no pedido com preço igual ou abaixo da meta, 0 acima e 6 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 180.438</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <!-- MAPA DE USO ESTRATÉGICO -->
 <div class="card">
 <h3>🗺️ Papel Estratégico da Rainbow no Portfólio</h3>
@@ -459,67 +335,25 @@ Produtos-chave: Ethrole · Zignal · Rainbowgly · Trifloxistrobina Rainbow · A
 </table>
 </div>
 </div>
-
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[0,0,420,820,650,690,780],
-backgroundColor:S.map((_,i)=>i<2?'rgba(100,100,100,.2)':'rgba(118,255,3,.'+(2+i*1)+')')
-,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
-scales:{y:{beginAtZero:true,ticks:{callback:v=>'R$'+v+'k'}}}}});
-
-// Mix
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Ethrole R$218k','Rainbowgly R$144k','Zignal R$112k','Triflox RB R$87k','Acetam. RB R$54k','Lambda RB R$27k'],
-datasets:[{data:[218,144,112,87,54,27],
-backgroundColor:['#76ff03','#ffeb3b','#00b0ff','#e040fb','#ff9100','#90a4ae']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
-
-// Preço Inseticidas
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['21/22','22/23','23/24','24/25','25/26'],datasets:[
-{label:'Ethrole',data:[88,95,72,58,52],borderColor:'#76ff03',backgroundColor:'rgba(118,255,3,.1)',fill:true,tension:.3,pointRadius:6},
-{label:'Acetam. RB',data:[null,68,55,42,36],borderColor:'#ff9100',tension:.3,pointRadius:5,fill:false},
-{label:'Lambda RB',data:[25,28,22,18,15],borderColor:'#90a4ae',borderDash:[5,5],tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L ou kg'},beginAtZero:true}}}});
-
-// Preço Fungicidas + Herbicida
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['21/22','22/23','23/24','24/25','25/26'],datasets:[
-{label:'Zignal',data:[55,62,48,38,32],borderColor:'#00b0ff',backgroundColor:'rgba(0,176,255,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Triflox RB',data:[null,null,85,68,58],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false},
-{label:'Rainbowgly',data:[null,22,18,14,12],borderColor:'#ffeb3b',tension:.3,pointRadius:5,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Ethrole',data:[0,0,1000,2000,2500,3200,4200],backgroundColor:'rgba(118,255,3,.7)',borderRadius:4},
-{label:'Rainbowgly',data:[0,0,0,5000,8000,10000,12000],backgroundColor:'rgba(255,235,59,.5)',borderRadius:4},
-{label:'Zignal',data:[0,0,1500,2000,2500,3000,3500],backgroundColor:'rgba(0,176,255,.5)',borderRadius:4},
-{label:'Triflox RB',data:[0,0,0,0,800,1200,1500],backgroundColor:'rgba(224,64,251,.5)',borderRadius:4},
-{label:'Acetam. RB',data:[0,0,0,800,1000,1200,1500],backgroundColor:'rgba(255,145,0,.5)',borderRadius:4},
-{label:'Lambda RB',data:[0,0,2000,2500,2000,1500,1800],backgroundColor:'rgba(144,164,174,.4)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [0.0, 0.0, 420.0, 820.0, 650.0, 690.0, 1662.9, 180.4], "g1": [{"l": "ACEWAY WG", "pr": [null, null, null, null, null, null, 115.0, 72.5], "vo": [null, null, null, null, null, null, 2180.0, null], "val": 250700.0}, {"l": "FULLGUARD", "pr": [null, null, null, null, null, null, 403.0, 260.7], "vo": [null, null, null, null, null, null, 600.0, 200.0], "val": 241800.0}, {"l": "METOMY SP", "pr": [null, null, null, null, null, null, 77.2, 70.6], "vo": [null, null, null, null, null, null, 2000.0, null], "val": 154400.0}, {"l": "Ethrole", "pr": [null, null, 88.0, 95.0, 72.0, 58.0, 78.0, null], "vo": [null, null, 1000.0, 2000.0, 2500.0, 3200.0, null, null], "val": 0}], "g2": [{"l": "Acetamiprido RB", "pr": [null, null, null, 68.0, 55.0, 42.0, null, null], "vo": [null, null, null, 800.0, 1000.0, 1200.0, null, null], "val": 0}, {"l": "Lambda RB", "pr": [null, null, 25.0, 28.0, 22.0, 18.0, null, null], "vo": [null, null, 2000.0, 2500.0, 2000.0, 1500.0, null, null], "val": 0}, {"l": "Zignal", "pr": [null, null, 55.0, 62.0, 48.0, 38.0, null, null], "vo": [null, null, 1500.0, 2000.0, 2500.0, 3000.0, null, null], "val": 0}, {"l": "Trifloxistrobina RB", "pr": [null, null, null, null, 85.0, 68.0, null, null], "vo": [null, null, null, null, 800.0, 1200.0, null, null], "val": 0}], "gv": [{"l": "ACEWAY WG", "pr": [null, null, null, null, null, null, 115.0, 72.5], "vo": [null, null, null, null, null, null, 2180.0, null], "val": 250700.0}, {"l": "FULLGUARD", "pr": [null, null, null, null, null, null, 403.0, 260.7], "vo": [null, null, null, null, null, null, 600.0, 200.0], "val": 241800.0}, {"l": "METOMY SP", "pr": [null, null, null, null, null, null, 77.2, 70.6], "vo": [null, null, null, null, null, null, 2000.0, null], "val": 154400.0}, {"l": "Ethrole", "pr": [null, null, 88.0, 95.0, 72.0, 58.0, 78.0, null], "vo": [null, null, 1000.0, 2000.0, 2500.0, 3200.0, null, null], "val": 0}, {"l": "Acetamiprido RB", "pr": [null, null, null, 68.0, 55.0, 42.0, null, null], "vo": [null, null, null, 800.0, 1000.0, 1200.0, null, null], "val": 0}, {"l": "Lambda RB", "pr": [null, null, 25.0, 28.0, 22.0, 18.0, null, null], "vo": [null, null, 2000.0, 2500.0, 2000.0, 1500.0, null, null], "val": 0}], "mix": [["GLINT Full R$55k", 55.3], ["Sungain Xtra R$53k", 52.8], ["FULLGUARD R$52k", 52.1], ["COFENRIN R$20k", 20.2]], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 </script>
 </body>
 </html>

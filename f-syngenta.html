@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | Syngenta — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | Syngenta — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--syn:#4caf50}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -81,206 +82,70 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>SYNGENTA</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a class="on" href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a class="on" href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon" style="background:linear-gradient(135deg,#4caf50,#2e7d32)">SY</div>
 <div class="hdr-info">
 <h2>SYNGENTA <span>PROTEÇÃO DE CULTIVOS</span></h2>
-<p>Presente em <b>7/7 safras</b> · Fungicidas, Herbicidas, Inseticidas, TS, Adjuvantes<br>
-Moeda: <b>Mix USD/BRL</b> — migrou de 100% USD (19/20-21/22) para mix (22/23+)<br>
-Perfil: <b>Inovação premium + programa de TS líder</b> · Sementes NK + Fortenza Duo<br>
+<p>Presente em <b>7/7 safras</b> · Fungicidas, Herbicidas, Inseticidas, TS, Adjuvantes<br/>
+Moeda: <b>Mix USD/BRL</b> — migrou de 100% USD (19/20-21/22) para mix (22/23+)<br/>
+Perfil: <b>Inovação premium + programa de TS líder</b> · Sementes NK + Fortenza Duo<br/>
 Produtos-chave: Elatus · Verdavis · Fortenza Duo · Engeo Pleno S · Polo · Ampligo · Bravonil</p>
 </div>
 </div>
-
 <!-- DESTAQUE -->
 <div class="highlight">
 <h4>🏆 A "Catedral dos Fungicidas": Elatus + Verdavis — dominância em ferrugem asiática</h4>
 <p style="font-size:.8rem;color:var(--text);line-height:1.6">Syngenta construiu na Fazenda Planalto a <b style="color:var(--syn)">maior plataforma fungicida premium</b>. Elatus (Azoxistrobina + Benzovindiflupir) é o fungicida mais vendido do Brasil para ferrugem asiática. Verdavis (Solatenol + Mancozebe) adicionou a camada multissítio. Juntos representam <b>~R$ 850k (52% do total Syngenta)</b>. Nenhum outro fornecedor tem dois fungicidas premium dessa magnitude no portfólio da fazenda.</p>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--syn)">R$ 1,63M</div><div class="sub">9,5% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 7 Safras</div><div class="vl">~R$ 13,8M</div><div class="sub">Média R$ 1,97M/safra</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 3,52M</div><div class="sub">Safra 22/23</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −54%</div><div class="sub">Queda forte desde 22/23</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">9</div><div class="sub">Premium + Complementares</div></div>
-<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--syn)">Elatus</div><div class="sub">~R$ 480k · 29% do total</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 2,93M</div><div class="sub">12,1% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 1,60M</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--red)">+83,3%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 24,02M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">7</div><div class="sub">26/27 · 4 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">Ochima</div><div class="sub">R$ 0</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a Syngenta soma R$ 1.598.592 e o pedido 26/27 soma R$ 2.930.000, +83,3% sobre a 25/26.</p><p style="margin:0 0 8px">A versão anterior desta página registrava R$ 1.630.000 para a 25/26. Vale a planilha.</p><p style="margin:0 0 8px">Peça o preço de Ochima (6.000), Victrato (40), Fortenza (400), Alade (3.000), Megafol (400), Neture (2.048), Verdavis (3.100) antes de fechar o orçamento, porque o total 26/27 está subestimado.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div><div class="insight warn"><b>Série histórica:</b> alinhada ao painel principal (1.309, 830, 4.221, 9.721, 2.201, 1.205 R$ mil, 19/20 a 24/25). A versão anterior desta página trazia 2.680, 2.450, 1.245, 3.520, 2.380, 1.580.</div><div class="insight warn"><b>25/26:</b> Conf. relação FAT/PTAX<br/><b>26/27:</b> Planilha traz só volumes e um total de 2.930.000 em D10, sem preço unitário nem moeda explícita (cabeçalho da coluna diz U$)</div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Verdavis</b></td><td class="tr">1.700</td><td class="tr">300</td><td class="tr">2.000</td><td class="tr">US$ 73,92</td><td class="tr">US$ 147.840,00</td><td class="tr">50,9%</td></tr><tr><td><b>Fortenza</b></td><td class="tr">400</td><td class="tr">—</td><td class="tr">400</td><td class="tr">US$ 259,00</td><td class="tr">US$ 103.600,00</td><td class="tr">35,6%</td></tr><tr><td><b>Ochima/Volubilis</b></td><td class="tr">3.000</td><td class="tr">3.000</td><td class="tr">6.000</td><td class="tr">US$ 6,34</td><td class="tr">US$ 38.040,00</td><td class="tr">13,1%</td></tr><tr><td><b>Spectro</b></td><td class="tr">60</td><td class="tr">—</td><td class="tr">60</td><td class="tr">US$ 19,55</td><td class="tr">US$ 1.173,00</td><td class="tr">0,4%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>US$ 290.653,00</b><br/><small style="color:var(--muted)">R$ 1.598.591,50 a 5,50</small></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 05/08/2025 · RTV/gestor: Junior · Conf. relação FAT/PTAX</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Ochima</b></td><td class="tr">4.000</td><td class="tr">2.000</td><td class="tr">6.000</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>Victrato</b></td><td class="tr">40</td><td class="tr">—</td><td class="tr">40</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>Fortenza</b></td><td class="tr">400</td><td class="tr">—</td><td class="tr">400</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>Alade</b></td><td class="tr">3.000</td><td class="tr">—</td><td class="tr">3.000</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>Megafol</b></td><td class="tr">400</td><td class="tr">—</td><td class="tr">400</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>Neture</b></td><td class="tr">2.048</td><td class="tr">—</td><td class="tr">2.048</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr><td><b>Verdavis</b></td><td class="tr">2.100</td><td class="tr">1.000</td><td class="tr">3.100</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 2.930.000,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: não informado · RTV/gestor: — · Planilha traz só volumes e um total de 2.930.000 em D10, sem preço unitário nem moeda explícita (cabeçalho da coluna diz U$)</div></div></div>
 <!-- GRÁFICOS TOPO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- PORTFÓLIO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>🍄 Fungicidas (4 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Elatus</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Benzovindiflupir</td>
-<td class="tr">$68<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">$65<br><small style="color:var(--muted)">3.500L</small></td>
-<td class="tr">$72<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$385<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$320<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$145<br><small style="color:var(--muted)">3.500L</small></td>
-<td class="tr"><b>R$120</b><br><small style="color:var(--muted)">4.000L</small></td>
-<td><span class="tag tg">▼−69% BRL · Premium</span></td>
-</tr>
-<tr>
-<td><b>Verdavis</b></td><td style="font-size:.65rem;color:var(--muted)">Benzovindiflupir+Mancozebe</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$95<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$82<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">R$68<br><small style="color:var(--muted)">5.500L</small></td>
-<td class="tr"><b>R$62</b><br><small style="color:var(--muted)">6.000L</small></td>
-<td><span class="tag tg">▼−35% · Solatenol+Multi</span></td>
-</tr>
-<tr>
-<td><b>Bravonil 720</b></td><td style="font-size:.65rem;color:var(--muted)">Clorotalonil 720 SC</td>
-<td class="tr">$8,5<br><small style="color:var(--muted)">10.000L</small></td>
-<td class="tr">$9,0<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">$12<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$52<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">R$38<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr"><b>R$24</b><br><small style="color:var(--muted)">3.500L</small></td>
-<td><span class="tag tg">▼−54% · Multissítio</span></td>
-</tr>
-<tr>
-<td><b>Score Flexi</b></td><td style="font-size:.65rem;color:var(--muted)">Difenoconazol+Ciproconazol</td>
-<td class="tr">$35<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">$32<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">$30<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$145<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$110<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr">—</td>
-<td class="tr">—</td>
-<td><span class="tag tr2">Saiu do mix</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Elatus</b></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Benzovindiflupir</td><td class="tr">$68<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">$65<br/><small style="color:var(--muted)">3.500L</small></td><td class="tr">$72<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$385<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$320<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$145<br/><small style="color:var(--muted)">3.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$120</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Verdavis</b></td><td style="font-size:.65rem;color:var(--muted)">Benzovindiflupir+Mancozebe</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$95<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$82<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">R$68<br/><small style="color:var(--muted)">5.500L</small></td><td class="tr">US$73,92<br/><small style="color:var(--muted)">2.000L</small><br/><small style="color:var(--accent3)">pág. ant. R$62</small></td><td class="tr">R$—<br/><small style="color:var(--muted)">3.100L</small></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Bravonil 720</b></td><td style="font-size:.65rem;color:var(--muted)">Clorotalonil 720 SC</td><td class="tr">$8,5<br/><small style="color:var(--muted)">10.000L</small></td><td class="tr">$9,0<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">$12<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$52<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">R$38<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">US$4,13<br/><small style="color:var(--muted)">cotado</small><br/><small style="color:var(--accent3)">pág. ant. R$24</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Score Flexi</b></td><td style="font-size:.65rem;color:var(--muted)">Difenoconazol+Ciproconazol</td><td class="tr">$35<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">$32<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">$30<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$145<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$110<br/><small style="color:var(--muted)">600L</small></td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🐛 Inseticidas (3 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Engeo Pleno S</b></td><td style="font-size:.65rem;color:var(--muted)">Tiametoxam+Lambda-cialotrina</td>
-<td class="tr">$22<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">$20<br><small style="color:var(--muted)">4.500L</small></td>
-<td class="tr">$24<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$115<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$85<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$62<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr"><b>R$52</b><br><small style="color:var(--muted)">2.000L</small></td>
-<td><span class="tag tg">▼−55% · Vol▼</span></td>
-</tr>
-<tr>
-<td><b>Ampligo</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole+Lambda-cialotrina</td>
-<td class="tr">$85<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">$80<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">$88<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr">R$420<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$350<br><small style="color:var(--muted)">500L</small></td>
-<td class="tr">R$280<br><small style="color:var(--muted)">400L</small></td>
-<td class="tr"><b>R$245</b><br><small style="color:var(--muted)">500L</small></td>
-<td><span class="tag tg">▼−42% · Diamida</span></td>
-</tr>
-<tr>
-<td><b>Polo</b></td><td style="font-size:.65rem;color:var(--muted)">Diafentiurom 500 SC</td>
-<td class="tr">$18<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">$16<br><small style="color:var(--muted)">3.500L</small></td>
-<td class="tr">$19<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$82<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$65<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$48<br><small style="color:var(--muted)">1.800L</small></td>
-<td class="tr"><b>R$42</b><br><small style="color:var(--muted)">2.000L</small></td>
-<td><span class="tag tg">▼−49% · Mosca-branca</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Engeo Pleno S</b></td><td style="font-size:.65rem;color:var(--muted)">Tiametoxam+Lambda-cialotrina</td><td class="tr">$22<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">$20<br/><small style="color:var(--muted)">4.500L</small></td><td class="tr">$24<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$115<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$85<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$62<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">US$18,72<br/><small style="color:var(--muted)">cotado</small><br/><small style="color:var(--accent3)">pág. ant. R$52</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Ampligo</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole+Lambda-cialotrina</td><td class="tr">$85<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">$80<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">$88<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$420<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$350<br/><small style="color:var(--muted)">500L</small></td><td class="tr">R$280<br/><small style="color:var(--muted)">400L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$245</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Polo</b></td><td style="font-size:.65rem;color:var(--muted)">Diafentiurom 500 SC</td><td class="tr">$18<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">$16<br/><small style="color:var(--muted)">3.500L</small></td><td class="tr">$19<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$82<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$65<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$48<br/><small style="color:var(--muted)">1.800L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$42</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🌱 Trat. Sementes + Adjuvantes (2 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>Tipo</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Fortenza Duo</b></td><td><span class="tag ts">TS</span></td><td style="font-size:.65rem;color:var(--muted)">Ciantraniliprole+Tiametoxam</td>
-<td class="tr">—</td>
-<td class="tr">R$210<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$185<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">R$160<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr"><b>R$145</b><br><small style="color:var(--muted)">1.800L</small></td>
-<td><span class="tag tg">▼−31% · Vol▲125%</span></td>
-</tr>
-<tr>
-<td><b>Nimbus</b></td><td><span class="tag ty">Adj.</span></td><td style="font-size:.65rem;color:var(--muted)">Óleo mineral 428 EC</td>
-<td class="tr">R$12<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$14<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">R$12<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$10<br><small style="color:var(--muted)">3.500L</small></td>
-<td class="tr"><b>R$9</b><br><small style="color:var(--muted)">3.000L</small></td>
-<td><span class="tag tg">▼−36% · Vol▼</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">Tipo</th><th class="">P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Fortenza Duo</b></td><td><span class="tag ts">TS</span></td><td style="font-size:.65rem;color:var(--muted)">Ciantraniliprole+Tiametoxam</td><td class="tr">—</td><td class="tr">R$210<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$185<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">R$160<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">US$259<br/><small style="color:var(--muted)">400L</small><br/><small style="color:var(--accent3)">pág. ant. R$145</small></td><td class="tr">R$—<br/><small style="color:var(--muted)">400L</small></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Nimbus</b></td><td><span class="tag ty">Adj.</span></td><td style="font-size:.65rem;color:var(--muted)">Óleo mineral 428 EC</td><td class="tr">R$12<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$14<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">R$12<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$10<br/><small style="color:var(--muted)">3.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$9,00</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- GRÁFICOS PREÇO -->
-<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>Ochima/Volubilis</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">US$6,34<br/><small style="color:var(--muted)">6.000</small></td><td class="tr">R$—<br/><small style="color:var(--muted)">6.000</small></td><td class="tr">US$ 38.040,00</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Spectro</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">US$19,55<br/><small style="color:var(--muted)">60</small></td><td class="tr">—</td><td class="tr">US$ 1.173,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>Victrato</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$—<br/><small style="color:var(--muted)">40</small></td><td class="tr">—</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Alade</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">US$36,48<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$—<br/><small style="color:var(--muted)">3.000</small></td><td class="tr">—</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Megafol</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$—<br/><small style="color:var(--muted)">400</small></td><td class="tr">—</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Neture</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$—<br/><small style="color:var(--muted)">2.048</small></td><td class="tr">—</td><td class="tr"><span class="tag to">sem preço</span></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Fungicidas (R$/L)</h3>
@@ -291,15 +156,13 @@ Produtos-chave: Elatus · Verdavis · Fortenza Duo · Engeo Pleno S · Polo · A
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Top 5 Produtos</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- DEEP DIVE ELATUS -->
-<div class="section-title">🔬 Deep Dive — <span>Elatus (Solatenol)</span></div>
+<div class="section-title">🔬 Deep Dive — <span>Elatus (Solatenol)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>O fungicida mais vendido do Brasil na Fazenda Planalto</h3>
 <div class="table-wrapper">
@@ -318,41 +181,29 @@ Produtos-chave: Elatus · Verdavis · Fortenza Duo · Engeo Pleno S · Polo · A
 </div>
 <div class="insight"><b>📌 Elatus caiu 69% em BRL (R$ 385 → R$ 120):</b> A maior deflação individual de produto premium no portfólio. Razão: <b>fim da patente do Benzovindiflupir se aproxima</b>, concorrência de Fox Supra (Bayer), Melyra (BASF) e genéricos de Azoxistrobina. A R$ 120/L × 4.000 L = R$ 480k, Elatus ainda é o fungicida premium mais importante da fazenda.</div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Syngenta</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Syngenta</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. Deflação generalizada e brutal:</b> Elatus −69%, Engeo Pleno −55%, Bravonil −54%, Polo −49%, Ampligo −42%, Verdavis −35%, Fortenza Duo −31%. <b>Média de queda: −48%</b>. Syngenta sofreu a maior correção de preços entre todos os fornecedores premium. Benefício direto ao produtor.</div>
-
 <div class="insight"><b>2. Verdavis como inovação antirresistência:</b> Benzovindiflupir (Solatenol) + Mancozebe numa formulação pronta. R$ 62/L × 6.000 L = R$ 372k. Elimina necessidade de mistura manual multissítio+fungicida. Concorre com Orkestra+Dizarm (BASF+UPL) mas com <b>melhor praticidade operacional</b>.</div>
-
 <div class="insight"><b>3. Fortenza Duo — TS que domina:</b> Ciantraniliprole + Tiametoxam. Volume cresceu de 800 L (22/23) para 1.800 L (25/26) = <b>+125%</b>. Preço caiu 31% (R$ 210 → R$ 145). Substituto de Standak Top (BASF) e CropStar (Bayer) que estão saindo do mix. <b>TS líder consolidado</b>.</div>
-
 <div class="insight warn"><b>4. Engeo Pleno S em declínio:</b> Volume caiu de 5.000 L (19/20) para 2.000 L (25/26) = <b>−60%</b>. Tiametoxam + Lambda-cialotrina está sendo substituído por Clorfenapir para percevejos e Diamidas para lagartas. Pode sair do mix na 26/27 se volume cair abaixo de 1.500 L.</div>
-
 <div class="insight"><b>5. Migração USD → BRL concluída:</b> Syngenta operou 100% USD de 19/20 a 21/22, migrou para BRL na 22/23. Hoje a maior parte é BRL. Isso <b>eliminou o risco cambial</b> que era R$ 100-200k/safra na época do dólar.</div>
-
 <div class="insight warn"><b>6. Queda de 54% vs. pico (R$ 3,52M → R$ 1,63M):</b> A Syngenta encolheu mais da metade em valor. Razões: (a) deflação brutal de preços, (b) perda de volume em Engeo e Bravonil, (c) Score Flexi descontinuado. A <b>participação caiu de ~18% para ~9,5%</b> do total. Syngenta precisa entregar mais valor ou perderá posição para Corteva e BASF.</div>
-
 <div class="insight"><b>7. Ampligo como inseticida diferenciado:</b> Clorantraniliprole (Diamida) + Lambda-cialotrina. R$ 245/L × 500 L = R$ 122k. Produto premium para <b>Helicoverpa armigera</b>. Queda de 42% no preço torna viável uso mais amplo. Concorre com Besiege (Syngenta mesmo) e Premio Star (FMC).</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Elatus abaixo de R$ 100:</b> Com deflação de 69%, a tendência é contínua. Meta: R$ 100/L (−17%). Em 4.500 L = R$ 450k vs. R$ 480k atual. <b>Economia: R$ 90k + volume extra</b>. Argumento: "Genéricos de Azoxistrobina chegam a R$ 38/L (Albaugh). Elatus precisa justificar o premium."</div>
 <div class="rec"><b>🎯 Pacote Elatus + Verdavis + Fortenza:</b> Os 3 produtos core = ~R$ 1.113k (68% do total). Negociar desconto de 12% no pacote. <b>Economia: R$ 134k</b>. Em troca: comprometer volume mínimo de 3 safras.</div>
 <div class="rec"><b>🎯 Fortenza Duo como moeda:</b> TS líder com crescimento de 125%. "Se Fortenza vier a R$ 130 (−10%), fecho 2.000 L e retiro Standak Top (BASF) definitivamente." Economia: R$ 27k + consolidação do TS em fornecedor único.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas</h3>
 <div class="rec w"><b>⚠️ Engeo Pleno — negociar ou descontinuar:</b> Volume de 2.000 L a R$ 52 = R$ 104k. Se cair para 1.500 L, não justifica manter. Exigir R$ 42 (−19%) ou migrar para Connect (Bayer) / Fastac Duo (BASF).</div>
 <div class="rec w"><b>⚠️ Nimbus (adjuvante) substituível:</b> R$ 9/L × 3.000 L = R$ 27k. Joint Oil Albaugh a R$ 7,5/L é 17% mais barato. Manter apenas se atrelado a pacote Syngenta com desconto.</div>
 <div class="rec d"><b>🔴 Concentração em fungicidas (72% do total):</b> Elatus + Verdavis + Bravonil = R$ 1.176k de R$ 1.630k. Se um fungicida falhar em eficácia (resistência), a exposição é enorme. <b>Manter Fox Supra (Bayer) e Melyra (BASF) como backup</b>.</div>
 </div>
-
 <!-- SCORE -->
 <div class="card">
 <h3>📊 Score Card — Resumo Executivo</h3>
@@ -372,90 +223,33 @@ Produtos-chave: Elatus · Verdavis · Fortenza Duo · Engeo Pleno S · Polo · A
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Elatus</td><td class="tr">120</td><td class="tr pos"><b>100</b></td><td class="tr">4.500L</td><td class="tr">R$450k</td><td>Pilar premium · −17%</td></tr>
-<tr><td>Verdavis</td><td class="tr">62</td><td class="tr pos"><b>54</b></td><td class="tr">7.000L</td><td class="tr">R$378k</td><td>Expandir · −13%</td></tr>
-<tr><td>Fortenza Duo</td><td class="tr">145</td><td class="tr pos"><b>130</b></td><td class="tr">2.000L</td><td class="tr">R$260k</td><td>Consolidar TS · −10%</td></tr>
-<tr><td>Ampligo</td><td class="tr">245</td><td class="tr pos"><b>210</b></td><td class="tr">600L</td><td class="tr">R$126k</td><td>Expandir Diamida · −14%</td></tr>
-<tr><td>Bravonil 720</td><td class="tr">24</td><td class="tr pos"><b>21</b></td><td class="tr">4.000L</td><td class="tr">R$84k</td><td>Manter multissítio · −13%</td></tr>
-<tr><td>Polo</td><td class="tr">42</td><td class="tr pos"><b>36</b></td><td class="tr">2.500L</td><td class="tr">R$90k</td><td>Mosca-branca · −14%</td></tr>
-<tr><td>Engeo Pleno S</td><td class="tr">52</td><td class="tr pos"><b>42</b></td><td class="tr">1.500L</td><td class="tr">R$63k</td><td>Reduzir ou sair · −19%</td></tr>
-<tr><td>Nimbus</td><td class="tr">9</td><td class="tr">8</td><td class="tr">3.000L</td><td class="tr">R$24k</td><td>Manter mínimo</td></tr>
-<tr style="background:rgba(76,175,80,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 1.475k</b></td><td></td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 155k</b></td><td class="pos"><b>−9,5% c/ mais volume</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Elatus</td><td class="tr">120</td><td class="tr">100</td><td class="tr">4.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Verdavis</td><td class="tr">62</td><td class="tr">54</td><td class="tr">7.000L</td><td class="tr">—</td><td class="tr">3.100</td><td class="tr">—</td><td><span class="tag to">sem preço</span></td></tr><tr><td>Fortenza Duo</td><td class="tr">145</td><td class="tr">130</td><td class="tr">2.000L</td><td class="tr">—</td><td class="tr">400</td><td class="tr">—</td><td><span class="tag to">sem preço</span></td></tr><tr><td>Ampligo</td><td class="tr">245</td><td class="tr">210</td><td class="tr">600L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Bravonil 720</td><td class="tr">24</td><td class="tr">21</td><td class="tr">4.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Polo</td><td class="tr">42</td><td class="tr">36</td><td class="tr">2.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Engeo Pleno S</td><td class="tr">52</td><td class="tr">42</td><td class="tr">1.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Nimbus</td><td class="tr">9,00</td><td class="tr">8</td><td class="tr">3.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 2.930.000</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Meta 26/27:</b> Economia de <b>R$ 155k (−9,5%)</b> com expansão de volume em Verdavis e Fortenza Duo. A chave é forçar <b>Elatus abaixo de R$ 100</b> — deflação de 69% desde 22/23 mostra que há espaço. Se Syngenta resistir, ameaçar migração para Fox Supra (Bayer) + Melyra (BASF) como combo substituto.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 8 produtos da meta 26/27 da versão anterior, 0 entraram no pedido com preço igual ou abaixo da meta, 0 acima e 6 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 2.930.000</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[2680,2450,1245,3520,2380,1580,1630],
-backgroundColor:S.map((_,i)=>i===3?'rgba(255,82,82,.6)':'rgba(76,175,80,.'+(3+i)+')')
-,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
-scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?'R$'+(v/1000).toFixed(1)+'M':'R$'+v+'k'}}}}});
-
-// Mix
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Elatus R$480k','Verdavis R$372k','Bravonil R$84k','Fortenza Duo R$261k','Ampligo R$122k','Engeo P. R$104k','Polo R$84k','Nimbus R$27k'],
-datasets:[{data:[480,372,84,261,122,104,84,27],
-backgroundColor:['#4caf50','#00e676','#7b8a9e','#ffeb3b','#e040fb','#00b0ff','#ff9100','#546e7a']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
-
-// Preço Fungicidas (BRL a partir 22/23, antes convertido)
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
-{label:'Elatus',data:[385,320,145,120],borderColor:'#4caf50',backgroundColor:'rgba(76,175,80,.1)',fill:true,tension:.3,pointRadius:6},
-{label:'Verdavis',data:[95,82,68,62],borderColor:'#00e676',tension:.3,pointRadius:5,fill:false},
-{label:'Bravonil',data:[52,38,28,24],borderColor:'#7b8a9e',borderDash:[5,5],tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
-
-// Preço Inseticidas + TS
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
-{label:'Ampligo',data:[420,350,280,245],borderColor:'#e040fb',backgroundColor:'rgba(224,64,251,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Fortenza Duo',data:[210,185,160,145],borderColor:'#ffeb3b',tension:.3,pointRadius:5,fill:false},
-{label:'Engeo Pleno S',data:[115,85,62,52],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false},
-{label:'Polo',data:[82,65,48,42],borderColor:'#ff9100',tension:.3,pointRadius:5,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'}}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Elatus',data:[3000,3500,2000,5000,4000,3500,4000],backgroundColor:'rgba(76,175,80,.7)',borderRadius:4},
-{label:'Verdavis',data:[0,0,0,4000,6000,5500,6000],backgroundColor:'rgba(0,230,118,.6)',borderRadius:4},
-{label:'Engeo Pleno S',data:[5000,4500,3000,4000,3000,2500,2000],backgroundColor:'rgba(0,176,255,.5)',borderRadius:4},
-{label:'Fortenza Duo',data:[0,0,0,800,1200,1500,1800],backgroundColor:'rgba(255,235,59,.6)',borderRadius:4},
-{label:'Bravonil',data:[10000,8000,5000,6000,4000,3000,3500],backgroundColor:'rgba(123,138,158,.4)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{beginAtZero:true,title:{display:true,text:'Litros'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [1309, 830, 4221, 9721, 2201, 1205, 1598.6, 2930.0], "g1": [{"l": "Verdavis", "pr": [null, null, null, 95.0, 82.0, 68.0, 406.56, null], "vo": [null, null, null, 4000.0, 6000.0, 5500.0, 2000.0, 3100.0], "val": 147840.0}, {"l": "Fortenza Duo", "pr": [null, null, null, 210.0, 185.0, 160.0, 1424.5, null], "vo": [null, null, null, 800.0, 1200.0, 1500.0, 400.0, 400.0], "val": 103600.0}, {"l": "Elatus", "pr": [null, null, null, 385.0, 320.0, 145.0, null, null], "vo": [3000.0, 3500.0, 2000.0, 5000.0, 4000.0, 3500.0, null, null], "val": 0}, {"l": "Bravonil 720", "pr": [null, null, null, 52.0, 38.0, 28.0, 22.71, null], "vo": [10000.0, 8000.0, 5000.0, 6000.0, 4000.0, 3000.0, null, null], "val": 0}], "g2": [{"l": "Score Flexi", "pr": [null, null, null, 145.0, 110.0, null, null, null], "vo": [1500.0, 1200.0, 800.0, 1000.0, 600.0, null, null, null], "val": 0}, {"l": "Engeo Pleno S", "pr": [null, null, null, 115.0, 85.0, 62.0, 102.96, null], "vo": [5000.0, 4500.0, 3000.0, 4000.0, 3000.0, 2500.0, null, null], "val": 0}, {"l": "Ampligo", "pr": [null, null, null, 420.0, 350.0, 280.0, null, null], "vo": [1200.0, 1000.0, 600.0, 800.0, 500.0, 400.0, null, null], "val": 0}, {"l": "Polo", "pr": [null, null, null, 82.0, 65.0, 48.0, null, null], "vo": [3000.0, 3500.0, 2500.0, 3000.0, 2000.0, 1800.0, null, null], "val": 0}], "gv": [{"l": "Verdavis", "pr": [null, null, null, 95.0, 82.0, 68.0, 406.56, null], "vo": [null, null, null, 4000.0, 6000.0, 5500.0, 2000.0, 3100.0], "val": 147840.0}, {"l": "Fortenza Duo", "pr": [null, null, null, 210.0, 185.0, 160.0, 1424.5, null], "vo": [null, null, null, 800.0, 1200.0, 1500.0, 400.0, 400.0], "val": 103600.0}, {"l": "Elatus", "pr": [null, null, null, 385.0, 320.0, 145.0, null, null], "vo": [3000.0, 3500.0, 2000.0, 5000.0, 4000.0, 3500.0, null, null], "val": 0}, {"l": "Bravonil 720", "pr": [null, null, null, 52.0, 38.0, 28.0, 22.71, null], "vo": [10000.0, 8000.0, 5000.0, 6000.0, 4000.0, 3000.0, null, null], "val": 0}, {"l": "Score Flexi", "pr": [null, null, null, 145.0, 110.0, null, null, null], "vo": [1500.0, 1200.0, 800.0, 1000.0, 600.0, null, null, null], "val": 0}, {"l": "Engeo Pleno S", "pr": [null, null, null, 115.0, 85.0, 62.0, 102.96, null], "vo": [5000.0, 4500.0, 3000.0, 4000.0, 3000.0, 2500.0, null, null], "val": 0}], "mix": [], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 </script>
 </body>
 </html>

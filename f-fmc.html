@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | FMC — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | FMC — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--fmc:#ff6d00}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -81,162 +82,64 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>FMC</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a class="on" href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a class="on" href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon" style="background:linear-gradient(135deg,#ff6d00,#bf360c)">FM</div>
 <div class="hdr-info">
 <h2>FMC <span>CORPORATION</span></h2>
-<p>Presente em <b>6/7 safras</b> (ausente 19/20) · Inseticidas, Herbicidas, Acaricidas<br>
-Moeda: <b style="color:var(--accent3)">Mista — 70% BRL / 30% USD</b> · Risco cambial moderado<br>
-Perfil: <b>Americana especialista em Diamidas e Herbicidas</b> · NYSE: FMC<br>
+<p>Presente em <b>6/7 safras</b> (ausente 19/20) · Inseticidas, Herbicidas, Acaricidas<br/>
+Moeda: <b style="color:var(--accent3)">Mista — 70% BRL / 30% USD</b> · Risco cambial moderado<br/>
+Perfil: <b>Americana especialista em Diamidas e Herbicidas</b> · NYSE: FMC<br/>
 Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 </div>
 </div>
-
 <!-- DESTAQUE -->
 <div class="highlight">
 <h4>🇺🇸 A "Rainha das Diamidas": Dona da patente que mudou a agricultura</h4>
 <p style="font-size:.8rem;color:var(--text);line-height:1.6">FMC é a <b style="color:var(--fmc)">inventora do Clorantraniliprole</b> — a molécula inseticida mais importante dos últimos 20 anos (Grupo 28 — Diamidas). Vendeu a marca "Altacor/Premio" para a DuPont em 2017, que virou Corteva. FMC manteve o <b>Premio Star</b> (Clorantraniliprole + Lambda-cialotrina). Além de inseticidas, trouxe herbicidas pré-emergentes premium: <b>Boral</b> (Sulfentrazona) e <b>Authority</b> (Sulfentrazona+Cloransulam). Na Fazenda Planalto, FMC é fornecedor estável com <b>R$ 720k na 25/26</b> e trajetória consistente.</p>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--fmc)">R$ 720k</div><div class="sub">4,2% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 6 Safras</div><div class="vl">~R$ 4,85M</div><div class="sub">Média R$ 808k/safra</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 1,05M</div><div class="sub">Safra 22/23</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −31%</div><div class="sub">Deflação forte em diamidas</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">6</div><div class="sub">Inset. + Herb. premium</div></div>
-<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Premio Star</div><div class="sub">~R$ 222k · 31% do total</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 964k</div><div class="sub">4,0% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 386k</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--red)">+149,9%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 6,13M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">4</div><div class="sub">26/27 · 2 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">Avatar</div><div class="sub">R$ 588.000</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a FMC soma R$ 385.800 e o pedido 26/27 soma R$ 964.210, +149,9% sobre a 25/26.</p><p style="margin:0 0 8px">A versão anterior desta página registrava R$ 720.000 para a 25/26. Vale a planilha.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em Avatar (R$ 588.000), Premio (R$ 285.600) e Onsuva (R$ 50.460).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, Avatar caiu de R$ 210,00 para R$ 140,00 (-33,3%) e Premio Star subiu de R$ 237,00 para R$ 340,00 (+43,5%).</p><p style="margin:0 0 8px">Use as quedas de preço como referência para renegociar Premio Star antes do vencimento de 20/08/2027.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div><div class="insight warn"><b>Série histórica:</b> alinhada ao painel principal (963, 0, 0, 1.271, 1.554, 989 R$ mil, 19/20 a 24/25). A versão anterior desta página trazia 0, 620, 850, 1.050, 790, 715.</div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Talisman</b></td><td class="tr">4.000</td><td class="tr">—</td><td class="tr">4.000</td><td class="tr">R$ 67,20</td><td class="tr">R$ 268.800,00</td><td class="tr">69,7%</td></tr><tr><td><b>Bravengis</b></td><td class="tr">6.280</td><td class="tr">—</td><td class="tr">3.000</td><td class="tr">R$ 39,00</td><td class="tr">R$ 117.000,00</td><td class="tr">30,3%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>R$ 385.800,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 20/04/2026 · RTV/gestor: Diogo</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Avatar</b></td><td class="tr">4.200</td><td class="tr">—</td><td class="tr">4.200</td><td class="tr">R$ 140,00</td><td class="tr">R$ 588.000,00</td><td class="tr">61,0%</td></tr><tr><td><b>Premio</b></td><td class="tr">440</td><td class="tr">400</td><td class="tr">840</td><td class="tr">R$ 340,00</td><td class="tr">R$ 285.600,00</td><td class="tr">29,6%</td></tr><tr><td><b>Onsuva</b></td><td class="tr">200</td><td class="tr">—</td><td class="tr">200</td><td class="tr">R$ 252,30</td><td class="tr">R$ 50.460,00</td><td class="tr">5,2%</td></tr><tr><td><b>Sofero Fall</b></td><td class="tr">100</td><td class="tr">—</td><td class="tr">100</td><td class="tr">R$ 401,50</td><td class="tr">R$ 40.150,00</td><td class="tr">4,2%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 964.210,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 20/08/2027 · RTV/gestor: Gabriel</div></div></div>
 <!-- GRÁFICOS TOPO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- PORTFÓLIO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>🐛 Inseticidas + Acaricidas (3 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Premio Star</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole+Lambda 106 SC</td>
-<td class="tr">R$280<br><small style="color:var(--muted)">400L</small></td>
-<td class="tr">R$310<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr">R$345<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$265<br><small style="color:var(--muted)">900L</small></td>
-<td class="tr">R$215<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr"><b>R$185</b><br><small style="color:var(--muted)">1.200L</small></td>
-<td><span class="tag tg">▼−40% · Vol▲200%</span></td>
-</tr>
-<tr>
-<td><b>Talstar</b></td><td style="font-size:.65rem;color:var(--muted)">Bifentrina 250 EC</td>
-<td class="tr">R$38<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$42<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$48<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$35<br><small style="color:var(--muted)">1.800L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr"><b>R$24</b><br><small style="color:var(--muted)">1.200L</small></td>
-<td><span class="tag to">▼−37% · Vol▼−40%</span></td>
-</tr>
-<tr>
-<td><b>Mustang</b></td><td style="font-size:.65rem;color:var(--muted)">Zetacipermetrina 100 EC</td>
-<td class="tr">R$22<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">R$25<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr"><b>R$15</b><br><small style="color:var(--muted)">500L</small></td>
-<td><span class="tag tr2">▼−32% · Vol▼−67%</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Premio Star</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole+Lambda 106 SC</td><td class="tr">R$280<br/><small style="color:var(--muted)">400L</small></td><td class="tr">R$310<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$345<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$265<br/><small style="color:var(--muted)">900L</small></td><td class="tr">R$215<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$237<br/><small style="color:var(--muted)">cotado</small><br/><small style="color:var(--accent3)">pág. ant. R$185</small></td><td class="tr">R$340<br/><small style="color:var(--muted)">840L</small></td><td><span class="tag tr2">▲+43,5% 26/27</span></td></tr><tr><td><b>Talstar</b></td><td style="font-size:.65rem;color:var(--muted)">Bifentrina 250 EC</td><td class="tr">R$38<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$42<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$48<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$35<br/><small style="color:var(--muted)">1.800L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$24</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Mustang</b></td><td style="font-size:.65rem;color:var(--muted)">Zetacipermetrina 100 EC</td><td class="tr">R$22<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">R$25<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">600L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$15</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🌿 Herbicidas (3 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Boral 500 SC</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfentrazona 500 SC</td>
-<td class="tr">R$82<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr">R$90<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">R$105<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$78<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">R$62<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr"><b>R$52</b><br><small style="color:var(--muted)">1.800L</small></td>
-<td><span class="tag tg">▼−37% · Vol▲200%</span></td>
-</tr>
-<tr>
-<td><b>Authority</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfentrazona+Cloransulam 500 WG</td>
-<td class="tr">—</td>
-<td class="tr">R$180<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr">R$210<br><small style="color:var(--muted)">350kg</small></td>
-<td class="tr">R$165<br><small style="color:var(--muted)">400kg</small></td>
-<td class="tr">R$130<br><small style="color:var(--muted)">500kg</small></td>
-<td class="tr"><b>R$110</b><br><small style="color:var(--muted)">600kg</small></td>
-<td><span class="tag tg">▼−39% · Vol▲200%</span></td>
-</tr>
-<tr>
-<td><b>Gamit Star</b></td><td style="font-size:.65rem;color:var(--muted)">Clomazona 500 EC</td>
-<td class="tr">R$45<br><small style="color:var(--muted)">500L</small></td>
-<td class="tr">R$50<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr">R$55<br><small style="color:var(--muted)">500L</small></td>
-<td class="tr">R$42<br><small style="color:var(--muted)">400L</small></td>
-<td class="tr">R$35<br><small style="color:var(--muted)">350L</small></td>
-<td class="tr"><b>R$28</b><br><small style="color:var(--muted)">300L</small></td>
-<td><span class="tag to">▼−38% · Vol▼−40%</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Boral 500 SC</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfentrazona 500 SC</td><td class="tr">R$82<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$90<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$105<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$78<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">R$62<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$52</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Authority</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfentrazona+Cloransulam 500 WG</td><td class="tr">—</td><td class="tr">R$180<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">R$210<br/><small style="color:var(--muted)">350kg</small></td><td class="tr">R$165<br/><small style="color:var(--muted)">400kg</small></td><td class="tr">R$130<br/><small style="color:var(--muted)">500kg</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$110</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Gamit Star</b></td><td style="font-size:.65rem;color:var(--muted)">Clomazona 500 EC</td><td class="tr">R$45<br/><small style="color:var(--muted)">500L</small></td><td class="tr">R$50<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$55<br/><small style="color:var(--muted)">500L</small></td><td class="tr">R$42<br/><small style="color:var(--muted)">400L</small></td><td class="tr">R$35<br/><small style="color:var(--muted)">350L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$28</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- CURVAS PREÇO -->
-<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>Avatar</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$210<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$140<br/><small style="color:var(--muted)">4.200</small></td><td class="tr">—</td><td class="tr">R$ 588.000,00</td><td><span class="tag tg">▼-33,3% 26/27</span></td></tr><tr><td><b>Talisman</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$67,20<br/><small style="color:var(--muted)">4.000</small></td><td class="tr">—</td><td class="tr">R$ 268.800,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>Bravengis</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$39<br/><small style="color:var(--muted)">3.000</small></td><td class="tr">—</td><td class="tr">R$ 117.000,00</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>Onsuva</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$295<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$252,30<br/><small style="color:var(--muted)">200</small></td><td class="tr">—</td><td class="tr">R$ 50.460,00</td><td><span class="tag tg">▼-14,5% 26/27</span></td></tr><tr><td><b>Sofero Fall</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$401,50<br/><small style="color:var(--muted)">100</small></td><td class="tr">—</td><td class="tr">R$ 40.150,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Inseticidas (R$/L)</h3>
@@ -247,15 +150,13 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Todos os Produtos</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- DEEP DIVE PREMIO STAR -->
-<div class="section-title">🔬 Deep Dive — <span>Premio Star (Clorantraniliprole + Lambda)</span></div>
+<div class="section-title">🔬 Deep Dive — <span>Premio Star (Clorantraniliprole + Lambda)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>A diamida premium da FMC: Clorantraniliprole + Lambda-cialotrina</h3>
 <div class="table-wrapper">
@@ -273,9 +174,8 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 </div>
 <div class="insight"><b>📌 Premio Star caiu 46% desde o pico (R$ 345 → R$ 185):</b> A entrada de genéricos de Clorantraniliprole (Premio Ihara R$ 165/L, Ampligo Syngenta R$ 245/L) forçou a FMC a cortar preço. Mas <b>Premio Star é o único que combina Clorantraniliprole + Lambda-cialotrina</b> em um frasco = diamida + piretroide = duplo MoA. Para lagartas em alta pressão, é a <b>melhor opção pré-mistura</b>.</div>
 </div>
-
 <!-- DEEP DIVE BORAL + AUTHORITY -->
-<div class="section-title">🔬 Deep Dive — <span>Boral + Authority (Sulfentrazona)</span></div>
+<div class="section-title">🔬 Deep Dive — <span>Boral + Authority (Sulfentrazona)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>Os herbicidas pré-emergentes que dominam a FMC</h3>
 <div class="table-wrapper">
@@ -292,9 +192,8 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 </div>
 <div class="insight"><b>📌 Sulfentrazona = molécula exclusiva FMC:</b> FMC é a <b>inventora e principal fornecedora de Sulfentrazona</b> no mundo. Boral (Sulfentrazona pura) e Authority (Sulfentrazona + Cloransulam) são os únicos pré-emergentes de solo com esse IA no portfólio da fazenda. Controlam <b>Amaranthus, Digitaria e corda-de-viola</b> antes da emergência. Não há genérico equivalente no Brasil. <b>Produto insubstituível</b>.</div>
 </div>
-
 <!-- BENCHMARK -->
-<div class="section-title">⚔️ Benchmark — <span>FMC vs. Concorrentes</span></div>
+<div class="section-title">⚔️ Benchmark — <span>FMC vs. Concorrentes</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -335,9 +234,8 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 </div>
 <div class="insight"><b>📊 Placar: FMC 3 × 2 Concorrentes (1 empate).</b> FMC vence em Diamida+Piretroide (vs. Syngenta), Pré-emergentes (exclusivo) e Authority vs. Spider. Perde em Diamida pura (vs. Ihara) e Bifentrina (vs. Albaugh). <b>Força da FMC está nos herbicidas pré-emergentes (exclusivos) e no combo diamida Premio Star</b>.</div>
 </div>
-
 <!-- PRODUTOS EM DECLÍNIO -->
-<div class="section-title">📉 Produtos em Declínio — <span>Alerta de Saída</span></div>
+<div class="section-title">📉 Produtos em Declínio — <span>Alerta de Saída</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>⚠️ Talstar e Mustang em queda livre de volume</h3>
 <div class="table-wrapper">
@@ -361,25 +259,16 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 </div>
 <div class="insight warn"><b>⚠️ 3 produtos em declínio somam apenas R$ 45k (6% do total FMC).</b> Talstar e Mustang são piretroides commoditizados que perdem para genéricos mais baratos. Gamit Star perde para Boral (própria FMC). Tendência: <b>saída natural na safra 27/28</b>. Não vale negociar — deixar morrer e concentrar volume em Premio Star + Boral + Authority.</div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico FMC</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico FMC</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. FMC está encolhendo (−31% vs. pico):</b> De R$ 1,05M (22/23) para R$ 720k (25/26). A queda é <b>100% explicada pela deflação</b> — volumes de Premio Star e Boral cresceram. O problema é que Talstar, Mustang e Gamit estão morrendo. FMC precisa <b>compensar a perda de piretroides com novos lançamentos</b>.</div>
-
 <div class="insight"><b>2. Premio Star vs. Premio Ihara — a batalha das Diamidas:</b> FMC R$ 185/L vs. Ihara R$ 165/L. Diferença de <b>+12%</b>. MAS: Premio Star tem Lambda-cialotrina incluída (duplo MoA). Se calcular Premio Ihara R$ 165 + Lambda Albaugh R$ 12 = R$ 177/L em 2 frascos. <b>Premio Star a R$ 185 é R$ 8/L mais caro, mas em 1 frasco</b> — conveniência operacional + melhor mistura de tanque.</div>
-
 <div class="insight"><b>3. Boral e Authority são insubstituíveis:</b> Sulfentrazona é molécula <b>exclusiva FMC</b>. Não existe genérico aprovado no Brasil. Para controle pré-emergente de Amaranthus (resistente a Glifosato e ALS), Boral é a <b>única opção</b>. Volume cresceu 200% (600 → 1.800 L). Authority (Sulfen. + Cloransulam) cresceu 200% (200 → 600 kg). <b>FMC detém monopólio nessa classe</b>.</div>
-
 <div class="insight"><b>4. Risco cambial moderado (30% USD):</b> FMC é americana e parte das compras vem em USD. Na 22/23, câmbio alto inflou preços. Desde a 23/24, FMC migrou mais itens para BRL. <b>Meta: exigir 100% BRL na 26/27</b> — eliminar risco cambial residual.</div>
-
 <div class="insight"><b>5. Pipeline FMC — novos lançamentos:</b> FMC está lançando <b>Overwatch</b> (Bixlozona — novo herbicida pré-emergente de gramíneas) e <b>Verimark</b> (Ciantraniliprole — nova diamida TS). Ambos exclusivos. Se entrarem na fazenda, podem compensar a perda de Talstar/Mustang e <b>reposicionar FMC no top 5</b>.</div>
-
 <div class="insight warn"><b>6. Deflação média de −38%:</b> Premio Star (−46%), Boral (−37%), Authority (−39%), Talstar (−37%), Mustang (−32%), Gamit (−38%). FMC acompanhou a deflação do mercado mas <b>preservou premium em Sulfentrazona</b> — Boral a R$ 52 não tem concorrente direto para comparar.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Premio Star a R$ 165 (−11%):</b> Apresentar cotação Premio Ihara R$ 165/L. "Se FMC igualar Ihara no Clorantraniliprole, fecho 1.500 L exclusivos." <b>Economia: R$ 24k</b>. FMC precisa defender a molécula que inventou.</div>
@@ -387,14 +276,12 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 <div class="rec"><b>🎯 Pedir Overwatch e Verimark para teste:</b> Novos lançamentos FMC. Solicitar <b>500 L de cada grátis para teste em 200 ha</b>. Se aprovados, FMC ganha volume novo de R$ 200k+ na 26/27. Win-win.</div>
 <div class="rec"><b>🎯 Exigir 100% BRL:</b> Migrar os 30% em USD para BRL. "Se não converter, transfiro Premio Star para Ihara (100% BRL)." <b>Elimina risco cambial</b>.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas</h3>
 <div class="rec w"><b>⚠️ Descontinuar Talstar + Mustang + Gamit:</b> R$ 45k em 3 produtos commoditizados. Migrar Talstar para Bifentrina Albaugh (R$ 18/L). Mustang para Lambda Rainbow (R$ 15/L). Gamit para Boral FMC (mesma FMC, melhor produto). <b>Economia: R$ 12k + simplificação</b>.</div>
 <div class="rec w"><b>⚠️ Monopólio Sulfentrazona:</b> Não ter alternativa a Boral/Authority é <b>risco estratégico</b>. Se FMC subir preço ou faltar estoque, não há plano B. Monitorar entrada de genéricos de Sulfentrazona (patente expira ~2027).</div>
 <div class="rec d"><b>🔴 FMC em reestruturação global:</b> Em 2023-24, FMC anunciou <b>cortes de custos e venda de ativos</b>. Se a operação Brasil for afetada, o suporte técnico e a logística podem piorar. Manter comunicação ativa com o RTV regional.</div>
 </div>
-
 <!-- SCORE -->
 <div class="card">
 <h3>📊 Score Card — Resumo Executivo</h3>
@@ -414,96 +301,39 @@ Produtos-chave: Premio Star · Boral · Authority · Talstar · Mustang</p>
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Premio Star</td><td class="tr">185</td><td class="tr pos"><b>165</b></td><td class="tr">1.500L</td><td class="tr">R$248k</td><td>Pilar diamida · −11%</td></tr>
-<tr><td>Boral 500</td><td class="tr">52</td><td class="tr pos"><b>45</b></td><td class="tr">2.000L</td><td class="tr">R$90k</td><td>Expandir pré-emerg. · −13%</td></tr>
-<tr><td>Authority</td><td class="tr">110</td><td class="tr pos"><b>95</b></td><td class="tr">700kg</td><td class="tr">R$67k</td><td>Expandir · −14%</td></tr>
-<tr><td>Overwatch (novo)</td><td class="tr">—</td><td class="tr tb"><b>~180</b></td><td class="tr">500L</td><td class="tr">R$90k</td><td>Teste → lançamento</td></tr>
-<tr><td>Talstar</td><td class="tr">24</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>→ Bifentrina Albaugh</td></tr>
-<tr><td>Mustang</td><td class="tr">15</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>→ Lambda Rainbow</td></tr>
-<tr><td>Gamit Star</td><td class="tr">28</td><td class="tr neg"><b>migrar</b></td><td class="tr">0</td><td class="tr">R$0</td><td>→ Boral FMC</td></tr>
-<tr style="background:rgba(255,109,0,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 495k</b></td><td></td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 225k</b></td><td class="pos"><b>−31% (c/ limpeza)</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Premio Star</td><td class="tr">185</td><td class="tr">165</td><td class="tr">1.500L</td><td class="tr">R$340</td><td class="tr">840</td><td class="tr">R$ 285.600</td><td><span class="tag tr2">✗ +106,1% acima da meta</span></td></tr><tr><td>Boral 500</td><td class="tr">52</td><td class="tr">45</td><td class="tr">2.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Authority</td><td class="tr">110</td><td class="tr">95</td><td class="tr">700kg</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Overwatch (novo)</td><td class="tr">—</td><td class="tr">~180</td><td class="tr">500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Talstar</td><td class="tr">24</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr><td>Mustang</td><td class="tr">15</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr><td>Gamit Star</td><td class="tr">28</td><td class="tr">migrar</td><td class="tr">0</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tg">✓ saiu, como previsto</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 964.210</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Meta 26/27:</b> De R$ 720k para R$ 495k (−31%). Metade da queda vem da <b>eliminação de 3 produtos obsoletos</b> (R$ 45k). Outra metade vem de deflação negociada (−11% a −14%). Com entrada de Overwatch (R$ 90k), FMC se reinventa: <b>de 6 SKUs (3 mortos) para 4 SKUs (todos vivos)</b>. Fornecedor mais enxuto mas mais estratégico. Valor real: Boral e Authority são <b>insubstituíveis</b> = FMC sempre terá espaço no portfólio.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 7 produtos da meta 26/27 da versão anterior, 0 entraram no pedido com preço igual ou abaixo da meta, 1 acima e 6 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 964.210</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <!-- MAPA ESTRATÉGICO -->
 <div class="card">
-<h3>🗺️ FMC no Ecossistema de Fornecedores</h3>
+<h3>🗺️ FMC no Ecossistema de Fornecedores (versão anterior)</h3>
 <div class="chart-box"><canvas id="chEco"></canvas></div>
 <div class="insight"><b>📍 Posição da FMC:</b> 10º fornecedor em valor absoluto (R$ 720k), mas <b>1º em diferenciação de herbicidas</b>. Sulfentrazona é molécula sem concorrente. No mapa Preço × Diferenciação, FMC está no quadrante <b>"Premium Diferenciado"</b> — não compete em preço, compete em exclusividade. A entrada de genéricos de Clorantraniliprole (Ihara, Sumitomo) pressiona os inseticidas, mas os herbicidas pré-emergentes são blindados pela patente.</div>
 </div>
-
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[0,620,850,1050,790,715,720],
-backgroundColor:S.map((_,i)=>i<1?'rgba(100,100,100,.2)':'rgba(255,109,0,.'+(2+i)+')')
-,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
-scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?'R$'+(v/1000).toFixed(1)+'M':'R$'+v+'k'}}}}});
-
-// Mix
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Premio Star R$222k','Boral R$94k','Authority R$66k','Acetam. R$54k','Talstar R$29k','Mustang R$8k','Gamit R$8k'],
-datasets:[{data:[222,94,66,54,29,8,8],
-backgroundColor:['#ff6d00','#00e676','#00b0ff','#ff9100','#90a4ae','#616161','#424242']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
-
-// Preço Inseticidas
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['20/21','21/22','22/23','23/24','24/25','25/26'],datasets:[
-{label:'Premio Star',data:[280,310,345,265,215,185],borderColor:'#ff6d00',backgroundColor:'rgba(255,109,0,.1)',fill:true,tension:.3,pointRadius:6},
-{label:'Talstar',data:[38,42,48,35,28,24],borderColor:'#90a4ae',borderDash:[5,5],tension:.3,pointRadius:4,fill:false},
-{label:'Mustang',data:[22,25,28,22,18,15],borderColor:'#616161',borderDash:[5,5],tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
-
-// Preço Herbicidas
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['20/21','21/22','22/23','23/24','24/25','25/26'],datasets:[
-{label:'Authority (R$/kg)',data:[null,180,210,165,130,110],borderColor:'#00b0ff',backgroundColor:'rgba(0,176,255,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Boral',data:[82,90,105,78,62,52],borderColor:'#00e676',tension:.3,pointRadius:5,fill:false},
-{label:'Gamit Star',data:[45,50,55,42,35,28],borderColor:'#424242',borderDash:[5,5],tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L ou kg'},beginAtZero:true}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Premio Star',data:[0,400,600,800,900,1000,1200],backgroundColor:'rgba(255,109,0,.7)',borderRadius:4},
-{label:'Boral',data:[0,600,800,1000,1200,1500,1800],backgroundColor:'rgba(0,230,118,.5)',borderRadius:4},
-{label:'Authority (kg)',data:[0,0,200,350,400,500,600],backgroundColor:'rgba(0,176,255,.5)',borderRadius:4},
-{label:'Talstar',data:[0,2000,2500,2000,1800,1500,1200],backgroundColor:'rgba(144,164,174,.3)',borderRadius:4},
-{label:'Mustang',data:[0,1500,1200,1000,800,600,500],backgroundColor:'rgba(97,97,97,.3)',borderRadius:4},
-{label:'Gamit Star',data:[0,500,600,500,400,350,300],backgroundColor:'rgba(66,66,66,.3)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [963, 0, 0, 1271, 1554, 989, 385.8, 964.2], "g1": [{"l": "Avatar", "pr": [null, null, null, null, null, null, 210.0, 140.0], "vo": [null, null, null, null, null, null, null, 4200.0], "val": 588000.0}, {"l": "Premio Star", "pr": [null, 280.0, 310.0, 345.0, 265.0, 215.0, 237.0, 340.0], "vo": [null, 400.0, 600.0, 800.0, 900.0, 1000.0, null, 840.0], "val": 285600.0}, {"l": "Onsuva", "pr": [null, null, null, null, null, null, 295.0, 252.3], "vo": [null, null, null, null, null, null, null, 200.0], "val": 50460.0}, {"l": "Talstar", "pr": [null, 38.0, 42.0, 48.0, 35.0, 28.0, null, null], "vo": [null, 2000.0, 2500.0, 2000.0, 1800.0, 1500.0, null, null], "val": 0}], "g2": [{"l": "Mustang", "pr": [null, 22.0, 25.0, 28.0, 22.0, 18.0, null, null], "vo": [null, 1500.0, 1200.0, 1000.0, 800.0, 600.0, null, null], "val": 0}, {"l": "Boral 500 SC", "pr": [null, 82.0, 90.0, 105.0, 78.0, 62.0, null, null], "vo": [null, 600.0, 800.0, 1000.0, 1200.0, 1500.0, null, null], "val": 0}, {"l": "Authority", "pr": [null, null, 180.0, 210.0, 165.0, 130.0, null, null], "vo": [null, null, 200.0, 350.0, 400.0, 500.0, null, null], "val": 0}, {"l": "Gamit Star", "pr": [null, 45.0, 50.0, 55.0, 42.0, 35.0, null, null], "vo": [null, 500.0, 600.0, 500.0, 400.0, 350.0, null, null], "val": 0}], "gv": [{"l": "Avatar", "pr": [null, null, null, null, null, null, 210.0, 140.0], "vo": [null, null, null, null, null, null, null, 4200.0], "val": 588000.0}, {"l": "Premio Star", "pr": [null, 280.0, 310.0, 345.0, 265.0, 215.0, 237.0, 340.0], "vo": [null, 400.0, 600.0, 800.0, 900.0, 1000.0, null, 840.0], "val": 285600.0}, {"l": "Onsuva", "pr": [null, null, null, null, null, null, 295.0, 252.3], "vo": [null, null, null, null, null, null, null, 200.0], "val": 50460.0}, {"l": "Talstar", "pr": [null, 38.0, 42.0, 48.0, 35.0, 28.0, null, null], "vo": [null, 2000.0, 2500.0, 2000.0, 1800.0, 1500.0, null, null], "val": 0}, {"l": "Mustang", "pr": [null, 22.0, 25.0, 28.0, 22.0, 18.0, null, null], "vo": [null, 1500.0, 1200.0, 1000.0, 800.0, 600.0, null, null], "val": 0}, {"l": "Boral 500 SC", "pr": [null, 82.0, 90.0, 105.0, 78.0, 62.0, null, null], "vo": [null, 600.0, 800.0, 1000.0, 1200.0, 1500.0, null, null], "val": 0}], "mix": [["Avatar R$588k", 588.0], ["Premio R$286k", 285.6], ["Onsuva R$50k", 50.5], ["Sofero Fall R$40k", 40.1]], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 
 // Ecossistema (Scatter)
 new Chart(document.getElementById('chEco'),{type:'scatter',data:{datasets:[

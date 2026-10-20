@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | Bayer — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | Bayer — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -77,211 +78,64 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>BAYER</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAVEGAÇÃO ENTRE FORNECEDORES -->
-<div class="nav-fornec">
-<span style="font-size:.7rem;color:var(--muted);padding:6px 0;">Ir para:</span>
-<a class="active" href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-fornec"><span>Ir para:</span><a class="active" href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon">BY</div>
 <div class="hdr-info">
 <h2>BAYER <span>CROPSCIENCE</span></h2>
-<p>Presente em <b>7/7 safras</b> · Fungicidas, Inseticidas, Nematicidas, Herbicidas, Adjuvantes<br>
-Moeda predominante: <b>BRL</b> (migrou de USD na 19/20 para R$ a partir da 20/21)<br>
+<p>Presente em <b>7/7 safras</b> · Fungicidas, Inseticidas, Nematicidas, Herbicidas, Adjuvantes<br/>
+Moeda predominante: <b>BRL</b> (migrou de USD na 19/20 para R$ a partir da 20/21)<br/>
 Produtos-chave: Fox Supra · Curbix · Verango Prime · Soberan · Adengo</p>
 </div>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--accent2)">R$ 2,71M</div><div class="sub">15,7% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 7 Safras</div><div class="vl">~R$ 15,9M</div><div class="sub">Média R$ 2,27M/safra</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 3,32M</div><div class="sub">Safra 23/24</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--green)">▼ -18%</div><div class="sub">Redução moderada</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">11</div><div class="sub">vs. 8 na 19/20</div></div>
-<div class="kpi"><div class="lb">Vencimento 25/26</div><div class="vl" style="color:var(--red)">30/Out/25</div><div class="sub">⚠️ Pré-colheita soja</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 3,42M</div><div class="sub">14,2% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 2,71M</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--red)">+26,4%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 18,36M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">13</div><div class="sub">26/27 · 10 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">Adengo</div><div class="sub">R$ 674.800</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a Bayer soma R$ 2.707.285 e o pedido 26/27 soma R$ 3.422.514, +26,4% sobre a 25/26.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em Adengo (R$ 674.800), Soberan (R$ 672.000) e Fox Supra (R$ 619.040).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, Curbix caiu de R$ 75,00 para R$ 55,00 (-26,7%) e Aureo subiu de R$ 17,25 para R$ 19,19 (+11,2%).</p><p style="margin:0 0 8px">Use as quedas de preço como referência para renegociar Aureo antes do vencimento de R$ 79.274 em 30/10/2026 · R$ 3.343.239,60 em 30/04/2027.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Fox Supra</b></td><td class="tr">3.400</td><td class="tr">860</td><td class="tr">2.900</td><td class="tr">R$ 302,00</td><td class="tr">R$ 875.800,00</td><td class="tr">32,3%</td></tr><tr><td><b>Curbix</b></td><td class="tr">12.000</td><td class="tr">—</td><td class="tr">11.000</td><td class="tr">R$ 75,00</td><td class="tr">R$ 825.000,00</td><td class="tr">30,5%</td></tr><tr><td><b>Verango Prime</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 510,00</td><td class="tr">R$ 306.000,00</td><td class="tr">11,3%</td></tr><tr><td><b>Adengo</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 495,00</td><td class="tr">R$ 297.000,00</td><td class="tr">11,0%</td></tr><tr><td><b>Soberan</b></td><td class="tr">120</td><td class="tr">120</td><td class="tr">240</td><td class="tr">R$ 495,00</td><td class="tr">R$ 118.800,00</td><td class="tr">4,4%</td></tr><tr><td><b>Fox Xpro</b></td><td class="tr">500</td><td class="tr">—</td><td class="tr">500</td><td class="tr">R$ 210,00</td><td class="tr">R$ 105.000,00</td><td class="tr">3,9%</td></tr><tr><td><b>Nativo Plus</b></td><td class="tr">800</td><td class="tr">—</td><td class="tr">800</td><td class="tr">R$ 96,00</td><td class="tr">R$ 76.800,00</td><td class="tr">2,8%</td></tr><tr><td><b>Bulldock</b></td><td class="tr">—</td><td class="tr">480</td><td class="tr">480</td><td class="tr">R$ 92,00</td><td class="tr">R$ 44.160,00</td><td class="tr">1,6%</td></tr><tr><td><b>Sencor</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 72,00</td><td class="tr">R$ 43.200,00</td><td class="tr">1,6%</td></tr><tr><td><b>Aureo</b></td><td class="tr">1.500</td><td class="tr">600</td><td class="tr">900</td><td class="tr">R$ 17,25</td><td class="tr">R$ 15.525,00</td><td class="tr">0,6%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>R$ 2.707.285,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 30/10/2025 · RTV/gestor: Frank Ribeiro</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Adengo</b></td><td class="tr">1.100</td><td class="tr">300</td><td class="tr">1.400</td><td class="tr">R$ 482,00</td><td class="tr">R$ 674.800,00</td><td class="tr">19,7%</td></tr><tr><td><b>Soberan</b></td><td class="tr">1.400</td><td class="tr">—</td><td class="tr">1.400</td><td class="tr">R$ 480,00</td><td class="tr">R$ 672.000,00</td><td class="tr">19,6%</td></tr><tr><td><b>Fox Supra</b></td><td class="tr">2.000</td><td class="tr">—</td><td class="tr">2.000</td><td class="tr">R$ 309,52</td><td class="tr">R$ 619.040,00</td><td class="tr">18,1%</td></tr><tr><td><b>Fox Xpro</b></td><td class="tr">1.400</td><td class="tr">1.200</td><td class="tr">2.600</td><td class="tr">R$ 215,00</td><td class="tr">R$ 559.000,00</td><td class="tr">16,3%</td></tr><tr><td><b>Verango Prime</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 500,00</td><td class="tr">R$ 300.000,00</td><td class="tr">8,8%</td></tr><tr><td><b>Bulldock</b></td><td class="tr">1.100</td><td class="tr">1.000</td><td class="tr">2.100</td><td class="tr">R$ 100,30</td><td class="tr">R$ 210.630,00</td><td class="tr">6,2%</td></tr><tr><td><b>Curbix</b></td><td class="tr">3.000</td><td class="tr">—</td><td class="tr">3.000</td><td class="tr">R$ 55,00</td><td class="tr">R$ 165.000,00</td><td class="tr">4,8%</td></tr><tr><td><b>Aureo</b></td><td class="tr">2.240</td><td class="tr">760</td><td class="tr">3.000</td><td class="tr">R$ 19,19</td><td class="tr">R$ 57.570,00</td><td class="tr">1,7%</td></tr><tr><td><b>Xtendicam</b></td><td class="tr">2.100</td><td class="tr">—</td><td class="tr">2.100</td><td class="tr">R$ 22,10</td><td class="tr">R$ 46.410,00</td><td class="tr">1,4%</td></tr><tr><td><b>Sphere Neo</b></td><td class="tr">800</td><td class="tr">—</td><td class="tr">800</td><td class="tr">R$ 53,08</td><td class="tr">R$ 42.464,00</td><td class="tr">1,2%</td></tr><tr><td><b>Convintro Duo</b></td><td class="tr">1.580</td><td class="tr">—</td><td class="tr">1.580</td><td class="tr">R$ 20,80</td><td class="tr">R$ 32.864,00</td><td class="tr">1,0%</td></tr><tr><td><b>Nativo Plus</b></td><td class="tr">320</td><td class="tr">—</td><td class="tr">320</td><td class="tr">R$ 96,64</td><td class="tr">R$ 30.924,80</td><td class="tr">0,9%</td></tr><tr><td><b>Fox Ultra</b></td><td class="tr">40</td><td class="tr">—</td><td class="tr">40</td><td class="tr">R$ 295,27</td><td class="tr">R$ 11.810,80</td><td class="tr">0,3%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 3.422.513,60</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: R$ 79.274 em 30/10/2026 · R$ 3.343.239,60 em 30/04/2027 · RTV/gestor: Frank Ribeiro</div></div></div>
 <!-- GRÁFICOS EVOLUÇÃO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento Bayer (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 Bayer (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26 (% Valor)</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- TABELA PORTFÓLIO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>Fungicidas</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Fox Supra</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina + Protioconazol + Bixafen</td>
-<td class="tr">USD 65,8<br><small style="color:var(--muted)">1.200 L</small></td>
-<td class="tr">R$ 224<br><small style="color:var(--muted)">1.900 L</small></td>
-<td class="tr">R$ 230<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">R$ 240<br><small style="color:var(--muted)">5.400 L</small></td>
-<td class="tr">R$ 350<br><small style="color:var(--muted)">2.220 L</small></td>
-<td class="tr">R$ 312<br><small style="color:var(--muted)">4.000 L</small></td>
-<td class="tr"><b>R$ 302</b><br><small style="color:var(--muted)">2.900 L</small></td>
-<td><span class="tag tg">▼ -14% (pico)</span></td>
-</tr>
-<tr>
-<td><b>Sphere Max</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina + Ciproconazol</td>
-<td class="tr">USD 52,0<br><small style="color:var(--muted)">200 L</small></td>
-<td class="tr">R$ 222<br><small style="color:var(--muted)">360 L</small></td>
-<td class="tr">R$ 217<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">R$ 224<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">—</td>
-<td class="tr">R$ 212<br><small style="color:var(--muted)">460 L</small></td>
-<td class="tr">—</td>
-<td><span class="tag tr2">Saiu do mix</span></td>
-</tr>
-<tr>
-<td><b>Nativo / Nativo Plus</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina + Tebuconazol</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$ 75<br><small style="color:var(--muted)">3.000 L</small></td>
-<td class="tr">R$ 99<br><small style="color:var(--muted)">100 L</small></td>
-<td class="tr"><b>R$ 96</b><br><small style="color:var(--muted)">800 L</small></td>
-<td><span class="tag tb">Entrando</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Fox Supra</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina + Protioconazol + Bixafen</td><td class="tr">USD 65,8<br/><small style="color:var(--muted)">1.200 L</small></td><td class="tr">R$ 224<br/><small style="color:var(--muted)">1.900 L</small></td><td class="tr">R$ 230<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">R$ 240<br/><small style="color:var(--muted)">5.400 L</small></td><td class="tr">R$ 350<br/><small style="color:var(--muted)">2.220 L</small></td><td class="tr">R$ 312<br/><small style="color:var(--muted)">4.000 L</small></td><td class="tr">R$302<br/><small style="color:var(--muted)">2.900L</small></td><td class="tr">R$309,52<br/><small style="color:var(--muted)">2.000L</small></td><td><span class="tag tr2">▲+2,5% 26/27 · Vol▼31%</span></td></tr><tr><td><b>Sphere Max</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina + Ciproconazol</td><td class="tr">USD 52,0<br/><small style="color:var(--muted)">200 L</small></td><td class="tr">R$ 222<br/><small style="color:var(--muted)">360 L</small></td><td class="tr">R$ 217<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">R$ 224<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">—</td><td class="tr">R$ 212<br/><small style="color:var(--muted)">460 L</small></td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Nativo / Nativo Plus</b></td><td style="font-size:.65rem;color:var(--muted)">Trifloxistrobina + Tebuconazol</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$ 75<br/><small style="color:var(--muted)">3.000 L</small></td><td class="tr">R$ 99<br/><small style="color:var(--muted)">100 L</small></td><td class="tr">R$96<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$96,64<br/><small style="color:var(--muted)">320L</small></td><td><span class="tag tr2">▲+0,7% 26/27 · Vol▼60%</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>Inseticidas</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Curbix</b></td><td style="font-size:.65rem;color:var(--muted)">Ethiprole</td>
-<td class="tr">—</td>
-<td class="tr">R$ 107<br><small style="color:var(--muted)">1.500 L</small></td>
-<td class="tr">R$ 102<br><small style="color:var(--muted)">5.800 L</small></td>
-<td class="tr">R$ 105<br><small style="color:var(--muted)">8.000 L</small></td>
-<td class="tr">R$ 102<br><small style="color:var(--muted)">10.000 L</small></td>
-<td class="tr">R$ 89<br><small style="color:var(--muted)">3.000 L</small></td>
-<td class="tr"><b>R$ 75</b><br><small style="color:var(--muted)">11.000 L</small></td>
-<td><span class="tag tg">▼ -30% · Vol. ▲ 633%</span></td>
-</tr>
-<tr>
-<td><b>Soberan</b></td><td style="font-size:.65rem;color:var(--muted)">Cyantraniliprole</td>
-<td class="tr">USD 112<br><small style="color:var(--muted)">900 L</small></td>
-<td class="tr">—</td>
-<td class="tr">R$ 475<br><small style="color:var(--muted)">600 L</small></td>
-<td class="tr">R$ 490<br><small style="color:var(--muted)">900 L</small></td>
-<td class="tr">R$ 480<br><small style="color:var(--muted)">400 L</small></td>
-<td class="tr">R$ 505<br><small style="color:var(--muted)">240 L</small></td>
-<td class="tr"><b>R$ 495</b><br><small style="color:var(--muted)">240 L</small></td>
-<td><span class="tag to">≈ Estável · Vol. ▼</span></td>
-</tr>
-<tr>
-<td><b>Belt</b></td><td style="font-size:.65rem;color:var(--muted)">Flubendiamida</td>
-<td class="tr">USD 62,3<br><small style="color:var(--muted)">900 L</small></td>
-<td class="tr">R$ 198<br><small style="color:var(--muted)">300 L</small></td>
-<td class="tr">R$ 207<br><small style="color:var(--muted)">600 L</small></td>
-<td class="tr">—</td>
-<td class="tr">—</td>
-<td class="tr">—</td>
-<td class="tr">—</td>
-<td><span class="tag tr2">Descontinuado</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Curbix</b></td><td style="font-size:.65rem;color:var(--muted)">Ethiprole</td><td class="tr">—</td><td class="tr">R$ 107<br/><small style="color:var(--muted)">1.500 L</small></td><td class="tr">R$ 102<br/><small style="color:var(--muted)">5.800 L</small></td><td class="tr">R$ 105<br/><small style="color:var(--muted)">8.000 L</small></td><td class="tr">R$ 102<br/><small style="color:var(--muted)">10.000 L</small></td><td class="tr">R$ 89<br/><small style="color:var(--muted)">3.000 L</small></td><td class="tr">R$75<br/><small style="color:var(--muted)">11.000L</small></td><td class="tr">R$55<br/><small style="color:var(--muted)">3.000L</small></td><td><span class="tag tg">▼-26,7% 26/27 · Vol▼73%</span></td></tr><tr><td><b>Soberan</b></td><td style="font-size:.65rem;color:var(--muted)">Cyantraniliprole</td><td class="tr">USD 112<br/><small style="color:var(--muted)">900 L</small></td><td class="tr">—</td><td class="tr">R$ 475<br/><small style="color:var(--muted)">600 L</small></td><td class="tr">R$ 490<br/><small style="color:var(--muted)">900 L</small></td><td class="tr">R$ 480<br/><small style="color:var(--muted)">400 L</small></td><td class="tr">R$ 505<br/><small style="color:var(--muted)">240 L</small></td><td class="tr">R$495<br/><small style="color:var(--muted)">240L</small></td><td class="tr">R$480<br/><small style="color:var(--muted)">1.400L</small></td><td><span class="tag tg">▼-3,0% 26/27 · Vol▲483%</span></td></tr><tr><td><b>Belt</b></td><td style="font-size:.65rem;color:var(--muted)">Flubendiamida</td><td class="tr">USD 62,3<br/><small style="color:var(--muted)">900 L</small></td><td class="tr">R$ 198<br/><small style="color:var(--muted)">300 L</small></td><td class="tr">R$ 207<br/><small style="color:var(--muted)">600 L</small></td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>Nematicidas · Herbicidas · Adjuvantes</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>Tipo</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Verango Prime</b></td><td><span class="tag tp">Nematicida</span></td><td style="font-size:.65rem;color:var(--muted)">Fluopyram</td>
-<td class="tr">—</td>
-<td class="tr">R$ 606<br><small style="color:var(--muted)">100 L</small></td>
-<td class="tr">R$ 610<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">R$ 680<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">—</td>
-<td class="tr">R$ 530<br><small style="color:var(--muted)">750 L</small></td>
-<td class="tr"><b>R$ 510</b><br><small style="color:var(--muted)">600 L</small></td>
-<td><span class="tag tg">▼ -25% (pico)</span></td>
-</tr>
-<tr>
-<td><b>Adengo</b></td><td><span class="tag tg">Herbicida</span></td><td style="font-size:.65rem;color:var(--muted)">Isoxaflutole + Tiencarbazona</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$ 448<br><small style="color:var(--muted)">380 L</small></td>
-<td class="tr">R$ 495<br><small style="color:var(--muted)">100 L</small></td>
-<td class="tr"><b>R$ 495</b><br><small style="color:var(--muted)">600 L</small></td>
-<td><span class="tag tb">Entrando · Milho</span></td>
-</tr>
-<tr>
-<td><b>Sencor 480</b></td><td><span class="tag tg">Herbicida</span></td><td style="font-size:.65rem;color:var(--muted)">Metribuzim</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr"><b>R$ 72</b><br><small style="color:var(--muted)">600 L</small></td>
-<td><span class="tag tb">Novo 25/26</span></td>
-</tr>
-<tr>
-<td><b>Aureo</b></td><td><span class="tag ty">Adjuvante</span></td><td style="font-size:.65rem;color:var(--muted)">Éster metílico de soja</td>
-<td class="tr">USD 3,5<br><small style="color:var(--muted)">4.000 L</small></td>
-<td class="tr">R$ 14,9<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">R$ 15,9<br><small style="color:var(--muted)">1.600 L</small></td>
-<td class="tr">R$ 16,5<br><small style="color:var(--muted)">3.000 L</small></td>
-<td class="tr">R$ 16,0<br><small style="color:var(--muted)">4.000 L</small></td>
-<td class="tr">R$ 16,3<br><small style="color:var(--muted)">6.000 L</small></td>
-<td class="tr"><b>R$ 17,3</b><br><small style="color:var(--muted)">900 L</small></td>
-<td><span class="tag to">≈ Estável</span></td>
-</tr>
-<tr>
-<td><b>Certero</b></td><td><span class="tag to">Inseticida</span></td><td style="font-size:.65rem;color:var(--muted)">Triflumuron</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr"><b>R$ 69</b><br><small style="color:var(--muted)">3.600 L</small></td>
-<td><span class="tag tb">Novo 25/26</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">Tipo</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Verango Prime</b></td><td><span class="tag tp">Nematicida</span></td><td style="font-size:.65rem;color:var(--muted)">Fluopyram</td><td class="tr">—</td><td class="tr">R$ 606<br/><small style="color:var(--muted)">100 L</small></td><td class="tr">R$ 610<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">R$ 680<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">—</td><td class="tr">R$ 530<br/><small style="color:var(--muted)">750 L</small></td><td class="tr">R$510<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$500<br/><small style="color:var(--muted)">600L</small></td><td><span class="tag tg">▼-2,0% 26/27 · Vol▼0%</span></td></tr><tr><td><b>Adengo</b></td><td><span class="tag tg">Herbicida</span></td><td style="font-size:.65rem;color:var(--muted)">Isoxaflutole + Tiencarbazona</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$ 448<br/><small style="color:var(--muted)">380 L</small></td><td class="tr">R$ 495<br/><small style="color:var(--muted)">100 L</small></td><td class="tr">R$495<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$482<br/><small style="color:var(--muted)">1.400L</small></td><td><span class="tag tg">▼-2,6% 26/27 · Vol▲133%</span></td></tr><tr><td><b>Sencor 480</b></td><td><span class="tag tg">Herbicida</span></td><td style="font-size:.65rem;color:var(--muted)">Metribuzim</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$72<br/><small style="color:var(--muted)">600L</small></td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>Aureo</b></td><td><span class="tag ty">Adjuvante</span></td><td style="font-size:.65rem;color:var(--muted)">Éster metílico de soja</td><td class="tr">USD 3,5<br/><small style="color:var(--muted)">4.000 L</small></td><td class="tr">R$ 14,9<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">R$ 15,9<br/><small style="color:var(--muted)">1.600 L</small></td><td class="tr">R$ 16,5<br/><small style="color:var(--muted)">3.000 L</small></td><td class="tr">R$ 16,0<br/><small style="color:var(--muted)">4.000 L</small></td><td class="tr">R$ 16,3<br/><small style="color:var(--muted)">6.000 L</small></td><td class="tr">R$17,25<br/><small style="color:var(--muted)">900L</small><br/><small style="color:var(--accent3)">pág. ant. R$17,30</small></td><td class="tr">R$19,19<br/><small style="color:var(--muted)">3.000L</small></td><td><span class="tag tr2">▲+11,2% 26/27 · Vol▲233%</span></td></tr><tr><td><b>Certero</b></td><td><span class="tag to">Inseticida</span></td><td style="font-size:.65rem;color:var(--muted)">Triflumuron</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$69</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- GRÁFICO PREÇOS -->
-<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>Fox Xpro</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$210<br/><small style="color:var(--muted)">500</small></td><td class="tr">R$215<br/><small style="color:var(--muted)">2.600</small></td><td class="tr">R$ 105.000,00</td><td class="tr">R$ 559.000,00</td><td><span class="tag tr2">▲+2,4% 26/27 · Vol▲420%</span></td></tr><tr><td><b>Bulldock</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$92<br/><small style="color:var(--muted)">480</small></td><td class="tr">R$100,30<br/><small style="color:var(--muted)">2.100</small></td><td class="tr">R$ 44.160,00</td><td class="tr">R$ 210.630,00</td><td><span class="tag tr2">▲+9,0% 26/27 · Vol▲338%</span></td></tr><tr><td><b>Xtendicam</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$22,10<br/><small style="color:var(--muted)">2.100</small></td><td class="tr">—</td><td class="tr">R$ 46.410,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Sphere Neo</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$53,08<br/><small style="color:var(--muted)">800</small></td><td class="tr">—</td><td class="tr">R$ 42.464,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Convintro Duo</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$20,80<br/><small style="color:var(--muted)">1.580</small></td><td class="tr">—</td><td class="tr">R$ 32.864,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Fox Ultra</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$295,27<br/><small style="color:var(--muted)">40</small></td><td class="tr">—</td><td class="tr">R$ 11.810,80</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Evolução R$/L — Fungicidas e Nematicidas</h3>
@@ -292,47 +146,34 @@ Produtos-chave: Fox Supra · Curbix · Verango Prime · Soberan · Adengo</p>
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- GRÁFICO VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume dos 5 Principais Produtos (L)</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- INSIGHTS E LEITURA -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Bayer</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Bayer</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. Fox Supra é o carro-chefe absoluto:</b> Representa ~R$ 876k (32% do total Bayer na 25/26). Preço caiu de R$ 350 (pico 23/24) para R$ 302 (−14%), mas ainda é o fungicida mais caro do portfólio. Volume oscila (500 a 5.400 L) dependendo da pressão de ferrugem e do posicionamento estratégico da safra. A presença de <b>Bixafen (SDHI/carboxamida)</b> é o diferencial competitivo que justifica o premium.</div>
-
 <div class="insight"><b>2. Curbix é o caso de sucesso em volume:</b> De 1.500 L (20/21) para 11.000 L (25/26) = <b>+633% de crescimento em volume</b>. Simultaneamente, preço caiu 30% (R$ 107 → R$ 75). Isso indica que a Fazenda adotou Curbix como <b>padrão inseticida de manejo</b> e a Bayer respondeu com política de volume. A R$ 75/L × 11.000 L = R$ 825k, quase equivalente ao Fox Supra. Atenção: não há genérico direto de Ethiprole com esta formulação, o que dá poder de preço à Bayer.</div>
-
 <div class="insight warn"><b>3. Soberan perdendo espaço:</b> Volume caiu de 900 L (19/20) para 240 L (25/26) = <b>−73%</b>. Preço permanece alto (~R$ 495/L). O Cyantraniliprole (P.A.) está sendo substituído por alternativas mais baratas (Clorfenapir, Metomil+Bifentrina). Soberan pode ser mantido apenas como <b>produto de resgate</b> para lagartas resistentes.</div>
-
 <div class="insight"><b>4. Migração de moeda bem-sucedida:</b> Em 19/20, todos os contratos Bayer eram em USD ($65,8 Fox, $112 Soberan, $62 Belt). A partir de 20/21, 100% migrou para BRL. Isso <b>eliminou o risco cambial Bayer</b> — uma vantagem competitiva real vs. BASF (que permanece 100% USD).</div>
-
 <div class="insight warn"><b>5. Expansão para herbicidas milho (Adengo + Sencor):</b> Adengo (R$ 495/L × 600 L = R$ 297k) e Sencor (R$ 72 × 600 L = R$ 43k) entram na 25/26 como aposta em <b>milho safrinha</b>. Adengo é referência em pré-emergência milho (Isoxaflutole + Tiencarbazona). Preço estável em R$ 495 sugere negociação travada. Avaliar comparação com herbicidas genéricos pré-emergentes (Atrazina 500 da Albaugh a R$ 18/L).</div>
-
 <div class="insight"><b>6. Certero (Triflumuron) como novidade 25/26:</b> Regulador de crescimento de insetos a R$ 69/L × 3.600 L = R$ 248k. Produto clássico, agora voltando como <b>alternativa econômica para manejo de lagartas em fase inicial</b>. Preço competitivo vs. diamidas (Soberan a R$ 495, Belt descontinuado).</div>
-
 <div class="insight danger"><b>7. Vencimento outubro/25 é ANTES da colheita:</b> R$ 2,71M vencem em 30/Out/25. A soja só será colhida em Fev-Mar/26. Gap de 4-5 meses. Custo financeiro estimado (CDI 14% a.a. × 4 meses) = ~<b>R$ 127k em juros</b>. Necessário: fixar venda antecipada de soja ou negociar prorrogação para fevereiro/26.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades de Alavancagem</h3>
 <div class="rec"><strong>🎯 Curbix como moeda de troca:</strong> Com 11.000 L, a Fazenda Planalto é um dos maiores compradores regionais. Usar esse volume para negociar pacote cruzado: "Se Curbix vier a R$ 70 (−7%), mantenho Fox Supra no mesmo volume de 2.900 L". Meta de economia: <b>R$ 55k só no Curbix</b>.</div>
 <div class="rec"><strong>🎯 Fox Supra — pressionar com Verdavis (Syngenta):</strong> Verdavis (Benzovindiflupir + Azoxistrobina) é concorrente direto a ~R$ 280-300/L. Apresentar proposta Syngenta para forçar Fox Supra abaixo de R$ 280 para 26/27. <b>Economia potencial: R$ 64k</b> (R$ 22/L × 2.900 L).</div>
 <div class="rec"><strong>🎯 Certero como teste:</strong> A R$ 69/L × 3.600 L, se eficácia for confirmada no campo (alvo: lagartas neonatas), expandir para 5.000+ L em 26/27 substituindo parcialmente Soberan (R$ 495/L). <b>Economia por litro substituído: R$ 426/L</b>.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas e Riscos</h3>
 <div class="rec w"><strong>⚠️ Vencimento Out/25 — Ação imediata:</strong> Travar venda antecipada de 22.656 sc soja (R$ 2,71M ÷ R$ 119,60/sc) para cobrir o vencimento. Alternativa: negociar prorrogação com custo de ~R$ 31/L no custo financeiro embutido. Recomendo <b>split 50/50</b>: fixar 50% e negociar prorrogação dos outros 50%.</div>
 <div class="rec w"><strong>⚠️ Verango Prime — avaliar alternativas biológicas:</strong> A R$ 510/L, consome 4,3 sc soja/L. Alternativas emergentes: Aveo/Sumitomo ($49/L) e Nimaxxa/UPL (R$ 745 mas biológico). Se nematoides não forem críticos, reduzir área de Verango para 50% e testar alternativas no restante.</div>
 <div class="rec d"><strong>🔴 Concentração Fox Supra:</strong> R$ 876k em um único produto = <b>32% de todo o gasto Bayer</b>. Se houver quebra de patente, reajuste ou perda de eficácia, impacto é alto. Manter protocolo alternativo testado (Verdavis Syngenta + Abacus HC BASF).</div>
 </div>
-
 <div class="card">
 <h3>📊 Score Card Bayer — Resumo Executivo</h3>
 <div class="table-wrapper">
@@ -351,90 +192,34 @@ Produtos-chave: Fox Supra · Curbix · Verango Prime · Soberan · Adengo</p>
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO 26/27 -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <h3>Cenário Projetado para Negociação 26/27</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">Preço 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume Est.</th><th class="tr">Total Meta</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Fox Supra</td><td class="tr">R$ 302</td><td class="tr pos"><b>R$ 278</b></td><td class="tr">3.000 L</td><td class="tr">R$ 834k</td><td>Pressionar com Verdavis</td></tr>
-<tr><td>Curbix</td><td class="tr">R$ 75</td><td class="tr pos"><b>R$ 68</b></td><td class="tr">12.000 L</td><td class="tr">R$ 816k</td><td>Volume como alavanca</td></tr>
-<tr><td>Verango Prime</td><td class="tr">R$ 510</td><td class="tr pos"><b>R$ 460</b></td><td class="tr">400 L</td><td class="tr">R$ 184k</td><td>Reduzir área, testar bio</td></tr>
-<tr><td>Adengo</td><td class="tr">R$ 495</td><td class="tr pos"><b>R$ 450</b></td><td class="tr">700 L</td><td class="tr">R$ 315k</td><td>Expandir milho</td></tr>
-<tr><td>Certero</td><td class="tr">R$ 69</td><td class="tr pos"><b>R$ 62</b></td><td class="tr">5.000 L</td><td class="tr">R$ 310k</td><td>Expandir se eficaz</td></tr>
-<tr><td>Soberan</td><td class="tr">R$ 495</td><td class="tr pos"><b>R$ 430</b></td><td class="tr">200 L</td><td class="tr">R$ 86k</td><td>Manter só resgate</td></tr>
-<tr><td>Aureo</td><td class="tr">R$ 17,3</td><td class="tr">R$ 16,0</td><td class="tr">2.000 L</td><td class="tr">R$ 32k</td><td>Volume mínimo</td></tr>
-<tr><td>Nativo Plus</td><td class="tr">R$ 96</td><td class="tr pos"><b>R$ 88</b></td><td class="tr">1.200 L</td><td class="tr">R$ 106k</td><td>Crescer no milho</td></tr>
-<tr><td>Sencor</td><td class="tr">R$ 72</td><td class="tr">R$ 68</td><td class="tr">800 L</td><td class="tr">R$ 54k</td><td>Manter</td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td><b>TOTAL PROJETADO</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 2,74M</b></td><td class="pos"><b>Economia: ~R$ 268k (−10%)</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Fox Supra</td><td class="tr">302</td><td class="tr">R$ 278</td><td class="tr">3.000 L</td><td class="tr">R$309,52</td><td class="tr">2.000</td><td class="tr">R$ 619.040</td><td><span class="tag tr2">✗ +11,3% acima da meta</span></td></tr><tr><td>Curbix</td><td class="tr">75</td><td class="tr">R$ 68</td><td class="tr">12.000 L</td><td class="tr">R$55</td><td class="tr">3.000</td><td class="tr">R$ 165.000</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Verango Prime</td><td class="tr">510</td><td class="tr">R$ 460</td><td class="tr">400 L</td><td class="tr">R$500</td><td class="tr">600</td><td class="tr">R$ 300.000</td><td><span class="tag tr2">✗ +8,7% acima da meta</span></td></tr><tr><td>Adengo</td><td class="tr">495</td><td class="tr">R$ 450</td><td class="tr">700 L</td><td class="tr">R$482</td><td class="tr">1.400</td><td class="tr">R$ 674.800</td><td><span class="tag tr2">✗ +7,1% acima da meta</span></td></tr><tr><td>Certero</td><td class="tr">69</td><td class="tr">R$ 62</td><td class="tr">5.000 L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Soberan</td><td class="tr">495</td><td class="tr">R$ 430</td><td class="tr">200 L</td><td class="tr">R$480</td><td class="tr">1.400</td><td class="tr">R$ 672.000</td><td><span class="tag tr2">✗ +11,6% acima da meta</span></td></tr><tr><td>Aureo</td><td class="tr">17,30</td><td class="tr">R$ 16,0</td><td class="tr">2.000 L</td><td class="tr">R$19,19</td><td class="tr">3.000</td><td class="tr">R$ 57.570</td><td><span class="tag tr2">✗ +19,9% acima da meta</span></td></tr><tr><td>Nativo Plus</td><td class="tr">96</td><td class="tr">R$ 88</td><td class="tr">1.200 L</td><td class="tr">R$96,64</td><td class="tr">320</td><td class="tr">R$ 30.925</td><td><span class="tag tr2">✗ +9,8% acima da meta</span></td></tr><tr><td>Sencor</td><td class="tr">72</td><td class="tr">R$ 68</td><td class="tr">800 L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 3.422.514</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Meta de economia 26/27 vs. 25/26:</b> Redução de ~<b>R$ 268k (−10%)</b> mantendo o volume total praticamente igual. Estratégia principal: <b>deflação de Curbix e Fox Supra</b> (que juntos representam 63% do total) + substituição parcial de Soberan por Certero.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 9 produtos da meta 26/27 da versão anterior, 1 entraram no pedido com preço igual ou abaixo da meta, 6 acima e 2 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 3.422.514</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-// VERIFICAÇÃO DE SESSÃO
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){
-  alert('Sessão expirada. Redirecionando para login...');
-  location.href='index.html';
-}
-
-// GRÁFICOS
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento por safra
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[1250,867,1431,3078,3319,2287,2707],
-backgroundColor:['rgba(0,176,255,.5)','rgba(0,176,255,.5)','rgba(0,176,255,.5)','rgba(255,145,0,.7)','rgba(255,82,82,.7)','rgba(0,176,255,.5)','rgba(0,230,118,.7)'],
-borderRadius:8,borderSkipped:false
-}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
-
-// Mix 25/26
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Fox Supra R$876k','Curbix R$825k','Adengo R$297k','Verango R$306k','Certero R$248k','Soberan R$119k','Outros R$39k'],
-datasets:[{data:[876,825,297,306,248,119,39],backgroundColor:['#00b0ff','#00e676','#ff9100','#e040fb','#ffeb3b','#ff5252','#546e7a']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:10}}}}}});
-
-// Preços Fungicidas + Nematicidas
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:S,datasets:[
-{label:'Fox Supra',data:[320,224,230,240,350,312,302],borderColor:'#00b0ff',backgroundColor:'rgba(0,176,255,.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#00b0ff'},
-{label:'Sphere Max',data:[253,222,217,224,null,212,null],borderColor:'#7b8a9e',borderDash:[5,5],tension:.3,pointRadius:4,fill:false},
-{label:'Verango Prime',data:[null,606,610,680,null,530,510],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false},
-{label:'Nativo Plus',data:[null,null,null,null,75,99,96],borderColor:'#ffeb3b',tension:.3,pointRadius:5,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:false}}}});
-
-// Preços Inseticidas
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:S,datasets:[
-{label:'Curbix',data:[null,107,102,105,102,89,75],borderColor:'#00e676',backgroundColor:'rgba(0,230,118,.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#00e676'},
-{label:'Soberan',data:[545,null,475,490,480,505,495],borderColor:'#ff5252',tension:.3,pointRadius:5,fill:false},
-{label:'Certero',data:[null,null,null,null,null,null,69],borderColor:'#ffeb3b',pointRadius:8,pointBackgroundColor:'#ffeb3b',fill:false},
-{label:'Belt (descont.)',data:[303,198,207,null,null,null,null],borderColor:'#7b8a9e',borderDash:[5,5],tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:false}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Fox Supra',data:[1200,1900,500,5400,2220,4000,2900],backgroundColor:'rgba(0,176,255,.7)',borderRadius:4},
-{label:'Curbix',data:[0,1500,5800,8000,10000,3000,11000],backgroundColor:'rgba(0,230,118,.7)',borderRadius:4},
-{label:'Aureo',data:[4000,500,1600,3000,4000,6000,900],backgroundColor:'rgba(255,235,59,.5)',borderRadius:4},
-{label:'Soberan',data:[900,0,600,900,400,240,240],backgroundColor:'rgba(255,82,82,.5)',borderRadius:4},
-{label:'Verango',data:[0,100,500,500,0,750,600],backgroundColor:'rgba(224,64,251,.5)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'Litros'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [1250, 867, 1431, 3078, 3319, 2287, 2707.3, 3422.5], "g1": [{"l": "Fox Supra", "pr": [null, 224.0, 230.0, 240.0, 350.0, 312.0, 302.0, 309.52], "vo": [1200.0, 1900.0, 500.0, 5400.0, 2220.0, 4000.0, 2900.0, 2000.0], "val": 875800.0}, {"l": "Curbix", "pr": [null, 107.0, 102.0, 105.0, 102.0, 89.0, 75.0, 55.0], "vo": [null, 1500.0, 5800.0, 8000.0, 10000.0, 3000.0, 11000.0, 3000.0], "val": 825000.0}, {"l": "Adengo", "pr": [null, null, null, null, 448.0, 495.0, 495.0, 482.0], "vo": [null, null, null, null, 380.0, 100.0, 600.0, 1400.0], "val": 674800.0}, {"l": "Soberan", "pr": [null, null, 475.0, 490.0, 480.0, 505.0, 495.0, 480.0], "vo": [900.0, null, 600.0, 900.0, 400.0, 240.0, 240.0, 1400.0], "val": 672000.0}], "g2": [{"l": "Fox Xpro", "pr": [null, null, null, null, null, null, 210.0, 215.0], "vo": [null, null, null, null, null, null, 500.0, 2600.0], "val": 559000.0}, {"l": "Verango Prime", "pr": [null, 606.0, 610.0, 680.0, null, 530.0, 510.0, 500.0], "vo": [null, 100.0, 500.0, 500.0, null, 750.0, 600.0, 600.0], "val": 306000.0}, {"l": "Bulldock", "pr": [null, null, null, null, null, null, 92.0, 100.3], "vo": [null, null, null, null, null, null, 480.0, 2100.0], "val": 210630.0}, {"l": "Nativo / Nativo Plus", "pr": [null, null, null, null, 75.0, 99.0, 96.0, 96.64], "vo": [null, null, null, null, 3000.0, 100.0, 800.0, 320.0], "val": 76800.0}], "gv": [{"l": "Fox Supra", "pr": [null, 224.0, 230.0, 240.0, 350.0, 312.0, 302.0, 309.52], "vo": [1200.0, 1900.0, 500.0, 5400.0, 2220.0, 4000.0, 2900.0, 2000.0], "val": 875800.0}, {"l": "Curbix", "pr": [null, 107.0, 102.0, 105.0, 102.0, 89.0, 75.0, 55.0], "vo": [null, 1500.0, 5800.0, 8000.0, 10000.0, 3000.0, 11000.0, 3000.0], "val": 825000.0}, {"l": "Adengo", "pr": [null, null, null, null, 448.0, 495.0, 495.0, 482.0], "vo": [null, null, null, null, 380.0, 100.0, 600.0, 1400.0], "val": 674800.0}, {"l": "Soberan", "pr": [null, null, 475.0, 490.0, 480.0, 505.0, 495.0, 480.0], "vo": [900.0, null, 600.0, 900.0, 400.0, 240.0, 240.0, 1400.0], "val": 672000.0}, {"l": "Fox Xpro", "pr": [null, null, null, null, null, null, 210.0, 215.0], "vo": [null, null, null, null, null, null, 500.0, 2600.0], "val": 559000.0}, {"l": "Verango Prime", "pr": [null, 606.0, 610.0, 680.0, null, 530.0, 510.0, 500.0], "vo": [null, 100.0, 500.0, 500.0, null, 750.0, 600.0, 600.0], "val": 306000.0}], "mix": [["Adengo R$675k", 674.8], ["Soberan R$672k", 672.0], ["Fox Supra R$619k", 619.0], ["Fox Xpro R$559k", 559.0], ["Verango Prime R$300k", 300.0], ["Bulldock R$211k", 210.6], ["Curbix R$165k", 165.0], ["Aureo R$58k", 57.6], ["Xtendicam R$46k", 46.4], ["Outros 118k", 118.1]], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 </script>
 </body>
 </html>

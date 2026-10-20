@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | Corteva — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | Corteva — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a;--cor:#f44336}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -81,187 +82,70 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>CORTEVA</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a class="on" href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a class="on" href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon" style="background:linear-gradient(135deg,#f44336,#c62828)">CO</div>
 <div class="hdr-info">
 <h2>CORTEVA <span>AGRISCIENCE</span></h2>
-<p>Presente em <b>6/7 safras</b> (ausente 20/21) · Herbicidas, Inseticidas, Fungicidas<br>
-Moeda: <b>Mix USD/BRL</b> — Operou USD até 21/22, migrou para BRL a partir de 22/23<br>
-Perfil: <b>Herbicidas premium + Inseticidas diamida</b> · Ex-Dow + Ex-DuPont<br>
+<p>Presente em <b>6/7 safras</b> (ausente 20/21) · Herbicidas, Inseticidas, Fungicidas<br/>
+Moeda: <b>Mix USD/BRL</b> — Operou USD até 21/22, migrou para BRL a partir de 22/23<br/>
+Perfil: <b>Herbicidas premium + Inseticidas diamida</b> · Ex-Dow + Ex-DuPont<br/>
 Produtos-chave: Galil SC · Spider · Isoclast · Closer · Delegate · Vessarya · DMA 806</p>
 </div>
 </div>
-
 <!-- DESTAQUE -->
 <div class="highlight">
 <h4>⚡ Especialista em Herbicidas Premium: Galil + Spider dominam pré-emergência</h4>
 <p style="font-size:.8rem;color:var(--text);line-height:1.6">Corteva é herdeira dos portfólios <b style="color:var(--cor)">Dow AgroSciences + DuPont Crop Protection</b>. Na Fazenda Planalto, consolidou posição com herbicidas de alta tecnologia (Galil SC = Haloxifope + Cloransulam) e inseticidas de nova geração (Isoclast = Sulfoxaflor para percevejo). A <b>queda de 56% desde o pico (22/23)</b> abriu janela de negociação para expandir volume com preço favorável.</p>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--cor)">R$ 1,38M</div><div class="sub">8,0% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 6 Safras</div><div class="vl">~R$ 8,95M</div><div class="sub">Média R$ 1,49M/safra ativa</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 3,14M</div><div class="sub">Safra 22/23</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--red)">▼ −56%</div><div class="sub">Queda acentuada</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">8</div><div class="sub">Herb. + Inset. + Fung.</div></div>
-<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Galil SC</div><div class="sub">~R$ 378k · 27% do total</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 954k</div><div class="sub">4,0% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 231k</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--red)">+313,2%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 13,19M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">6</div><div class="sub">26/27 · 3 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">Vessarya</div><div class="sub">R$ 306.000</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a Corteva soma R$ 231.000 e o pedido 26/27 soma R$ 954.400, +313,2% sobre a 25/26.</p><p style="margin:0 0 8px">A versão anterior desta página registrava R$ 1.382.000 para a 25/26. Vale a planilha.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em Vessarya (R$ 306.000), Spider (R$ 211.200) e Verdict Ultra (R$ 190.800).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, Aproach Power caiu de R$ 78,00 para R$ 45,00 (-42,3%).</p><p style="margin:0 0 8px">Confirme volumes e o vencimento de 05/05/2027 com o RTV antes da entrega.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div><div class="insight warn"><b>Série histórica:</b> alinhada ao painel principal (1.652, 1.473, 2.486, 3.280, 1.686, 1.431 R$ mil, 19/20 a 24/25). A versão anterior desta página trazia 1.520, 0, 1.450, 3.140, 1.950, 1.290.</div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Vessarya</b></td><td class="tr">—</td><td class="tr">800</td><td class="tr">800</td><td class="tr">R$ 138,00</td><td class="tr">R$ 110.400,00</td><td class="tr">47,8%</td></tr><tr><td><b>Pacto</b></td><td class="tr">36</td><td class="tr">—</td><td class="tr">36</td><td class="tr">R$ 1.850,00</td><td class="tr">R$ 66.600,00</td><td class="tr">28,8%</td></tr><tr><td><b>Utrisha N</b></td><td class="tr">180</td><td class="tr">—</td><td class="tr">180</td><td class="tr">R$ 300,00</td><td class="tr">R$ 54.000,00</td><td class="tr">23,4%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>R$ 231.000,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 05/10/2025 e 05/05/2026 · RTV/gestor: Rodrigo Follmann</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Vessarya</b></td><td class="tr">1.920</td><td class="tr">1.480</td><td class="tr">3.400</td><td class="tr">R$ 90,00</td><td class="tr">R$ 306.000,00</td><td class="tr">32,1%</td></tr><tr><td><b>Spider</b></td><td class="tr">150</td><td class="tr">90</td><td class="tr">240</td><td class="tr">R$ 880,00</td><td class="tr">R$ 211.200,00</td><td class="tr">22,1%</td></tr><tr><td><b>Verdict Ultra</b></td><td class="tr">560</td><td class="tr">500</td><td class="tr">1.060</td><td class="tr">R$ 180,00</td><td class="tr">R$ 190.800,00</td><td class="tr">20,0%</td></tr><tr><td><b>Aproach Power</b></td><td class="tr">1.640</td><td class="tr">1.480</td><td class="tr">3.120</td><td class="tr">R$ 45,00</td><td class="tr">R$ 140.400,00</td><td class="tr">14,7%</td></tr><tr><td><b>Lannate</b></td><td class="tr">—</td><td class="tr">4.500</td><td class="tr">4.500</td><td class="tr">R$ 18,00</td><td class="tr">R$ 81.000,00</td><td class="tr">8,5%</td></tr><tr><td><b>Utrisha N</b></td><td class="tr">100</td><td class="tr">—</td><td class="tr">100</td><td class="tr">R$ 250,00</td><td class="tr">R$ 25.000,00</td><td class="tr">2,6%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 954.400,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 05/05/2027 · RTV/gestor: —</div></div></div>
 <!-- GRÁFICOS TOPO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- PORTFÓLIO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>🌿 Herbicidas (4 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Galil SC</b></td><td style="font-size:.65rem;color:var(--muted)">Haloxifope+Cloransulam</td>
-<td class="tr">$42<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">$48<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">R$245<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$195<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$115<br><small style="color:var(--muted)">2.800L</small></td>
-<td class="tr"><b>R$105</b><br><small style="color:var(--muted)">3.600L</small></td>
-<td><span class="tag tg">▼−57% · Vol▲20%</span></td>
-</tr>
-<tr>
-<td><b>Spider 840 WG</b></td><td style="font-size:.65rem;color:var(--muted)">Diclosulam 840 WG</td>
-<td class="tr">$180<br><small style="color:var(--muted)">120kg</small></td>
-<td class="tr">$195<br><small style="color:var(--muted)">80kg</small></td>
-<td class="tr">R$980<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr">R$820<br><small style="color:var(--muted)">150kg</small></td>
-<td class="tr">R$450<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr"><b>R$380</b><br><small style="color:var(--muted)">250kg</small></td>
-<td><span class="tag tg">▼−61% · Premium pré-em.</span></td>
-</tr>
-<tr>
-<td><b>DMA 806</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL (ex-Dow)</td>
-<td class="tr">$8<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">$10<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$15<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr"><b>R$13</b><br><small style="color:var(--muted)">5.000L</small></td>
-<td><span class="tag tg">▼−41% · Commodity</span></td>
-</tr>
-<tr>
-<td><b>Truvist</b></td><td style="font-size:.65rem;color:var(--muted)">Arylexⓡ + Halauxifen</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$285<br><small style="color:var(--muted)">300L</small></td>
-<td class="tr"><b>R$260</b><br><small style="color:var(--muted)">500L</small></td>
-<td><span class="tag tb">Novo · Latifoliada</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Galil SC</b></td><td style="font-size:.65rem;color:var(--muted)">Haloxifope+Cloransulam</td><td class="tr">$42<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">$48<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">R$245<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$195<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$115<br/><small style="color:var(--muted)">2.800L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$105</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Spider 840 WG</b></td><td style="font-size:.65rem;color:var(--muted)">Diclosulam 840 WG</td><td class="tr">$180<br/><small style="color:var(--muted)">120kg</small></td><td class="tr">$195<br/><small style="color:var(--muted)">80kg</small></td><td class="tr">R$980<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">R$820<br/><small style="color:var(--muted)">150kg</small></td><td class="tr">R$450<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$380</small></td><td class="tr">R$880<br/><small style="color:var(--muted)">240kg</small></td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>DMA 806</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL (ex-Dow)</td><td class="tr">$8<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">$10<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$15<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$13</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Truvist</b></td><td style="font-size:.65rem;color:var(--muted)">Arylexⓡ + Halauxifen</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$285<br/><small style="color:var(--muted)">300L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$260</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🐛 Inseticidas (3 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Isoclast</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfoxaflor 200 SC</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$180<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">R$155<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$125<br><small style="color:var(--muted)">1.800L</small></td>
-<td class="tr"><b>R$108</b><br><small style="color:var(--muted)">2.200L</small></td>
-<td><span class="tag tg">▼−40% · Percevejo premium</span></td>
-</tr>
-<tr>
-<td><b>Closer</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfoxaflor 480 SC</td>
-<td class="tr">$65<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr">$72<br><small style="color:var(--muted)">600L</small></td>
-<td class="tr">R$340<br><small style="color:var(--muted)">500L</small></td>
-<td class="tr">R$280<br><small style="color:var(--muted)">400L</small></td>
-<td class="tr">R$195<br><small style="color:var(--muted)">350L</small></td>
-<td class="tr"><b>R$170</b><br><small style="color:var(--muted)">300L</small></td>
-<td><span class="tag tg">▼−50% · Mosca-br./Pulgão</span></td>
-</tr>
-<tr>
-<td><b>Delegate</b></td><td style="font-size:.65rem;color:var(--muted)">Espinetoram 250 WG</td>
-<td class="tr">$120<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr">$135<br><small style="color:var(--muted)">150kg</small></td>
-<td class="tr">R$580<br><small style="color:var(--muted)">250kg</small></td>
-<td class="tr">R$480<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr">R$350<br><small style="color:var(--muted)">180kg</small></td>
-<td class="tr"><b>R$310</b><br><small style="color:var(--muted)">200kg</small></td>
-<td><span class="tag tg">▼−47% · Tripes/Lagarta</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Isoclast</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfoxaflor 200 SC</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$180<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">R$155<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$125<br/><small style="color:var(--muted)">1.800L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$108</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Closer</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfoxaflor 480 SC</td><td class="tr">$65<br/><small style="color:var(--muted)">800L</small></td><td class="tr">$72<br/><small style="color:var(--muted)">600L</small></td><td class="tr">R$340<br/><small style="color:var(--muted)">500L</small></td><td class="tr">R$280<br/><small style="color:var(--muted)">400L</small></td><td class="tr">R$195<br/><small style="color:var(--muted)">350L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$170</small></td><td class="tr">R$397,80<br/><small style="color:var(--muted)">cotado</small></td><td><span class="tag to">Só cotado 26/27</span></td></tr><tr><td><b>Delegate</b></td><td style="font-size:.65rem;color:var(--muted)">Espinetoram 250 WG</td><td class="tr">$120<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">$135<br/><small style="color:var(--muted)">150kg</small></td><td class="tr">R$580<br/><small style="color:var(--muted)">250kg</small></td><td class="tr">R$480<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">R$350<br/><small style="color:var(--muted)">180kg</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$310</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🍄 Fungicida (1 produto)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Vessarya</b></td><td style="font-size:.65rem;color:var(--muted)">Picoxistrobina+Benzovindiflupir</td>
-<td class="tr">R$165<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">R$140<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr">R$105<br><small style="color:var(--muted)">800L</small></td>
-<td class="tr"><b>R$92</b><br><small style="color:var(--muted)">1.000L</small></td>
-<td><span class="tag tg">▼−44% · Fung. premium</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Vessarya</b></td><td style="font-size:.65rem;color:var(--muted)">Picoxistrobina+Benzovindiflupir</td><td class="tr">R$165<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">R$140<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">R$105<br/><small style="color:var(--muted)">800L</small></td><td class="tr">R$138<br/><small style="color:var(--muted)">800L</small><br/><small style="color:var(--accent3)">pág. ant. R$92</small></td><td class="tr">R$90<br/><small style="color:var(--muted)">3.400L</small></td><td><span class="tag tg">▼-34,8% 26/27 · Vol▲325%</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- CURVAS PREÇO -->
-<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave (BRL)</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>Verdict Ultra</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$180<br/><small style="color:var(--muted)">1.060</small></td><td class="tr">—</td><td class="tr">R$ 190.800,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Aproach Power</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$78<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$45<br/><small style="color:var(--muted)">3.120</small></td><td class="tr">—</td><td class="tr">R$ 140.400,00</td><td><span class="tag tg">▼-42,3% 26/27</span></td></tr><tr><td><b>Lannate</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$18<br/><small style="color:var(--muted)">4.500</small></td><td class="tr">—</td><td class="tr">R$ 81.000,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>Pacto</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$1.850<br/><small style="color:var(--muted)">36</small></td><td class="tr">R$1.667,70<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$ 66.600,00</td><td class="tr">—</td><td><span class="tag tg">▼-9,9% 26/27</span></td></tr><tr><td><b>Utrisha N</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$300<br/><small style="color:var(--muted)">180</small></td><td class="tr">R$250<br/><small style="color:var(--muted)">100</small></td><td class="tr">R$ 54.000,00</td><td class="tr">R$ 25.000,00</td><td><span class="tag tg">▼-16,7% 26/27 · Vol▼44%</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave (BRL)</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Herbicidas (R$/L ou kg)</h3>
@@ -272,15 +156,13 @@ Produtos-chave: Galil SC · Spider · Isoclast · Closer · Delegate · Vessarya
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Top 5 Produtos</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- DEEP DIVE GALIL -->
-<div class="section-title">🔬 Deep Dive — <span>Galil SC (Haloxifope+Cloransulam)</span></div>
+<div class="section-title">🔬 Deep Dive — <span>Galil SC (Haloxifope+Cloransulam)</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>O herbicida pós-emergente premium da soja</h3>
 <div class="table-wrapper">
@@ -298,9 +180,8 @@ Produtos-chave: Galil SC · Spider · Isoclast · Closer · Delegate · Vessarya
 </div>
 <div class="insight"><b>📌 Galil SC caiu 57% em BRL (R$ 245 → R$ 105):</b> Herbicida premium que combina graminicida (Haloxifope) + latifolicida (Cloransulam) em uma formulação. Elimina 2 passadas do pulverizador. A R$ 105/L × 3.600 L = R$ 378k, volume é o maior da série histórica. Concorre com <b>Krypto (Albaugh R$ 350/kg) + Select (Arysta)</b> como pré-emergente, mas Galil é pós-emergente de contato+sistêmico — <b>uso diferente e complementar</b>.</div>
 </div>
-
 <!-- BENCHMARK SULFOXAFLOR -->
-<div class="section-title">⚔️ Benchmark — <span>Isoclast vs. Concorrentes para Percevejo</span></div>
+<div class="section-title">⚔️ Benchmark — <span>Isoclast vs. Concorrentes para Percevejo</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -316,41 +197,29 @@ Produtos-chave: Galil SC · Spider · Isoclast · Closer · Delegate · Vessarya
 </div>
 <div class="insight"><b>📊 Isoclast = menor custo/ha para percevejo:</b> A R$ 32,40/ha, Sulfoxaflor supera todos os concorrentes em custo por hectare. Além disso, é <b>seletivo a inimigos naturais</b> (abelhas, parasitoides), o que melhora o MIP (Manejo Integrado de Pragas). A Corteva deveria usar esse argumento para expandir volume de 2.200 L para 3.000+ L.</div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Corteva</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Corteva</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. Deflação média de −49%:</b> Galil (−57%), Spider (−61%), Closer (−50%), Polo/Delegate (−47%), Vessarya (−44%), Isoclast (−40%), DMA (−41%). A Corteva sofreu deflação <b>comparável à Syngenta</b>, abrindo oportunidade de compra premium a preço de genérico.</div>
-
 <div class="insight"><b>2. Isoclast = arma secreta para percevejo:</b> Sulfoxaflor é o <b>único IA de nova geração</b> para percevejo-marrom no portfólio. A R$ 108/L com dose de 0,30 L/ha = R$ 32,40/ha — o menor custo por hectare entre todas as opções. Seletividade a inimigos naturais é diferencial real no MIP.</div>
-
 <div class="insight"><b>3. Spider vs. Krypto — premium vs. genérico:</b> Spider R$ 380/kg (Corteva) vs. Krypto R$ 350/kg (Albaugh). Mesmo IA (Diclosulam 840 WG). Diferença de R$ 30/kg × 250 kg = <b>R$ 7.500 de premium</b>. Se formulação for idêntica, Spider perde para Krypto. Negociar Spider a R$ 340 ou migrar.</div>
-
 <div class="insight warn"><b>4. Ausência na 20/21:</b> Assim como Albaugh, Corteva não forneceu na 20/21. A marca é grande, mas a relação comercial tem <b>histórico de interrupção</b>. Manter backup para Galil (Poquer — Syngenta) e Isoclast (Chlorfenapyr — Albaugh).</div>
-
 <div class="insight"><b>5. DMA 806 como commodity atrelada:</b> 2,4-D a R$ 13/L × 5.000 L = R$ 65k. É o 2,4-D mais barato do portfólio (Afiado Albaugh = R$ 14/L). Provavelmente vem como <b>bonificação no pacote</b> Corteva. Valor baixo mas garante que a fazenda use DMA em 100% da dessecação.</div>
-
 <div class="insight"><b>6. Vessarya como fungicida alternativo:</b> Picoxistrobina + Benzovindiflupir a R$ 92/L × 1.000 L = R$ 92k. Concorre com Elatus (Syngenta R$ 120/L) e Fox Supra (Bayer). A R$ 92/L, é o <b>fungicida premium mais barato</b> do portfólio — considerar expansão para 1.500 L.</div>
-
 <div class="insight warn"><b>7. Truvist como aposta:</b> Arylexⓡ (Halauxifen) é molécula exclusiva Corteva para latifoliadas resistentes. R$ 260/L × 500 L = R$ 130k. Produto novo, precisa de <b>validação em talhões pareados</b>. Se eficaz contra buva resistente a 2,4-D, pode crescer significativamente.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Galil a R$ 90 (−14%):</b> Com deflação de 57%, há espaço. Meta: R$ 90/L × 4.000 L = R$ 360k. Economia: <b>R$ 54k</b>. Argumento: "Pretorian Albaugh (pré) + Prefer (graminicida) juntos custam menos que Galil."</div>
 <div class="rec"><b>🎯 Isoclast como pilar anti-percevejo:</b> Expandir de 2.200 L para 3.000 L. A R$ 32,40/ha é imbatível. Negociar R$ 95/L (−12%) em troca do volume. Economia: R$ 29k + redução de custo/ha no programa MIP.</div>
 <div class="rec"><b>🎯 Pacote Corteva Top 4:</b> Galil + Isoclast + Spider + DMA = ~R$ 808k. Pedir 10% desconto pacote = <b>economia R$ 81k</b>. Em troca: exclusividade nos 4 itens por 2 safras.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas</h3>
 <div class="rec w"><b>⚠️ Spider vs. Krypto:</b> Premium de R$ 30/kg sobre genérico Albaugh. Se Corteva não equiparar a R$ 340/kg, migrar 100% do Diclosulam para Krypto. Economia potencial: <b>R$ 7.500</b>.</div>
 <div class="rec w"><b>⚠️ Delegate caro vs. alternativas:</b> Espinetoram R$ 310/kg × 200 kg = R$ 62k. Premio Star (FMC — Clorantraniliprole) e Ampligo (Syngenta) são alternativas para tripes/lagarta. Comparar custo/ha antes de renovar.</div>
 <div class="rec d"><b>🔴 Closer em declínio:</b> Volume caiu de 800 L para 300 L (−63%). R$ 170/L × 300 L = R$ 51k. Pode ser descontinuado se Isoclast cobrir mesmas pragas. Consolidar sulfoxaflor em um único SKU.</div>
 </div>
-
 <!-- SCORE -->
 <div class="card">
 <h3>📊 Score Card — Resumo Executivo</h3>
@@ -370,92 +239,33 @@ Produtos-chave: Galil SC · Spider · Isoclast · Closer · Delegate · Vessarya
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Galil SC</td><td class="tr">105</td><td class="tr pos"><b>90</b></td><td class="tr">4.000L</td><td class="tr">R$360k</td><td>Pilar herb. · −14%</td></tr>
-<tr><td>Isoclast</td><td class="tr">108</td><td class="tr pos"><b>95</b></td><td class="tr">3.000L</td><td class="tr">R$285k</td><td>Expandir MIP · −12%</td></tr>
-<tr><td>Spider 840</td><td class="tr">380</td><td class="tr pos"><b>340</b></td><td class="tr">280kg</td><td class="tr">R$95k</td><td>Igualar Krypto · −11%</td></tr>
-<tr><td>DMA 806</td><td class="tr">13</td><td class="tr pos"><b>11</b></td><td class="tr">6.000L</td><td class="tr">R$66k</td><td>Expandir · −15%</td></tr>
-<tr><td>Truvist</td><td class="tr">260</td><td class="tr pos"><b>230</b></td><td class="tr">700L</td><td class="tr">R$161k</td><td>Expandir se validado · −12%</td></tr>
-<tr><td>Delegate</td><td class="tr">310</td><td class="tr pos"><b>270</b></td><td class="tr">220kg</td><td class="tr">R$59k</td><td>Manter · −13%</td></tr>
-<tr><td>Vessarya</td><td class="tr">92</td><td class="tr pos"><b>80</b></td><td class="tr">1.500L</td><td class="tr">R$120k</td><td>Expandir fung. · −13%</td></tr>
-<tr><td>Closer</td><td class="tr">170</td><td class="tr pos"><b>145</b></td><td class="tr">200L</td><td class="tr">R$29k</td><td>Reduzir · −15%</td></tr>
-<tr style="background:rgba(244,67,54,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 1.175k</b></td><td></td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 207k</b></td><td class="pos"><b>−15% c/ mais vol.</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Galil SC</td><td class="tr">105</td><td class="tr">90</td><td class="tr">4.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Isoclast</td><td class="tr">108</td><td class="tr">95</td><td class="tr">3.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Spider 840</td><td class="tr">380</td><td class="tr">340</td><td class="tr">280kg</td><td class="tr">R$880</td><td class="tr">240</td><td class="tr">R$ 211.200</td><td><span class="tag tr2">✗ +158,8% acima da meta</span></td></tr><tr><td>DMA 806</td><td class="tr">13</td><td class="tr">11</td><td class="tr">6.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Truvist</td><td class="tr">260</td><td class="tr">230</td><td class="tr">700L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Delegate</td><td class="tr">310</td><td class="tr">270</td><td class="tr">220kg</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Vessarya</td><td class="tr">92</td><td class="tr">80</td><td class="tr">1.500L</td><td class="tr">R$90</td><td class="tr">3.400</td><td class="tr">R$ 306.000</td><td><span class="tag tr2">✗ +12,5% acima da meta</span></td></tr><tr><td>Closer</td><td class="tr">170</td><td class="tr">145</td><td class="tr">200L</td><td class="tr">R$397,80</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 954.400</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Meta 26/27:</b> Economia projetada de <b>R$ 207k (−15%)</b> combinando deflação agressiva + expansão de Isoclast, Vessarya e Truvist. A Corteva tem o melhor pipeline de inovação entre os fornecedores pós-patente. Se aceitar o pacote, a Fazenda consolida <b>herbicida premium + inseticida MIP + fungicida alternativo</b> em fornecedor único com preços deflacionados.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 8 produtos da meta 26/27 da versão anterior, 0 entraram no pedido com preço igual ou abaixo da meta, 2 acima e 6 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 954.400</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[1520,0,1450,3140,1950,1290,1382],
-backgroundColor:S.map((_,i)=>i===1?'rgba(255,82,82,.4)':'rgba(244,67,54,.'+(3+i)+')')
-,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
-scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?'R$'+(v/1000).toFixed(1)+'M':'R$'+v+'k'}}}}});
-
-// Mix
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Galil SC R$378k','Isoclast R$238k','Truvist R$130k','Spider R$95k','Vessarya R$92k','DMA 806 R$65k','Delegate R$62k','Closer R$51k'],
-datasets:[{data:[378,238,130,95,92,65,62,51],
-backgroundColor:['#f44336','#00b0ff','#ffeb3b','#e040fb','#4caf50','#90a4ae','#ff9100','#7c4dff']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
-
-// Preço Herbicidas (BRL desde 22/23)
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
-{label:'Galil SC',data:[245,195,115,105],borderColor:'#f44336',backgroundColor:'rgba(244,67,54,.1)',fill:true,tension:.3,pointRadius:6},
-{label:'Spider 840',data:[980,820,450,380],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false,yAxisID:'y1'},
-{label:'DMA 806',data:[22,18,15,13],borderColor:'#90a4ae',borderDash:[5,5],tension:.3,pointRadius:4,fill:false},
-{label:'Truvist',data:[null,null,285,260],borderColor:'#ffeb3b',tension:.3,pointRadius:6,pointBackgroundColor:'#ffeb3b',fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true},
-y1:{position:'right',title:{display:true,text:'Spider R$/kg'},grid:{display:false}}}}});
-
-// Preço Inseticidas + Fungicida
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:['22/23','23/24','24/25','25/26'],datasets:[
-{label:'Delegate',data:[580,480,350,310],borderColor:'#ff9100',backgroundColor:'rgba(255,145,0,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Closer',data:[340,280,195,170],borderColor:'#7c4dff',tension:.3,pointRadius:5,fill:false},
-{label:'Isoclast',data:[180,155,125,108],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false},
-{label:'Vessarya',data:[165,140,105,92],borderColor:'#4caf50',tension:.3,pointRadius:5,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L ou kg'}}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Galil SC',data:[2000,0,1500,3000,2500,2800,3600],backgroundColor:'rgba(244,67,54,.7)',borderRadius:4},
-{label:'Isoclast',data:[0,0,0,1500,2000,1800,2200],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
-{label:'DMA 806',data:[6000,0,4000,8000,5000,4000,5000],backgroundColor:'rgba(144,164,174,.5)',borderRadius:4},
-{label:'Spider',data:[120,0,80,200,150,200,250],backgroundColor:'rgba(224,64,251,.5)',borderRadius:4},
-{label:'Vessarya',data:[0,0,0,1200,1000,800,1000],backgroundColor:'rgba(76,175,80,.5)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [1652, 1473, 2486, 3280, 1686, 1431, 231.0, 954.4], "g1": [{"l": "Vessarya", "pr": [null, null, null, 165.0, 140.0, 105.0, 138.0, 90.0], "vo": [null, null, null, 1200.0, 1000.0, 800.0, 800.0, 3400.0], "val": 306000.0}, {"l": "Spider 840 WG", "pr": [null, null, null, 980.0, 820.0, 450.0, null, 880.0], "vo": [120.0, null, 80.0, 200.0, 150.0, 200.0, null, 240.0], "val": 211200.0}, {"l": "Aproach Power", "pr": [null, null, null, null, null, null, 78.0, 45.0], "vo": [null, null, null, null, null, null, null, 3120.0], "val": 140400.0}, {"l": "Pacto", "pr": [null, null, null, null, null, null, 1850.0, 1667.7], "vo": [null, null, null, null, null, null, 36.0, null], "val": 66600.0}], "g2": [{"l": "Utrisha N", "pr": [null, null, null, null, null, null, 300.0, 250.0], "vo": [null, null, null, null, null, null, 180.0, 100.0], "val": 54000.0}, {"l": "Galil SC", "pr": [null, null, null, 245.0, 195.0, 115.0, null, null], "vo": [2000.0, null, 1500.0, 3000.0, 2500.0, 2800.0, null, null], "val": 0}, {"l": "DMA 806", "pr": [null, null, null, 22.0, 18.0, 15.0, null, null], "vo": [6000.0, null, 4000.0, 8000.0, 5000.0, 4000.0, null, null], "val": 0}, {"l": "Isoclast", "pr": [null, null, null, 180.0, 155.0, 125.0, null, null], "vo": [null, null, null, 1500.0, 2000.0, 1800.0, null, null], "val": 0}], "gv": [{"l": "Vessarya", "pr": [null, null, null, 165.0, 140.0, 105.0, 138.0, 90.0], "vo": [null, null, null, 1200.0, 1000.0, 800.0, 800.0, 3400.0], "val": 306000.0}, {"l": "Spider 840 WG", "pr": [null, null, null, 980.0, 820.0, 450.0, null, 880.0], "vo": [120.0, null, 80.0, 200.0, 150.0, 200.0, null, 240.0], "val": 211200.0}, {"l": "Aproach Power", "pr": [null, null, null, null, null, null, 78.0, 45.0], "vo": [null, null, null, null, null, null, null, 3120.0], "val": 140400.0}, {"l": "Pacto", "pr": [null, null, null, null, null, null, 1850.0, 1667.7], "vo": [null, null, null, null, null, null, 36.0, null], "val": 66600.0}, {"l": "Utrisha N", "pr": [null, null, null, null, null, null, 300.0, 250.0], "vo": [null, null, null, null, null, null, 180.0, 100.0], "val": 54000.0}, {"l": "Galil SC", "pr": [null, null, null, 245.0, 195.0, 115.0, null, null], "vo": [2000.0, null, 1500.0, 3000.0, 2500.0, 2800.0, null, null], "val": 0}], "mix": [["Vessarya R$306k", 306.0], ["Spider R$211k", 211.2], ["Verdict Ultra R$191k", 190.8], ["Aproach Power R$140k", 140.4], ["Lannate R$81k", 81.0], ["Utrisha N R$25k", 25.0]], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 </script>
 </body>
 </html>

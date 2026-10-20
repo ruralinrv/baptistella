@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | Albaugh — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | Albaugh — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -80,233 +81,70 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>ALBAUGH</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV FORNECEDORES -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a class="on" href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a class="on" href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon" style="background:linear-gradient(135deg,#ff9100,#f57c00)">AL</div>
 <div class="hdr-info">
 <h2>ALBAUGH <span>DO BRASIL</span></h2>
-<p>Presente em <b>6/7 safras</b> (ausente 22/23) · Herbicidas, Inseticidas, Fungicidas, Adjuvantes<br>
-Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br>
-Perfil: <b>Genérico de alta performance</b> · Maior portfólio individual (15 SKUs na 25/26)<br>
+<p>Presente em <b>6/7 safras</b> (ausente 22/23) · Herbicidas, Inseticidas, Fungicidas, Adjuvantes<br/>
+Moeda: <b style="color:var(--green)">100% BRL</b> · Zero risco cambial<br/>
+Perfil: <b>Genérico de alta performance</b> · Maior portfólio individual (15 SKUs na 25/26)<br/>
 Produtos-chave: Pretorian · Chlorfenapyr · Krypto · Prefer · Ultimato · Egan · Afiado</p>
 </div>
 </div>
-
 <!-- DESTAQUE -->
 <div class="highlight">
 <h4>🧩 O "Supermercado de Genéricos": 15 produtos ativos em uma única safra</h4>
 <p style="font-size:.8rem;color:var(--text);line-height:1.6">Albaugh é o fornecedor com <b style="color:var(--accent3)">maior número de SKUs</b> na Fazenda Planalto. Com 15 produtos na 25/26, cobre herbicidas (7), inseticidas (4), fungicidas (2) e adjuvantes (2). Nenhum produto ultrapassa 27% do total — distribuição <b>mais equilibrada</b> de todos os fornecedores. Sobreviveu à ausência na 22/23 e se consolidou como <b>3º maior fornecedor</b>.</p>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--accent3)">R$ 2,15M</div><div class="sub">12,5% do total defensivos</div></div>
-<div class="kpi"><div class="lb">Acumulado 6 Safras</div><div class="vl">~R$ 6,85M</div><div class="sub">Média R$ 1,14M/safra ativa</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">R$ 2,15M</div><div class="sub">Safra 25/26 = Pico atual! 🔝</div></div>
-<div class="kpi"><div class="lb">Crescim. vs 20/21</div><div class="vl" style="color:var(--green)">▲ +18%</div><div class="sub">Crescimento sustentável</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos</div><div class="vl">15</div><div class="sub">Maior portfólio do painel</div></div>
-<div class="kpi"><div class="lb">Maior Produto</div><div class="vl" style="color:var(--accent2)">Pretorian</div><div class="sub">R$ 579k · 27% do total</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">R$ 1,26M</div><div class="sub">5,2% do total 26/27</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">R$ 2,15M</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--green)">-41,3%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">R$ 8,11M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">7</div><div class="sub">26/27 · 9 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">Krypto</div><div class="sub">R$ 426.000</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a Albaugh soma R$ 2.151.867 e o pedido 26/27 soma R$ 1.263.100, -41,3% sobre a 25/26.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em Krypto (R$ 426.000), Afiado (R$ 280.800) e Exemplo LV (R$ 216.000).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, Afiado caiu de R$ 112,00 para R$ 78,00 (-30,4%) e Prefer subiu de R$ 15,10 para R$ 34,00 (+125,2%).</p><p style="margin:0 0 8px">Use as quedas de preço como referência para renegociar Prefer antes do vencimento de 50% 30/04/2027 · 50% 20/09/2027.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div><div class="insight warn"><b>⚠ Divergências entre a página anterior e a planilha:</b><br/>Pretorian: P.A. na planilha: Clorfenapir (página: Sulfentrazone 500 SC)<br/>Krypto: P.A. na planilha: Methom + Bifent (página: Diclosulam 840 WG)<br/>Ultimato: P.A. na planilha: Atrazina 500 (página: Glufosinato 200 SL)<br/>Prefer: P.A. na planilha: Glufosinato (página: Cletodim 240 EC)<br/>Atrazina 500: na planilha 26/27 o produto está no pedido de Rainbow<br/>Egan: P.A. na planilha: Diquat 200 (página: Clorimuron 250 WG)</div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Pretorian (Clorfenapir)</b></td><td class="tr">9.700</td><td class="tr">2.000</td><td class="tr">11.700</td><td class="tr">R$ 49,50</td><td class="tr">R$ 579.150,00</td><td class="tr">26,9%</td></tr><tr><td><b>Krypto (Methom + Bifent)</b></td><td class="tr">10.000</td><td class="tr">—</td><td class="tr">10.000</td><td class="tr">R$ 38,40</td><td class="tr">R$ 384.000,00</td><td class="tr">17,8%</td></tr><tr><td><b>Prefer (Glufosinato)</b></td><td class="tr">13.500</td><td class="tr">7.200</td><td class="tr">20.700</td><td class="tr">R$ 15,10</td><td class="tr">R$ 312.570,00</td><td class="tr">14,5%</td></tr><tr><td><b>Afiado (Aceta + Bifent)</b></td><td class="tr">2.400</td><td class="tr">—</td><td class="tr">2.400</td><td class="tr">R$ 112,00</td><td class="tr">R$ 268.800,00</td><td class="tr">12,5%</td></tr><tr><td><b>Egan (Diquat 200)</b></td><td class="tr">8.000</td><td class="tr">1.600</td><td class="tr">9.600</td><td class="tr">R$ 22,00</td><td class="tr">R$ 211.200,00</td><td class="tr">9,8%</td></tr><tr><td><b>Ultimato SC (Atrazina 500)</b></td><td class="tr">4.500</td><td class="tr">3.600</td><td class="tr">8.100</td><td class="tr">R$ 18,00</td><td class="tr">R$ 145.800,00</td><td class="tr">6,8%</td></tr><tr><td><b>Vasto (Tiofanato Metilico)</b></td><td class="tr">4.500</td><td class="tr">—</td><td class="tr">4.500</td><td class="tr">R$ 28,71</td><td class="tr">R$ 129.195,00</td><td class="tr">6,0%</td></tr><tr><td><b>Exemplo</b></td><td class="tr">5.400</td><td class="tr">—</td><td class="tr">5.400</td><td class="tr">R$ 17,28</td><td class="tr">R$ 93.312,00</td><td class="tr">4,3%</td></tr><tr><td><b>Joya (Flumioxazina 480 SC)</b></td><td class="tr">—</td><td class="tr">240</td><td class="tr">240</td><td class="tr">R$ 116,00</td><td class="tr">R$ 27.840,00</td><td class="tr">1,3%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>R$ 2.151.867,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 30/04/2026 (não informado na aba) · RTV/gestor: Nilton Santos</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>Krypto (Methom + Bifent)</b></td><td class="tr">12.000</td><td class="tr">—</td><td class="tr">12.000</td><td class="tr">R$ 35,50</td><td class="tr">R$ 426.000,00</td><td class="tr">33,7%</td></tr><tr><td><b>Afiado (Aceta + Bifent)</b></td><td class="tr">3.600</td><td class="tr">—</td><td class="tr">3.600</td><td class="tr">R$ 78,00</td><td class="tr">R$ 280.800,00</td><td class="tr">22,2%</td></tr><tr><td><b>Exemplo LV</b></td><td class="tr">9.000</td><td class="tr">—</td><td class="tr">9.000</td><td class="tr">R$ 24,00</td><td class="tr">R$ 216.000,00</td><td class="tr">17,1%</td></tr><tr><td><b>Ultimato SC (Atrazina 500)</b></td><td class="tr">12.000</td><td class="tr">—</td><td class="tr">12.000</td><td class="tr">R$ 17,50</td><td class="tr">R$ 210.000,00</td><td class="tr">16,6%</td></tr><tr><td><b>Joya (Flumioxazina 480 SC)</b></td><td class="tr">360</td><td class="tr">340</td><td class="tr">700</td><td class="tr">R$ 93,00</td><td class="tr">R$ 65.100,00</td><td class="tr">5,2%</td></tr><tr><td><b>Prefer Max (Glufosinato)</b></td><td class="tr">1.000</td><td class="tr">—</td><td class="tr">1.000</td><td class="tr">R$ 34,00</td><td class="tr">R$ 34.000,00</td><td class="tr">2,7%</td></tr><tr><td><b>Excellend</b></td><td class="tr">600</td><td class="tr">—</td><td class="tr">600</td><td class="tr">R$ 52,00</td><td class="tr">R$ 31.200,00</td><td class="tr">2,5%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>R$ 1.263.100,00</b></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 50% 30/04/2027 · 50% 20/09/2027 · RTV/gestor: Nilton Santos</div></div></div>
 <!-- GRÁFICOS TOPO -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento (R$ mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 (R$ mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Composição do Portfólio 25/26</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- PORTFÓLIO HERBICIDAS -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço × Volume por Safra</span></div>
-
 <div class="card">
 <h3>🌿 Herbicidas (7 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Pretorian</b></td><td style="font-size:.65rem;color:var(--muted)">Sulfentrazone 500 SC</td>
-<td class="tr">R$88<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr">R$95<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$85<br><small style="color:var(--muted)">1.200L</small></td>
-<td class="tr">R$78<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr"><b>R$72</b><br><small style="color:var(--muted)">8.040L</small></td>
-<td><span class="tag tg">▼−18% · Vol▲34%</span></td>
-</tr>
-<tr>
-<td><b>Krypto</b></td><td style="font-size:.65rem;color:var(--muted)">Diclosulam 840 WG</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$420<br><small style="color:var(--muted)">100kg</small></td>
-<td class="tr">R$385<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr"><b>R$350</b><br><small style="color:var(--muted)">300kg</small></td>
-<td><span class="tag tg">▼−17% · Vol▲200%</span></td>
-</tr>
-<tr>
-<td><b>Ultimato</b></td><td style="font-size:.65rem;color:var(--muted)">Glufosinato 200 SL</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$38<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr"><b>R$34</b><br><small style="color:var(--muted)">6.000L</small></td>
-<td><span class="tag tb">Novo · Dessecação</span></td>
-</tr>
-<tr>
-<td><b>Prefer</b></td><td style="font-size:.65rem;color:var(--muted)">Cletodim 240 EC</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$52<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">R$45<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr"><b>R$40</b><br><small style="color:var(--muted)">3.000L</small></td>
-<td><span class="tag tg">▼−23% · Graminicida</span></td>
-</tr>
-<tr>
-<td><b>Atrazina 500</b></td><td style="font-size:.65rem;color:var(--muted)">Atrazina 500 SC</td>
-<td class="tr">R$15<br><small style="color:var(--muted)">10.000L</small></td>
-<td class="tr">R$17<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$16<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">R$14<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr"><b>R$18</b><br><small style="color:var(--muted)">6.000L</small></td>
-<td><span class="tag to">▲+29% · Milho</span></td>
-</tr>
-<tr>
-<td><b>Egan</b></td><td style="font-size:.65rem;color:var(--muted)">Clorimuron 250 WG</td>
-<td class="tr">R$92<br><small style="color:var(--muted)">300kg</small></td>
-<td class="tr">R$98<br><small style="color:var(--muted)">200kg</small></td>
-<td class="tr">R$85<br><small style="color:var(--muted)">150kg</small></td>
-<td class="tr">R$72<br><small style="color:var(--muted)">300kg</small></td>
-<td class="tr"><b>R$65</b><br><small style="color:var(--muted)">400kg</small></td>
-<td><span class="tag tg">▼−34% · Vol▲</span></td>
-</tr>
-<tr>
-<td><b>Afiado</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL</td>
-<td class="tr">R$20<br><small style="color:var(--muted)">8.000L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$16<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr"><b>R$14</b><br><small style="color:var(--muted)">5.000L</small></td>
-<td><span class="tag tg">▼−30% · Commodity</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Pretorian</b><br/><small style="color:var(--accent3)">⚠ P.A. na planilha: Clorfenapir (página: Sulfentrazone 500 SC)</small></td><td style="font-size:.65rem;color:var(--muted)">Sulfentrazone 500 SC</td><td class="tr">R$88<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">R$95<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$85<br/><small style="color:var(--muted)">1.200L</small></td><td class="tr">R$78<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$49,50<br/><small style="color:var(--muted)">11.700L</small><br/><small style="color:var(--accent3)">pág. ant. R$72</small></td><td class="tr">R$38,50<br/><small style="color:var(--muted)">cotado</small></td><td><span class="tag tg">▼-22,2% 26/27</span></td></tr><tr><td><b>Krypto</b><br/><small style="color:var(--accent3)">⚠ P.A. na planilha: Methom + Bifent (página: Diclosulam 840 WG)</small></td><td style="font-size:.65rem;color:var(--muted)">Diclosulam 840 WG</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$420<br/><small style="color:var(--muted)">100kg</small></td><td class="tr">R$385<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">R$38,40<br/><small style="color:var(--muted)">10.000kg</small><br/><small style="color:var(--accent3)">pág. ant. R$350</small></td><td class="tr">R$35,50<br/><small style="color:var(--muted)">12.000kg</small></td><td><span class="tag tg">▼-7,6% 26/27 · Vol▲20%</span></td></tr><tr><td><b>Ultimato</b><br/><small style="color:var(--accent3)">⚠ P.A. na planilha: Atrazina 500 (página: Glufosinato 200 SL)</small></td><td style="font-size:.65rem;color:var(--muted)">Glufosinato 200 SL</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$38<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">8.100L</small><br/><small style="color:var(--accent3)">pág. ant. R$34</small></td><td class="tr">R$17,50<br/><small style="color:var(--muted)">12.000L</small></td><td><span class="tag tg">▼-2,8% 26/27 · Vol▲48%</span></td></tr><tr><td><b>Prefer</b><br/><small style="color:var(--accent3)">⚠ P.A. na planilha: Glufosinato (página: Cletodim 240 EC)</small></td><td style="font-size:.65rem;color:var(--muted)">Cletodim 240 EC</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$52<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">R$45<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$15,10<br/><small style="color:var(--muted)">20.700L</small><br/><small style="color:var(--accent3)">pág. ant. R$40</small></td><td class="tr">R$34<br/><small style="color:var(--muted)">1.000L</small></td><td><span class="tag tr2">▲+125,2% 26/27 · Vol▼95%</span></td></tr><tr><td><b>Atrazina 500</b><br/><small style="color:var(--accent3)">⚠ na planilha 26/27 o produto está no pedido de Rainbow</small></td><td style="font-size:.65rem;color:var(--muted)">Atrazina 500 SC</td><td class="tr">R$15<br/><small style="color:var(--muted)">10.000L</small></td><td class="tr">R$17<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$16<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">R$14<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$18</small></td><td class="tr">R$18,70<br/><small style="color:var(--muted)">cotado</small></td><td><span class="tag to">Só cotado 26/27</span></td></tr><tr><td><b>Egan</b><br/><small style="color:var(--accent3)">⚠ P.A. na planilha: Diquat 200 (página: Clorimuron 250 WG)</small></td><td style="font-size:.65rem;color:var(--muted)">Clorimuron 250 WG</td><td class="tr">R$92<br/><small style="color:var(--muted)">300kg</small></td><td class="tr">R$98<br/><small style="color:var(--muted)">200kg</small></td><td class="tr">R$85<br/><small style="color:var(--muted)">150kg</small></td><td class="tr">R$72<br/><small style="color:var(--muted)">300kg</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">9.600kg</small><br/><small style="color:var(--accent3)">pág. ant. R$65</small></td><td class="tr">R$22,90<br/><small style="color:var(--muted)">cotado</small></td><td><span class="tag tr2">▲+4,1% 26/27</span></td></tr><tr><td><b>Afiado</b></td><td style="font-size:.65rem;color:var(--muted)">2,4-D 806 SL</td><td class="tr">R$20<br/><small style="color:var(--muted)">8.000L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$16<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$112<br/><small style="color:var(--muted)">2.400L</small><br/><small style="color:var(--accent3)">pág. ant. R$14</small></td><td class="tr">R$78<br/><small style="color:var(--muted)">3.600L</small></td><td><span class="tag tg">▼-30,4% 26/27 · Vol▲50%</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🐛 Inseticidas (4 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Chlorfenapyr 240</b></td><td style="font-size:.65rem;color:var(--muted)">Clorfenapir 240 SC</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$78<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$65<br><small style="color:var(--muted)">3.500L</small></td>
-<td class="tr"><b>R$58</b><br><small style="color:var(--muted)">4.500L</small></td>
-<td><span class="tag tg">▼−26% · Vol▲125%</span></td>
-</tr>
-<tr>
-<td><b>Metomil 215</b></td><td style="font-size:.65rem;color:var(--muted)">Metomil 215 SL</td>
-<td class="tr">R$28<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$32<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$26<br><small style="color:var(--muted)">4.000L</small></td>
-<td class="tr">R$22<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr"><b>R$19</b><br><small style="color:var(--muted)">4.000L</small></td>
-<td><span class="tag tg">▼−32% · Versátil</span></td>
-</tr>
-<tr>
-<td><b>Lambda 250</b></td><td style="font-size:.65rem;color:var(--muted)">Lambda-cialotrina 250 CS</td>
-<td class="tr">R$32<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$35<br><small style="color:var(--muted)">1.500L</small></td>
-<td class="tr">R$28<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr">R$24<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr"><b>R$20</b><br><small style="color:var(--muted)">3.000L</small></td>
-<td><span class="tag tg">▼−38% · Piretroide</span></td>
-</tr>
-<tr>
-<td><b>Imidacloprid 480</b></td><td style="font-size:.65rem;color:var(--muted)">Imidacloprido 480 SC</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">R$42<br><small style="color:var(--muted)">1.000L</small></td>
-<td class="tr"><b>R$36</b><br><small style="color:var(--muted)">1.500L</small></td>
-<td><span class="tag tb">Novo · Neonico</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Chlorfenapyr 240</b></td><td style="font-size:.65rem;color:var(--muted)">Clorfenapir 240 SC</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$78<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$65<br/><small style="color:var(--muted)">3.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$58</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Metomil 215</b></td><td style="font-size:.65rem;color:var(--muted)">Metomil 215 SL</td><td class="tr">R$28<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$32<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$26<br/><small style="color:var(--muted)">4.000L</small></td><td class="tr">R$22<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$19</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Lambda 250</b></td><td style="font-size:.65rem;color:var(--muted)">Lambda-cialotrina 250 CS</td><td class="tr">R$32<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$35<br/><small style="color:var(--muted)">1.500L</small></td><td class="tr">R$28<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">R$24<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$20</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Imidacloprid 480</b></td><td style="font-size:.65rem;color:var(--muted)">Imidacloprido 480 SC</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">R$42<br/><small style="color:var(--muted)">1.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$36</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>🍄 Fungicidas + Adjuvantes (4 produtos)</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>Tipo</th><th>P.A.</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Azoxy+Cipro</b></td><td><span class="tag tg">Fung.</span></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Ciproconazol</td>
-<td class="tr">R$52<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr">R$42<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr"><b>R$38</b><br><small style="color:var(--muted)">4.000L</small></td>
-<td><span class="tag tg">▼−27% · Gen. ferrugem</span></td>
-</tr>
-<tr>
-<td><b>Tebuconazol 200</b></td><td><span class="tag tg">Fung.</span></td><td style="font-size:.65rem;color:var(--muted)">Tebuconazol 200 EC</td>
-<td class="tr">R$22<br><small style="color:var(--muted)">3.000L</small></td>
-<td class="tr">R$18<br><small style="color:var(--muted)">2.500L</small></td>
-<td class="tr"><b>R$16</b><br><small style="color:var(--muted)">3.000L</small></td>
-<td><span class="tag tg">▼−27% · Milho</span></td>
-</tr>
-<tr>
-<td><b>Joint Oil</b></td><td><span class="tag ty">Adj.</span></td><td style="font-size:.65rem;color:var(--muted)">Óleo mineral 756 EC</td>
-<td class="tr">R$9,5<br><small style="color:var(--muted)">5.000L</small></td>
-<td class="tr">R$8,5<br><small style="color:var(--muted)">6.000L</small></td>
-<td class="tr"><b>R$7,5</b><br><small style="color:var(--muted)">8.000L</small></td>
-<td><span class="tag tg">▼−21% · Vol▲</span></td>
-</tr>
-<tr>
-<td><b>Dash HC</b></td><td><span class="tag ty">Adj.</span></td><td style="font-size:.65rem;color:var(--muted)">Éster metílico+Ác. graxo</td>
-<td class="tr">—</td>
-<td class="tr">R$18<br><small style="color:var(--muted)">2.000L</small></td>
-<td class="tr"><b>R$16</b><br><small style="color:var(--muted)">3.000L</small></td>
-<td><span class="tag tb">Novo</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">Tipo</th><th class="">P.A.</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Azoxy+Cipro</b></td><td><span class="tag tg">Fung.</span></td><td style="font-size:.65rem;color:var(--muted)">Azoxistrobina+Ciproconazol</td><td class="tr">R$52<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">R$42<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$38</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Tebuconazol 200</b></td><td><span class="tag tg">Fung.</span></td><td style="font-size:.65rem;color:var(--muted)">Tebuconazol 200 EC</td><td class="tr">R$22<br/><small style="color:var(--muted)">3.000L</small></td><td class="tr">R$18<br/><small style="color:var(--muted)">2.500L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$16</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Joint Oil</b></td><td><span class="tag ty">Adj.</span></td><td style="font-size:.65rem;color:var(--muted)">Óleo mineral 756 EC</td><td class="tr">R$9,5<br/><small style="color:var(--muted)">5.000L</small></td><td class="tr">R$8,5<br/><small style="color:var(--muted)">6.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$7,50</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Dash HC</b></td><td><span class="tag ty">Adj.</span></td><td style="font-size:.65rem;color:var(--muted)">Éster metílico+Ác. graxo</td><td class="tr">—</td><td class="tr">R$18<br/><small style="color:var(--muted)">2.000L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. R$16</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- CURVAS PREÇO -->
-<div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>Exemplo LV</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$21,40<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$24<br/><small style="color:var(--muted)">9.000</small></td><td class="tr">—</td><td class="tr">R$ 216.000,00</td><td><span class="tag tr2">▲+12,1% 26/27</span></td></tr><tr><td><b>Vasto</b></td><td style="font-size:.65rem;color:var(--muted)">Tiofanato Metilico</td><td class="tr">R$28,71<br/><small style="color:var(--muted)">4.500</small></td><td class="tr">R$24,80<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$ 129.195,00</td><td class="tr">—</td><td><span class="tag tg">▼-13,6% 26/27</span></td></tr><tr><td><b>Exemplo</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">R$17,28<br/><small style="color:var(--muted)">5.400</small></td><td class="tr">R$20,80<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">R$ 93.312,00</td><td class="tr">—</td><td><span class="tag tr2">▲+20,4% 26/27</span></td></tr><tr><td><b>Joya</b></td><td style="font-size:.65rem;color:var(--muted)">Flumioxazina 480 SC</td><td class="tr">R$116<br/><small style="color:var(--muted)">240</small></td><td class="tr">R$93<br/><small style="color:var(--muted)">700</small></td><td class="tr">R$ 27.840,00</td><td class="tr">R$ 65.100,00</td><td><span class="tag tg">▼-19,8% 26/27 · Vol▲192%</span></td></tr><tr><td><b>Excellend</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">R$52<br/><small style="color:var(--muted)">600</small></td><td class="tr">—</td><td class="tr">R$ 31.200,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Produtos-Chave</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Herbicidas (R$/L ou kg)</h3>
@@ -317,15 +155,13 @@ Produtos-chave: Pretorian · Chlorfenapyr · Krypto · Prefer · Ultimato · Ega
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Top 6 Produtos</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- BENCHMARK -->
-<div class="section-title">⚔️ Albaugh vs. Concorrentes — <span>Benchmark R$/L</span></div>
+<div class="section-title">⚔️ Albaugh vs. Concorrentes — <span>Benchmark R$/L</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <div class="table-wrapper">
 <table>
@@ -344,41 +180,29 @@ Produtos-chave: Pretorian · Chlorfenapyr · Krypto · Prefer · Ultimato · Ega
 </div>
 <div class="insight"><b>📊 Placar:</b> Albaugh lidera em <b>4 de 8 classes</b> (Metomil, 2,4-D, Azoxy+Cipro, Óleo). Rainbow em 2 (Clorfenapir, Lambda). Tecnomyl em 2 (Glufosinato, Glifosato). <b>Estratégia ótima: comprar o melhor preço de cada classe</b> entre os 3 genéricos.</div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Albaugh</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico Albaugh</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. Pretorian = R$ 305k de economia vs. marca:</b> Sulfentrazone a R$ 72/L vs. Boral (FMC) a ~R$ 110+/L. Em 8.040 L, a economia é de R$ 38/L × 8.040 = <b>R$ 305k</b>. Herbicida pré-emergente essencial para soja — o genérico Albaugh é o mais testado do MT.</div>
-
 <div class="insight"><b>2. Portfólio mais distribuído de todos:</b> 15 produtos, nenhum acima de 27%. HHI interno ~1.100 (mais baixo do painel). A perda de qualquer produto individual não compromete a relação. <b>Resiliência máxima</b> na cadeia de suprimentos.</div>
-
 <div class="insight"><b>3. Deflação média de −27%:</b> Lambda (−38%), Egan (−34%), Metomil (−32%), Afiado (−30%). Albaugh pratica <b>preço de conquista</b> — margem menor para ganhar volume. Beneficia o produtor enquanto durar a guerra de preços com Rainbow e Tecnomyl.</div>
-
 <div class="insight warn"><b>4. Ausência na 22/23 = bandeira vermelha:</b> Não forneceu na safra de maior crise de insumos. Possíveis causas: ruptura de estoque, não fechamento comercial. <b>Manter backup</b> para os 5 maiores produtos (Rainbow ou Tecnomyl).</div>
-
 <div class="insight"><b>5. Chlorfenapyr — produto de maior crescimento:</b> De 2.000 L para 4.500 L (+125%). Clorfenapir é o <b>novo padrão para percevejo-marrom</b> no MT. A R$ 58/L, Albaugh perde para Rainbow (R$ 52). Meta: forçar a R$ 50/L para reter volume.</div>
-
 <div class="insight"><b>6. Joint Oil = adjuvante mais barato do painel:</b> R$ 7,5/L vs. Assist BASF R$ 13,75 vs. Uptake UPL R$ 14 vs. Aureo Bayer R$ 17,30. Vantagem de <b>46-57%</b>. Volume de 8.000 L garante que toda aplicação use produto Albaugh.</div>
-
 <div class="insight warn"><b>7. Atrazina — único produto com alta (+29%):</b> De R$ 14 para R$ 18/L. Possível reajuste de matéria-prima. Verificar se Rainbow ou Tecnomyl oferecem abaixo de R$ 16. Se sim, migrar o volume de 6.000 L.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Pacote "Albaugh Total" — 15 SKUs:</b> Propor contrato pacote a R$ 1,95M (−9%). Nenhum outro fornecedor entrega 15 itens. Em troca: exclusividade em 2,4-D, Metomil e Óleo. <b>Economia: ~R$ 200k</b>.</div>
 <div class="rec"><b>🎯 Pretorian a R$ 65 (−10%):</b> "Se Pretorian vier a R$ 65, mantenho 8.500 L e adiciono Krypto 400 kg." Economia Pretorian: <b>R$ 56k</b>. Albaugh ganha volume total maior.</div>
 <div class="rec"><b>🎯 Chlorfenapyr vs. Rainbow:</b> Apresentar cotação Rainbow Ethrole (R$ 52) para forçar R$ 50 (−14%). Economia: R$ 36k (R$ 8/L × 4.500 L).</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas</h3>
 <div class="rec w"><b>⚠️ Backup obrigatório:</b> Para cada produto Albaugh, manter cotação alternativa: Pretorian → Boral FMC; Chlorfenapyr → Ethrole Rainbow; Lambda → Soldier Rainbow; Atrazina → genérico alternativo.</div>
 <div class="rec w"><b>⚠️ Atrazina +29%:</b> Verificar alternativas abaixo de R$ 16. Se encontrar, migrar volume de 6.000 L imediatamente.</div>
 <div class="rec d"><b>🔴 Qualidade de fungicidas genéricos:</b> Exigir laudo de bioequivalência para Azoxy+Cipro e Tebuconazol 200. Genéricos de fungicida têm histórico de 5-15% de diferença de eficácia vs. marca.</div>
 </div>
-
 <!-- SCORE -->
 <div class="card">
 <h3>📊 Score Card — Resumo Executivo</h3>
@@ -398,100 +222,33 @@ Produtos-chave: Pretorian · Chlorfenapyr · Krypto · Prefer · Ultimato · Ega
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO 26/27 -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">R$ 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Pretorian</td><td class="tr">72</td><td class="tr pos"><b>65</b></td><td class="tr">8.500L</td><td class="tr">R$553k</td><td>Pilar · −10%</td></tr>
-<tr><td>Chlorfenapyr</td><td class="tr">58</td><td class="tr pos"><b>50</b></td><td class="tr">5.000L</td><td class="tr">R$250k</td><td>Pressão Rainbow · −14%</td></tr>
-<tr><td>Krypto</td><td class="tr">350</td><td class="tr pos"><b>310</b></td><td class="tr">400kg</td><td class="tr">R$124k</td><td>Expandir · −11%</td></tr>
-<tr><td>Ultimato</td><td class="tr">34</td><td class="tr pos"><b>30</b></td><td class="tr">7.000L</td><td class="tr">R$210k</td><td>Expandir · −12%</td></tr>
-<tr><td>Prefer</td><td class="tr">40</td><td class="tr pos"><b>36</b></td><td class="tr">3.500L</td><td class="tr">R$126k</td><td>Manter · −10%</td></tr>
-<tr><td>Azoxy+Cipro</td><td class="tr">38</td><td class="tr pos"><b>34</b></td><td class="tr">4.500L</td><td class="tr">R$153k</td><td>Expandir · −11%</td></tr>
-<tr><td>Atrazina 500</td><td class="tr">18</td><td class="tr pos"><b>15</b></td><td class="tr">6.000L</td><td class="tr">R$90k</td><td>Reverter alta · −17%</td></tr>
-<tr><td>Metomil 215</td><td class="tr">19</td><td class="tr pos"><b>17</b></td><td class="tr">4.500L</td><td class="tr">R$77k</td><td>Manter · −11%</td></tr>
-<tr><td>Lambda 250</td><td class="tr">20</td><td class="tr pos"><b>18</b></td><td class="tr">3.500L</td><td class="tr">R$63k</td><td>Pressionar · −10%</td></tr>
-<tr><td>Afiado</td><td class="tr">14</td><td class="tr pos"><b>12</b></td><td class="tr">6.000L</td><td class="tr">R$72k</td><td>Expandir · −14%</td></tr>
-<tr><td>Egan</td><td class="tr">65</td><td class="tr pos"><b>58</b></td><td class="tr">500kg</td><td class="tr">R$29k</td><td>Manter · −11%</td></tr>
-<tr><td>Tebuconazol</td><td class="tr">16</td><td class="tr pos"><b>14</b></td><td class="tr">3.500L</td><td class="tr">R$49k</td><td>Manter · −13%</td></tr>
-<tr><td>Imidacloprid</td><td class="tr">36</td><td class="tr pos"><b>32</b></td><td class="tr">2.000L</td><td class="tr">R$64k</td><td>Expandir · −11%</td></tr>
-<tr><td>Joint Oil</td><td class="tr">7,5</td><td class="tr pos"><b>6,5</b></td><td class="tr">10.000L</td><td class="tr">R$65k</td><td>Expandir · −13%</td></tr>
-<tr><td>Dash HC</td><td class="tr">16</td><td class="tr pos"><b>14</b></td><td class="tr">3.500L</td><td class="tr">R$49k</td><td>Manter · −13%</td></tr>
-<tr style="background:rgba(255,145,0,.06)"><td><b>TOTAL</b></td><td></td><td></td><td></td><td class="tr"><b>R$ 1.974k</b></td><td></td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td colspan="4"><b>Economia vs. 25/26</b></td><td class="tr pos"><b>−R$ 178k</b></td><td class="pos"><b>−8% c/ mais volume</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Pretorian</td><td class="tr">72</td><td class="tr">65</td><td class="tr">8.500L</td><td class="tr">R$38,50</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Chlorfenapyr</td><td class="tr">58</td><td class="tr">50</td><td class="tr">5.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Krypto</td><td class="tr">350</td><td class="tr">310</td><td class="tr">400kg</td><td class="tr">R$35,50</td><td class="tr">12.000</td><td class="tr">R$ 426.000</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Ultimato</td><td class="tr">34</td><td class="tr">30</td><td class="tr">7.000L</td><td class="tr">R$17,50</td><td class="tr">12.000</td><td class="tr">R$ 210.000</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Prefer</td><td class="tr">40</td><td class="tr">36</td><td class="tr">3.500L</td><td class="tr">R$34</td><td class="tr">1.000</td><td class="tr">R$ 34.000</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Azoxy+Cipro</td><td class="tr">38</td><td class="tr">34</td><td class="tr">4.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Atrazina 500 <small style="color:var(--muted)">(Rainbow)</small></td><td class="tr">18</td><td class="tr">15</td><td class="tr">6.000L</td><td class="tr">R$18,70</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Metomil 215</td><td class="tr">19</td><td class="tr">17</td><td class="tr">4.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Lambda 250</td><td class="tr">20</td><td class="tr">18</td><td class="tr">3.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Afiado</td><td class="tr">14</td><td class="tr">12</td><td class="tr">6.000L</td><td class="tr">R$78</td><td class="tr">3.600</td><td class="tr">R$ 280.800</td><td><span class="tag tr2">✗ +550,0% acima da meta</span></td></tr><tr><td>Egan</td><td class="tr">65</td><td class="tr">58</td><td class="tr">500kg</td><td class="tr">R$22,90</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Tebuconazol</td><td class="tr">16</td><td class="tr">14</td><td class="tr">3.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Imidacloprid</td><td class="tr">36</td><td class="tr">32</td><td class="tr">2.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Joint Oil</td><td class="tr">7,50</td><td class="tr">6,5</td><td class="tr">10.000L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Dash HC</td><td class="tr">16</td><td class="tr">14</td><td class="tr">3.500L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>R$ 1.263.100</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Meta 26/27:</b> Economia de <b>R$ 178k (−8%)</b> é conservadora pois Albaugh já é agressivo. O ganho real está em <b>expandir volume nos itens mais baratos</b> (Ultimato, Afiado, Joint Oil) para reduzir gasto em fornecedores premium. Pacote fechado a R$ 1,95M garante melhor custo-benefício genérico do mercado.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 15 produtos da meta 26/27 da versão anterior, 3 entraram no pedido com preço igual ou abaixo da meta, 1 acima e 11 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>R$ 1.263.100</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){location.href='index.html';}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'R$ mil',data:[0,1818,433,0,576,1869,2152],
-backgroundColor:S.map((_,i)=>i===3?'rgba(255,82,82,.4)':'rgba(255,145,0,.'+(3+i)+')')
-,borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},
-scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?'R$'+(v/1000).toFixed(1)+'M':'R$'+v+'k'}}}}});
-
-// Mix
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Pretorian 579k','Chlorfena 261k','Ultimato 204k','Azoxy+C 152k','Prefer 120k','Krypto 105k','Atrazina 108k','Metomil 76k','Afiado 70k','Lambda 60k','Joint Oil 60k','Outros 357k'],
-datasets:[{data:[579,261,204,152,120,105,108,76,70,60,60,357],
-backgroundColor:['#ff9100','#00b0ff','#00e676','#e040fb','#ffeb3b','#18ffff','#76ff03','#ff5252','#64ffda','#7c4dff','#90a4ae','#546e7a']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:9}}}}}});
-
-// Preço Herbicidas
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:S,datasets:[
-{label:'Pretorian',data:[null,88,95,null,85,78,72],borderColor:'#ff9100',backgroundColor:'rgba(255,145,0,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Prefer',data:[null,null,null,null,52,45,40],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false},
-{label:'Egan',data:[null,92,98,null,85,72,65],borderColor:'#ffeb3b',tension:.3,pointRadius:4,fill:false},
-{label:'Krypto',data:[null,null,null,null,420,385,350],borderColor:'#e040fb',tension:.3,pointRadius:5,fill:false,yAxisID:'y1'}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true},
-y1:{position:'right',title:{display:true,text:'Krypto R$/kg'},grid:{display:false}}}}});
-
-// Preço Inseticidas + Fungicidas
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:S,datasets:[
-{label:'Chlorfenapyr',data:[null,null,null,null,78,65,58],borderColor:'#00b0ff',backgroundColor:'rgba(0,176,255,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Metomil 215',data:[null,28,32,null,26,22,19],borderColor:'#ff5252',tension:.3,pointRadius:5,fill:false},
-{label:'Lambda 250',data:[null,32,35,null,28,24,20],borderColor:'#00e676',tension:.3,pointRadius:5,fill:false},
-{label:'Azoxy+Cipro',data:[null,null,null,null,52,42,38],borderColor:'#ffeb3b',tension:.3,pointRadius:5,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{title:{display:true,text:'R$/L'},beginAtZero:true}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Pretorian',data:[0,6000,2000,0,1200,5000,8040],backgroundColor:'rgba(255,145,0,.7)',borderRadius:4},
-{label:'Chlorfenapyr',data:[0,0,0,0,2000,3500,4500],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
-{label:'Atrazina',data:[0,10000,5000,0,8000,6000,6000],backgroundColor:'rgba(118,255,3,.5)',borderRadius:4},
-{label:'Afiado',data:[0,8000,4000,0,5000,3000,5000],backgroundColor:'rgba(255,235,59,.5)',borderRadius:4},
-{label:'Ultimato',data:[0,0,0,0,0,4000,6000],backgroundColor:'rgba(0,230,118,.5)',borderRadius:4},
-{label:'Joint Oil',data:[0,0,0,0,5000,6000,8000],backgroundColor:'rgba(144,164,174,.5)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,
-plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},
-scales:{y:{beginAtZero:true,stacked:false,title:{display:true,text:'Litros / kg'}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [0, 1818, 433, 0, 576, 1869, 2151.9, 1263.1], "g1": [{"l": "Pretorian", "pr": [null, 88.0, 95.0, null, 85.0, 78.0, 49.5, 38.5], "vo": [null, 6000.0, 2000.0, null, 1200.0, 5000.0, 11700.0, null], "val": 579150.0}, {"l": "Krypto", "pr": [null, null, null, null, 420.0, 385.0, 38.4, 35.5], "vo": [null, null, null, null, 100.0, 200.0, 10000.0, 12000.0], "val": 426000.0}, {"l": "Prefer", "pr": [null, null, null, null, 52.0, 45.0, 15.1, 34.0], "vo": [null, null, null, null, 1500.0, 2000.0, 20700.0, 1000.0], "val": 312570.0}, {"l": "Afiado", "pr": [null, 20.0, 22.0, null, 18.0, 16.0, 112.0, 78.0], "vo": [null, 8000.0, 4000.0, null, 5000.0, 3000.0, 2400.0, 3600.0], "val": 280800.0}], "g2": [{"l": "Exemplo LV", "pr": [null, null, null, null, null, null, 21.4, 24.0], "vo": [null, null, null, null, null, null, null, 9000.0], "val": 216000.0}, {"l": "Egan", "pr": [null, 92.0, 98.0, null, 85.0, 72.0, 22.0, 22.9], "vo": [null, 300.0, 200.0, null, 150.0, 300.0, 9600.0, null], "val": 211200.0}, {"l": "Ultimato", "pr": [null, null, null, null, null, 38.0, 18.0, 17.5], "vo": [null, null, null, null, null, 4000.0, 8100.0, 12000.0], "val": 210000.0}, {"l": "Vasto", "pr": [null, null, null, null, null, null, 28.71, 24.8], "vo": [null, null, null, null, null, null, 4500.0, null], "val": 129195.0}], "gv": [{"l": "Pretorian", "pr": [null, 88.0, 95.0, null, 85.0, 78.0, 49.5, 38.5], "vo": [null, 6000.0, 2000.0, null, 1200.0, 5000.0, 11700.0, null], "val": 579150.0}, {"l": "Krypto", "pr": [null, null, null, null, 420.0, 385.0, 38.4, 35.5], "vo": [null, null, null, null, 100.0, 200.0, 10000.0, 12000.0], "val": 426000.0}, {"l": "Prefer", "pr": [null, null, null, null, 52.0, 45.0, 15.1, 34.0], "vo": [null, null, null, null, 1500.0, 2000.0, 20700.0, 1000.0], "val": 312570.0}, {"l": "Afiado", "pr": [null, 20.0, 22.0, null, 18.0, 16.0, 112.0, 78.0], "vo": [null, 8000.0, 4000.0, null, 5000.0, 3000.0, 2400.0, 3600.0], "val": 280800.0}, {"l": "Exemplo LV", "pr": [null, null, null, null, null, null, 21.4, 24.0], "vo": [null, null, null, null, null, null, null, 9000.0], "val": 216000.0}, {"l": "Egan", "pr": [null, 92.0, 98.0, null, 85.0, 72.0, 22.0, 22.9], "vo": [null, 300.0, 200.0, null, 150.0, 300.0, 9600.0, null], "val": 211200.0}], "mix": [["Krypto R$426k", 426.0], ["Afiado R$281k", 280.8], ["Exemplo LV R$216k", 216.0], ["Ultimato SC R$210k", 210.0], ["Joya R$65k", 65.1], ["Prefer Max R$34k", 34.0], ["Excellend R$31k", 31.2]], "unit": "R$ mil", "usd": false};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 </script>
 </body>
 </html>

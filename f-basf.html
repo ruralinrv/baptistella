@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rural In | BASF — Drill-Down Fornecedor</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rural In | BASF — Drill-Down 19/20–26/27</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b1120;--card:#131b2e;--card2:#1a2540;--accent:#00e676;--accent2:#00b0ff;--accent3:#ff9100;--accent4:#e040fb;--accent5:#ffeb3b;--red:#ff5252;--green:#69f0ae;--text:#e0e6f0;--muted:#7b8a9e;--border:#1e2d4a}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -77,74 +78,45 @@ tbody tr:hover{background:rgba(0,230,118,.04)}
 </style>
 </head>
 <body>
-
 <div class="topbar">
 <h1>🏢 <span>BASF</span> — Drill-Down Fornecedor</h1>
 <div class="topbar-r">
 <span>📍 Fazenda Planalto · Alto Garças — MT</span>
 <button class="btn" onclick="location.href='fornecedores.html'">← Fornecedores</button>
-<button class="btn btn-out" onclick="location.href='index.html'">🏠 Painel</button>
+<button class="btn btn-out" onclick="location.href='insumos.html'">🏠 Painel</button>
 </div>
 </div>
-
 <div class="container">
-
 <!-- NAV FORNECEDORES -->
-<div class="nav-f">
-<span>Ir para:</span>
-<a href="f-bayer.html">Bayer</a>
-<a class="on" href="f-basf.html">BASF</a>
-<a href="f-upl.html">UPL</a>
-<a href="f-albaugh.html">Albaugh</a>
-<a href="f-syngenta.html">Syngenta</a>
-<a href="f-corteva.html">Corteva</a>
-<a href="f-ihara.html">Ihara</a>
-<a href="f-sumitomo.html">Sumitomo</a>
-<a href="f-rainbow.html">Rainbow</a>
-<a href="f-fmc.html">FMC</a>
-<a href="f-ourofino.html">Ouro Fino</a>
-<a href="f-tecnomyl.html">Tecnomyl</a>
-</div>
-
+<div class="nav-f"><span>Ir para:</span><a href="f-bayer.html">Bayer</a><a class="on" href="f-basf.html">BASF</a><a href="f-upl.html">UPL</a><a href="f-albaugh.html">Albaugh</a><a href="f-syngenta.html">Syngenta</a><a href="f-corteva.html">Corteva</a><a href="f-ihara.html">Ihara</a><a href="f-sumitomo.html">Sumitomo</a><a href="f-rainbow.html">Rainbow</a><a href="f-fmc.html">FMC</a><a href="f-ourofino.html">Ouro Fino</a><a href="f-tecnomyl.html">Tecnomyl</a><a href="f-agriconnection.html">Agriconnection</a><a href="f-adama.html">Adama</a></div>
 <!-- HEADER -->
 <div class="hdr">
 <div class="hdr-icon">BF</div>
 <div class="hdr-info">
 <h2>BASF <span>AGRICULTURAL SOLUTIONS</span></h2>
-<p>Presente em <b>7/7 safras</b> · Fungicidas, Inseticidas, Nematicidas, TS, Adjuvantes<br>
-Moeda: <b style="color:var(--red)">100% USD (CAP)</b> — único fornecedor 100% dólar em todas as safras<br>
+<p>Presente em <b>7/7 safras</b> · Fungicidas, Inseticidas, Nematicidas, TS, Adjuvantes<br/>
+Moeda: <b style="color:var(--red)">100% USD (CAP)</b> — único fornecedor 100% dólar em todas as safras<br/>
 Produtos-chave: Fastac Duo · Orkestra · Melyra · Abacus HC · Votivo Prime · Mees</p>
 </div>
 </div>
-
 <!-- KPIs -->
-<div class="kpi-row">
-<div class="kpi"><div class="lb">Investimento 25/26</div><div class="vl" style="color:var(--accent2)">USD 259k</div><div class="sub">~R$ 1.425k (câmbio 5,50)</div></div>
-<div class="kpi"><div class="lb">Acumulado 7 Safras</div><div class="vl">~USD 2,78M</div><div class="sub">~R$ 14,2M · Média R$ 2.029k/safra</div></div>
-<div class="kpi"><div class="lb">Pico Histórico</div><div class="vl" style="color:var(--accent3)">USD 540k</div><div class="sub">Safra 23/24 (~R$ 2,94M)</div></div>
-<div class="kpi"><div class="lb">Var. vs Pico</div><div class="vl" style="color:var(--green)">▼ −52%</div><div class="sub">Queda forte em volume USD</div></div>
-<div class="kpi"><div class="lb">Produtos Ativos 25/26</div><div class="vl">10</div><div class="sub">vs. 12 na 19/20</div></div>
-<div class="kpi"><div class="lb">⚠️ Risco Cambial</div><div class="vl" style="color:var(--red)">ALTO</div><div class="sub">R$1 no câmbio = +R$ 259k</div></div>
-</div>
-
+<div class="kpi-row"><div class="kpi"><div class="lb">Pedido 26/27</div><div class="vl" style="color:var(--accent)">US$ 347k</div><div class="sub">~R$ 1,91 mi a 5,50</div></div><div class="kpi"><div class="lb">Planilha 25/26</div><div class="vl">US$ 259k</div><div class="sub">substitui o valor da versão anterior</div></div><div class="kpi"><div class="lb">Var. 26/27 × 25/26</div><div class="vl" style="color:var(--red)">+34,0%</div><div class="sub">pedido sobre planilha</div></div><div class="kpi"><div class="lb">Acumulado 8 safras</div><div class="vl">US$ 2,94M</div><div class="sub">19/20 a 26/27</div></div><div class="kpi"><div class="lb">Itens com volume</div><div class="vl">8</div><div class="sub">26/27 · 7 na 25/26</div></div><div class="kpi"><div class="lb">Maior item 26/27</div><div class="vl" style="color:var(--accent2)">BELYAN</div><div class="sub">US$ 99.720</div></div></div><div class="card" style="border-color:rgba(0,230,118,.35)"><h3>🔄 Atualização — planilha 25/26 e pedido 26/27</h3><div class="insight"><p style="margin:0 0 8px">Na planilha 25/26 a BASF soma US$ 259.060 e o pedido 26/27 soma US$ 347.180, +34,0% sobre a 25/26.</p><p style="margin:0 0 8px">O pedido 26/27 se concentra em BELYAN (US$ 99.720), MELYRA (US$ 70.000) e ORKESTRA (US$ 69.000).</p><p style="margin:0 0 8px">Entre os produtos com preço nas duas planilhas, BLAVITY caiu de US$ 58,00 para US$ 46,00 (-20,7%).</p><p style="margin:0 0 8px">Confirme volumes e o vencimento de 30/04/2027 com o RTV antes da entrega.</p><span style="display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Dr. Sidney Souza · 20/10/2026</span></div><div class="insight warn"><b>25/26:</b> CAP Dólar<br/><b>26/27:</b> CAP Dólar</div></div><div class="card-grid"><div class="card"><h3>📋 Pedido 25/26 — planilha INSUMOS.AGRO.25.26</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>FASTAC DUO</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">7.000</td><td class="tr">US$ 16,00</td><td class="tr">US$ 112.000,00</td><td class="tr">43,2%</td></tr><tr><td><b>ORKESTRA</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">2.000</td><td class="tr">US$ 48,60</td><td class="tr">US$ 97.200,00</td><td class="tr">37,5%</td></tr><tr><td><b>MELYRA</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">1.000</td><td class="tr">US$ 33,40</td><td class="tr">US$ 33.400,00</td><td class="tr">12,9%</td></tr><tr><td><b>ASSIST</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">3.000</td><td class="tr">US$ 3,00</td><td class="tr">US$ 9.000,00</td><td class="tr">3,5%</td></tr><tr><td><b>MEES</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">1.400</td><td class="tr">US$ 2,90</td><td class="tr">US$ 4.060,00</td><td class="tr">1,6%</td></tr><tr><td><b>VOTIVO PRIME</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">40</td><td class="tr">US$ 85,00</td><td class="tr">US$ 3.400,00</td><td class="tr">1,3%</td></tr><tr><td><b>EFFICON</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">500</td><td class="tr"><span class="tag to">sem preço</span></td><td class="tr">—</td><td class="tr">—</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 25/26</b></td><td class="tr"><b>US$ 259.060,00</b><br/><small style="color:var(--muted)">R$ 1.424.830,00 a 5,50</small></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 30/04/2026 · RTV/gestor: José Sanches · CAP Dólar</div></div><div class="card"><h3>📋 Pedido 26/27 — planilha INSUMOS.AGRO.26.27</h3><div class="table-wrapper"><table><thead><tr><th>Produto</th><th class="tr">MT</th><th class="tr">GO</th><th class="tr">Volume</th><th class="tr">Unitário</th><th class="tr">Total</th><th class="tr">% do pedido</th></tr></thead><tbody><tr><td><b>BELYAN</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">3.600</td><td class="tr">US$ 27,70</td><td class="tr">US$ 99.720,00</td><td class="tr">28,7%</td></tr><tr><td><b>MELYRA</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">2.500</td><td class="tr">US$ 28,00</td><td class="tr">US$ 70.000,00</td><td class="tr">20,2%</td></tr><tr><td><b>ORKESTRA</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">1.500</td><td class="tr">US$ 46,00</td><td class="tr">US$ 69.000,00</td><td class="tr">19,9%</td></tr><tr><td><b>MEES</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">12.000</td><td class="tr">US$ 2,70</td><td class="tr">US$ 32.400,00</td><td class="tr">9,3%</td></tr><tr><td><b>ILEVO</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">100</td><td class="tr">US$ 280,00</td><td class="tr">US$ 28.000,00</td><td class="tr">8,1%</td></tr><tr><td><b>FASTAC DUO</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">2.000</td><td class="tr">US$ 14,00</td><td class="tr">US$ 28.000,00</td><td class="tr">8,1%</td></tr><tr><td><b>BLAVITY</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">260</td><td class="tr">US$ 46,00</td><td class="tr">US$ 11.960,00</td><td class="tr">3,4%</td></tr><tr><td><b>ASSIST</b></td><td class="tr">—</td><td class="tr">—</td><td class="tr">3.000</td><td class="tr">US$ 2,70</td><td class="tr">US$ 8.100,00</td><td class="tr">2,3%</td></tr><tr style="background:rgba(0,230,118,.06)"><td colspan="5"><b>TOTAL 26/27</b></td><td class="tr"><b>US$ 347.180,00</b><br/><small style="color:var(--muted)">R$ 1.909.490,00 a 5,50</small></td><td></td></tr></tbody></table></div><div style="font-size:.7rem;color:var(--muted);margin-top:8px">Vencimento: 30/04/2027 · RTV/gestor: Daiane · CAP Dólar</div></div></div>
 <!-- ALERTA CAMBIAL -->
 <div class="insight danger"><b>🔴 ALERTA PRINCIPAL — BASF é 100% dólar:</b> Todos os contratos são em USD com CAP (teto cambial). A cada R$ 1,00 de variação no câmbio, o custo oscila <b>R$ 259 mil</b>. Com câmbio entre 5,30 e 6,50, a faixa de custo varia de R$ 1.373k a R$ 1.684k — <b>diferença de R$ 311k</b>. Recomendação: travar NDF (Non-Deliverable Forward) para mínimo 60% do valor.</div>
-
 <!-- GRÁFICOS -->
 <div class="card-grid">
 <div class="card">
-<h3>📈 Evolução do Investimento BASF (USD mil)</h3>
+<h3>📈 Evolução do Investimento 19/20–26/27 BASF (USD mil)</h3>
 <div class="chart-box"><canvas id="chInvest"></canvas></div>
 </div>
 <div class="card">
-<h3>📊 Mix de Portfólio 25/26 (% Valor USD)</h3>
+<h3>📊 Composição do Pedido 26/27 (planilha)</h3>
 <div class="chart-box"><canvas id="chMix"></canvas></div>
 </div>
 </div>
-
 <!-- SIMULAÇÃO CAMBIAL -->
 <div class="card">
-<h3>💱 Simulação de Cenários Cambiais — BASF 25/26 (USD 259k)</h3>
+<h3>💱 Simulação de Cenários Cambiais — BASF 25/26 (USD 259k) (versão anterior)</h3>
 <div class="table-wrapper">
 <table>
 <thead><tr><th>Cenário</th><th class="tr">USD/BRL</th><th class="tr">Total R$</th><th class="tr">vs. Base (5,50)</th><th>Impacto</th></tr></thead>
@@ -159,138 +131,31 @@ Produtos-chave: Fastac Duo · Orkestra · Melyra · Abacus HC · Votivo Prime ·
 </table>
 </div>
 <div class="chart-box" style="height:250px"><canvas id="chCambio"></canvas></div>
-</div>
-
+</div><div class="card"><h3>💱 Simulação cambial 26/27 — pedido BASF US$ 347.180,00 (CAP, vence 30/04/2027)</h3><div class="table-wrapper"><table><thead><tr><th>Cenário</th><th class="tr">USD/BRL</th><th class="tr">Total R$</th><th class="tr">vs. 5,50</th></tr></thead><tbody><tr><td>PTAX BCB 04/09/2026</td><td class="tr">5,1253</td><td class="tr">R$ 1.779.402</td><td class="tr pos">−R$ 130.088</td></tr><tr><td>Otimista</td><td class="tr">5,00</td><td class="tr">R$ 1.735.900</td><td class="tr pos">−R$ 173.590</td></tr><tr><td>Base do painel</td><td class="tr">5,50</td><td class="tr">R$ 1.909.490</td><td class="tr pos">—</td></tr><tr><td>Moderado</td><td class="tr">5,80</td><td class="tr">R$ 2.013.644</td><td class="tr neg">+R$ 104.154</td></tr><tr><td>Pessimista</td><td class="tr">6,00</td><td class="tr">R$ 2.083.080</td><td class="tr neg">+R$ 173.590</td></tr><tr><td>Extremo</td><td class="tr">6,50</td><td class="tr">R$ 2.256.670</td><td class="tr neg">+R$ 347.180</td></tr></tbody></table></div><div class="insight warn"><b>Leitura:</b> cada R$ 0,10 no câmbio muda o pedido 26/27 em R$ 34.718. A PTAX de 04/09/2026 (BCB, grafo RuralIn) é a cotação oficial mais recente disponível, com seis semanas de defasagem. A planilha não informa o teto do CAP. Confirme o teto com a BASF antes de decidir travar câmbio.</div></div>
 <!-- PORTFÓLIO COMPLETO -->
 <div class="section-title">📋 Portfólio Completo — <span>Preço USD × Volume por Safra</span></div>
-
 <div class="card">
 <h3>Inseticidas</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Fastac Duo</b></td><td style="font-size:.65rem;color:var(--muted)">Alfa-cipermetrina + Acetamiprido</td>
-<td class="tr">$22,0<br><small style="color:var(--muted)">4.000 L</small></td>
-<td class="tr">$19,5<br><small style="color:var(--muted)">3.000 L</small></td>
-<td class="tr">$19,5<br><small style="color:var(--muted)">6.000 L</small></td>
-<td class="tr">$22,0<br><small style="color:var(--muted)">5.000 L</small></td>
-<td class="tr">$22,8<br><small style="color:var(--muted)">8.000 L</small></td>
-<td class="tr">$22,0<br><small style="color:var(--muted)">4.000 L</small></td>
-<td class="tr"><b>$16,0</b><br><small style="color:var(--muted)">4.800 L</small></td>
-<td><span class="tag tg">▼ −27% preço</span></td>
-</tr>
-<tr>
-<td><b>Brilhante BR</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">$148<br><small style="color:var(--muted)">200 L</small></td>
-<td class="tr">$142<br><small style="color:var(--muted)">500 L</small></td>
-<td class="tr">$145<br><small style="color:var(--muted)">100 L</small></td>
-<td class="tr">$120<br><small style="color:var(--muted)">200 L</small></td>
-<td class="tr">—</td>
-<td><span class="tag tr2">Saiu do mix</span></td>
-</tr>
-<tr>
-<td><b>Mees</b></td><td style="font-size:.65rem;color:var(--muted)">Cipermetrina + Clorantraniliprole</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">$38,0<br><small style="color:var(--muted)">2.000 L</small></td>
-<td class="tr">$43,0<br><small style="color:var(--muted)">1.800 L</small></td>
-<td class="tr"><b>$29,5</b><br><small style="color:var(--muted)">2.400 L</small></td>
-<td><span class="tag tg">▼ −31% · Novo padrão</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Fastac Duo</b></td><td style="font-size:.65rem;color:var(--muted)">Alfa-cipermetrina + Acetamiprido</td><td class="tr">$22,0<br/><small style="color:var(--muted)">4.000 L</small></td><td class="tr">$19,5<br/><small style="color:var(--muted)">3.000 L</small></td><td class="tr">$19,5<br/><small style="color:var(--muted)">6.000 L</small></td><td class="tr">$22,0<br/><small style="color:var(--muted)">5.000 L</small></td><td class="tr">$22,8<br/><small style="color:var(--muted)">8.000 L</small></td><td class="tr">$22,0<br/><small style="color:var(--muted)">4.000 L</small></td><td class="tr">$16<br/><small style="color:var(--muted)">7.000L</small><br/><small style="color:var(--accent3)">pág. ant. $16</small></td><td class="tr">$14<br/><small style="color:var(--muted)">2.000L</small></td><td><span class="tag tg">▼-12,5% 26/27 · Vol▼71%</span></td></tr><tr><td><b>Brilhante BR</b></td><td style="font-size:.65rem;color:var(--muted)">Clorantraniliprole</td><td class="tr">—</td><td class="tr">—</td><td class="tr">$148<br/><small style="color:var(--muted)">200 L</small></td><td class="tr">$142<br/><small style="color:var(--muted)">500 L</small></td><td class="tr">$145<br/><small style="color:var(--muted)">100 L</small></td><td class="tr">$120<br/><small style="color:var(--muted)">200 L</small></td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Mees</b></td><td style="font-size:.65rem;color:var(--muted)">Cipermetrina + Clorantraniliprole</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">$38,0<br/><small style="color:var(--muted)">2.000 L</small></td><td class="tr">$43,0<br/><small style="color:var(--muted)">1.800 L</small></td><td class="tr">$2,90<br/><small style="color:var(--muted)">1.400L</small><br/><small style="color:var(--accent3)">pág. ant. $29,50</small></td><td class="tr">$2,70<br/><small style="color:var(--muted)">12.000L</small></td><td><span class="tag tg">▼-6,9% 26/27 · Vol▲757%</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>Fungicidas</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Orkestra</b></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + Fluxapiroxade</td>
-<td class="tr">$46,0<br><small style="color:var(--muted)">4.000 L</small></td>
-<td class="tr">$42,0<br><small style="color:var(--muted)">4.600 L</small></td>
-<td class="tr">$43,5<br><small style="color:var(--muted)">1.200 L</small></td>
-<td class="tr">$45,0<br><small style="color:var(--muted)">5.000 L</small></td>
-<td class="tr">$48,0<br><small style="color:var(--muted)">5.100 L</small></td>
-<td class="tr">$44,5<br><small style="color:var(--muted)">3.800 L</small></td>
-<td class="tr"><b>$36,0</b><br><small style="color:var(--muted)">2.000 L</small></td>
-<td><span class="tag tg">▼ −25% · Vol. ▼</span></td>
-</tr>
-<tr>
-<td><b>Abacus HC</b></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + Epoxiconazol</td>
-<td class="tr">$33,5<br><small style="color:var(--muted)">3.500 L</small></td>
-<td class="tr">$31,0<br><small style="color:var(--muted)">3.200 L</small></td>
-<td class="tr">$32,0<br><small style="color:var(--muted)">1.000 L</small></td>
-<td class="tr">$35,0<br><small style="color:var(--muted)">2.500 L</small></td>
-<td class="tr">$37,0<br><small style="color:var(--muted)">1.500 L</small></td>
-<td class="tr">$33,0<br><small style="color:var(--muted)">1.200 L</small></td>
-<td class="tr"><b>$28,0</b><br><small style="color:var(--muted)">800 L</small></td>
-<td><span class="tag tr2">▼ −77% vol. · Saindo</span></td>
-</tr>
-<tr>
-<td><b>Melyra</b></td><td style="font-size:.65rem;color:var(--muted)">Mefentrifluconazol + Piraclostrobina + Fluxapiroxade</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">$72,0<br><small style="color:var(--muted)">1.000 L</small></td>
-<td class="tr">$68,5<br><small style="color:var(--muted)">2.500 L</small></td>
-<td class="tr"><b>$55,0</b><br><small style="color:var(--muted)">1.500 L</small></td>
-<td><span class="tag tb">▼ −24% · Premium</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">P.A.</th><th class="tr">19/20</th><th class="tr">20/21</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Orkestra</b></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + Fluxapiroxade</td><td class="tr">$46,0<br/><small style="color:var(--muted)">4.000 L</small></td><td class="tr">$42,0<br/><small style="color:var(--muted)">4.600 L</small></td><td class="tr">$43,5<br/><small style="color:var(--muted)">1.200 L</small></td><td class="tr">$45,0<br/><small style="color:var(--muted)">5.000 L</small></td><td class="tr">$48,0<br/><small style="color:var(--muted)">5.100 L</small></td><td class="tr">$44,5<br/><small style="color:var(--muted)">3.800 L</small></td><td class="tr">$48,60<br/><small style="color:var(--muted)">2.000L</small><br/><small style="color:var(--accent3)">pág. ant. $36</small></td><td class="tr">$46<br/><small style="color:var(--muted)">1.500L</small></td><td><span class="tag tg">▼-5,3% 26/27 · Vol▼25%</span></td></tr><tr><td><b>Abacus HC</b></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + Epoxiconazol</td><td class="tr">$33,5<br/><small style="color:var(--muted)">3.500 L</small></td><td class="tr">$31,0<br/><small style="color:var(--muted)">3.200 L</small></td><td class="tr">$32,0<br/><small style="color:var(--muted)">1.000 L</small></td><td class="tr">$35,0<br/><small style="color:var(--muted)">2.500 L</small></td><td class="tr">$37,0<br/><small style="color:var(--muted)">1.500 L</small></td><td class="tr">$33,0<br/><small style="color:var(--muted)">1.200 L</small></td><td class="tr">$26,80<br/><small style="color:var(--muted)">cotado</small><br/><small style="color:var(--accent3)">pág. ant. $28</small></td><td class="tr">$25<br/><small style="color:var(--muted)">cotado</small></td><td><span class="tag tg">▼-6,7% 26/27</span></td></tr><tr><td><b>Melyra</b></td><td style="font-size:.65rem;color:var(--muted)">Mefentrifluconazol + Piraclostrobina + Fluxapiroxade</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">$72,0<br/><small style="color:var(--muted)">1.000 L</small></td><td class="tr">$68,5<br/><small style="color:var(--muted)">2.500 L</small></td><td class="tr">$33,40<br/><small style="color:var(--muted)">1.000L</small><br/><small style="color:var(--accent3)">pág. ant. $55</small></td><td class="tr">$28<br/><small style="color:var(--muted)">2.500L</small></td><td><span class="tag tg">▼-16,2% 26/27 · Vol▲150%</span></td></tr></tbody></table>
 </div>
 </div>
-
 <div class="card">
 <h3>Nematicidas · Trat. Sementes · Adjuvantes</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th>Tipo</th><th>P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26</th><th>Tendência</th></tr></thead>
-<tbody>
-<tr>
-<td><b>Votivo Prime</b></td><td><span class="tag tp">Nematicida</span></td><td style="font-size:.65rem;color:var(--muted)">Bacillus firmus + Fluopyram</td>
-<td class="tr">—</td><td class="tr">—</td>
-<td class="tr">$58,0<br><small style="color:var(--muted)">1.500 L</small></td>
-<td class="tr">$54,0<br><small style="color:var(--muted)">2.800 L</small></td>
-<td class="tr"><b>$42,0</b><br><small style="color:var(--muted)">1.600 L</small></td>
-<td><span class="tag tg">▼ −28% · Bio+Quím</span></td>
-</tr>
-<tr>
-<td><b>Standak Top</b></td><td><span class="tag ty">TS</span></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + M. tiofa. + Fipronil</td>
-<td class="tr">$16,0<br><small style="color:var(--muted)">3.000 L</small></td>
-<td class="tr">$17,5<br><small style="color:var(--muted)">2.500 L</small></td>
-<td class="tr">$18,0<br><small style="color:var(--muted)">1.000 L</small></td>
-<td class="tr">$16,5<br><small style="color:var(--muted)">800 L</small></td>
-<td class="tr"><b>$14,5</b><br><small style="color:var(--muted)">600 L</small></td>
-<td><span class="tag tr2">▼ Vol. caindo · −80%</span></td>
-</tr>
-<tr>
-<td><b>Assist</b></td><td><span class="tag ty">Adjuvante</span></td><td style="font-size:.65rem;color:var(--muted)">Óleo mineral</td>
-<td class="tr">$2,80<br><small style="color:var(--muted)">8.000 L</small></td>
-<td class="tr">$3,20<br><small style="color:var(--muted)">10.000 L</small></td>
-<td class="tr">$3,50<br><small style="color:var(--muted)">6.000 L</small></td>
-<td class="tr">$3,20<br><small style="color:var(--muted)">5.000 L</small></td>
-<td class="tr"><b>$2,50</b><br><small style="color:var(--muted)">3.000 L</small></td>
-<td><span class="tag tg">▼ −29% · Volume ▼</span></td>
-</tr>
-<tr>
-<td><b>Opera Ultra</b></td><td><span class="tag tg">Fungicida</span></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + Epoxiconazol + Fluxapiroxade</td>
-<td class="tr">—</td><td class="tr">—</td><td class="tr">—</td>
-<td class="tr">$52,0<br><small style="color:var(--muted)">1.200 L</small></td>
-<td class="tr"><b>$45,0</b><br><small style="color:var(--muted)">800 L</small></td>
-<td><span class="tag tb">Novo · Premium</span></td>
-</tr>
-</tbody>
-</table>
+<table><thead><tr><th class="">Produto</th><th class="">Tipo</th><th class="">P.A.</th><th class="tr">21/22</th><th class="tr">22/23</th><th class="tr">23/24</th><th class="tr">24/25</th><th class="tr">25/26 <small style="font-weight:400">planilha</small></th><th class="tr">26/27 <small style="font-weight:400">pedido</small></th><th class="">Tendência 25/26→26/27</th></tr></thead><tbody><tr><td><b>Votivo Prime</b></td><td><span class="tag tp">Nematicida</span></td><td style="font-size:.65rem;color:var(--muted)">Bacillus firmus + Fluopyram</td><td class="tr">—</td><td class="tr">—</td><td class="tr">$58,0<br/><small style="color:var(--muted)">1.500 L</small></td><td class="tr">$54,0<br/><small style="color:var(--muted)">2.800 L</small></td><td class="tr">$85<br/><small style="color:var(--muted)">40L</small><br/><small style="color:var(--accent3)">pág. ant. $42</small></td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr><tr><td><b>Standak Top</b></td><td><span class="tag ty">TS</span></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + M. tiofa. + Fipronil</td><td class="tr">$16,0<br/><small style="color:var(--muted)">3.000 L</small></td><td class="tr">$17,5<br/><small style="color:var(--muted)">2.500 L</small></td><td class="tr">$18,0<br/><small style="color:var(--muted)">1.000 L</small></td><td class="tr">$16,5<br/><small style="color:var(--muted)">800 L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. $14,50</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr><tr><td><b>Assist</b></td><td><span class="tag ty">Adjuvante</span></td><td style="font-size:.65rem;color:var(--muted)">Óleo mineral</td><td class="tr">$2,80<br/><small style="color:var(--muted)">8.000 L</small></td><td class="tr">$3,20<br/><small style="color:var(--muted)">10.000 L</small></td><td class="tr">$3,50<br/><small style="color:var(--muted)">6.000 L</small></td><td class="tr">$3,20<br/><small style="color:var(--muted)">5.000 L</small></td><td class="tr">$3,00<br/><small style="color:var(--muted)">3.000L</small><br/><small style="color:var(--accent3)">pág. ant. $2,50</small></td><td class="tr">$2,70<br/><small style="color:var(--muted)">3.000L</small></td><td><span class="tag tg">▼-10,0% 26/27 · Vol▼0%</span></td></tr><tr><td><b>Opera Ultra</b></td><td><span class="tag tg">Fungicida</span></td><td style="font-size:.65rem;color:var(--muted)">Piraclostrobina + Epoxiconazol + Fluxapiroxade</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td class="tr">$52,0<br/><small style="color:var(--muted)">1.200 L</small></td><td class="tr">—<br/><small style="color:var(--accent3)">pág. ant. $45</small></td><td class="tr">—</td><td><span class="tag tp">Fora das planilhas</span></td></tr></tbody></table>
 </div>
 </div>
-
 <!-- GRÁFICO PREÇOS -->
-<div class="section-title">📈 Curvas de Preço — <span>Principais Produtos (USD/L)</span></div>
+<div class="card"><h3>🆕 Produtos das planilhas sem histórico nesta página</h3>
+<div class="table-wrapper"><table><thead><tr><th>Produto</th><th>P.A. (planilha)</th><th class="tr">25/26</th><th class="tr">26/27</th><th class="tr">Total 25/26</th><th class="tr">Total 26/27</th><th>Tendência</th></tr></thead><tbody><tr><td><b>BELYAN</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">$31,10<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">$27,70<br/><small style="color:var(--muted)">3.600</small></td><td class="tr">—</td><td class="tr">US$ 99.720,00</td><td><span class="tag tg">▼-10,9% 26/27</span></td></tr><tr><td><b>ILEVO</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">—</td><td class="tr">$280<br/><small style="color:var(--muted)">100</small></td><td class="tr">—</td><td class="tr">US$ 28.000,00</td><td><span class="tag tb">Novo no pedido 26/27</span></td></tr><tr><td><b>BLAVITY</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">$58<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">$46<br/><small style="color:var(--muted)">260</small></td><td class="tr">—</td><td class="tr">US$ 11.960,00</td><td><span class="tag tg">▼-20,7% 26/27</span></td></tr><tr><td><b>EFFICON</b></td><td style="font-size:.65rem;color:var(--muted)"></td><td class="tr">$—<br/><small style="color:var(--muted)">500</small></td><td class="tr">$28<br/><small style="color:var(--muted)">cotado</small></td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tr2">Fora do pedido 26/27</span></td></tr></tbody></table></div>
+<div style="font-size:.7rem;color:var(--muted);margin-top:8px">Itens com volume nas planilhas INSUMOS.AGRO.25.26 ou 26.27 que não aparecem nas tabelas históricas acima.</div></div><div class="section-title">📈 Curvas de Preço — <span>Principais Produtos (USD/L)</span></div>
 <div class="card-grid">
 <div class="card">
 <h3>💰 Fungicidas (USD/L)</h3>
@@ -301,47 +166,34 @@ Produtos-chave: Fastac Duo · Orkestra · Melyra · Abacus HC · Votivo Prime ·
 <div class="chart-box"><canvas id="chPreco2"></canvas></div>
 </div>
 </div>
-
 <!-- GRÁFICO VOLUME -->
 <div class="card">
 <h3>📦 Evolução de Volume — Top 5 Produtos (Litros)</h3>
 <div class="chart-box tall"><canvas id="chVolume"></canvas></div>
 </div>
-
 <!-- DIAGNÓSTICO -->
-<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico BASF</span></div>
-
+<div class="section-title">📌 Leitura dos Dados — <span>Diagnóstico BASF</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="insight"><b>1. Fastac Duo é o pilar inseticida:</b> Presente nas 7 safras, com preço caindo de $22 para $16 (−27%). Volume estável (~4-5.000 L). A $16 × 4.800 L = <b>USD 76.800 (29,6% do total BASF)</b>. Piretroide + Neonicotinoide para percevejo-marrom. Excelente custo-benefício em dólar. Genéricos existem (Alfa-cipermetrina + Acetamiprido de Albaugh/Rainbow), mas a BASF entrega dentro do pacote CAP.</div>
-
 <div class="insight"><b>2. Melyra é o novo premium:</b> Lançado na 23/24 a $72, já caiu para $55 (−24%). Contém <b>Mefentrifluconazol (Revysol)</b> — o triazol de nova geração com atividade em cepas resistentes. Com 1.500 L na 25/26 = USD 82.500. Pode ser o <b>substituto natural do Abacus HC</b> que está saindo do mix.</div>
-
 <div class="insight warn"><b>3. Orkestra perdendo protagonismo:</b> Volume caiu de 5.100 L (23/24) para 2.000 L (25/26) = <b>−61%</b>. Razões: concorrência de Fox Supra (Bayer), Verdavis (Syngenta) e genéricos. Preço caiu 25%, mas não suficiente para reter volume. BASF precisa oferecer bonificação ou pacote cruzado Orkestra+Melyra para recuperar.</div>
-
 <div class="insight danger"><b>4. O problema do dólar — caso único:</b> BASF é o <b>ÚNICO fornecedor 100% dólar</b> da Fazenda Planalto. Todos os outros migraram para BRL ou mix. Em cenário de câmbio a 6,50, os mesmos USD 259k viram R$ 1.684k (vs. R$ 1.425k a 5,50 = <b>+R$ 259k de custo adicional</b>). Isso equivale a ~2.166 sacas de soja de diferença.</div>
-
 <div class="insight"><b>5. Votivo Prime — nematicida bioquímico:</b> Combina <b>Bacillus firmus (biológico) + Fluopyram (químico)</b> na mesma formulação. Preço caindo ($58 → $42 = −28%). Volume cresceu de 1.500 para 2.800 L na 24/25, mas recuou para 1.600 L na 25/26. Concorre com Verango Prime (Bayer) e alternativas biológicas puras.</div>
-
 <div class="insight warn"><b>6. Standak Top em queda livre:</b> Volume caiu de 3.000 L (21/22) para 600 L (25/26) = <b>−80%</b>. TS (tratamento de sementes) está migrando para biológicos e Fortenza Duo (Syngenta). Se continuar nessa tendência, será descontinuado na 26/27.</div>
-
 <div class="insight"><b>7. Sistema CAP — como funciona:</b> BASF usa câmbio CAP (teto). O contrato define USD com teto máximo de câmbio (ex: CAP 6,00). Se câmbio fica abaixo, o produtor se beneficia; se passa do CAP, o custo é limitado ao teto. Na prática, funciona como um <b>hedge embutido parcial</b>. Ainda assim, recomenda-se NDF complementar para garantir proteção total.</div>
-
 <!-- ESTRATÉGIA -->
-<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações BASF</span></div>
-
+<div class="section-title">💡 Estratégia de Negociação — <span>Recomendações BASF</span></div><div style="font-size:.72rem;color:var(--accent3);margin:-8px 0 12px">Texto e números da versão anterior, escritos sobre a base 25/26 daquela versão. Os dados atualizados estão no bloco 🔄 Atualização no topo da página.</div>
 <div class="card">
 <h3>✅ Oportunidades</h3>
 <div class="rec"><b>🎯 Exigir migração para BRL:</b> Negociar ao menos 50% do contrato em R$. Argumento: "Bayer, UPL, Albaugh, Corteva — todos operam em BRL. A BASF é exceção. Se não oferecerem BRL, migro volume para concorrentes." Economia potencial: <b>eliminação de R$ 130-259k de risco cambial</b>.</div>
 <div class="rec"><b>🎯 Pacote Melyra + Fastac Duo:</b> Concentrar negociação em Melyra ($55) + Fastac Duo ($16) como combo. Meta: Melyra a $48 (−12%) e Fastac a $14 (−12%). <b>Economia: ~USD 20k = R$ 110k</b>.</div>
 <div class="rec"><b>🎯 CAP mais agressivo:</b> Se mantiver USD, exigir CAP máximo de 5,80 (vs. atual ~6,00). Isso limita o risco cambial e transfere parte da exposição para a BASF.</div>
 </div>
-
 <div class="card">
 <h3>⚠️ Alertas e Riscos</h3>
 <div class="rec d"><b>🔴 Não renovar Standak Top sem desconto mínimo de 25%:</b> Volume de 600 L não justifica. A $14,5 × 600 L = USD 8.700 — valor irrelevante. Migrar para Fortenza Duo (Syngenta) ou biológico.</div>
 <div class="rec w"><b>⚠️ Abacus HC em extinção:</b> De 3.500 L para 800 L. Se BASF não oferecer preço abaixo de $22 (−21%), descontinuar e manter apenas Orkestra + Melyra como fungicidas.</div>
 <div class="rec w"><b>⚠️ Assist (adjuvante) substituível:</b> $2,50/L é competitivo, mas Iharol Gold (Ihara) e Aureo (Bayer) são alternativas. O volume de 3.000 L (USD 7.500) não justifica manter BASF só por isso.</div>
 </div>
-
 <!-- SCORE CARD -->
 <div class="card">
 <h3>📊 Score Card BASF — Resumo Executivo</h3>
@@ -361,62 +213,34 @@ Produtos-chave: Fastac Duo · Orkestra · Melyra · Abacus HC · Votivo Prime ·
 </table>
 </div>
 </div>
-
 <!-- PROJEÇÃO 26/27 -->
-<div class="section-title">🔮 Projeção <span>Safra 26/27</span></div>
+<div class="section-title">🔮 Meta 26/27 (versão anterior) × <span>Pedido 26/27 (planilha)</span></div>
 <div class="card">
 <h3>Cenário Projetado para Negociação 26/27</h3>
 <div class="table-wrapper">
-<table>
-<thead><tr><th>Produto</th><th class="tr">USD 25/26</th><th class="tr">Meta 26/27</th><th class="tr">Volume</th><th class="tr">Total USD</th><th>Ação</th></tr></thead>
-<tbody>
-<tr><td>Fastac Duo</td><td class="tr">$16,00</td><td class="tr pos"><b>$14,00</b></td><td class="tr">5.000 L</td><td class="tr">$70.000</td><td>Manter pilar · −12%</td></tr>
-<tr><td>Melyra</td><td class="tr">$55,00</td><td class="tr pos"><b>$48,00</b></td><td class="tr">2.000 L</td><td class="tr">$96.000</td><td>Expandir premium · −13%</td></tr>
-<tr><td>Mees</td><td class="tr">$29,50</td><td class="tr pos"><b>$25,00</b></td><td class="tr">2.500 L</td><td class="tr">$62.500</td><td>Volume crescente · −15%</td></tr>
-<tr><td>Orkestra</td><td class="tr">$36,00</td><td class="tr pos"><b>$30,00</b></td><td class="tr">1.500 L</td><td class="tr">$45.000</td><td>Reduzir · −17%</td></tr>
-<tr><td>Votivo Prime</td><td class="tr">$42,00</td><td class="tr pos"><b>$36,00</b></td><td class="tr">1.800 L</td><td class="tr">$64.800</td><td>Manter se eficaz · −14%</td></tr>
-<tr><td>Opera Ultra</td><td class="tr">$45,00</td><td class="tr pos"><b>$40,00</b></td><td class="tr">1.000 L</td><td class="tr">$40.000</td><td>Testar expansão · −11%</td></tr>
-<tr><td>Assist</td><td class="tr">$2,50</td><td class="tr">$2,20</td><td class="tr">3.000 L</td><td class="tr">$6.600</td><td>Manter mínimo</td></tr>
-<tr style="background:rgba(0,230,118,.06)"><td><b>TOTAL PROJETADO</b></td><td></td><td></td><td></td><td class="tr"><b>USD 384.900</b></td><td></td></tr>
-<tr style="background:rgba(0,176,255,.06)"><td colspan="4"><b>⚠️ COM MIGRAÇÃO 50% BRL (câmbio 5,50)</b></td><td class="tr"><b>~R$ 2.117k</b></td><td class="pos"><b>vs. R$ 1.425k atual (+vol.)</b></td></tr>
-<tr style="background:rgba(255,82,82,.06)"><td colspan="4"><b>Economia total vs. 25/26 (mesma base)</b></td><td class="tr pos"><b>−USD 34k</b></td><td class="pos"><b>~R$ 187k (−13%)</b></td></tr>
-</tbody>
-</table>
+<table><thead><tr><th>Produto</th><th class="tr">25/26 (pág. ant.)</th><th class="tr">Meta 26/27</th><th class="tr">Vol. meta</th><th class="tr">Preço pedido</th><th class="tr">Vol. pedido</th><th class="tr">Total pedido</th><th>Aderência</th></tr></thead><tbody><tr><td>Fastac Duo</td><td class="tr">16</td><td class="tr">$14,00</td><td class="tr">5.000 L</td><td class="tr">$14</td><td class="tr">2.000</td><td class="tr">US$ 28.000</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Melyra</td><td class="tr">55</td><td class="tr">$48,00</td><td class="tr">2.000 L</td><td class="tr">$28</td><td class="tr">2.500</td><td class="tr">US$ 70.000</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Mees</td><td class="tr">29,50</td><td class="tr">$25,00</td><td class="tr">2.500 L</td><td class="tr">$2,70</td><td class="tr">12.000</td><td class="tr">US$ 32.400</td><td><span class="tag tg">✓ abaixo da meta</span></td></tr><tr><td>Orkestra</td><td class="tr">36</td><td class="tr">$30,00</td><td class="tr">1.500 L</td><td class="tr">$46</td><td class="tr">1.500</td><td class="tr">US$ 69.000</td><td><span class="tag tr2">✗ +53,3% acima da meta</span></td></tr><tr><td>Votivo Prime</td><td class="tr">42</td><td class="tr">$36,00</td><td class="tr">1.800 L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Opera Ultra</td><td class="tr">45</td><td class="tr">$40,00</td><td class="tr">1.000 L</td><td class="tr">—</td><td class="tr">—</td><td class="tr">—</td><td><span class="tag tp">fora do pedido 26/27</span></td></tr><tr><td>Assist</td><td class="tr">2,50</td><td class="tr">$2,20</td><td class="tr">3.000 L</td><td class="tr">$2,70</td><td class="tr">3.000</td><td class="tr">US$ 8.100</td><td><span class="tag tr2">✗ +22,7% acima da meta</span></td></tr><tr style="background:rgba(255,145,0,.06)"><td colspan="6"><b>Total do pedido 26/27 do fornecedor (planilha)</b></td><td class="tr"><b>US$ 347.180</b></td><td></td></tr></tbody></table>
 </div>
 <div class="insight"><b>💰 Resumo 26/27:</b> Se a BASF aceitar metas de preço (−11 a −17%) e migração de 50% para BRL, a economia projetada é de <b>~R$ 187k</b> + eliminação de 50% do risco cambial. Caso contrário, redistribuir volume para Bayer (Fox Supra/Melyra equivalente) e genéricos Albaugh.</div>
-</div>
-
+<div class="insight warn"><b>📐 Aderência à meta:</b> dos 7 produtos da meta 26/27 da versão anterior, 3 entraram no pedido com preço igual ou abaixo da meta, 2 acima e 2 ficaram fora do pedido. O pedido real do fornecedor na planilha 26/27 é de <b>US$ 347.180</b>. A meta foi escrita sobre a base 25/26 da versão anterior, e parte dos produtos dela não existe na planilha.</div></div>
 <div class="footer">
-<b>Rural In</b> · Inteligência Econômica Agro<br>
-<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br>
+<b>Rural In</b> · Inteligência Econômica Agro<br/>
+<b>Dr. Sidney Souza</b> · Economista Agrícola — Estrategista Econômico do Produtor<br/>
 sidneyagro@gmail.com · (64) 9 9226-6886 · @ruralin.ai
 </div>
 </div>
-
 <script>
-// SESSÃO
-if(localStorage.getItem('ruralin_auth')!=='fazplan2026_ok'){
-  location.href='index.html';
-}
-
-Chart.defaults.color='#7b8a9e';
-Chart.defaults.borderColor='#1e2d4a';
-Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-const S=['19/20','20/21','21/22','22/23','23/24','24/25','25/26'];
-
-// Investimento USD
-new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{
-label:'USD mil',data:[335,310,215,470,540,466,259],
-backgroundColor:['rgba(0,230,118,.5)','rgba(0,230,118,.5)','rgba(0,230,118,.5)','rgba(255,145,0,.6)','rgba(255,82,82,.7)','rgba(0,230,118,.5)','rgba(0,176,255,.7)'],
-borderRadius:8
-}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'USD '+c.parsed.y.toLocaleString()+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+v+'k'}}}}});
-
-// Mix 25/26
-new Chart(document.getElementById('chMix'),{type:'doughnut',data:{
-labels:['Melyra $82,5k','Fastac Duo $76,8k','Votivo $67,2k','Mees $70,8k','Orkestra $72k','Opera Ultra $36k','Abacus $22,4k','Outros $19,3k'],
-datasets:[{data:[82.5,76.8,67.2,70.8,72,36,22.4,19.3],backgroundColor:['#e040fb','#00e676','#ff9100','#00b0ff','#ffeb3b','#18ffff','#7b8a9e','#546e7a']}]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:10}}}}}});
+Chart.defaults.color='#7b8a9e';Chart.defaults.borderColor='#1e2d4a';Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";Chart.defaults.font.size=11;
+const S=["19/20", "20/21", "21/22", "22/23", "23/24", "24/25", "25/26", "26/27"];const S7=S.slice(0,7);
+const DD={"inv": [335.0, 310.0, 215.0, 470.0, 540.0, 466.0, 259.1, 347.2], "g1": [{"l": "Fastac Duo", "pr": [22.0, 19.5, 19.5, 22.0, 22.8, 22.0, 16.0, 14.0], "vo": [4000.0, 3000.0, 6000.0, 5000.0, 8000.0, 4000.0, 7000.0, 2000.0], "val": 112000.0}, {"l": "BELYAN", "pr": [null, null, null, null, null, null, 31.1, 27.7], "vo": [null, null, null, null, null, null, null, 3600.0], "val": 99720.0}, {"l": "Orkestra", "pr": [46.0, 42.0, 43.5, 45.0, 48.0, 44.5, 48.6, 46.0], "vo": [4000.0, 4600.0, 1200.0, 5000.0, 5100.0, 3800.0, 2000.0, 1500.0], "val": 97200.0}, {"l": "Melyra", "pr": [null, null, null, null, 72.0, 68.5, 33.4, 28.0], "vo": [null, null, null, null, 1000.0, 2500.0, 1000.0, 2500.0], "val": 70000.0}], "g2": [{"l": "Mees", "pr": [null, null, null, null, 38.0, 43.0, 2.9, 2.7], "vo": [null, null, null, null, 2000.0, 1800.0, 1400.0, 12000.0], "val": 32400.0}, {"l": "BLAVITY", "pr": [null, null, null, null, null, null, 58.0, 46.0], "vo": [null, null, null, null, null, null, null, 260.0], "val": 11960.0}, {"l": "Assist", "pr": [null, null, 2.8, 3.2, 3.5, 3.2, 3.0, 2.7], "vo": [null, null, 8000.0, 10000.0, 6000.0, 5000.0, 3000.0, 3000.0], "val": 9000.0}, {"l": "Votivo Prime", "pr": [null, null, null, null, 58.0, 54.0, 85.0, null], "vo": [null, null, null, null, 1500.0, 2800.0, 40.0, null], "val": 3400.0}], "gv": [{"l": "Fastac Duo", "pr": [22.0, 19.5, 19.5, 22.0, 22.8, 22.0, 16.0, 14.0], "vo": [4000.0, 3000.0, 6000.0, 5000.0, 8000.0, 4000.0, 7000.0, 2000.0], "val": 112000.0}, {"l": "BELYAN", "pr": [null, null, null, null, null, null, 31.1, 27.7], "vo": [null, null, null, null, null, null, null, 3600.0], "val": 99720.0}, {"l": "Orkestra", "pr": [46.0, 42.0, 43.5, 45.0, 48.0, 44.5, 48.6, 46.0], "vo": [4000.0, 4600.0, 1200.0, 5000.0, 5100.0, 3800.0, 2000.0, 1500.0], "val": 97200.0}, {"l": "Melyra", "pr": [null, null, null, null, 72.0, 68.5, 33.4, 28.0], "vo": [null, null, null, null, 1000.0, 2500.0, 1000.0, 2500.0], "val": 70000.0}, {"l": "Mees", "pr": [null, null, null, null, 38.0, 43.0, 2.9, 2.7], "vo": [null, null, null, null, 2000.0, 1800.0, 1400.0, 12000.0], "val": 32400.0}, {"l": "BLAVITY", "pr": [null, null, null, null, null, null, 58.0, 46.0], "vo": [null, null, null, null, null, null, null, 260.0], "val": 11960.0}], "mix": [["BELYAN $100k", 99.7], ["MELYRA $70k", 70.0], ["ORKESTRA $69k", 69.0], ["MEES $32k", 32.4], ["ILEVO $28k", 28.0], ["FASTAC DUO $28k", 28.0], ["BLAVITY $12k", 12.0], ["ASSIST $8k", 8.1]], "unit": "US$ mil", "usd": true};
+const PAL=['#00e676','#00b0ff','#ff9100','#e040fb','#ffeb3b','#18ffff','#ff5252','#76ff03','#64ffda','#7c4dff','#90a4ae','#546e7a'];
+const cur=DD.usd?'$':'R$';
+new Chart(document.getElementById('chInvest'),{type:'bar',data:{labels:S,datasets:[{label:DD.unit,data:DD.inv,backgroundColor:S.map((_,i)=>i===7?'rgba(0,230,118,.85)':i===6?'rgba(0,176,255,.75)':'rgba(123,138,158,.45)'),borderRadius:8}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>cur+' '+c.parsed.y.toLocaleString('pt-BR')+'k'}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1000?cur+(v/1000).toFixed(1)+'M':cur+v+'k'}}}}});
+new Chart(document.getElementById('chMix'),{type:'doughnut',data:{labels:DD.mix.map(m=>m[0]),datasets:[{data:DD.mix.map(m=>m[1]),backgroundColor:PAL}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,padding:6,font:{size:10}}}}}});
+function pchart(id,g){const el=document.getElementById(id);if(!el)return;if(!g.length){el.parentNode.innerHTML='<p style="font-size:.78rem;color:#7b8a9e">Sem produtos com dois ou mais preços na série.</p>';return;}
+const vals=g.flatMap(x=>x.pr).filter(v=>v!=null);const log=Math.max(...vals)/Math.max(Math.min(...vals),0.01)>15;
+new Chart(el,{type:'line',data:{labels:S,datasets:g.map((x,i)=>({label:x.l,data:x.pr,borderColor:PAL[i],backgroundColor:PAL[i],tension:.3,pointRadius:S.map((_,j)=>j>=6?6:4),spanGaps:true,fill:false}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{type:log?'logarithmic':'linear',title:{display:true,text:(DD.usd?'USD':'R$')+'/L ou kg'+(log?' (escala log)':'')}}}}});}
+pchart('chPreco1',DD.g1);pchart('chPreco2',DD.g2);
+new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:DD.gv.map((x,i)=>({label:x.l,data:x.vo,backgroundColor:PAL[i]+'b3',borderRadius:4}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'L ou kg'}}}}});
 
 // Simulação Cambial
 new Chart(document.getElementById('chCambio'),{type:'bar',data:{
@@ -425,31 +249,6 @@ datasets:[{label:'Total R$ mil',data:[1295,1373,1425,1502,1554,1684],
 backgroundColor:['rgba(0,230,118,.7)','rgba(0,230,118,.6)','rgba(0,176,255,.7)','rgba(255,145,0,.6)','rgba(255,82,82,.6)','rgba(255,82,82,.8)'],
 borderRadius:6}]
 },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false,min:1200,ticks:{callback:v=>'R$'+v/1000+'M'}}}}});
-
-// Preço Fungicidas
-new Chart(document.getElementById('chPreco1'),{type:'line',data:{labels:S,datasets:[
-{label:'Orkestra',data:[46,42,43.5,45,48,44.5,36],borderColor:'#ffeb3b',backgroundColor:'rgba(255,235,59,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Abacus HC',data:[33.5,31,32,35,37,33,28],borderColor:'#7b8a9e',borderDash:[5,5],tension:.3,pointRadius:4,fill:false},
-{label:'Melyra',data:[null,null,null,null,72,68.5,55],borderColor:'#e040fb',tension:.3,pointRadius:6,pointBackgroundColor:'#e040fb',fill:false},
-{label:'Opera Ultra',data:[null,null,null,null,null,52,45],borderColor:'#18ffff',tension:.3,pointRadius:6,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{title:{display:true,text:'USD/L'}}}}});
-
-// Preço Inseticidas + Nematicidas
-new Chart(document.getElementById('chPreco2'),{type:'line',data:{labels:S,datasets:[
-{label:'Fastac Duo',data:[22,19.5,19.5,22,22.8,22,16],borderColor:'#00e676',backgroundColor:'rgba(0,230,118,.1)',fill:true,tension:.3,pointRadius:5},
-{label:'Mees',data:[null,null,null,null,38,43,29.5],borderColor:'#00b0ff',tension:.3,pointRadius:5,fill:false},
-{label:'Votivo Prime',data:[null,null,null,null,58,54,42],borderColor:'#ff9100',tension:.3,pointRadius:5,fill:false},
-{label:'Brilhante BR',data:[null,null,148,142,145,120,null],borderColor:'#7b8a9e',borderDash:[5,5],tension:.3,pointRadius:4,fill:false}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{title:{display:true,text:'USD/L'}}}}});
-
-// Volume
-new Chart(document.getElementById('chVolume'),{type:'bar',data:{labels:S,datasets:[
-{label:'Fastac Duo',data:[4000,3000,6000,5000,8000,4000,4800],backgroundColor:'rgba(0,230,118,.7)',borderRadius:4},
-{label:'Orkestra',data:[4000,4600,1200,5000,5100,3800,2000],backgroundColor:'rgba(255,235,59,.6)',borderRadius:4},
-{label:'Abacus HC',data:[3500,3200,1000,2500,1500,1200,800],backgroundColor:'rgba(123,138,158,.5)',borderRadius:4},
-{label:'Mees',data:[0,0,0,0,2000,1800,2400],backgroundColor:'rgba(0,176,255,.6)',borderRadius:4},
-{label:'Votivo Prime',data:[0,0,0,0,1500,2800,1600],backgroundColor:'rgba(255,145,0,.6)',borderRadius:4}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12}}},scales:{y:{beginAtZero:true,title:{display:true,text:'Litros'}}}}});
 </script>
 </body>
 </html>
